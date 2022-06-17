@@ -102,3 +102,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+.DS_Store
+
+cache/
+
+artifacts/@openzeppelin
+artifacts/build-info
+artifacts/erc721b
+artifacts/hardhat
+artifacts/contracts/mock
+
+*.dbg.json
