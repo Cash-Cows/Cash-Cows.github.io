@@ -60,6 +60,8 @@ contract CashCows is
 
   //immutable preview uri json
   string private _PREVIEW_URI;
+  //contract URI
+  string private _CONTRACT_URI;
 
   // ============ Storage ============
 
@@ -83,6 +85,13 @@ contract CashCows is
   }
   
   // ============ Read Methods ============
+
+  /**
+   * @dev Returns the contract URI.
+   */
+  function contractURI() external view returns(string memory) {
+    return _CONTRACT_URI;
+  }
 
   /**
    * @dev Override isApprovedForAll to whitelist marketplaces 
@@ -275,6 +284,13 @@ contract CashCows is
    */
   function setBaseURI(string memory uri) external onlyRole(_CURATOR_ROLE) {
     _baseTokenURI = uri;
+  }
+
+  /**
+   * @dev Sets the contract URI
+   */
+  function setURI(string memory uri) external onlyRole(_CURATOR_ROLE) {
+    _CONTRACT_URI = uri;
   }
 
   /**
