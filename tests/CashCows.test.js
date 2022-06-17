@@ -228,6 +228,12 @@ describe('CashCows Tests', function () {
     expect(await admin.withNFT.ownerOf(22)).to.equal(tokenOwner2.address)
     expect(await admin.withNFT.ownerOf(23)).to.equal(tokenOwner2.address)
     expect(await admin.withNFT.ownerOf(24)).to.equal(tokenOwner2.address)
+    
+    const tokens = await admin.withNFT.ownerTokens(tokenOwner2.address)
+    expect(tokens[0]).to.equal(21)
+    expect(tokens[1]).to.equal(22)
+    expect(tokens[2]).to.equal(23)
+    expect(tokens[3]).to.equal(24)
 
     await tokenOwner2.withNFT.mint(2, { value: ethers.utils.parseEther('0.01') })
     expect(await admin.withNFT.ownerOf(25)).to.equal(tokenOwner2.address)

@@ -119,20 +119,42 @@ contract CashCows is
   }
 
   /**
-   * @dev Returns the token collection symbol.
+   * @dev Returns all the owner's tokens. This is an incredibly 
+   * ineffecient method and should not be used by other contracts.
+   * It's recommended to call this on your dApp then call `ownsAll`
+   * from your other contract instead.
    */
-  function symbol() external pure returns(string memory) {
-    return "MOO";
-  }
-
-  /**
-   * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
-   */
-  function tokenURI(uint256 tokenId) external view returns(string memory) {
-    if(!_exists(tokenId)) revert InvalidCall();
-    return bytes(_baseTokenURI).length > 0 ? string(
-      abi.encodePacked(_baseTokenURI, tokenId.toString(), ".json")
-    ) : _PREVIEW_URI;
+  function ownerTokens(
+    address owner
+  ) external view returns(uint256[] memory) {
+    //get the balance
+    uint256 balance = balanceOf(owner);
+    //if no balance
+    if (balance == 0) {
+      //return empty array
+      return new uint256[](0);
+    }
+    //this is how we can fix the array size
+    uint256[] memory tokenIds = new uint256[](balance);
+    //next get the total supply
+    uint256 supply = totalSupply();
+    //next declare the array index
+    uint256 index;
+    //loop through the supply
+    for (uint256 i = 1; i <= supply; i++) {
+      //if we found a token owner ows
+      if (owner == ownerOf(i)) {
+        //add it to the token ids
+        tokenIds[index++] = i;
+        //if the index is equal to the balance
+        if (index == balance) {
+          //break out to save time
+          break;
+        }
+      }
+    }
+    //finally return the token ids
+    return tokenIds;
   }
 
   /**
@@ -149,6 +171,23 @@ contract CashCows is
     }
 
     return true;
+  }
+
+  /**
+   * @dev Returns the token collection symbol.
+   */
+  function symbol() external pure returns(string memory) {
+    return "MOO";
+  }
+
+  /**
+   * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
+   */
+  function tokenURI(uint256 tokenId) external view returns(string memory) {
+    if(!_exists(tokenId)) revert InvalidCall();
+    return bytes(_baseTokenURI).length > 0 ? string(
+      abi.encodePacked(_baseTokenURI, tokenId.toString(), ".json")
+    ) : _PREVIEW_URI;
   }
 
   // ============ Write Methods ============
