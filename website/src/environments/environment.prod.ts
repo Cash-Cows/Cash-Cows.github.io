@@ -6,13 +6,13 @@ export const environment = {
   production: false,
   env:"-local", 
   firebaseConfig : {
-    apiKey: "AIzaSyBRF3Yjq0uHK4bavno4HSQZFrPDO53Usv8",
-    authDomain: "koalatee-e02f9.firebaseapp.com",
-    projectId: "koalatee-e02f9",
-    storageBucket: "koalatee-e02f9.appspot.com",
-    messagingSenderId: "549325201176",
-    appId: "1:549325201176:web:692d2e0e092143cd4d086d",
-    measurementId: "G-TKCBSYS1BB"
+    apiKey: "AIzaSyBLG2n36sXcVj5YbyK3U-fyxjdFDGG7VPg",
+  authDomain: "wearecashcows-fce5c.firebaseapp.com",
+  projectId: "wearecashcows-fce5c",
+  storageBucket: "wearecashcows-fce5c.appspot.com",
+  messagingSenderId: "673149956040",
+  appId: "1:673149956040:web:721a09b68463290482dafd",
+  measurementId: "G-JMQGCBJQLZ"
   }, 
   configchain:{  
     "CONTRACT_ADDRESS": "0x8d87Ab1c12e45A6D30eE0cFDCa78eC8224C800ce", 

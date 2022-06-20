@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DropDownListComponent } from './utils/drop-down-list/drop-down-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ScullyLibModule } from '@scullyio/ng-lib';
 
 @NgModule({
   declarations: [AppComponent,DropDownListComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, ScullyLibModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
