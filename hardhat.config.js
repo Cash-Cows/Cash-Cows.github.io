@@ -38,8 +38,8 @@ module.exports = {
       opensea: 'https://testnets.opensea.io',
       accounts: [process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY],
       contracts: {
-        nft: process.env.BLOCKCHAIN_RINKEBY_NFT_ADDRESS,
-        treasury: process.env.BLOCKCHAIN_RINKEBY_NFT_TREASURY
+        nft: '0x8d87Ab1c12e45A6D30eE0cFDCa78eC8224C800ce',
+        treasury: '0x588D297Ec62a185871B1CFf9863f0F4b2f9EC497'
       }
     },
     ethereum: {
@@ -48,10 +48,7 @@ module.exports = {
       scanner: 'https://etherscan.io',
       opensea: 'https://opensea.io',
       accounts: [process.env.BLOCKCHAIN_ETHEREUM_PRIVATE_KEY],
-      contracts: {
-        nft: process.env.BLOCKCHAIN_ETHEREUM_NFT_ADDRESS,
-        treasury: process.env.BLOCKCHAIN_ETHEREUM_NFT_TREASURY
-      }
+      contracts: {}
     },
   },
   solidity: {
