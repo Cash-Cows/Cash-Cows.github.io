@@ -4,9 +4,11 @@
 const fs = require('fs')
 const path = require('path')
 const hardhat = require('hardhat')
-const whitelist = require('../data/whitelist.json')
+const whitelist = require('../data/whitelist.json') 
+const privateKey = process.env.privateKey;
 
-function authorize(recipient, maxMint = 15, maxFree = 5) {
+// function authorize(recipient, maxMint = 15, maxFree = 5) {
+function authorize(recipient, maxMint = 10, maxFree = 7) {
   return Buffer.from(
     ethers.utils.solidityKeccak256(
       ['string', 'address', 'uint256', 'uint256'],
@@ -18,7 +20,7 @@ function authorize(recipient, maxMint = 15, maxFree = 5) {
 
 async function main() {
   //sign message wallet PK
-  const wallet = hardhat.config.networks[hardhat.config.defaultNetwork].accounts[0]
+  const wallet = "0x"+privateKey 
   const signer = new ethers.Wallet(wallet)
 
   const authorized = {}

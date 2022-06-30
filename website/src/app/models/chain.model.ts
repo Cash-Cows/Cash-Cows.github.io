@@ -1,20 +1,9 @@
-export interface ChainModel {
-    isPaused?:boolean;
-    isMintWLPaused?:boolean;
-    cost?:number;
-    wlCost?:number;
-    maxSupply?:number;
-    mintedSupply?:number;
-    supplyWL?:number;
-    isWhiteListed?:boolean;
-    addressNumberMinted?:number;
-    wlMaxMint?:number; 
-
- 
+export interface ChainModel {  
     TREASURY?:string;
     MAX_SUPPLY?:number;
     MINT_PRICE?:number;
     MAX_PER_WALLET?:number;
+    totalSupply?:number;
     MAX_FREE_PER_WALLET?:number;
     minted?:number;
     saleStarted?:boolean; 

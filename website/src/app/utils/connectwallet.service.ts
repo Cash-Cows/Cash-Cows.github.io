@@ -18,19 +18,8 @@ export class ConnectwalletService {
   // setConnectAccount$ = this.setConnectAccount.asObservable();
 
   constructor(
-    private alertController:AlertController, 
-    private loadingController:LoadingController,
-  ) {  
-    this.ethereum.on("accountsChanged", async (accounts) => { 
-      window.location.reload();
-    });
-    this.ethereum.on("chainChanged", () => {
-      window.location.reload();
-    });
-    this.ethereum.on("close", (error) => { 
-      console.log("Errorethereum",error);
-    });
-    console.log(this.ethereum); 
+    private alertController:AlertController 
+  ) {   
     this.init();
   }
   

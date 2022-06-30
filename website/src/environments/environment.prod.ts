@@ -5,6 +5,7 @@
 export const environment = { 
   production: false,
   env:"-local", 
+  isStartedMint:false,
   firebaseConfig : {
     apiKey: "AIzaSyBLG2n36sXcVj5YbyK3U-fyxjdFDGG7VPg",
   authDomain: "wearecashcows-fce5c.firebaseapp.com",

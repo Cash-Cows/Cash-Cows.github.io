@@ -41,8 +41,8 @@
     src: local("Open Sans"), url(/assets/fonts/Poppins-Medium.ttf) format("truetype");
 } 
 
-p,h1,h2,h3,h4,h5,b,span,div,ion-icon{ 
-    font-family: 'Poppins'; 
-}
- 
+@font-face {
+    font-family: "Pixel"; 
+    src: local("Open Sans"), url(/assets/fonts/VT323-Regular.ttf) format("truetype");
+}  
  

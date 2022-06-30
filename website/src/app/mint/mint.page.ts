@@ -1,267 +1,246 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core'; 
+import { LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ChainModel } from '../models/chain.model';
 import { ConnectwalletService } from '../utils/connectwallet.service';
-import { DropDownListComponent } from '../utils/drop-down-list/drop-down-list.component';
 import { ToastMessageService } from '../utils/toast-message.service';
-
+import * as authorized from './authorized.json';
 @Component({
   selector: 'app-mint',
   templateUrl: './mint.page.html',
   styleUrls: ['./mint.page.scss'],
 })
-export class MintPage implements OnInit {
+export class MintPage implements OnInit { 
+  maxMint = 10;
+  maxFree = 7;
+  numMint=0;
+  receiptDisplay='';
   myUserAddress = null;
   isChainLoaded = false;
   chainModel:ChainModel = {}; 
-  config= environment.configchain;
-  maxMint = 4;
-  devMint =13;
-  receiptDisplay="";
-  userMint = 1;
-  isShowMintDone=true;
+  config = environment.configchain;
+  env= environment;
+  ethereum= (<any>window).ethereum; 
+  
 
   constructor(
     private connectWallet:ConnectwalletService,
     private loadingController:LoadingController,
-    private toast:ToastMessageService,
-    private popoverController: PopoverController,
-    private alertController:AlertController
-  ) { }
+    private toast:ToastMessageService) { 
+      
+      var _this = this;  
+      if(this.ethereum){
+        this.ethereum.on("accountsChanged", async (accounts) => {  
+          _this.myUserAddress = null;
+          await _this.onConnectWallet();  
+        });
+        this.ethereum.on("chainChanged", async () => { 
+          _this.myUserAddress = null;
+          await _this.onConnectWallet();   
+        });
+        this.ethereum.on("close", (error) => { 
+            console.log("Errorethereum",error);
+        });
+      }
+  }
 
-  ngOnInit() {
-    // if(!environment.production){
-    //   this.onConnectWallet();
-    // }
+  ngOnInit() {  
   }
 
   async onConnectWallet(){
-    await this.connectWallet.connect();
-    await this.onRefreshChainData();
+    if(!this.myUserAddress){ 
+      await this.connectWallet.connect();
+      await this.onRefreshChainData();
+    }
   }
 
   async onRefreshChainData(){
     return new Promise<any>(async resolve=>{ 
       const loading = await this.loadingController.create({ message: "Please wait ...."  });
       await loading.present(); 
+      this.isChainLoaded = false; 
 
       this.myUserAddress = this.connectWallet.userAddress; 
-      console.log(this.myUserAddress );
-      this.chainModel.isPaused =  await this.connectWallet.contract.methods.isPaused().call();
-      console.log(this.chainModel.isPaused);
-      this.chainModel.isMintWLPaused =  await this.connectWallet.contract.methods.isMintWLPaused().call();
-      console.log(this.chainModel.isMintWLPaused);
-      this.chainModel.cost =  parseInt(await this.connectWallet.contract.methods.cost().call());
-      console.log(this.chainModel.cost);
-      this.chainModel.wlCost =  parseInt(await this.connectWallet.contract.methods.wlCost().call());
-      console.log(this.chainModel.wlCost);
-      this.chainModel.maxSupply =  parseInt(await this.connectWallet.contract.methods.maxSupply().call());
-      console.log(this.chainModel.maxSupply);
-      this.chainModel.supplyWL =  parseInt(await this.connectWallet.contract.methods.supplyWL().call());
-      console.log(this.chainModel.supplyWL);
-      this.chainModel.mintedSupply = parseInt(await this.connectWallet.contract.methods.totalSupply().call());
-      console.log(this.chainModel.mintedSupply);
-      this.chainModel.wlMaxMint =  parseInt(await this.connectWallet.contract.methods.wlMaxMint().call());
-      console.log(this.chainModel.wlMaxMint);
-      this.chainModel.isWhiteListed =  await this.connectWallet.contract.methods.whitelistWallets(this.myUserAddress).call();
-      console.log(this.chainModel.isWhiteListed);
-      this.chainModel.addressNumberMinted =  parseInt(await this.connectWallet.contract.methods.addressNumberMinted(this.myUserAddress).call()); 
-      console.log(this.chainModel.addressNumberMinted);
-      if(!this.chainModel.isMintWLPaused && !this.chainModel.isWhiteListed){
-        this.errorAlert("This wallet address is not whitelisted.");
-        await loading.dismiss();
-        return;
-      }
-      
-      if(!this.chainModel.isMintWLPaused){
-        const wlMaxMint = this.chainModel.wlMaxMint;
-        const myNumberMint = this.chainModel.addressNumberMinted;
-        this.maxMint = wlMaxMint - myNumberMint;
-        console.log("maxMint",this.maxMint); 
+      this.chainModel.TREASURY =  await this.connectWallet.contract.methods.TREASURY().call(); 
+      this.chainModel.MAX_SUPPLY =  parseInt(await this.connectWallet.contract.methods.MAX_SUPPLY().call());
+      this.chainModel.MINT_PRICE =  parseInt(await this.connectWallet.contract.methods.MINT_PRICE().call());
+      this.chainModel.MAX_PER_WALLET =  parseInt(await this.connectWallet.contract.methods.MAX_PER_WALLET().call());
+      this.chainModel.totalSupply =  parseInt(await this.connectWallet.contract.methods.totalSupply().call());
+      this.chainModel.MAX_FREE_PER_WALLET =  parseInt(await this.connectWallet.contract.methods.MAX_FREE_PER_WALLET().call());
+      this.chainModel.minted =  parseInt(await this.connectWallet.contract.methods.minted(this.myUserAddress).call());
+      this.chainModel.saleStarted =  await this.connectWallet.contract.methods.saleStarted().call(); 
 
-        let wlSupply = this.chainModel.supplyWL;
-        let totalSupply = this.chainModel.mintedSupply;
-        let powerMint = this.maxMint;
-        let a =  (this.devMint + wlSupply) -  totalSupply;
-        if(powerMint > a ){ 
-          this.maxMint = a;
-        } 
-        console.log("maxMint",a,this.maxMint);
-      }
+      console.log(this.chainModel ); 
 
-      if(!this.chainModel.isPaused){     
-        let totalSupply =  this.chainModel.mintedSupply;
-        let maxSupply = this.chainModel.maxSupply;
-        let powerMint = this.maxMint;
-        let a =  maxSupply -  totalSupply;  
-        if(powerMint > a ){ 
-          this.maxMint = a;
-        } 
-      }
-
-      this.isChainLoaded = true;
-      this.onReceipt();
+      this.isChainLoaded = true; 
 
       await loading.dismiss();
+      this.onReceipt();
       resolve({});
     });
   } 
-  
-  onReceipt(){  
-    if(!this.chainModel.isMintWLPaused){ 
-      this.receiptDisplay = `${this.userMint} Cashcows${(this.userMint>1?'s':'')} cost for ${(this.chainModel.wlCost/Math.pow(10,18)*this.userMint).toFixed(2)} Matic`;
-    }else{ 
-      this.receiptDisplay = `${this.userMint} Cashcows${(this.userMint>1?'s':'')} cost for ${(this.chainModel.cost/Math.pow(10,18)*this.userMint).toFixed(2)} Matic`;
+
+
+  async onMint(){
+    let gasLimit = this.config.GAS_LIMIT; 
+    if(!this.myUserAddress){
+      this.toast.presentToast("Wallet is not yet connected");
+      return;
     }
-  }
-  
-  rangeChange(ev){
-    this.userMint = ev.detail.value; 
-    console.log(this.userMint);
+    if(!this.env.isStartedMint){
+      this.toast.presentToast("Soon...");
+      return;
+    }
+ 
+    if(this.numMint <= 0){
+      this.toast.presentToast("Number of mint must greater than zero.");
+      return;
+    }
+
+    if(this.chainModel.MAX_SUPPLY == this.chainModel.totalSupply){
+      this.toast.presentToast("Sold out");
+      return;
+    }
+    if(this.chainModel.MAX_SUPPLY < this.numMint){
+      this.toast.presentToast("Exceed to remaining balance.");
+      return;
+    } 
+    
+
+    if(!this.chainModel.saleStarted){
+      // Whitelist Minting
+      const proof = this.getProof(this.myUserAddress); 
+      if(this.maxMint < (this.chainModel.minted + this.numMint)){
+        this.toast.presentToast(`Exceed to Max Mint. (Only ${this.maxMint} Max mint for whitelist)`);
+        return;
+      }
+
+      if(!proof){
+        this.toast.presentToast("Not listed");
+        return;
+      }
+
+      let maxFree = this.maxFree ;
+      if(this.maxMint < maxFree){
+        this.toast.presentToast("Free mint cannot be more than max mint");
+        return;
+      }
+
+      let quantity = this.numMint;
+      let value  = 0; 
+      let totalGasLimit = String(gasLimit * quantity);
+      //if there are still some free
+      if (this.chainModel.minted < maxFree) {
+        //find out how much left is free
+        let freeLeft = maxFree - this.chainModel.minted;
+        //if some of the quantity still needs to be paid
+        if (freeLeft < quantity ) { 
+          value = (quantity - freeLeft) * this.chainModel.MINT_PRICE ; 
+          if(((quantity - freeLeft) * this.chainModel.MINT_PRICE) > value){ 
+            // and what is sent is less than what needs to be paid  
+            this.toast.presentToast("Some of the quantity still needs to be paid");
+            return;
+          }
+        }
+      //the value sent should be the price times quantity
+      } else {
+        value = quantity * this.chainModel.MINT_PRICE; 
+        if ((quantity * this.chainModel.MINT_PRICE) > value){
+          this.toast.presentToast("Value sent should be the price times quantity");
+          return;
+        } 
+      }
+      console.log(quantity, this.maxMint, maxFree, proof);
+      console.log({ 
+        gasLimit: totalGasLimit,
+        to: this.config.CONTRACT_ADDRESS,
+        from: this.myUserAddress ,
+        value: value 
+      });
+      await this.connectWallet.contract.methods.mint(quantity, this.maxMint, maxFree, proof).send({ 
+        gasLimit: totalGasLimit,
+        to: this.config.CONTRACT_ADDRESS,
+        from: this.myUserAddress ,
+        value: value 
+      }); 
+
+    }else{
+      // Public Minting
+    } 
+
+
+    // if(this.chainModel.minted < this.numMint){
+    //   this.toast.presentToast("Exceed to remaining balance.");
+    //   return;
+    // }
+
+
+
+    this.numMint = 0 ;
     this.onReceipt();
   }
 
-  
-  async onMint(){   
-    if(!this.chainModel.isMintWLPaused && (this.devMint + this.chainModel.supplyWL) -  this.chainModel.mintedSupply == 0){
+  onReceipt(){    
+    if(this.numMint == 0){
+      this.receiptDisplay = '';
       return;
     }
-    if(this.chainModel.isPaused && this.chainModel.isMintWLPaused){
-      return;
-    }
-    if(!this.connectWallet.userAddress){
-      return;
-    }
-    if(this.chainModel.mintedSupply == this.chainModel.maxSupply){ 
-      return;
-    }
-    const loading = await this.loadingController.create({ message: "Please wait ...."  });
-    await loading.present();
+    let maxFree = this.maxFree ;  
+    let quantity = this.numMint;
+    let value = 0;
+    console.log(this.chainModel.minted,maxFree)
+    // if (this.chainModel.minted > maxFree) {
+    //   let value = quantity * this.chainModel.MINT_PRICE;   
+    //   this.receiptDisplay = `Mints : ${this.numMint} for ${(value/Math.pow(10,18))} ETH`; 
+    //   return;
+    // }
 
-    await this.onRefreshChainData();
-    if(this.chainModel.isPaused && this.chainModel.isMintWLPaused){ 
-      this.toast.presentToast("Minting is under maintenance");
-      return;
-    } 
-    let contractAddress,mintAmount,gasLimit,cost,totalCostWei,totalGasLimit;
-
-    contractAddress = this.config.CONTRACT_ADDRESS;
-    mintAmount = this.userMint;
-    gasLimit = this.config.GAS_LIMIT; 
-    cost  = !this.chainModel.isMintWLPaused ? this.chainModel.wlCost : this.chainModel.cost;
-
-    totalGasLimit = String(gasLimit * mintAmount);
-    
-    if(this.userMint > this.maxMint){ 
-      if(!this.chainModel.isMintWLPaused){
-        this.toast.presentToast(`Up to ${this.chainModel.wlMaxMint} mint you can get in the whitelist period.`);
-      }else{ 
-        this.toast.presentToast("Exceed number of mint.");
-      }
-      await loading.dismiss();   
-      return;
-    }   
-
-    totalCostWei = String(cost * mintAmount); 
-
- 
-    console.log("minting....",this.myUserAddress,gasLimit,totalGasLimit,mintAmount,contractAddress);
- 
-    try { 
-      if(!this.chainModel.isMintWLPaused){
-
-        await this.connectWallet.contract.methods.preSaleMint(mintAmount).send({ 
-          gasLimit: totalGasLimit,
-          to: contractAddress,
-          from: this.myUserAddress 
-          ,value: totalCostWei 
-        });   
-
-      }else{ 
-
-        await this.connectWallet.contract.methods.mint(mintAmount).send({ 
-          gasLimit: totalGasLimit,
-          to: contractAddress,
-          from: this.myUserAddress 
-          ,value: totalCostWei 
-        });   
-
-      }
-
-
-      await loading.dismiss();    
-      this.onOpenCloseThank();
-
-    } catch(e) { 
-      await loading.dismiss();    
-      if(e.code != 4001){
-        this.errorAlert("Something went wrong.");
-      }
-    } 
-
-  }
-
-  async onOpenCloseThank() {
-    await this.onRefreshChainData();
-    this.onToggleMintDone();
-  }
-
-  async errorAlert(message){ 
-    const alert = await this.alertController.create({  
-      message: message +` Please<a href="https://discord.gg/XjkkYMWhBr" target="_blank"> contact</a> the developer for more information.`,
-      backdropDismiss:false,
-      buttons: [ {
-          text: 'Ok',
-          handler: async () => {  
-            window.location.reload();
-          }
+    //if there are still some free
+    if (this.chainModel.minted < maxFree) {
+      //find out how much left is free
+      let freeLeft = maxFree - this.chainModel.minted;
+      //if some of the quantity still needs to be paid
+      if (freeLeft < quantity ) { 
+        value = (quantity - freeLeft) * this.chainModel.MINT_PRICE ; 
+        if (value > 0){
+          // and what is sent is less than what needs to be paid  
+          this.receiptDisplay = `Mints : ${this.numMint} for ${(value/Math.pow(10,18))} ETH`; 
+          return;
         }
-      ]
-    }); 
-    await alert.present();
-  }
-
-  navs=[
-    {
-      name:"Twitter",
-      link:"https://twitter.com/CashcowsNFT"
-    },
-    {
-      name:"Facebook",
-      link:"https://www.facebook.com/CashcowsNFT"
-    },
-    {
-      name:"Instagram",
-      link:"https://instagram.com/Cashcows_collection"
-    },
-    {
-      name:"Opensea",
-      link:"https://opensea.io/collection/Cashcows"
-    },
-    {
-      name:"Discord",
-      link:"https://discord.gg/XjkkYMWhBr"
-    }
-  ]
-  
-  async onToggleMenu(ev){
-    const popover = await this.popoverController.create({
-      component: DropDownListComponent, 
-      event: ev,
-      translucent: true,
-      componentProps:{
-        datas:this.navs.map((e)=>{return e.name;})
       }
-    });
-    await popover.present();
-    popover.onWillDismiss().then((data)=>{   
-      window.open(this.navs.find((e)=>{return data.data.title === e.name;}).link,'_blank');
-    });
+    //the value sent should be the price times quantity
+    } else {
+      value = quantity * this.chainModel.MINT_PRICE; 
+      if (value > 0){
+        this.receiptDisplay = `Mints : ${this.numMint} for ${(value/Math.pow(10,18))} ETH`; 
+        return;
+      } 
+    }
+
+    this.receiptDisplay = `Mints : ${this.numMint}`; 
+  } 
+
+  onNumMint(numMint){
+    this.numMint = numMint;
+    this.onReceipt();
   }
 
-  onToggleMintDone(){
-    this.isShowMintDone = !this.isShowMintDone;
+  onOpenWindow(url){
+    window.open(url,"_blank");
   }
 
+  onMouseOutClick(e,src){
+    console.log("onMouseOutClick",e.target.src);
+    e.target.src = src;
+  }
+
+  onMouseOverClick(e,src){
+    console.log("onMouseOverClick",e.target);
+    e.target.src = src;
+  }
+  
+  getProof(address){
+    return JSON.parse(JSON.stringify(authorized))[address];
+  }
+ 
 }
