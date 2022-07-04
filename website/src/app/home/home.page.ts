@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastMessageService } from '../utils/toast-message.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   
-  constructor( ) {  
+  constructor( private toast:ToastMessageService) {  
   }
 
   ngOnInit() {
+  }
+
+  onOpenWindow(src){
+    if(src==''){ this.toast.presentToast("Coming Soon..."); return;}
+    window.open(src,"_blank")
   }
 }

@@ -14,12 +14,12 @@ const routes: Routes = [
     path: 'claim-royalty',
     loadChildren: () => import('./royalty-browser/royalty-browser.module').then( m => m.RoyaltyBrowserPageModule)
   },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  // },
   {
     path: '',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'mint',
     loadChildren: () => import('./mint/mint.module').then( m => m.MintPageModule)
   },
 ];
