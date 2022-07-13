@@ -23,6 +23,8 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+import "./IRoyaltySplitter.sol";
+
 // ============ Errors ============
 
 error InvalidCall();
@@ -34,11 +36,13 @@ interface IERC721OwnsAll is IERC721 {
     address owner, 
     uint256[] memory tokenIds
   ) external view returns(bool);
+
+  function totalSupply() external view returns(uint256);
 }
 
 // ============ Contract ============
 
-contract Royalty4All is Context, ReentrancyGuard {
+contract RoyaltySplitter is Context, ReentrancyGuard, IRoyaltySplitter {
 
   // ============ Events ============
 
@@ -50,9 +54,7 @@ contract Royalty4All is Context, ReentrancyGuard {
   // ============ Constants ============
 
   //we are going to need this to find out who owns what
-  IERC721OwnsAll public immutable TETHER;
-  //total shares should match max supply
-  uint16 public constant TOTAL_SHARES = 7777;
+  IERC721OwnsAll public immutable COLLECTION;
 
   // ============ Storage ============
 
@@ -68,9 +70,9 @@ contract Royalty4All is Context, ReentrancyGuard {
 
   // ============ Deploy ============
 
-  constructor(IERC721OwnsAll tether) payable {
-    //assign the tether
-    TETHER = tether;
+  constructor(IERC721OwnsAll collection) payable {
+    //assign the collection
+    COLLECTION = collection;
   }
 
   /**
@@ -153,7 +155,7 @@ contract Royalty4All is Context, ReentrancyGuard {
    * @dev Getter for the amount of shares held by an account.
    */
   function shares(address account) external view returns(uint256) {
-    return TETHER.balanceOf(account);
+    return COLLECTION.balanceOf(account);
   }
 
   /**
@@ -175,7 +177,7 @@ contract Royalty4All is Context, ReentrancyGuard {
    * @dev Getter for the address of the payee via `tokenId`.
    */
   function payee(uint256 tokenId) public view returns(address) {
-    return TETHER.ownerOf(tokenId);
+    return COLLECTION.ownerOf(tokenId);
   }
 
   // ============ Write Methods ============
@@ -231,7 +233,7 @@ contract Royalty4All is Context, ReentrancyGuard {
   function releaseBatch(uint256[] memory tokenIds) public virtual {
     //get account and should be the owner
     address account = _msgSender();
-    if (!TETHER.ownsAll(_msgSender(), tokenIds)) revert InvalidCall();
+    if (!COLLECTION.ownsAll(_msgSender(), tokenIds)) revert InvalidCall();
 
     uint256 payment;
     uint256 totalPayment;
@@ -267,7 +269,7 @@ contract Royalty4All is Context, ReentrancyGuard {
   ) external nonReentrant {
     //get account and should be the owner
     address account = _msgSender();
-    if (!TETHER.ownsAll(_msgSender(), tokenIds)) revert InvalidCall();
+    if (!COLLECTION.ownsAll(_msgSender(), tokenIds)) revert InvalidCall();
     
     uint256 payment;
     uint256 totalPayment;
@@ -298,7 +300,9 @@ contract Royalty4All is Context, ReentrancyGuard {
   function _pendingPayment(
     uint256 totalReceived,
     uint256 alreadyReleased
-  ) private pure returns(uint256) {
-    return (totalReceived / TOTAL_SHARES) - alreadyReleased;
+  ) private view returns(uint256) {
+    uint256 amount = totalReceived / COLLECTION.totalSupply();
+    if (amount < alreadyReleased) return 0;
+    return amount - alreadyReleased;
   }
 }

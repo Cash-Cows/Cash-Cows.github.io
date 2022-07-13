@@ -26,15 +26,15 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
+import "./IMetadata.sol";
+
 contract CashCows is 
   Ownable, 
   AccessControl, 
   ReentrancyGuard, 
   ERC721B, 
   IERC721Metadata 
-{
-  using Strings for uint256;
-  
+{ 
   // ============ Constants ============
 
   //roles
@@ -50,29 +50,33 @@ contract CashCows is
   uint16 public constant MAX_SUPPLY = 7777;
   //the sale price per token
   uint256 public constant MINT_PRICE = 0.005 ether;
-  //where 10000 == 100.00%
-  uint256 public ROYALTY_FOR_ALL = 1000;
 
   //maximum amount that can be purchased per wallet in the public sale
   uint256 public constant MAX_PER_WALLET = 10;
   //maximum amount free per wallet in the public sale
-  uint256 public constant MAX_FREE_PER_WALLET = 3;
+  uint256 public constant MAX_FREE_PER_WALLET = 1;
 
-  //immutable preview uri json
-  string private _PREVIEW_URI;
   //contract URI
   string private _CONTRACT_URI;
+  //immutable preview uri json
+  string private _PREVIEW_URI;
 
   // ============ Storage ============
 
+  //mapping of token id to who burned?
+  mapping(uint256 => address) public burned;
   //mapping of address to amount minted
   mapping(address => uint256) public minted;
-  //flag for if the sales has started
-  bool public saleStarted;
-  //base URI
-  string private _baseTokenURI;
   //the splitter where your money at.
-  address public TREASURY;
+  address public royaltySplitter;
+  //where 10000 == 100.00%
+  uint256 public royaltyPercent = 1000;
+  //flag for if the mint is open to the public
+  bool public mintOpened;
+  //count of how many burned
+  uint256 private _totalBurned;
+  //the location of the metadata generator
+  IMetadata private _metadata;
 
   // ============ Deploy ============
 
@@ -96,19 +100,13 @@ contract CashCows is
   /**
    * @dev Override isApprovedForAll to whitelist marketplaces 
    * to enable gas-less listings.
-   *
-   * OS Rinkeby: 0xf57b2c51ded3a29e6891aba85459d600256cf317
-   * OS Mainnet: 0xa5409ec958c83c3f309868babaca7c86dcb077c1
    */
   function isApprovedForAll(
     address owner, 
     address operator
   ) public view override(ERC721B, IERC721) returns(bool) {
-    if (hasRole(_APPROVED_ROLE, operator)) {
-      return true;
-    }
-
-    return super.isApprovedForAll(owner, operator);
+    return hasRole(_APPROVED_ROLE, operator) 
+      || super.isApprovedForAll(owner, operator);
   }
 
   /**
@@ -116,6 +114,17 @@ contract CashCows is
    */
   function name() external pure returns(string memory) {
     return "Cash Cows";
+  }
+
+  /**
+   * @dev See {IERC721-ownerOf}.
+   */
+  function ownerOf(
+    uint256 tokenId
+  ) public view override(ERC721B, IERC721) returns(address) {
+    //error if burned
+    if (burned[tokenId] != address(0)) revert NonExistentToken();
+    return super.ownerOf(tokenId);
   }
 
   /**
@@ -183,14 +192,62 @@ contract CashCows is
   /**
    * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
    */
-  function tokenURI(uint256 tokenId) external view returns(string memory) {
+  function tokenURI(
+    uint256 tokenId
+  ) external view returns(string memory) {
+    //if token does not exist
     if(!_exists(tokenId)) revert InvalidCall();
-    return bytes(_baseTokenURI).length > 0 ? string(
-      abi.encodePacked(_baseTokenURI, tokenId.toString(), ".json")
-    ) : _PREVIEW_URI;
+    //if metadata is not set
+    if (address(_metadata) == address(0)) return _PREVIEW_URI;
+    return _metadata.tokenURI(tokenId);
+  }
+
+  /**
+   * @dev Shows the overall amount of tokens generated in the contract
+   */
+  function totalSupply() public view override returns(uint256) {
+    return super.totalSupply() - _totalBurned;
   }
 
   // ============ Write Methods ============
+
+  /**
+   * @dev Burns `tokenId`. See {ERC721B-_burn}.
+   *
+   * Requirements:
+   *
+   * - The caller must own `tokenId` or be an approved operator.
+   */
+  function burn(uint256 tokenId) external {
+    address owner = ERC721B.ownerOf(tokenId);
+    if (!_isApprovedOrOwner(_msgSender(), tokenId, owner)) 
+      revert InvalidCall();
+
+    _beforeTokenTransfers(owner, address(0), tokenId, 1);
+    
+    // Clear approvals
+    _approve(address(0), tokenId, owner);
+
+    unchecked {
+      //this is the situation when _owners are not normalized
+      //get the next token id
+      uint256 nextTokenId = tokenId + 1;
+      //if token exists and yet it is address 0
+      if (_exists(nextTokenId) && _owners[nextTokenId] == address(0)) {
+        _owners[nextTokenId] = owner;
+      }
+
+      //this is the situation when _owners are normalized
+      burned[tokenId] = owner;
+      _balances[owner] -= 1;
+      _owners[tokenId] = address(0);
+      _totalBurned++;
+    }
+
+    _afterTokenTransfers(owner, address(0), tokenId, 1);
+
+    emit Transfer(owner, address(0), tokenId);
+  }
 
   /**
    * @dev Creates a new token for the `recipient`. Its token ID will be 
@@ -201,14 +258,14 @@ contract CashCows is
     //no contracts sorry..
     if (recipient.code.length > 0
       //has the sale started?
-      || !saleStarted
+      || !mintOpened
       //valid amount?
       || quantity == 0 
       //the quantity here plus the current amount already minted 
       //should be less than the max purchase amount
       || (quantity + minted[recipient]) > MAX_PER_WALLET
       //the quantity being minted should not exceed the max supply
-      || (totalSupply() + quantity) > MAX_SUPPLY
+      || (super.totalSupply() + quantity) > MAX_SUPPLY
     ) revert InvalidCall();
 
     //if there are still some free
@@ -247,7 +304,7 @@ contract CashCows is
       //should be less than the max purchase amount
       || (quantity + minted[recipient]) > maxMint
       //the quantity being minted should not exceed the max supply
-      || (totalSupply() + quantity) > MAX_SUPPLY
+      || (super.totalSupply() + quantity) > MAX_SUPPLY
       //make sure the minter signed this off
       || !hasRole(_MINTER_ROLE, ECDSA.recover(
         ECDSA.toEthSignedMessageHash(
@@ -290,12 +347,12 @@ contract CashCows is
     address receiver,
     uint256 royaltyAmount
   ) {
-    if (TREASURY == address(0) || !_exists(_tokenId)) 
+    if (address(royaltySplitter) == address(0) || !_exists(_tokenId)) 
       revert InvalidCall();
     
     return (
-      payable(TREASURY), 
-      (_salePrice * ROYALTY_FOR_ALL) / 10000
+      payable(royaltySplitter), 
+      (_salePrice * royaltyPercent) / 10000
     );
   }
 
@@ -312,17 +369,19 @@ contract CashCows is
     //make sure recipient is a valid address
     if (quantity == 0 
       //the quantity being minted should not exceed the max supply
-      || (totalSupply() + quantity) > MAX_SUPPLY
+      || (super.totalSupply() + quantity) > MAX_SUPPLY
     ) revert InvalidCall();
 
     _safeMint(recipient, quantity);
   }
 
   /**
-   * @dev Setting base token uri would be acceptable if using IPFS CIDs
+   * @dev Sets the metadata location
    */
-  function setBaseURI(string memory uri) external onlyRole(_CURATOR_ROLE) {
-    _baseTokenURI = uri;
+  function setMetadata(
+    IMetadata metadata
+  ) external onlyRole(_CURATOR_ROLE) {
+    _metadata = metadata;
   }
 
   /**
@@ -335,8 +394,8 @@ contract CashCows is
   /**
    * @dev Starts the sale
    */
-  function startSale(bool yes) external onlyRole(_CURATOR_ROLE) {
-    saleStarted = yes;
+  function openMint(bool yes) external onlyRole(_CURATOR_ROLE) {
+    mintOpened = yes;
   }
 
   /**
@@ -345,25 +404,45 @@ contract CashCows is
    */
   function updateRoyalty(uint256 percent) external onlyRole(_DAO_ROLE) {
     if (percent > 1000) revert InvalidCall();
-    ROYALTY_FOR_ALL = percent;
+    royaltyPercent = percent;
   }
 
   /**
    * @dev Updates the treasury location, (in the case treasury needs to 
    * be updated)
    */
-  function updateTreasury(address treasury) external onlyRole(_CURATOR_ROLE) {
-    TREASURY = treasury;
+  function updateSplitter(address splitter) external onlyRole(_CURATOR_ROLE) {
+    royaltySplitter = splitter;
   }
   
   /**
    * @dev Allows the proceeds to be withdrawn. This wont be allowed
-   * until the collection is released to discourage rug pulls
+   * until the metadata has been set to discourage rug pull
    */
   function withdraw(address recipient) external onlyOwner nonReentrant {
     //cannot withdraw without setting a base URI first
-    if (bytes(_baseTokenURI).length == 0) revert InvalidCall();
+    if (address(_metadata) == address(0)) revert InvalidCall();
     payable(recipient).transfer(address(this).balance);
+  }
+
+  // ============ Internal Methods ============
+
+  /**
+   * @dev Returns whether `tokenId` exists.
+   *
+   * Tokens can be managed by their owner or approved accounts via 
+   * {approve} or {setApprovalForAll}.
+   *
+   * Tokens start existing when they are minted (`_mint`),
+   * and stop existing when they are burned (`_burn`).
+   *
+   * The parent defines `_exists` as greater than 0 and less than 
+   * the last token id
+   */
+  function _exists(
+    uint256 tokenId
+  ) internal view virtual override returns(bool) {
+    return burned[tokenId] == address(0) && super._exists(tokenId);
   }
 
   // ============ Linear Overrides ============

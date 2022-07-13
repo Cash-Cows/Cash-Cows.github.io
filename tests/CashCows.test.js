@@ -51,6 +51,10 @@ describe('CashCows Tests', function () {
 
     const nft = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT', 'CashCows', nft, signers)
+    const metadata = await deploy('CashCowsMetadata')
+    await bindContract('withMetadata', 'CashCowsMetadata', metadata, signers)
+    const royalty = await deploy('RoyaltySplitter', nft.address)
+    await bindContract('withSplitter', 'RoyaltySplitter', royalty, signers)
 
     //fix minting overrides
     //['mint(uint256)']
@@ -79,12 +83,20 @@ describe('CashCows Tests', function () {
       tokenOwner1, 
       tokenOwner2, 
       tokenOwner3, 
-      tokenOwner4
+      tokenOwner4, 
+      tokenOwner5
     ] = signers
 
     //make admin MINTER_ROLE, FUNDEE_ROLE, CURATOR_ROLE
     await admin.withNFT.grantRole(getRole('MINTER_ROLE'), admin.address)
     await admin.withNFT.grantRole(getRole('CURATOR_ROLE'), admin.address)
+
+    //setup metadata
+    await admin.withMetadata.setBaseURI(this.base)
+    await admin.withMetadata.setSplitter(royalty.address)
+    await admin.withMetadata.setStage(0, ethers.utils.parseEther('0.03'))
+    await admin.withMetadata.setStage(1, ethers.utils.parseEther('0.06'))
+    await admin.withMetadata.setStage(2, ethers.utils.parseEther('0.09'))
     
     this.signers = { 
       admin,
@@ -210,20 +222,23 @@ describe('CashCows Tests', function () {
     ).to.be.revertedWith('InvalidCall()')
   })
 
-  it('Should start sale', async function () {  
+  it('Should open mint', async function () {  
     const { admin } = this.signers
-    expect(await admin.withNFT.saleStarted()).to.equal(false)
-    await admin.withNFT.startSale(false)
-    expect(await admin.withNFT.saleStarted()).to.equal(false)
-    await admin.withNFT.startSale(true)
-    expect(await admin.withNFT.saleStarted()).to.equal(true)
+    expect(await admin.withNFT.mintOpened()).to.equal(false)
+    await admin.withNFT.openMint(false)
+    expect(await admin.withNFT.mintOpened()).to.equal(false)
+    await admin.withNFT.openMint(true)
+    expect(await admin.withNFT.mintOpened()).to.equal(true)
   })
 
   it('Should mint', async function () {
     const { admin, tokenOwner2, tokenOwner3 } = this.signers
+    //mint free
     await tokenOwner2.withNFT.mint(1, { value: 0 })
-    await tokenOwner2.withNFT.mint(1, { value: 0 })
-    await tokenOwner2.withNFT.mint(2, { value: ethers.utils.parseEther('0.005') })
+    //paid mint
+    await tokenOwner2.withNFT.mint(1, { value: ethers.utils.parseEther('0.005') })
+    //multiple paid mint
+    await tokenOwner2.withNFT.mint(2, { value: ethers.utils.parseEther('0.01') })
     expect(await admin.withNFT.ownerOf(21)).to.equal(tokenOwner2.address)
     expect(await admin.withNFT.ownerOf(22)).to.equal(tokenOwner2.address)
     expect(await admin.withNFT.ownerOf(23)).to.equal(tokenOwner2.address)
@@ -235,13 +250,17 @@ describe('CashCows Tests', function () {
     expect(tokens[2]).to.equal(23)
     expect(tokens[3]).to.equal(24)
 
-    await tokenOwner2.withNFT.mint(2, { value: ethers.utils.parseEther('0.01') })
-    expect(await admin.withNFT.ownerOf(25)).to.equal(tokenOwner2.address)
-    expect(await admin.withNFT.ownerOf(26)).to.equal(tokenOwner2.address)
+    //one free, one paid
+    await tokenOwner3.withNFT.mint(2, { value: ethers.utils.parseEther('0.005') })
+    expect(await admin.withNFT.ownerOf(25)).to.equal(tokenOwner3.address)
+    expect(await admin.withNFT.ownerOf(26)).to.equal(tokenOwner3.address)
 
-    await admin.withNFT.mint(tokenOwner3.address, 2)
+    //admin mint
+    await admin.withNFT.mint(tokenOwner3.address, 4)
     expect(await admin.withNFT.ownerOf(27)).to.equal(tokenOwner3.address)
     expect(await admin.withNFT.ownerOf(28)).to.equal(tokenOwner3.address)
+    expect(await admin.withNFT.ownerOf(29)).to.equal(tokenOwner3.address)
+    expect(await admin.withNFT.ownerOf(30)).to.equal(tokenOwner3.address)
   })
 
   it('Should not mint', async function () {
@@ -266,32 +285,64 @@ describe('CashCows Tests', function () {
       admin.withNFT.withdraw(admin.address)
     ).to.be.revertedWith('InvalidCall()')
 
-    await admin.withNFT.setBaseURI(this.base)
+    await admin.withNFT.setMetadata(admin.withMetadata.address)
     await admin.withNFT.withdraw(admin.address)
     
     expect(parseFloat(
       ethers.utils.formatEther(await admin.getBalance())
       //also less gas
-    ) - startingBalance).to.be.above(0.064)
+    ) - startingBalance).to.be.above(0.069)
   })
 
   it('Should get the correct token URIs', async function () {
     const { admin } = this.signers
 
-    for (let i = 1; i <= 28; i++) {
+    for (let i = 1; i <= 30; i++) {
       expect(
         await admin.withNFT.tokenURI(i)
-      ).to.equal(`${this.base}${i}.json`)
+      ).to.equal(`${this.base}${i}_0.json`)
+    }
+
+    //load eth in splitter
+    await admin.sendTransaction({
+      to: admin.withSplitter.address,
+      value: ethers.utils.parseEther('1')
+    })
+    for (let i = 1; i <= 30; i++) {
+      expect(
+        await admin.withNFT.tokenURI(i)
+      ).to.equal(`${this.base}${i}_1.json`)
+    }
+
+    //load eth in splitter
+    await admin.sendTransaction({
+      to: admin.withSplitter.address,
+      value: ethers.utils.parseEther('1')
+    })
+    for (let i = 1; i <= 30; i++) {
+      expect(
+        await admin.withNFT.tokenURI(i)
+      ).to.equal(`${this.base}${i}_2.json`)
+    }
+
+    //load eth in splitter
+    await admin.sendTransaction({
+      to: admin.withSplitter.address,
+      value: ethers.utils.parseEther('1')
+    })
+    for (let i = 1; i <= 30; i++) {
+      expect(
+        await admin.withNFT.tokenURI(i)
+      ).to.equal(`${this.base}${i}_2.json`)
     }
   })
 
   it('Should calc royalties', async function () {
     const { admin } = this.signers
 
-    await admin.withNFT.updateTreasury(admin.address)
-
+    await admin.withNFT.updateSplitter(admin.withSplitter.address)
     const info = await admin.withNFT.royaltyInfo(1, 1000)
-    expect(info.receiver).to.equal(admin.address)
+    expect(info.receiver).to.equal(admin.withSplitter.address)
     expect(info.royaltyAmount).to.equal(100)
   })
 
