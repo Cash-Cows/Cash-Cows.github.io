@@ -42,7 +42,7 @@ interface IERC721OwnsAll is IERC721 {
 
 // ============ Contract ============
 
-contract RoyaltySplitter is Context, ReentrancyGuard, IRoyaltySplitter {
+contract CashCowsTreasury is Context, ReentrancyGuard, IRoyaltySplitter {
 
   // ============ Events ============
 

@@ -38,8 +38,9 @@ module.exports = {
       opensea: 'https://testnets.opensea.io',
       accounts: [process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY],
       contracts: {
-        nft: '0x8d87Ab1c12e45A6D30eE0cFDCa78eC8224C800ce',
-        treasury: '0x588D297Ec62a185871B1CFf9863f0F4b2f9EC497'
+        nft: '0xA6f87413d93f09267A6883fA5330D2C4905F60F3',
+        treasury: '0xf6fB0DD7D5a6a447fB56e3830C8bf9E81f9eDb96',
+        metadata: '0xF3Ff0a21bB57B445f41B2242A9D1fCB66c491D2f'
       }
     },
     ethereum: {

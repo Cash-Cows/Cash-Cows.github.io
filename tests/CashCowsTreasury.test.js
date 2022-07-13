@@ -38,15 +38,15 @@ function ethFloor(number, precision = 18) {
   return Math.floor(number * decimals) / decimals
 }
 
-describe('RoyaltySplitter ETH Tests', function () {
+describe('CashCowsTreasury ETH Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners();
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
 
     const nft = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT', 'CashCows', nft, signers)
-    const splitter = await deploy('RoyaltySplitter', nft.address)
-    await bindContract('withSplitter', 'RoyaltySplitter', splitter, signers)
+    const treasury = await deploy('CashCowsTreasury', nft.address)
+    await bindContract('withTreasury', 'CashCowsTreasury', treasury, signers)
     
     const [
       admin,
@@ -66,13 +66,13 @@ describe('RoyaltySplitter ETH Tests', function () {
     await admin.withNFT['mint(address,uint256)'](holder2.address, 20)
     await admin.withNFT['mint(address,uint256)'](holder3.address, 30)
     await admin.withNFT['mint(address,uint256)'](holder4.address, 40)
-    //send ETH to Splitter
+    //send ETH to Treasury
     await funder1.sendTransaction({
-      to: funder1.withSplitter.address,
+      to: funder1.withTreasury.address,
       value: ethers.utils.parseEther('10')
     })
     await funder2.sendTransaction({
-      to: funder2.withSplitter.address,
+      to: funder2.withTreasury.address,
       value: ethers.utils.parseEther('10')
     })
 
@@ -90,13 +90,13 @@ describe('RoyaltySplitter ETH Tests', function () {
     const { holder1, holder2, holder3, holder4 } = this.signers
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['releaseable(uint256)'](1)
+        await holder1.withTreasury['releaseable(uint256)'](1)
       )//20 eth / 100
     ).to.equal(String(ethFloor(20/this.supply)))
 
     expect(
       parseFloat(ethers.utils.formatEther(
-        await holder2.withSplitter['releaseableBatch(uint256[])'](
+        await holder2.withTreasury['releaseableBatch(uint256[])'](
           [ 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
         )
       ))//20 eth * 10 tokens / 100
@@ -104,18 +104,18 @@ describe('RoyaltySplitter ETH Tests', function () {
 
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['totalReleased()']()
+        await holder1.withTreasury['totalReleased()']()
       )
     ).to.equal(String('0.0'))
 
-    expect(await holder1.withSplitter.shares(holder1.address)).to.equal(10)
-    expect(await holder1.withSplitter.shares(holder2.address)).to.equal(20)
-    expect(await holder1.withSplitter.shares(holder3.address)).to.equal(30)
-    expect(await holder1.withSplitter.shares(holder4.address)).to.equal(40)
-    expect(await holder1.withSplitter.payee(1)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(11)).to.equal(holder2.address)
-    expect(await holder1.withSplitter.payee(31)).to.equal(holder3.address)
-    expect(await holder1.withSplitter.payee(61)).to.equal(holder4.address)
+    expect(await holder1.withTreasury.shares(holder1.address)).to.equal(10)
+    expect(await holder1.withTreasury.shares(holder2.address)).to.equal(20)
+    expect(await holder1.withTreasury.shares(holder3.address)).to.equal(30)
+    expect(await holder1.withTreasury.shares(holder4.address)).to.equal(40)
+    expect(await holder1.withTreasury.payee(1)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(11)).to.equal(holder2.address)
+    expect(await holder1.withTreasury.payee(31)).to.equal(holder3.address)
+    expect(await holder1.withTreasury.payee(61)).to.equal(holder4.address)
 
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 12)
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 13)
@@ -123,13 +123,13 @@ describe('RoyaltySplitter ETH Tests', function () {
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 15)
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 16)
     
-    expect(await holder1.withSplitter.shares(holder1.address)).to.equal(15)
-    expect(await holder1.withSplitter.shares(holder2.address)).to.equal(15)
-    expect(await holder1.withSplitter.payee(12)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(13)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(14)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(15)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(16)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.shares(holder1.address)).to.equal(15)
+    expect(await holder1.withTreasury.shares(holder2.address)).to.equal(15)
+    expect(await holder1.withTreasury.payee(12)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(13)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(14)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(15)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(16)).to.equal(holder1.address)
   })
   
   it('Should release', async function () {
@@ -139,8 +139,8 @@ describe('RoyaltySplitter ETH Tests', function () {
     const startingBalance1 = parseFloat(
       ethers.utils.formatEther(await holder1.getBalance())
     )
-    await holder1.withSplitter['release(uint256)'](1)
-    expect(await holder1.withSplitter['releaseable(uint256)'](1)).to.equal(0)
+    await holder1.withTreasury['release(uint256)'](1)
+    expect(await holder1.withTreasury['releaseable(uint256)'](1)).to.equal(0)
 
     expect(parseFloat(
       ethers.utils.formatEther(await holder1.getBalance())
@@ -151,12 +151,12 @@ describe('RoyaltySplitter ETH Tests', function () {
     const startingBalance2 = parseFloat(
       ethers.utils.formatEther(await holder2.getBalance())
     )
-    await holder2.withSplitter['releaseBatch(uint256[])'](
+    await holder2.withTreasury['releaseBatch(uint256[])'](
       [17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     )
     expect(
       ethers.utils.formatEther(
-        await holder2.withSplitter['releaseableBatch(uint256[])'](
+        await holder2.withTreasury['releaseableBatch(uint256[])'](
           [17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
         )
       )
@@ -171,12 +171,12 @@ describe('RoyaltySplitter ETH Tests', function () {
     const startingBalance3 = parseFloat(
       ethers.utils.formatEther(await holder1.getBalance())
     )
-    await holder1.withSplitter['releaseBatch(uint256[])'](
+    await holder1.withTreasury['releaseBatch(uint256[])'](
       [1, 12, 13, 13, 13]
     )
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['releaseableBatch(uint256[])'](
+        await holder1.withTreasury['releaseableBatch(uint256[])'](
           [1, 12, 13]
         )
       )
@@ -192,32 +192,32 @@ describe('RoyaltySplitter ETH Tests', function () {
     const { holder1, holder2, holder3 } = this.signers
 
     await expect(//no payment due
-      holder1.withSplitter['release(uint256)'](1)
+      holder1.withTreasury['release(uint256)'](1)
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//no payment due
-      holder1.withSplitter['releaseBatch(uint256[])']([1, 12, 13])
+      holder1.withTreasury['releaseBatch(uint256[])']([1, 12, 13])
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//does not own tokens
-      holder3.withSplitter['releaseBatch(uint256[])']([1, 12, 13])
+      holder3.withTreasury['releaseBatch(uint256[])']([1, 12, 13])
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//does not own tokens (partial)
-      holder3.withSplitter['releaseBatch(uint256[])']([17, 18, 1])
+      holder3.withTreasury['releaseBatch(uint256[])']([17, 18, 1])
     ).to.be.revertedWith('InvalidCall()')
     
     await expect(//tokens do not exist
-      holder1.withSplitter['release(uint256)'](1000000)
+      holder1.withTreasury['release(uint256)'](1000000)
     ).to.be.revertedWith('NonExistentToken()')
 
     await expect(//tokens do not exist
-      holder1.withSplitter['releaseBatch(uint256[])']([2000000, 3000000, 4000000])
+      holder1.withTreasury['releaseBatch(uint256[])']([2000000, 3000000, 4000000])
     ).to.be.revertedWith('NonExistentToken()')
   })
 })
 
-describe('RoyaltySplitter WETH Tests', function () {
+describe('CashCowsTreasury WETH Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners();
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
@@ -225,8 +225,8 @@ describe('RoyaltySplitter WETH Tests', function () {
     const nft = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT', 'CashCows', nft, signers)
 
-    const royalty = await deploy('RoyaltySplitter', nft.address)
-    await bindContract('withSplitter', 'RoyaltySplitter', royalty, signers)
+    const royalty = await deploy('CashCowsTreasury', nft.address)
+    await bindContract('withTreasury', 'CashCowsTreasury', royalty, signers)
   
     const weth = await deploy('MockERC20WETH')
     await bindContract('withWETH', 'MockERC20WETH', weth, signers)
@@ -250,7 +250,7 @@ describe('RoyaltySplitter WETH Tests', function () {
     
     //send WETH to Treasury
     await admin.withWETH.mint(
-      admin.withSplitter.address, 
+      admin.withTreasury.address, 
       ethers.utils.parseEther('20')
     )
 
@@ -269,13 +269,13 @@ describe('RoyaltySplitter WETH Tests', function () {
     const { holder1, holder2, holder3, holder4 } = this.signers
     expect(
       parseFloat(ethers.utils.formatEther(
-        await holder1.withSplitter['releaseable(address,uint256)'](this.weth, 1)
+        await holder1.withTreasury['releaseable(address,uint256)'](this.weth, 1)
       ))
     ).to.equal(ethFloor(20/this.supply))
 
     expect(
       parseFloat(ethers.utils.formatEther(
-        await holder1.withSplitter['releaseableBatch(address,uint256[])'](
+        await holder1.withTreasury['releaseableBatch(address,uint256[])'](
           this.weth, 
           [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         )
@@ -284,18 +284,18 @@ describe('RoyaltySplitter WETH Tests', function () {
 
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['totalReleased(address)'](this.weth)
+        await holder1.withTreasury['totalReleased(address)'](this.weth)
       )
     ).to.equal(String('0.0'))
 
-    expect(await holder1.withSplitter.shares(holder1.address)).to.equal(10)
-    expect(await holder1.withSplitter.shares(holder2.address)).to.equal(20)
-    expect(await holder1.withSplitter.shares(holder3.address)).to.equal(30)
-    expect(await holder1.withSplitter.shares(holder4.address)).to.equal(40)
-    expect(await holder1.withSplitter.payee(1)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(11)).to.equal(holder2.address)
-    expect(await holder1.withSplitter.payee(31)).to.equal(holder3.address)
-    expect(await holder1.withSplitter.payee(61)).to.equal(holder4.address)
+    expect(await holder1.withTreasury.shares(holder1.address)).to.equal(10)
+    expect(await holder1.withTreasury.shares(holder2.address)).to.equal(20)
+    expect(await holder1.withTreasury.shares(holder3.address)).to.equal(30)
+    expect(await holder1.withTreasury.shares(holder4.address)).to.equal(40)
+    expect(await holder1.withTreasury.payee(1)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(11)).to.equal(holder2.address)
+    expect(await holder1.withTreasury.payee(31)).to.equal(holder3.address)
+    expect(await holder1.withTreasury.payee(61)).to.equal(holder4.address)
 
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 12)
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 13)
@@ -303,34 +303,34 @@ describe('RoyaltySplitter WETH Tests', function () {
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 15)
     holder2.withNFT.transferFrom(holder2.address, holder1.address, 16)
     
-    expect(await holder1.withSplitter.shares(holder1.address)).to.equal(15)
-    expect(await holder1.withSplitter.shares(holder2.address)).to.equal(15)
-    expect(await holder1.withSplitter.payee(12)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(13)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(14)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(15)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(16)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.shares(holder1.address)).to.equal(15)
+    expect(await holder1.withTreasury.shares(holder2.address)).to.equal(15)
+    expect(await holder1.withTreasury.payee(12)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(13)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(14)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(15)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(16)).to.equal(holder1.address)
   })
   
   it('Should release', async function () {
     const { holder1, holder2 } = this.signers
 
     //single release test
-    await holder1.withSplitter['release(address,uint256)'](this.weth, 1)
-    expect(await holder1.withSplitter['releaseable(address,uint256)'](this.weth, 1)).to.equal(0)
+    await holder1.withTreasury['release(address,uint256)'](this.weth, 1)
+    expect(await holder1.withTreasury['releaseable(address,uint256)'](this.weth, 1)).to.equal(0)
     
     expect(ethers.utils.formatEther(
       await holder1.withWETH.balanceOf(holder1.address)
     )).to.equal(String(ethFloor(20/this.supply)))
 
     //batch release test
-    await holder2.withSplitter['releaseBatch(address,uint256[])'](
+    await holder2.withTreasury['releaseBatch(address,uint256[])'](
       this.weth, 
       [17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     )
     expect(
       ethers.utils.formatEther(
-        await holder2.withSplitter['releaseableBatch(address,uint256[])'](
+        await holder2.withTreasury['releaseableBatch(address,uint256[])'](
           this.weth, 
           [17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
         )
@@ -342,13 +342,13 @@ describe('RoyaltySplitter WETH Tests', function () {
     ))).to.equal(ethFloor(20 * 10/this.supply, 17))
 
     //batch release test mixed with released token
-    await holder1.withSplitter['releaseBatch(address,uint256[])'](
+    await holder1.withTreasury['releaseBatch(address,uint256[])'](
       this.weth, 
       [1, 12, 13, 13, 13]
     )
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['releaseableBatch(address,uint256[])'](
+        await holder1.withTreasury['releaseableBatch(address,uint256[])'](
           this.weth, 
           [1, 12, 13]
         )
@@ -364,40 +364,40 @@ describe('RoyaltySplitter WETH Tests', function () {
     const { holder1, holder2, holder3 } = this.signers
 
     await expect(//no payment due
-      holder1.withSplitter['release(address,uint256)'](this.weth, 1)
+      holder1.withTreasury['release(address,uint256)'](this.weth, 1)
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//no payment due
-      holder1.withSplitter['releaseBatch(address,uint256[])'](this.weth, [1, 12, 13])
+      holder1.withTreasury['releaseBatch(address,uint256[])'](this.weth, [1, 12, 13])
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//does not own tokens
-      holder3.withSplitter['releaseBatch(address,uint256[])'](this.weth, [1, 12, 13])
+      holder3.withTreasury['releaseBatch(address,uint256[])'](this.weth, [1, 12, 13])
     ).to.be.revertedWith('InvalidCall()')
 
     await expect(//does not own tokens (partial)
-      holder3.withSplitter['releaseBatch(address,uint256[])'](this.weth, [17, 18, 1])
+      holder3.withTreasury['releaseBatch(address,uint256[])'](this.weth, [17, 18, 1])
     ).to.be.revertedWith('InvalidCall()')
     
     await expect(//tokens do not exist
-      holder1.withSplitter['release(address,uint256)'](this.weth, 1000000)
+      holder1.withTreasury['release(address,uint256)'](this.weth, 1000000)
     ).to.be.revertedWith('NonExistentToken()')
 
     await expect(//tokens do not exist
-      holder1.withSplitter['releaseBatch(address,uint256[])'](this.weth, [2000000, 3000000, 4000000])
+      holder1.withTreasury['releaseBatch(address,uint256[])'](this.weth, [2000000, 3000000, 4000000])
     ).to.be.revertedWith('NonExistentToken()')
   })
 })
 
-describe('RoyaltySplitter Burn Tests', function () {
+describe('CashCowsTreasury Burn Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners();
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
 
     const nft = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT', 'CashCows', nft, signers)
-    const splitter = await deploy('RoyaltySplitter', nft.address)
-    await bindContract('withSplitter', 'RoyaltySplitter', splitter, signers)
+    const treasury = await deploy('CashCowsTreasury', nft.address)
+    await bindContract('withTreasury', 'CashCowsTreasury', treasury, signers)
     
     const [
       admin,
@@ -417,13 +417,13 @@ describe('RoyaltySplitter Burn Tests', function () {
     await admin.withNFT['mint(address,uint256)'](holder2.address, 20)
     await admin.withNFT['mint(address,uint256)'](holder3.address, 30)
     await admin.withNFT['mint(address,uint256)'](holder4.address, 40)
-    //send ETH to Splitter
+    //send ETH to Treasury
     await funder1.sendTransaction({
-      to: funder1.withSplitter.address,
+      to: funder1.withTreasury.address,
       value: ethers.utils.parseEther('10')
     })
     await funder2.sendTransaction({
-      to: funder2.withSplitter.address,
+      to: funder2.withTreasury.address,
       value: ethers.utils.parseEther('10')
     })
 
@@ -442,13 +442,13 @@ describe('RoyaltySplitter Burn Tests', function () {
     const { holder1, holder2, holder3, holder4 } = this.signers
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['releaseable(uint256)'](1)
+        await holder1.withTreasury['releaseable(uint256)'](1)
       )//20 eth / 100
     ).to.equal(String(ethFloor(20/this.supply)))
 
     expect(
       parseFloat(ethers.utils.formatEther(
-        await holder2.withSplitter['releaseableBatch(uint256[])'](
+        await holder2.withTreasury['releaseableBatch(uint256[])'](
           [ 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
         )
       ))//20 eth * 10 tokens / 100
@@ -456,18 +456,18 @@ describe('RoyaltySplitter Burn Tests', function () {
 
     expect(
       ethers.utils.formatEther(
-        await holder1.withSplitter['totalReleased()']()
+        await holder1.withTreasury['totalReleased()']()
       )
     ).to.equal(String('0.0'))
 
-    expect(await holder1.withSplitter.shares(holder1.address)).to.equal(10)
-    expect(await holder1.withSplitter.shares(holder2.address)).to.equal(20)
-    expect(await holder1.withSplitter.shares(holder3.address)).to.equal(30)
-    expect(await holder1.withSplitter.shares(holder4.address)).to.equal(40)
-    expect(await holder1.withSplitter.payee(1)).to.equal(holder1.address)
-    expect(await holder1.withSplitter.payee(11)).to.equal(holder2.address)
-    expect(await holder1.withSplitter.payee(31)).to.equal(holder3.address)
-    expect(await holder1.withSplitter.payee(61)).to.equal(holder4.address)
+    expect(await holder1.withTreasury.shares(holder1.address)).to.equal(10)
+    expect(await holder1.withTreasury.shares(holder2.address)).to.equal(20)
+    expect(await holder1.withTreasury.shares(holder3.address)).to.equal(30)
+    expect(await holder1.withTreasury.shares(holder4.address)).to.equal(40)
+    expect(await holder1.withTreasury.payee(1)).to.equal(holder1.address)
+    expect(await holder1.withTreasury.payee(11)).to.equal(holder2.address)
+    expect(await holder1.withTreasury.payee(31)).to.equal(holder3.address)
+    expect(await holder1.withTreasury.payee(61)).to.equal(holder4.address)
   })
 
   it('Should burn 10 (90 supply)', async function () {
@@ -498,7 +498,7 @@ describe('RoyaltySplitter Burn Tests', function () {
 
     expect(
       String(ethFloor(ethers.utils.formatEther(
-        await holder4.withSplitter['releaseable(uint256)'](1)
+        await holder4.withTreasury['releaseable(uint256)'](1)
       )))//20 eth / 90
     ).to.equal(String(ethFloor(20/this.supply)))
 
@@ -506,8 +506,8 @@ describe('RoyaltySplitter Burn Tests', function () {
     const startingBalance1 = parseFloat(
       ethers.utils.formatEther(await holder1.getBalance())
     )
-    await holder1.withSplitter['release(uint256)'](1)
-    expect(await holder1.withSplitter['releaseable(uint256)'](1)).to.equal(0)
+    await holder1.withTreasury['release(uint256)'](1)
+    expect(await holder1.withTreasury['releaseable(uint256)'](1)).to.equal(0)
     expect(parseFloat(
       ethers.utils.formatEther(await holder1.getBalance())
       //also less gas
@@ -543,18 +543,18 @@ describe('RoyaltySplitter Burn Tests', function () {
     //fresh redeem
     expect(
       String(ethFloor(ethers.utils.formatEther(
-        await holder4.withSplitter['releaseable(uint256)'](2)
+        await holder4.withTreasury['releaseable(uint256)'](2)
       )))//20 eth / 80 = 0.25
     ).to.equal(String(ethFloor(20/this.supply)))
 
     const released = ethers.utils.formatEther(
-      await holder4.withSplitter['released(uint256)'](1)
+      await holder4.withTreasury['released(uint256)'](1)
     )
 
     //redeemed already
     expect(
       String(ethFloor(ethers.utils.formatEther(
-        await holder4.withSplitter['releaseable(uint256)'](1)
+        await holder4.withTreasury['releaseable(uint256)'](1)
       ), 16))//20 eth / 80
     ).to.equal(String(ethFloor(20/this.supply - released, 16)))
   })

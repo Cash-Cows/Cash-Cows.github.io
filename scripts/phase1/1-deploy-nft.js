@@ -24,7 +24,7 @@ function getRole(name) {
 }
 
 //config
-const preview = 'https://ipfs.io/ipfs/QmT9DwDNJ365Tekpze1fbyPUZj3LNf7osm5siMTrzLLJqH'
+const preview = 'https://ipfs.io/ipfs/QmQGcFEbaSK31w7fxYJ2jcuV4hWye2Wi54WrsmPUVxxuMF'
 
 async function main() {
   //get network and admin

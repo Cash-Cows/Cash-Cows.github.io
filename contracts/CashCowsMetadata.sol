@@ -40,7 +40,7 @@ contract CashCowsMetadata is Ownable, IMetadata {
   //ex. stage 0 -> less than 0.001 eth
   mapping(uint256 => uint256) private _stages;
   //we need the splitter to determine which cow to show
-  IRoyaltySplitter private _royaltySplitter;
+  IRoyaltySplitter private _treasury;
   
   // ============ Read Methods ============
 
@@ -48,9 +48,9 @@ contract CashCowsMetadata is Ownable, IMetadata {
    * @dev Returns the stage given the token id
    */
   function stage(uint256 tokenId) public view returns(uint256) {
-    if (address(_royaltySplitter) == address(0)) revert InvalidCall();
+    if (address(_treasury) == address(0)) revert InvalidCall();
     //get releaseable
-    uint256 releaseable = _royaltySplitter.releaseable(tokenId);
+    uint256 releaseable = _treasury.releaseable(tokenId);
     //loop through stages
     for(uint256 i; true; i++) {
       if (_stages[i] == 0) return i == 0 ? i : i - 1;
@@ -99,9 +99,9 @@ contract CashCowsMetadata is Ownable, IMetadata {
   /**
    * @dev Sets the royalty splitter so we know what cow to show
    */
-  function setSplitter(
-    IRoyaltySplitter royaltySplitter
+  function setTreasury(
+    IRoyaltySplitter treasury
   ) external onlyOwner {
-    _royaltySplitter = royaltySplitter;
+    _treasury = treasury;
   }
 }

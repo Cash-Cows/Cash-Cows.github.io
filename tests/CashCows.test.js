@@ -53,8 +53,8 @@ describe('CashCows Tests', function () {
     await bindContract('withNFT', 'CashCows', nft, signers)
     const metadata = await deploy('CashCowsMetadata')
     await bindContract('withMetadata', 'CashCowsMetadata', metadata, signers)
-    const royalty = await deploy('RoyaltySplitter', nft.address)
-    await bindContract('withSplitter', 'RoyaltySplitter', royalty, signers)
+    const royalty = await deploy('CashCowsTreasury', nft.address)
+    await bindContract('withTreasury', 'CashCowsTreasury', royalty, signers)
 
     //fix minting overrides
     //['mint(uint256)']
@@ -93,7 +93,7 @@ describe('CashCows Tests', function () {
 
     //setup metadata
     await admin.withMetadata.setBaseURI(this.base)
-    await admin.withMetadata.setSplitter(royalty.address)
+    await admin.withMetadata.setTreasury(royalty.address)
     await admin.withMetadata.setStage(0, ethers.utils.parseEther('0.03'))
     await admin.withMetadata.setStage(1, ethers.utils.parseEther('0.06'))
     await admin.withMetadata.setStage(2, ethers.utils.parseEther('0.09'))
@@ -285,7 +285,7 @@ describe('CashCows Tests', function () {
       admin.withNFT.withdraw(admin.address)
     ).to.be.revertedWith('InvalidCall()')
 
-    await admin.withNFT.setMetadata(admin.withMetadata.address)
+    await admin.withNFT.updateMetadata(admin.withMetadata.address)
     await admin.withNFT.withdraw(admin.address)
     
     expect(parseFloat(
@@ -303,9 +303,9 @@ describe('CashCows Tests', function () {
       ).to.equal(`${this.base}${i}_0.json`)
     }
 
-    //load eth in splitter
+    //load eth in treasury
     await admin.sendTransaction({
-      to: admin.withSplitter.address,
+      to: admin.withTreasury.address,
       value: ethers.utils.parseEther('1')
     })
     for (let i = 1; i <= 30; i++) {
@@ -314,9 +314,9 @@ describe('CashCows Tests', function () {
       ).to.equal(`${this.base}${i}_1.json`)
     }
 
-    //load eth in splitter
+    //load eth in treasury
     await admin.sendTransaction({
-      to: admin.withSplitter.address,
+      to: admin.withTreasury.address,
       value: ethers.utils.parseEther('1')
     })
     for (let i = 1; i <= 30; i++) {
@@ -325,9 +325,9 @@ describe('CashCows Tests', function () {
       ).to.equal(`${this.base}${i}_2.json`)
     }
 
-    //load eth in splitter
+    //load eth in treasury
     await admin.sendTransaction({
-      to: admin.withSplitter.address,
+      to: admin.withTreasury.address,
       value: ethers.utils.parseEther('1')
     })
     for (let i = 1; i <= 30; i++) {
@@ -340,9 +340,9 @@ describe('CashCows Tests', function () {
   it('Should calc royalties', async function () {
     const { admin } = this.signers
 
-    await admin.withNFT.updateSplitter(admin.withSplitter.address)
+    await admin.withNFT.updateTreasury(admin.withTreasury.address)
     const info = await admin.withNFT.royaltyInfo(1, 1000)
-    expect(info.receiver).to.equal(admin.withSplitter.address)
+    expect(info.receiver).to.equal(admin.withTreasury.address)
     expect(info.royaltyAmount).to.equal(100)
   })
 

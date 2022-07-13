@@ -27,6 +27,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 import "./IMetadata.sol";
+import "./IRoyaltySplitter.sol";
 
 contract CashCows is 
   Ownable, 
@@ -67,8 +68,8 @@ contract CashCows is
   mapping(uint256 => address) public burned;
   //mapping of address to amount minted
   mapping(address => uint256) public minted;
-  //the splitter where your money at.
-  address public royaltySplitter;
+  //the treasury where your money at.
+  IRoyaltySplitter public treasury;
   //where 10000 == 100.00%
   uint256 public royaltyPercent = 1000;
   //flag for if the mint is open to the public
@@ -347,11 +348,11 @@ contract CashCows is
     address receiver,
     uint256 royaltyAmount
   ) {
-    if (address(royaltySplitter) == address(0) || !_exists(_tokenId)) 
+    if (address(treasury) == address(0) || !_exists(_tokenId)) 
       revert InvalidCall();
     
     return (
-      payable(royaltySplitter), 
+      payable(address(treasury)), 
       (_salePrice * royaltyPercent) / 10000
     );
   }
@@ -376,12 +377,10 @@ contract CashCows is
   }
 
   /**
-   * @dev Sets the metadata location
+   * @dev Starts the sale
    */
-  function setMetadata(
-    IMetadata metadata
-  ) external onlyRole(_CURATOR_ROLE) {
-    _metadata = metadata;
+  function openMint(bool yes) external onlyRole(_CURATOR_ROLE) {
+    mintOpened = yes;
   }
 
   /**
@@ -392,10 +391,12 @@ contract CashCows is
   }
 
   /**
-   * @dev Starts the sale
+   * @dev Updates the metadata location
    */
-  function openMint(bool yes) external onlyRole(_CURATOR_ROLE) {
-    mintOpened = yes;
+  function updateMetadata(
+    IMetadata metadata
+  ) external onlyRole(_CURATOR_ROLE) {
+    _metadata = metadata;
   }
 
   /**
@@ -411,8 +412,8 @@ contract CashCows is
    * @dev Updates the treasury location, (in the case treasury needs to 
    * be updated)
    */
-  function updateSplitter(address splitter) external onlyRole(_CURATOR_ROLE) {
-    royaltySplitter = splitter;
+  function updateTreasury(IRoyaltySplitter splitter) external onlyRole(_CURATOR_ROLE) {
+    treasury = splitter;
   }
   
   /**
