@@ -115,3 +115,8 @@ artifacts/contracts/mock
 
 *.dbg.json
 /backend
+
+artengine/build
+artengine/layers/*
+!artengine/layers/.gitkeep
+.artengine
