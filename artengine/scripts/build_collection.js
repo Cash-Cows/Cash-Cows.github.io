@@ -130,7 +130,7 @@ async function drawImage(canvas, stage, attributes) {
   canvas.cid = await cid.of(canvas.image, { cidVersion: cid_version })
 }
 
-function generateMetadata(config, edition, hires, lores, attributes) {
+function generateMetadata(config, edition, level, hires, lores, attributes) {
   //generate the json
   const metadata = Object.assign({}, metadata_template, {
     edition,
@@ -148,6 +148,7 @@ function generateMetadata(config, edition, hires, lores, attributes) {
     }
   })
   //add attributes
+  metadata.attributes.push({ trait_type: 'Level', value: level })
   for (const attribute of attributes) {
     if (!attribute.visible) {
       continue
@@ -215,7 +216,7 @@ async function main() {
       await drawImage(lores, j, attributes)
       await drawImage(hires, j, attributes)
       //make metadata
-      const metadata = generateMetadata(images[i].set, edition, hires, lores, attributes)
+      const metadata = generateMetadata(images[i].set, edition, j + 1, hires, lores, attributes)
       //save
       console.log('Saving', `${edition}_${j}`, images[i].set.config, hires.cid)
       if (add_preview) {

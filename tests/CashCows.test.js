@@ -272,6 +272,10 @@ describe('CashCows Tests', function () {
     await expect(//invalid amount
       tokenOwner4.withNFT.mint(6, { value: ethers.utils.parseEther('0.004') })
     ).to.be.revertedWith('InvalidCall()')
+
+    await expect(//invalid amount
+      tokenOwner4.withNFT.mint(0, { value: ethers.utils.parseEther('0.004') })
+    ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should withdraw', async function () {
