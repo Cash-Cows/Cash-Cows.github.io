@@ -142,12 +142,14 @@ function generateMetadata(config, edition, level, hires, lores, attributes) {
   METADATA_STANDARDS.forEach(key => {
     if (metadata[key]) {
       metadata[key] = metadata[key]
+        .replace(/\{SERIES\}/, config.series)
         .replace(/\{EDITION\}/, edition)
         .replace(/\{LORES_CID\}/, lores.cid)
         .replace(/\{HIRES_CID\}/, hires.cid)
     }
   })
   //add attributes
+  metadata.attributes.push({ trait_type: 'Crew', value: config.series })
   metadata.attributes.push({ trait_type: 'Level', value: level })
   for (const attribute of attributes) {
     if (!attribute.visible) {
@@ -165,8 +167,15 @@ function generateMetadata(config, edition, level, hires, lores, attributes) {
 async function main() {
   let size = 0
   let limit = 0
+  let total = 0
   const images = []
   const exists = new Set()
+  for (const set of layers) {
+    total += set.limit
+  }
+
+  console.log(`Total Items: ${total}`)
+
   for (const set of layers) {
     //add limit
     limit += set.limit
