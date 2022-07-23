@@ -23,7 +23,7 @@
           "/layers/0-Background/Cash#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Cyan": {
         "id": 3,
@@ -85,7 +85,7 @@
           "/layers/0-Background/Money#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Orange": {
         "id": 9,
@@ -385,6 +385,141 @@
           "/layers/2-Mask/None#30/2.png"
         ],
         "weight": 30
+      },
+      "Black Beanie": {
+        "id": 113,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Black Beanie#20/0.png",
+          "/layers/8-Head/Black Beanie#20/1.png",
+          "/layers/8-Head/Black Beanie#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 149, 176 ]
+      },
+      "Black Cowboy Hat": {
+        "id": 115,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Black Cowboy Hat#10/0.png",
+          "/layers/8-Head/Black Cowboy Hat#10/1.png",
+          "/layers/8-Head/Black Cowboy Hat#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Black Pork Pie": {
+        "id": 118,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Black Pork Pie#10/0.png",
+          "/layers/8-Head/Black Pork Pie#10/1.png",
+          "/layers/8-Head/Black Pork Pie#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Blue Bandana": {
+        "id": 119,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Blue Bandana#20/0.png",
+          "/layers/8-Head/Blue Bandana#20/1.png",
+          "/layers/8-Head/Blue Bandana#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Brown Cowboy Hat": {
+        "id": 122,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Brown Cowboy Hat#10/0.png",
+          "/layers/8-Head/Brown Cowboy Hat#10/1.png",
+          "/layers/8-Head/Brown Cowboy Hat#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Brown Pork Pie": {
+        "id": 124,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Brown Pork Pie#10/0.png",
+          "/layers/8-Head/Brown Pork Pie#10/1.png",
+          "/layers/8-Head/Brown Pork Pie#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Crown": {
+        "id": 125,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Crown#5/0.png",
+          "/layers/8-Head/Crown#5/1.png",
+          "/layers/8-Head/Crown#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Green Derby": {
+        "id": 129,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Green Derby#5/0.png",
+          "/layers/8-Head/Green Derby#5/1.png",
+          "/layers/8-Head/Green Derby#5/2.png"
+        ],
+        "weight": 5,
+        "no": [ 149, 176 ]
+      },
+      "Police Hat": {
+        "id": 136,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Police Hat#20/0.png",
+          "/layers/8-Head/Police Hat#20/1.png",
+          "/layers/8-Head/Police Hat#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 149, 176 ]
+      },
+      "Red Beanie": {
+        "id": 141,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Red Beanie#20/0.png",
+          "/layers/8-Head/Red Beanie#20/1.png",
+          "/layers/8-Head/Red Beanie#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 149, 176 ]
+      },
+      "Santa Hat": {
+        "id": 144,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Santa Hat#20/0.png",
+          "/layers/8-Head/Santa Hat#20/1.png",
+          "/layers/8-Head/Santa Hat#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Sombrero": {
+        "id": 145,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Sombrero#10/0.png",
+          "/layers/8-Head/Sombrero#10/1.png",
+          "/layers/8-Head/Sombrero#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Uncle Sam": {
+        "id": 147,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Uncle Sam#5/0.png",
+          "/layers/8-Head/Uncle Sam#5/1.png",
+          "/layers/8-Head/Uncle Sam#5/2.png"
+        ],
+        "weight": 5,
+        "no": [ 149, 176 ]
       }
     }
   },

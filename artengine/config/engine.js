@@ -84,6 +84,11 @@ module.exports = {
       limit: 94
     },
     {
+      config: "layers/mad",
+      series: "Mad Cows",
+      limit: 111
+    },
+    {
       config: "layers/bandits1",
       series: "Bandits",
       limit: 5
@@ -106,7 +111,7 @@ module.exports = {
     {
       config: "layers/golden",
       series: "Golden Boys",
-      limit: 33
+      limit: 11
     },
     {
       config: "layers/green",
@@ -181,17 +186,17 @@ module.exports = {
     {
       config: "layers/origins",
       series: "Genesis",
-      limit: 888
+      limit: 777
     },
     {
       config: "layers/origins",
       series: "Origins",
-      limit: 888
+      limit: 777
     },
     {
       config: "layers/origins",
       series: "Chicken Dinner",
-      limit: 333
+      limit: 555
     },
     {
       config: "layers/origins",
@@ -201,7 +206,7 @@ module.exports = {
     {
       config: "layers/invisible",
       series: "Invisible",
-      limit: 111
+      limit: 22
     }
   ],
   _layers: [

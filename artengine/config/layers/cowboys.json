@@ -23,7 +23,7 @@
           "/layers/0-Background/Cash#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Cyan": {
         "id": 3,
@@ -85,7 +85,7 @@
           "/layers/0-Background/Money#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Orange": {
         "id": 9,
@@ -736,6 +736,26 @@
           "/layers/9-Outwear/Cowboy#5/0.png",
           "/layers/9-Outwear/Cowboy#5/1.png",
           "/layers/9-Outwear/Cowboy#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Brown Suit": {
+        "id": 158,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Brown Suit#5/0.png",
+          "/layers/9-Outwear/Brown Suit#5/1.png",
+          "/layers/9-Outwear/Brown Suit#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Black Suit": {
+        "id": 153,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Black Suit#5/0.png",
+          "/layers/9-Outwear/Black Suit#5/1.png",
+          "/layers/9-Outwear/Black Suit#5/2.png"
         ],
         "weight": 5
       }

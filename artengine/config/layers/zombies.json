@@ -652,6 +652,16 @@
     "visible": true,
     "order": 8,
     "attributes": {
+      "Brain": {
+        "id": 60001,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/None#30/0.png",
+          "/layers/7-Earrings/None#30/1.png",
+          "/layers/7-Earrings/None#30/2.png"
+        ],
+        "weight": 30
+      },
       "Army Bucket Hat": {
         "id": 110,
         "visible": true,
@@ -837,16 +847,6 @@
         ],
         "weight": 20,
         "no": [ 149, 176 ]
-      },
-      "Red Bandana": {
-        "id": 140,
-        "visible": true,
-        "paths": [
-          "/layers/8-Head/Red Bandana#20/0.png",
-          "/layers/8-Head/Red Bandana#20/1.png",
-          "/layers/8-Head/Red Bandana#20/2.png"
-        ],
-        "weight": 20
       },
       "Red Beanie": {
         "id": 141,

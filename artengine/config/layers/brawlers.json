@@ -23,7 +23,7 @@
           "/layers/0-Background/Cash#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Cyan": {
         "id": 3,
@@ -85,7 +85,7 @@
           "/layers/0-Background/Money#5/2.png"
         ],
         "weight": 5,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Orange": {
         "id": 9,
@@ -722,6 +722,16 @@
     "visible": true,
     "order": 8,
     "attributes": {
+      "Bare": {
+        "id": 70001,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/None#30/0.png",
+          "/layers/7-Earrings/None#30/1.png",
+          "/layers/7-Earrings/None#30/2.png"
+        ],
+        "weight": 30
+      },
       "Army Bucket Hat": {
         "id": 110,
         "visible": true,

@@ -23,7 +23,7 @@
           "/layers/0-Background/Cash#5/2.png"
         ],
         "weight": 20,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Cyan": {
         "id": 3,
@@ -85,7 +85,7 @@
           "/layers/0-Background/Money#5/2.png"
         ],
         "weight": 20,
-        "no": [ 11, 111, 128 ]
+        "no": [ 11, 111, 128, 129 ]
       },
       "Orange": {
         "id": 9,
@@ -348,16 +348,6 @@
     "visible": true,
     "order": 3,
     "attributes": {
-      "3D Glasses": {
-        "id": 60,
-        "visible": true,
-        "paths": [
-          "/layers/3-Eyes/3D Glasses#20/0.png",
-          "/layers/3-Eyes/3D Glasses#20/1.png",
-          "/layers/3-Eyes/3D Glasses#20/2.png"
-        ],
-        "weight": 20
-      },
       "Circle Glasses": {
         "id": 63,
         "visible": true,

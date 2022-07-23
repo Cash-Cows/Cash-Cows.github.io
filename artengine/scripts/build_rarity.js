@@ -103,7 +103,7 @@ async function main() {
     .filter(file => path.extname(file) === '.json')
   //populate datalist and occurances
   for (const file of files) {
-    if (!/^\d_0/.test(file)) continue
+    if (!/^\d+_0/.test(file)) continue
     const metadata = require(path.resolve(feed, file))
     datalist.push(metadata)
     metadata.attributes.forEach(attribute => {
