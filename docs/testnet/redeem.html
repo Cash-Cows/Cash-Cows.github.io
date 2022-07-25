@@ -9,7 +9,7 @@
     <meta name="description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
     <meta property="og:title" content="Redeem Rewards | Cash Cows" />
     <meta property="og:description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
-    <meta property="og:image" content="https://www.wearecashcows.com/images/treasure-barn.png" />
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
     <meta property="og:url" content="https://www.wearecashcows.com/redeem" />
     <meta property="og:type" content="website" />
 
@@ -17,7 +17,7 @@
     <meta name="twitter:site" content="@wearecashcows" />
     <meta name="twitter:title" content="Redeem Rewards | Cash Cows" />
     <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
-    <meta name="twitter:image" content="https://www.wearecashcows.io/images/treasure-barn.png" />
+    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
@@ -89,16 +89,18 @@
     <main class="body">
       <section class="section section-1">
         <h3>Total Rewards</h3>
-        <span 
-          class="btn-pixel btn-pixel-lg btn-pixel-success" 
+        <span class="btn-pixel btn-pixel-lg btn-pixel-success">
+          <span class="btn-prefix">Ξ</span>
+          <span class="rewards-value">0.005</span>
+        </span>
+        <a 
+          class="cta-redeem"
           data-do="redeem-all"
           data-on="click"
           href="javascript:void(0)"
         >
-          <span class="btn-prefix">Ξ</span>
-          0.005
-        </span>
-        <a class="cta-redeem">Redeem All</a>
+          Redeem All
+        </a>
       </section>
       <section class="section section-2">
         <h2>My Cows</h2>
@@ -131,7 +133,22 @@
             <img src="{IMAGE}" loading="lazy" />
           </div>
           <div class="info">
-            <h3>{NAME}</h3>
+            <div class="box box-name">
+              <i class="fas fa-hashtag"></i>
+              <div class="name">
+                <span class="label">Cash Cows</span>
+                <h3>{NAME}</h3>
+              </div>
+              <div class="level">Level {LEVEL}</div>
+            </div>
+            <div class="box box-rewards">
+              <span class="btn-prefix">Ξ</span>
+              <span class="rewards-value">{REWARDS}</span>
+              <a class="cta-redeem" data-do="redeem-all" data-on="click">
+                Redeem All
+              </a>
+            </div>
+            <h2>Properties</h2>
             <div class="attributes">{ATTRIBUTES}</div>
           </div>
         </div>

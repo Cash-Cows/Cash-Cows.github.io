@@ -75,7 +75,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
     const modal = theme.toElement(template.modal, {
       '{COLOR}': row.attributes.Background.toLowerCase(),
-      '{NAME}': `#${row.edition}`,
+      '{NAME}': row.edition,
       '{IMAGE}': `/images/collection/${row.edition}_${level - 1}.png`,
       '{ATTRIBUTES}': boxes.join('')
     })

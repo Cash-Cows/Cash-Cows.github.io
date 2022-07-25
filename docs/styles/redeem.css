@@ -108,8 +108,48 @@ h2, h3 {
 }
 
 .modal .info {
+  padding: 20px;
+}
+
+.modal .info .box {
+  align-items: center;
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #222222;
+  display: flex;
+  padding: 10px 20px;
+}
+
+.modal .info .box-name {
+  margin-bottom: 20px;
+}
+
+.modal .info .box-name .fa-hashtag {
+  font-size: 30px;
+}
+
+.modal .info .box-name .name {
+  padding-left: 20px;
+}
+
+.modal .info .box-name .label {
+  text-transform: uppercase;
+}
+
+.modal .info .box-name .level {
   flex-grow: 1;
-  text-align: center;
+  text-align: right;
+}
+
+.modal .info .box-rewards .fa-eth {
+  font-family: "Press Start 2P", Courier, monospace;
+  font-size: 30px;
+}
+
+.modal .info h3 {
+  margin: 0;
+  text-align: left;
 }
 
 .modal .attributes {
