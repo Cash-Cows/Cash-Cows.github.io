@@ -234,7 +234,7 @@
   top: 7px;
 }
 
-@media(max-width: 830px) {
+@media(max-width: 767px) {
 	.head .container {
 		margin: 0;
 		display: flex;
@@ -242,10 +242,17 @@
 		align-items: center;
 	}
 
-	.head .right,
 	.head .left {
+		width: 100%;
+		margin: 0;
 		display: flex;
 		justify-content: center;
+	}
+
+	.head .right {
+		display: flex;
+		justify-content: center;
+		margin: 0;
 	}
 
 	.body .container {
