@@ -233,3 +233,24 @@
   right: 7px;
   top: 7px;
 }
+
+@media(max-width: 830px) {
+	.head .container {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.head .right,
+	.head .left {
+		display: flex;
+		justify-content: center;
+	}
+
+	.body .container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
