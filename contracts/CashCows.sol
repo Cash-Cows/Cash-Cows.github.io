@@ -38,8 +38,6 @@ contract CashCows is ReentrancyGuard, CashCowsAbstract {
 
   //maximum amount that can be purchased per wallet in the public sale
   uint256 public constant MAX_PER_WALLET = 9;
-  //maximum amount free per wallet in the public sale
-  uint256 public constant MAX_FREE_PER_WALLET = 1;
 
   // ============ Storage ============
 
@@ -47,6 +45,8 @@ contract CashCows is ReentrancyGuard, CashCowsAbstract {
   mapping(address => uint256) public minted;
   //flag for if the mint is open to the public
   bool public mintOpened;
+  //maximum amount free per wallet in the public sale
+  uint256 public maxFreePerWallet = 1;
 
   // ============ Deploy ============
 
@@ -94,9 +94,9 @@ contract CashCows is ReentrancyGuard, CashCowsAbstract {
     ) revert InvalidCall();
 
     //if there are still some free
-    if (minted[recipient] < MAX_FREE_PER_WALLET) {
+    if (minted[recipient] < maxFreePerWallet) {
       //find out how much left is free
-      uint256 freeLeft = MAX_FREE_PER_WALLET - minted[recipient];
+      uint256 freeLeft = maxFreePerWallet - minted[recipient];
       //if some of the quantity still needs to be paid
       if (freeLeft < quantity 
         // and what is sent is less than what needs to be paid 
@@ -181,6 +181,13 @@ contract CashCows is ReentrancyGuard, CashCowsAbstract {
    */
   function openMint(bool yes) external onlyRole(_CURATOR_ROLE) {
     mintOpened = yes;
+  }
+
+  /**
+   * @dev Allows the admin to change the public max free
+   */
+  function setMaxFree(uint256 max) external onlyRole(_CURATOR_ROLE) {
+    maxFreePerWallet = max;
   }
 
   /**

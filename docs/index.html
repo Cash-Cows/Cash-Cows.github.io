@@ -1,33 +1,164 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="utf-8">
-  <title>We Are Cash Cows | Moooon-ningg!</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Cash Cows</title>
+    <meta name="description" content="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." />
+    <meta property="og:title" content="Cash Cows" />
+    <meta property="og:description" content="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." />
+    <meta property="og:image" content="https://www.wearecashcows.com/images/treasure-barn.png" />
+    <meta property="og:url" content="https://www.wearecashcows.com/" />
+    <meta property="og:type" content="website" />
 
-  <base href="/">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="Cash Cows" />
+    <meta name="twitter:description" content="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." />
+    <meta name="twitter:image" content="https://www.wearecashcows.io/images/treasure-barn.png" />
 
-  <meta name="color-scheme" content="light">
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
-  <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  
-  <!-- web3 and web3modal packages -->
-  <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-  <!-- web3 functionality code -->
-<style>:root{--ion-color-primary:#3880ff;--ion-color-primary-rgb:56, 128, 255;--ion-color-primary-contrast:#ffffff;--ion-color-primary-contrast-rgb:255, 255, 255;--ion-color-primary-shade:#3171e0;--ion-color-primary-tint:#4c8dff;--ion-color-secondary:#3dc2ff;--ion-color-secondary-rgb:61, 194, 255;--ion-color-secondary-contrast:#ffffff;--ion-color-secondary-contrast-rgb:255, 255, 255;--ion-color-secondary-shade:#36abe0;--ion-color-secondary-tint:#50c8ff;--ion-color-tertiary:#5260ff;--ion-color-tertiary-rgb:82, 96, 255;--ion-color-tertiary-contrast:#ffffff;--ion-color-tertiary-contrast-rgb:255, 255, 255;--ion-color-tertiary-shade:#4854e0;--ion-color-tertiary-tint:#6370ff;--ion-color-success:#2dd36f;--ion-color-success-rgb:45, 211, 111;--ion-color-success-contrast:#ffffff;--ion-color-success-contrast-rgb:255, 255, 255;--ion-color-success-shade:#28ba62;--ion-color-success-tint:#42d77d;--ion-color-warning:#ffc409;--ion-color-warning-rgb:255, 196, 9;--ion-color-warning-contrast:#000000;--ion-color-warning-contrast-rgb:0, 0, 0;--ion-color-warning-shade:#e0ac08;--ion-color-warning-tint:#ffca22;--ion-color-danger:#eb445a;--ion-color-danger-rgb:235, 68, 90;--ion-color-danger-contrast:#ffffff;--ion-color-danger-contrast-rgb:255, 255, 255;--ion-color-danger-shade:#cf3c4f;--ion-color-danger-tint:#ed576b;--ion-color-dark:#222428;--ion-color-dark-rgb:34, 36, 40;--ion-color-dark-contrast:#ffffff;--ion-color-dark-contrast-rgb:255, 255, 255;--ion-color-dark-shade:#1e2023;--ion-color-dark-tint:#383a3e;--ion-color-medium:#92949c;--ion-color-medium-rgb:146, 148, 156;--ion-color-medium-contrast:#ffffff;--ion-color-medium-contrast-rgb:255, 255, 255;--ion-color-medium-shade:#808289;--ion-color-medium-tint:#9d9fa6;--ion-color-light:#f4f5f8;--ion-color-light-rgb:244, 245, 248;--ion-color-light-contrast:#000000;--ion-color-light-contrast-rgb:0, 0, 0;--ion-color-light-shade:#d7d8da;--ion-color-light-tint:#f5f6f9}@media (prefers-color-scheme: dark){body{--ion-color-primary:#428cff;--ion-color-primary-rgb:66,140,255;--ion-color-primary-contrast:#ffffff;--ion-color-primary-contrast-rgb:255,255,255;--ion-color-primary-shade:#3a7be0;--ion-color-primary-tint:#5598ff;--ion-color-secondary:#50c8ff;--ion-color-secondary-rgb:80,200,255;--ion-color-secondary-contrast:#ffffff;--ion-color-secondary-contrast-rgb:255,255,255;--ion-color-secondary-shade:#46b0e0;--ion-color-secondary-tint:#62ceff;--ion-color-tertiary:#6a64ff;--ion-color-tertiary-rgb:106,100,255;--ion-color-tertiary-contrast:#ffffff;--ion-color-tertiary-contrast-rgb:255,255,255;--ion-color-tertiary-shade:#5d58e0;--ion-color-tertiary-tint:#7974ff;--ion-color-success:#2fdf75;--ion-color-success-rgb:47,223,117;--ion-color-success-contrast:#000000;--ion-color-success-contrast-rgb:0,0,0;--ion-color-success-shade:#29c467;--ion-color-success-tint:#44e283;--ion-color-warning:#ffd534;--ion-color-warning-rgb:255,213,52;--ion-color-warning-contrast:#000000;--ion-color-warning-contrast-rgb:0,0,0;--ion-color-warning-shade:#e0bb2e;--ion-color-warning-tint:#ffd948;--ion-color-danger:#ff4961;--ion-color-danger-rgb:255,73,97;--ion-color-danger-contrast:#ffffff;--ion-color-danger-contrast-rgb:255,255,255;--ion-color-danger-shade:#e04055;--ion-color-danger-tint:#ff5b71;--ion-color-dark:#f4f5f8;--ion-color-dark-rgb:244,245,248;--ion-color-dark-contrast:#000000;--ion-color-dark-contrast-rgb:0,0,0;--ion-color-dark-shade:#d7d8da;--ion-color-dark-tint:#f5f6f9;--ion-color-medium:#989aa2;--ion-color-medium-rgb:152,154,162;--ion-color-medium-contrast:#000000;--ion-color-medium-contrast-rgb:0,0,0;--ion-color-medium-shade:#86888f;--ion-color-medium-tint:#a2a4ab;--ion-color-light:#222428;--ion-color-light-rgb:34,36,40;--ion-color-light-contrast:#ffffff;--ion-color-light-contrast-rgb:255,255,255;--ion-color-light-shade:#1e2023;--ion-color-light-tint:#383a3e}}html{--ion-font-family:var(--ion-default-font)}body{background:var(--ion-background-color)}@supports (padding-top: 20px){html{--ion-safe-area-top:var(--ion-statusbar-padding)}}@supports (padding-top: constant(safe-area-inset-top)){html{--ion-safe-area-top:constant(safe-area-inset-top);--ion-safe-area-bottom:constant(safe-area-inset-bottom);--ion-safe-area-left:constant(safe-area-inset-left);--ion-safe-area-right:constant(safe-area-inset-right)}}@supports (padding-top: env(safe-area-inset-top)){html{--ion-safe-area-top:env(safe-area-inset-top);--ion-safe-area-bottom:env(safe-area-inset-bottom);--ion-safe-area-left:env(safe-area-inset-left);--ion-safe-area-right:env(safe-area-inset-right)}}*{box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}html{width:100%;height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}html:not(.hydrated) body{display:none}body{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin:0;padding:0;position:fixed;width:100%;max-width:100%;height:100%;max-height:100%;transform:translateZ(0);text-rendering:optimizeLegibility;overflow:hidden;touch-action:manipulation;-webkit-user-drag:none;-ms-content-zooming:none;word-wrap:break-word;overscroll-behavior-y:none;-webkit-text-size-adjust:none;text-size-adjust:none}html{font-family:var(--ion-font-family)}</style><link rel="stylesheet" href="styles.791882bf599e7d6a.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.791882bf599e7d6a.css"></noscript></head>
-<!-- V1 -->
-<body>
-  <app-root></app-root>
-<script src="runtime.2d27f16b6c91b812.js" type="module"></script><script src="polyfills.5e764803b8169801.js" type="module"></script><script src="main.045f4954e328980a.js" type="module"></script>
-
-
-</body></html>
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v0" />
+    <link rel="stylesheet" type="text/css" href="/styles/index.css?v0" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <header class="head">
+      <div class="container">
+        <nav class="left">
+          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
+            <img src="/images/twitter-pixel.png" />
+          </a>
+          <a class="social" href="#" target="_blank">
+            <img src="/images/opensea-pixel.png" />
+          </a>
+          <a class="social" href="#" target="_blank">
+            <img src="/images/etherscan-pixel.png" />
+          </a>
+        </nav>
+        <nav class="center">
+          <a class="logo" href="/">
+            <img src="/images/logo-cashcows-long.gif" />
+          </a>
+          <div class="connected hide">
+            <a href="/check.html">Check Whitelist</a>
+          </div>
+          <div class="disconnected">
+            <a href="/check.html">Check Whitelist</a>
+          </div>
+        </nav>
+        <nav class="right">
+          <div class="connected hide">
+            <a 
+              class="btn btn-outline btn-primary btn-address" 
+              href="javascript:void(0)"
+            ></a>
+            <a 
+              class="btn btn-outline btn-primary" 
+              data-do="disconnect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              <i class="fas fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+          <div class="disconnected">
+            <a 
+              class="btn-pixel btn-pixel-warning" 
+              data-do="connect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Connect Wallet
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="body">
+      <section class="section section-1">
+        <img src="/images/logo-cashcows-long.gif" />
+        <div class="cta">
+          <a class="btn-pixel btn-pixel-lg btn-pixel-success" href="#">
+            Minting Soon&hellip;
+          </a>
+        </div>
+      </section>
+      <section class="section section-2">
+        <img src="/images/home/brady-bunch.png" />
+        <div class="info">
+          <h1>More Than Just 7,777 Cows</h1>
+          <p>An experiment about sharing wealth with every Cow holder.</p>
+          <ul>
+            <li>CC0 Personal &amp; Commercial Rights</li>
+            <li>Passive Staking <em>(just hold)</em></li>
+            <li>100% on-chain</li>
+          </ul>
+        </div>
+      </section>
+      <section class="section section-3">
+        <img src="/images/home/farm.png" />
+      </section>
+      <section class="section section-4">
+        <div class="container">
+          <h2>FAQ</h2>
+          <div class="faq">
+            <div class="left">
+              <h3>What is CC0?</h3>
+              <p>
+                This means there is no copyright. You can modify, 
+                distribute and perform the work, even for commercial 
+                purposes, all without asking permission.
+              </p>
+            </div>
+            <div class="right">
+              <h3>How do I get on the Whitelist?</h3>
+              <p>
+                Please follow us on Twitter 
+                <a href="https://twitter.com/WeAreCashCows" target="_blank">@wearecashcows</a> 
+                to get info on getting on the whitelist.
+              </p>
+            </div>
+          </div>
+          <div class="faq">
+            <div class="left">
+              <h3>What is the utility/roadmap?</h3>
+              <p>
+                Utility will be found on the smart contracts. We will be 
+                dropping hints along the way and it is up to you to 
+                discover them all.
+              </p>
+            </div>
+            <div class="right">
+              <h3>Can I see the contracts?</h3>
+              <p>
+                We will provide the contract links as soon as we get 
+                closer to the mint date. At least 2 days prior.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="foot"></footer>
+    <script id="network" data-value="mainnet"></script>
+    <script type="text/javascript" src="/scripts/lib/doon.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/lib/notify.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js"></script>
+  </body>
+</html>

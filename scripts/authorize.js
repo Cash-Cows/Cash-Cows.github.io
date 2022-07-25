@@ -7,8 +7,8 @@ const hardhat = require('hardhat')
 const whitelist = require('../data/whitelist.json') 
 const privateKey = process.env.privateKey;
 
-// function authorize(recipient, maxMint = 15, maxFree = 5) {
-function authorize(recipient, maxMint = 10, maxFree = 7) {
+// function authorize(recipient, maxMint = 9, maxFree = 5) {
+function authorize(recipient, maxMint = 9, maxFree = 1) {
   return Buffer.from(
     ethers.utils.solidityKeccak256(
       ['string', 'address', 'uint256', 'uint256'],
@@ -20,19 +20,30 @@ function authorize(recipient, maxMint = 10, maxFree = 7) {
 
 async function main() {
   //sign message wallet PK
-  const wallet = "0x"+privateKey 
+  const wallet = hardhat.config.networks[hardhat.config.defaultNetwork].accounts[0]
   const signer = new ethers.Wallet(wallet)
 
   const authorized = {}
 
   //make a message
   for (let i = 0; i < whitelist.length; i++) {
-    const message = authorize(whitelist[i])
-    authorized[whitelist[i]] = await signer.signMessage(message)
+    let address = whitelist[i]
+    let maxFree = 1
+    let maxMint = 9
+    if (Array.isArray(whitelist[i])) {
+      address = whitelist[i][0]
+      maxFree = whitelist[i][1]
+    }
+    const message = authorize(address, maxMint, maxFree)
+    authorized[address.toLowerCase()] = [
+      maxMint,
+      maxFree,
+      await signer.signMessage(message)
+    ]
   }
 
   fs.writeFileSync(
-    path.resolve(__dirname, '../data/authorized.json'),
+    path.resolve(__dirname, '../docs/data/authorized.json'),
     JSON.stringify(authorized, null, 2)
   )
 }
