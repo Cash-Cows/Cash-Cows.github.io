@@ -233,3 +233,31 @@
   right: 7px;
   top: 7px;
 }
+
+@media(max-width: 767px) {
+	.head .container {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.head .left {
+		width: 100%;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	.head .right {
+		display: flex;
+		justify-content: center;
+		margin: 0;
+	}
+
+	.body .container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
