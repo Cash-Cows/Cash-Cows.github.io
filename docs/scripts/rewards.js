@@ -27,6 +27,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
+  const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
   //------------------------------------------------------------------//
@@ -73,10 +74,13 @@ window.addEventListener('web3sdk-ready', async () => {
       )
     })
 
+    const releaseable = parseInt(await royalty.read().releaseable(row.edition))
     const modal = theme.toElement(template.modal, {
       '{COLOR}': row.attributes.Background.toLowerCase(),
       '{NAME}': row.edition,
       '{IMAGE}': `/images/collection/${row.edition}_${level - 1}.png`,
+      '{REWARDS}': Web3SDK.toEther(releaseable),
+      '{LEVEL}': level,
       '{ATTRIBUTES}': boxes.join('')
     })
 

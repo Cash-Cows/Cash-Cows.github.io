@@ -34,6 +34,27 @@
   z-index: 1;
 }
 
+.countdown {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.countdown .countdown-item {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
+  margin: 5px;
+}
+
+.countdown .countdown-item span {
+  font-size: 40px;
+}
+
+.countdown .countdown-item small {
+  display: block;
+  text-transform: uppercase;
+}
+
 .head, .body {
   position: relative;
   z-index: 2;
@@ -44,8 +65,12 @@
 }
 
 .section-1 {
-  padding: 100px 0;
+  padding: 70px 0 100px;
   text-align: center;
+}
+
+.section-1 h6 {
+  margin: 0;
 }
 
 .section-1 img {
@@ -138,6 +163,76 @@
   padding: 0 0 40px;
 }
 
+.audio {
+  background-color: #43A459;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  bottom: 20px;
+  display: flex;
+  height: 50px;
+  left: 20px;
+  padding: 10px 10px 0 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+.audio .preview {
+  float: left;
+  margin-left: -15px;
+  margin-top: -50px;
+}
+
+.audio .preview img {
+  width: 100px
+}
+
+.audio .levels {
+  display: flex;
+  left: -24px;
+  position: relative;
+}
+
+@keyframes bounce{
+  10% { transform:scaleY(.25) }
+  30% { transform:scaleY(.83) }
+  60% { transform:scaleY(.42) }
+  80% { transform:scaleY(.625) }
+  to { transform:scaleY(.5) }
+}
+
+.audio .levels .bar {
+  animation: bounce 2.2s ease infinite alternate;
+  background-color: #FFFFFF;
+  border-radius: 1px;
+  height: 100%;
+  margin: 0 1px;
+  transform: scaleY(1);
+  transform-origin: bottom;
+  transition: all 1s ease;
+  width: 10px;
+}
+
+.audio .levels .bar:nth-of-type(2) {
+  animation-delay: -2.2s;
+}
+
+.audio .levels .bar:nth-of-type(3) {
+  animation-delay: -3.7s;
+}
+
+.audio .play {
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 26px;
+  height: 40px;
+  line-height: 43px;
+  margin-left: -20px;
+  overflow: hidden;
+  text-align: center;
+  width: 40px;
+}
+
 @media(max-width: 960px) {
   .section-2 {
     display: block;
@@ -174,5 +269,11 @@
 
   .section-4 .faq h3 {
     white-space: normal;
+  }
+}
+
+@media(max-width: 450px) {
+  .countdown .countdown-item span {
+    font-size: 20px;
   }
 }
