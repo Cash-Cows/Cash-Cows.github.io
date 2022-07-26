@@ -15,7 +15,7 @@ window.addEventListener('web3sdk-ready', async () => {
   
   let opened = await nft.read().mintOpened()
 
-  const config = { maxMint, maxFree }
+  const config = { maxMint, maxFree, minted: 0 }
 
   //------------------------------------------------------------------//
   // Functions
@@ -36,6 +36,9 @@ window.addEventListener('web3sdk-ready', async () => {
         config.maxFree = 0
       }
     }
+
+    config.minted = await nft.read().minted(state.account)
+    config.canMint = config.maxMint - config.minted
   }
 
   const disconnected = async (state, error, session) => {}
@@ -48,8 +51,14 @@ window.addEventListener('web3sdk-ready', async () => {
       return notify('error', 'Please connect your wallet first...')
     }
 
+    const quantity = parseInt(e.for.getAttribute('data-value'))
+
+    if (quantity > config.canMint) {
+      return notify('error', `You minted ${config.minted} already, so you can only mint ${config.canMint} more.`)
+    }
+
     message.innerHTML = 'Loading...'
-    Web3SDK.state.quantity = parseInt(e.for.getAttribute('data-value'))
+    Web3SDK.state.quantity = quantity
 
     //if not opened
     if (!opened) {

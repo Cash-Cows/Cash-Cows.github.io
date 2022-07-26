@@ -39,8 +39,8 @@ module.exports = {
       accounts: [process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY],
       contracts: {
         nft: '0xA6f87413d93f09267A6883fA5330D2C4905F60F3',
-        treasury: '0xf6fB0DD7D5a6a447fB56e3830C8bf9E81f9eDb96',
-        metadata: '0xF3Ff0a21bB57B445f41B2242A9D1fCB66c491D2f'
+        treasury: '0x9CcD8e9305532E2d981E59BfC877098E111DeFA1',
+        metadata: '0x55a25c5F40810BE7A0a89CCBBe971D1ED7af4672'
       }
     },
     ethereum: {

@@ -614,7 +614,9 @@
          continue;
        }
 
-       const name = `${method.name}(${method.inputs.map(input => input.type).join(',')})`
+       const name = method.inputs?.length 
+        ? `${method.name}(${method.inputs.map(input => input.type).join(',')})`
+        : method.name
        methods[name] = methods[method.name] = async function(account, value, ...args) {
          const params = { to: self.address, from: account };
          if (/^[0-9]+$/ig.test(String(value))) {
@@ -725,7 +727,9 @@
        }
 
        //define the new method
-       const name = `${method.name}(${method.inputs.map(input => input.type).join(',')})`
+       const name = method.inputs?.length 
+        ? `${method.name}(${method.inputs.map(input => input.type).join(',')})`
+        : method.name
        methods[name] = methods[method.name] = function(account, value, ...args) {
          //default params
          const params = { to: self.address, from: account };
