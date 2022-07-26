@@ -176,7 +176,7 @@
         return libWeb3.utils.fromWei(String(num)).toString()
       } else if (format === 'comma') {
         return libWeb3.utils.fromWei(String(num)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      } else if (format === 'int') {
+      } else if (format === 'number') {
         return parseFloat(libWeb3.utils.fromWei(String(num)).toString());
       }
       return libWeb3.utils.fromWei(String(num))

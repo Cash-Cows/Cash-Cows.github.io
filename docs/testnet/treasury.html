@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Redeem Rewards | Cash Cows</title>
-    <meta name="description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
+    <title>The Treasury | Cash Cows</title>
+    <meta name="description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
     <meta property="og:title" content="Redeem Rewards | Cash Cows" />
-    <meta property="og:description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
+    <meta property="og:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
     <meta property="og:url" content="https://www.wearecashcows.com/redeem" />
     <meta property="og:type" content="website" />
@@ -16,7 +16,7 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
     <meta name="twitter:title" content="Redeem Rewards | Cash Cows" />
-    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Now get you some rewards." />
+    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
     <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/rewards.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v1" />
   </head>
   <body>
     <div class="stars"></div>
@@ -49,13 +49,9 @@
           <a class="logo" href="/">
             <img src="/images/logo-cashcows-long.gif" />
           </a>
-          <div class="connected hide">
+          <div>
+            <a href="./treasury.html">Treasury</a>
             <a href="./gallery.html">Gallery</a>
-            <a href="./redeem.html">Redeem</a>
-          </div>
-          <div class="disconnected">
-            <a href="./gallery.html">Gallery</a>
-            <a href="./redeem.html">Redeem</a>
           </div>
         </nav>
         <nav class="right">
@@ -88,24 +84,46 @@
     </header>
     <main class="body">
       <section class="section section-1">
-        <h3>Total Rewards</h3>
-        <span class="btn-pixel btn-pixel-lg btn-pixel-success">
-          <span class="btn-prefix">Ξ</span>
-          <span class="rewards-value">0.005</span>
-        </span>
-        <a 
-          class="cta-redeem"
-          data-do="redeem-all"
-          data-on="click"
-          href="javascript:void(0)"
-        >
-          Redeem All
-        </a>
+        <h2>The Treasury</h2>
+        <div class="stats">
+          <div class="stat">
+            <h6>Redeemed</h6>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">Ξ</span>
+              <span class="rewards-value">0.005</span>
+            </span>
+          </div>
+          <div class="stat">
+            <h6>Unclaimed</h6>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">Ξ</span>
+              <span class="rewards-value">0.005</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="connected">
+          <h3>My Rewards</h3>
+          <span class="btn-pixel btn-pixel-lg btn-pixel-success">
+            <span class="btn-prefix">Ξ</span>
+            <span class="rewards-value">0.005</span>
+          </span>
+          <a 
+            class="cta-redeem"
+            data-do="redeem-all"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Redeem All
+          </a>
+        </div>
       </section>
-      <section class="section section-2">
-        <h2>My Cows</h2>
-        <main class="results"></main>
-      </section>
+      <div class="connected">
+        <section class="section section-2">
+          <h2>My Cows</h2>
+          <main class="results"></main>
+        </section>
+      </div>
     </main>
     <footer class="foot"></footer>
     <template id="template-result-item">
@@ -127,8 +145,11 @@
       </div>
     </template>
     <template id="template-modal">
-      <div class="modal" data-do="modal-close" data-on="click">
-        <div class="overlay pfp-bg-{COLOR}">
+      <div class="modal">
+        <div class="overlay pfp-{COLOR}">
+          <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+            <i class="fas fa-times"></i>
+          </a>
           <div class="preview">
             <img src="{IMAGE}" loading="lazy" />
           </div>
@@ -136,16 +157,27 @@
             <div class="box box-name">
               <i class="fas fa-hashtag"></i>
               <div class="name">
-                <span class="label">Cash Cows</span>
-                <h3>{NAME}</h3>
+                <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+                <h3>{ID}</h3>
+                <div class="markets">
+                  <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-opensea.png" />
+                  </a>
+                  <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-looksrare.webp" />
+                  </a>
+                  <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-x2y2.webp" />
+                  </a>
+                </div>
               </div>
-              <div class="level">Level {LEVEL}</div>
             </div>
+            <h2>Rewards</h2>
             <div class="box box-rewards">
-              <span class="btn-prefix">Ξ</span>
-              <span class="rewards-value">{REWARDS}</span>
+              <span class="fa-eth">Ξ</span>
+              <h3 class="rewards-value">{REWARDS}</h3>
               <a class="cta-redeem" data-do="redeem-all" data-on="click">
-                Redeem All
+                Redeem
               </a>
             </div>
             <h2>Properties</h2>
@@ -171,6 +203,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/rewards.js?v1"></script>
+    <script type="text/javascript" src="/scripts/treasury.js?v1"></script>
   </body>
 </html>

@@ -142,9 +142,9 @@ describe('CashCows Tests', function () {
     expect(await admin.withNFT.ownerOf(5)).to.equal(tokenOwner0.address)
 
     //                             quantity, maxMint, maxFree, proof
-    await tokenOwner1.withNFT.mint(6, 15, 5, await admin.signMessage(
+    await tokenOwner1.withNFT.mint(5, 15, 4, await admin.signMessage(
       //        recipient, maxMint, maxFree
-      authorize(tokenOwner1.address, 15, 5)
+      authorize(tokenOwner1.address, 15, 4)
     ), { value: ethers.utils.parseEther('0.005') })
 
     expect(await admin.withNFT.ownerOf(6)).to.equal(tokenOwner1.address)
@@ -152,6 +152,13 @@ describe('CashCows Tests', function () {
     expect(await admin.withNFT.ownerOf(8)).to.equal(tokenOwner1.address)
     expect(await admin.withNFT.ownerOf(9)).to.equal(tokenOwner1.address)
     expect(await admin.withNFT.ownerOf(10)).to.equal(tokenOwner1.address)
+
+    //allowlist
+    //                             quantity, maxMint, maxFree, proof
+    await tokenOwner1.withNFT.mint(1, 15, 0, await admin.signMessage(
+      //        recipient, maxMint, maxFree
+      authorize(tokenOwner1.address, 15, 0)
+    ), { value: ethers.utils.parseEther('0.005') })
     expect(await admin.withNFT.ownerOf(11)).to.equal(tokenOwner1.address)
 
     //                             quantity, maxMint, maxFree, proof

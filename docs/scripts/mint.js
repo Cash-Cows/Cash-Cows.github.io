@@ -4,8 +4,8 @@ window.addEventListener('web3sdk-ready', async () => {
   const keys = Array.from(document.querySelectorAll('div.keypad a'))
   const message = document.querySelector('div.monitor div.connected.message')
   
-  const response = await fetch('/data/authorized.json')
-  const checklist = await response.json()
+  const authorized = await (await fetch('/data/authorized.json')).json()
+  const allowed = await (await fetch('/data/allowed.json')).json()
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
@@ -22,12 +22,18 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const connected = async state => {
     //get the config for user
-    if (checklist[state.account.toLowerCase()]) {
+    if (authorized[state.account.toLowerCase()]) {
       config.account = state.account.toLowerCase()
-      config.proof = checklist[config.account][2]
+      config.proof = authorized[config.account][2]
       if (!opened) {
-        config.maxMint = checklist[config.account][0]
-        config.freeMint = checklist[config.account][1]
+        config.maxMint = authorized[config.account][0]
+        config.maxFree = authorized[config.account][1]
+      }
+    } else if (allowed[state.account.toLowerCase()]) {
+      config.account = state.account.toLowerCase()
+      config.proof = allowed[config.account]
+      if (!opened) {
+        config.maxFree = 0
       }
     }
   }

@@ -58,7 +58,7 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Events
 
-  window.addEventListener('modal-open-click', (e) => {
+  window.addEventListener('modal-open-click', async (e) => {
     const level = parseInt(e.for.getAttribute('data-level'))
     const index = parseInt(e.for.getAttribute('data-index'))
     const row = database[index]
@@ -74,12 +74,13 @@ window.addEventListener('web3sdk-ready', async () => {
       )
     })
 
-    const releaseable = parseInt(await royalty.read().releaseable(row.edition))
+    const releaseable = parseInt(await royalty.read()['releaseable(uint256)'](row.edition))
     const modal = theme.toElement(template.modal, {
       '{COLOR}': row.attributes.Background.toLowerCase(),
-      '{NAME}': row.edition,
+      '{ID}': row.edition,
+      '{CONTRACT}': nft.address,
       '{IMAGE}': `/images/collection/${row.edition}_${level - 1}.png`,
-      '{REWARDS}': Web3SDK.toEther(releaseable),
+      '{REWARDS}': Web3SDK.toEther(releaseable, 'number') || '0.00',
       '{LEVEL}': level,
       '{ATTRIBUTES}': boxes.join('')
     })
@@ -89,7 +90,7 @@ window.addEventListener('web3sdk-ready', async () => {
   })
 
   window.addEventListener('modal-close-click', (e) => {
-    document.body.removeChild(e.for)
+    document.body.removeChild(document.querySelector('div.modal'))
   })
 
   //------------------------------------------------------------------//
