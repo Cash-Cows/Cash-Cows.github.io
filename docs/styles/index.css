@@ -34,27 +34,6 @@
   z-index: 1;
 }
 
-.countdown {
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.countdown .countdown-item {
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 15px 25px;
-  margin: 5px;
-}
-
-.countdown .countdown-item span {
-  font-size: 40px;
-}
-
-.countdown .countdown-item small {
-  display: block;
-  text-transform: uppercase;
-}
-
 .head, .body {
   position: relative;
   z-index: 2;

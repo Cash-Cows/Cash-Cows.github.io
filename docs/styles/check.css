@@ -10,7 +10,7 @@
 .stars, .stars::after {
   bottom: 0;
   display: block;
-  height: 100vh;
+  height: 150vh;
   left: 0;
   position: absolute;
   top: 0;
@@ -50,4 +50,8 @@
 
 .section-1 .wallet-address {
   margin-bottom: 20px;
+}
+
+.results {
+  padding: 150px 0;
 }
