@@ -25,6 +25,7 @@
 
     let playing = false
     const player = new Audio('/chiptune.mp3');
+    player.loop = true
     window.addEventListener('play-click', (e) => {
       if (playing) {
         player.pause()
