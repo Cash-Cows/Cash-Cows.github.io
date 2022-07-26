@@ -250,9 +250,3 @@
     white-space: normal;
   }
 }
-
-@media(max-width: 450px) {
-  .countdown .countdown-item span {
-    font-size: 20px;
-  }
-}
