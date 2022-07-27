@@ -64,7 +64,7 @@ contract CashCows is ReentrancyGuard, CashCowsAbstract {
    * @dev Returns the token collection name.
    */
   function name() external pure returns(string memory) {
-    return "We Are Cash Cows";
+    return "Cash Cows Crew";
   }
 
   /**

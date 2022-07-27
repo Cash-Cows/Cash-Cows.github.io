@@ -21,7 +21,7 @@ async function main() {
   //sign message wallet PK
   const wallet = hardhat.config.networks[hardhat.config.defaultNetwork].accounts[0]
   const signer = new ethers.Wallet(wallet)
-
+  let totalFree = 0
   const authorized = {}
 
   //make a message
@@ -39,6 +39,8 @@ async function main() {
       maxFree,
       await signer.signMessage(message)
     ]
+
+    totalFree += maxFree
   }
 
   fs.writeFileSync(
@@ -50,6 +52,8 @@ async function main() {
     path.resolve(__dirname, '../docs/data/whitelist.json'),
     JSON.stringify(Object.keys(authorized), null, 2)
   )
+
+  console.log(totalFree, ' free mint')
 }
 
 // We recommend this pattern to be able to use async/await everywhere

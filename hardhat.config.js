@@ -1,12 +1,12 @@
-require("@nomiclabs/hardhat-etherscan");
-require("@nomiclabs/hardhat-waffle");
+require('@nomiclabs/hardhat-etherscan');
+require('@nomiclabs/hardhat-waffle');
 require('hardhat-contract-sizer');
-require("hardhat-gas-reporter");
+require('hardhat-gas-reporter');
 require('dotenv').config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async () => {
+task('accounts', 'Prints the list of accounts', async () => {
   const accounts = await ethers.getSigners();
 
   for (const account of accounts) {
@@ -32,7 +32,7 @@ module.exports = {
       }
     },
     rinkeby: {
-      url: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+      url: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
       chainId: 4,
       scanner: 'https://rinkeby.etherscan.io',
       opensea: 'https://testnets.opensea.io',
@@ -44,16 +44,20 @@ module.exports = {
       }
     },
     ethereum: {
-      url: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+      url: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
       chainId: 1,
       scanner: 'https://etherscan.io',
       opensea: 'https://opensea.io',
       accounts: [process.env.BLOCKCHAIN_ETHEREUM_PRIVATE_KEY],
-      contracts: {}
+      contracts: {
+        nft: '0x1A371de4634c3DEBf7196A1EFc59e620aff0915F',
+        treasury: '0x837844a20cFe576057b58bcF6f1556BF6795FB2F',
+        metadata: '0xeb41c53e2Debf30C168fc743BA58dAd2345A0113'
+      }
     },
   },
   solidity: {
-    version: "0.8.9",
+    version: '0.8.9',
     settings: {
       optimizer: {
         enabled: true,
@@ -62,10 +66,10 @@ module.exports = {
     }
   },
   paths: {
-    sources: "./contracts",
-    tests: "./tests",
-    cache: "./cache",
-    artifacts: "./artifacts"
+    sources: './contracts',
+    tests: './tests',
+    cache: './cache',
+    artifacts: './artifacts'
   },
   mocha: {
     timeout: 20000
