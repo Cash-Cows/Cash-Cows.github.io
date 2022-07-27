@@ -5,7 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const hardhat = require('hardhat')
 const whitelist = require('../data/whitelist.json') 
-const privateKey = process.env.privateKey;
 
 // function authorize(recipient, maxMint = 9, maxFree = 5) {
 function authorize(recipient, maxMint = 9, maxFree = 1) {
@@ -45,6 +44,11 @@ async function main() {
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/authorized.json'),
     JSON.stringify(authorized, null, 2)
+  )
+
+  fs.writeFileSync(
+    path.resolve(__dirname, '../docs/data/whitelist.json'),
+    JSON.stringify(Object.keys(authorized), null, 2)
   )
 }
 

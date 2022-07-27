@@ -426,14 +426,15 @@
       disconnected = disconnected || function() {};
     
       try {
-        const provider = await this.connect(providerOptions);
+        const account = await this.connect(providerOptions);
         if (listen) {
           this.listenToWallet(connected, disconnected);
         }
-        const account = await Web3SDK.getWalletAddresses(0);
-        return connected({ connected: true, account, provider });
+        window.ethereum.emit('web3sdk-connected', { connected: true, account })
+        return connected({ connected: true, account });
       } catch(e) {
-        disconnected({ connected: false, account: undefined, provider: undefined }, e);
+        window.ethereum.emit('web3sdk-disconnected', { connected: false, account: undefined })
+        disconnected({ connected: false, account: undefined }, e);
       }
     }
 
@@ -468,6 +469,8 @@
       }
 
       //start listening
+      window.ethereum.on('web3sdk-connected', connected)
+      window.ethereum.on('web3sdk-disconnected', disconnected)
 
       window.ethereum.on('disconnect', disconnected)
       

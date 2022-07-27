@@ -1,8 +1,8 @@
 (async (window) => {
   //------------------------------------------------------------------//
   // Variables
-  const authorized = await (await fetch('/data/authorized.json')).json()
-  const allowed = await (await fetch('/data/allowed.json')).json()
+  const whitelist = await (await fetch('/data/whitelist.json')).json()
+  const allowlist = await (await fetch('/data/allowlist.json')).json()
 
   //------------------------------------------------------------------//
   // Functions
@@ -76,13 +76,13 @@
 
   window.addEventListener('check-click', () => {
     const address = document.querySelector('input.wallet-address').value
-    if (authorized[address.toLowerCase()]) {
+    if (whitelist.indexOf(address.toLowerCase()) > -1) {
       theme.hide('div.authorized', false)
       theme.hide('div.allowed', true)
       theme.hide('div.public', true)
       notify('success', 'You are on the Whitelist')
       play(document.querySelector('div.authorized h2'))
-    } else if (allowed[address.toLowerCase()]) {
+    } else if (allowlist.indexOf(address.toLowerCase()) > -1) {
       theme.hide('div.authorized', true)
       theme.hide('div.allowed', false)
       theme.hide('div.public', true)

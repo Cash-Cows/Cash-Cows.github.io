@@ -27,6 +27,11 @@ window.addEventListener('web3sdk-ready', async () => {
   const connected = async state => {
     //populate cows
     Web3SDK.state.tokens = await nft.read().ownerTokens(state.account)
+ 
+    if (!Web3SDK.state.tokens.length) {
+      results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
+    }
+
     Web3SDK.state.tokens.forEach(async tokenId => {
       const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
@@ -167,7 +172,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   window.addEventListener('redeem-all-click', async () => {
     if (!Web3SDK.state.tokens?.length) {
-      return notify('error', 'No cows holding.')
+      return notify('error', 'You don\'t have a cow.')
     }
     //gas check
     try {
