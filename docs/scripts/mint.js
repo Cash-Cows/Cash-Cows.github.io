@@ -6,11 +6,10 @@ window.addEventListener('web3sdk-ready', async () => {
   
   const authorized = await (await fetch('/data/authorized.json')).json()
   const allowed = await (await fetch('/data/allowed.json')).json()
-
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const price = await nft.read().MINT_PRICE()
-  const maxFree = await nft.read().MAX_FREE_PER_WALLET()
+  const maxFree = await nft.read().maxFreePerWallet()
   const maxMint = 9
   
   let opened = await nft.read().mintOpened()
