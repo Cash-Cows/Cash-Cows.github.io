@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>The Treasury | Cash Cows</title>
-    <meta name="description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
-    <meta property="og:title" content="Redeem Rewards | Cash Cows" />
-    <meta property="og:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
+    <title>Cow Gallery | Cash Cows</title>
+    <meta name="description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
+    <meta property="og:title" content="Cow Gallery" />
+    <meta property="og:description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/treasury" />
+    <meta property="og:url" content="https://www.wearecashcows.com/gallery" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
-    <meta name="twitter:title" content="Redeem Rewards | Cash Cows" />
-    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
+    <meta name="twitter:title" content="Cow Gallery" />
+    <meta name="twitter:description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
     <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/gallery.css?v1" />
   </head>
   <body>
     <div class="stars"></div>
@@ -83,56 +83,37 @@
       </div>
     </header>
     <main class="body">
-      <section class="section section-1">
-        <h2>The Treasury</h2>
-        <a 
-          class="contract" 
-          href="https://etherscan.io/address/0x9CcD8e9305532E2d981E59BfC877098E111DeFA1" 
-          target="_blank"
-        >
-          0x9CcD8e9305532E2d981E59BfC877098E111DeFA1
-        </a>
-        <div class="stats">
-          <div class="stat">
-            <h6>Redeemed</h6>
-            <span class="treasury-redeemed btn-pixel btn-pixel-lg btn-pixel-secondary">
-              <span class="btn-prefix">Ξ</span>
-              <span class="value">???</span>
-            </span>
+      <h1>Gallery</h1>
+      <div class="gallery">
+        <aside class="filters">
+          <div class="attributes">
+            <div class="options"></div>
           </div>
-          <div class="stat">
-            <h6>Unclaimed</h6>
-            <span class="treasury-unclaimed btn-pixel btn-pixel-lg btn-pixel-secondary">
-              <span class="btn-prefix">Ξ</span>
-              <span class="value">???</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="connected">
-          <h3>My Rewards</h3>
-          <span class="total-rewards btn-pixel btn-pixel-lg btn-pixel-success">
-            <span class="btn-prefix">Ξ</span>
-            <span class="value">???</span>
-          </span>
-          <a 
-            class="cta-redeem"
-            data-do="redeem-all"
-            data-on="click"
-            href="javascript:void(0)"
-          >
-            Redeem All
-          </a>
-        </div>
-      </section>
-      <div class="connected">
-        <section class="section section-2">
-          <h2>My Cows</h2>
+        </aside>
+        <main class="list">
           <main class="results"></main>
-        </section>
+          <div class="pagination hide alert alert-outline">Loading &hellip;</div>
+        </main>
       </div>
     </main>
     <footer class="foot"></footer>
+    <template id="template-form-fieldset">
+      <div class="form-fieldset">
+        <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
+        <div class="fields"></div>
+      </div>
+    </template>
+    <template id="template-form-row">
+      <div class="form-row">
+        <label>
+          <input data-do="filter" data-on="click" type="checkbox" name="{NAME}" value="{VALUE}" />
+          <span class="label">
+            {LABEL}
+            <span class="badge">{COUNT}</span>
+          </span>
+        </label>
+      </div>
+    </template>
     <template id="template-result-item">
       <div 
         class="item" 
@@ -183,15 +164,6 @@
             <div class="box box-rewards">
               <span class="fa-eth">Ξ</span>
               <h3 class="rewards-value">{REWARDS}</h3>
-              <a 
-                class="cta-redeem"
-                data-id="{ID}"
-                data-do="redeem" 
-                data-on="click"
-                href="javascript:void(0)"
-              >
-                Redeem
-              </a>
             </div>
             <h2>Properties</h2>
             <div class="attributes">{ATTRIBUTES}</div>
@@ -206,7 +178,7 @@
         <p>{PERCENT}% have this trait</p>
       </div>
     </template>
-    <script id="network" data-value="testnet"></script>
+    <script id="network" data-value="mainnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
     <script type="text/javascript" src="/scripts/lib/theme.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
@@ -216,6 +188,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/treasury.js?v1"></script>
+    <script type="text/javascript" src="/scripts/gallery.js?v1"></script>
   </body>
 </html>
