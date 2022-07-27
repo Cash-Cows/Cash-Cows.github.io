@@ -3,12 +3,14 @@ window.addEventListener('web3sdk-ready', async () => {
   // Variables
   const response = await fetch('/data/metadata.json')
   const database = await response.json()
-  const occurances = {}
   const range = 24
   
+  let occurances = {}
   let page = 0
   let loading = false
   let filters = {}
+  let abort = false
+  let rendering = false
 
   const results = document.querySelector('main.results')
   const pagination = document.querySelector('div.pagination')
@@ -31,12 +33,13 @@ window.addEventListener('web3sdk-ready', async () => {
   // Functions
 
   const renderResults = async function(start = 0, range = 24) {
+    rendering = true
     const matches = database.filter(row => {
       const criteria = {}
       Object.keys(filters).forEach(traitType => {
-        criteria[traitType] = row.attributes[traitType]
+        criteria[traitType] = row.attributes[traitType].value
           ? criteria[traitType] = filters[traitType].indexOf(
-            row.attributes[traitType]
+            row.attributes[traitType].value
           ) > -1
           : false
       })
@@ -51,12 +54,28 @@ window.addEventListener('web3sdk-ready', async () => {
     }).sort(() => Math.random() - 0.5).slice(start, start + range)
 
     for (const row of matches) {
+      if (abort) {
+        rendering = false
+        abort = false
+        return
+      }
       const tokenId = row.edition
       const index = row.edition - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
+      let badge = 'muted'
+      if (row.rank < 100) {
+        badge = 'success'
+      } else if (row.rank < 500) {
+        badge = 'warning'
+      } else if (row.rank < 1000) {
+        badge = 'info'
+      }
       const item = theme.toElement(template.item, {
         '{INDEX}': index,
         '{NAME}': `#${tokenId}`,
+        '{RANK}': row.rank,
+        '{BADGE}': badge,
+        '{SCORE}': row.score,
         '{ID}': tokenId,
         '{LEVEL}': stage + 1,
         '{IMAGE}': `/images/collection/${tokenId}_${stage}.png`
@@ -64,16 +83,38 @@ window.addEventListener('web3sdk-ready', async () => {
       results.appendChild(item)
       window.doon(item)
     }
+
+    rendering = false
   }
 
   const populate = function() {
-    database.forEach((row, i) => {
+    occurances = {}
+    database.forEach(row => {
       Object.keys(row.attributes).forEach(trait => {
         const value = row.attributes[trait]
         if (!occurances[trait]) occurances[trait] = {}
         if (!occurances[trait][value]) occurances[trait][value] = 0
         occurances[trait][value]++
+        //reformat
+        row.attributes[trait] = { value }
       })
+    })
+
+    //add occurance and score to each
+    database.forEach(row => {
+      row.score = 0
+      Object.keys(row.attributes).forEach(trait => {
+        const value = row.attributes[trait].value
+        const occurance = occurances[trait][value]
+        row.attributes[trait].occurances = occurance
+        row.attributes[trait].score = 1 / (occurance / database.length)
+        row.score += row.attributes[trait].score
+      })
+    })
+
+    //now we need to determine each rank
+    database.slice().sort((a, b) => b.score - a.score).forEach((row, i) => {
+      row.rank = i + 1
     })
   
     //populate attribute filters
@@ -110,7 +151,7 @@ window.addEventListener('web3sdk-ready', async () => {
     }
   })
 
-  window.addEventListener('filter-click', (e) => {
+  window.addEventListener('filter-click', async(e) => {
     filters = {}
     document.querySelectorAll('aside.filters input[type=checkbox]').forEach(input => {
       if (!input.checked) return
@@ -121,8 +162,19 @@ window.addEventListener('web3sdk-ready', async () => {
       filters[name].push(input.value)
     })
 
-    results.innerHTML = ''
-    renderResults()
+    if (rendering) {
+      abort = true
+      const interval = setInterval(() => {
+        if (!abort) {
+          clearInterval(interval)
+          results.innerHTML = ''
+          renderResults()
+        }
+      }, 10)
+    } else {
+      results.innerHTML = ''
+      renderResults()
+    }
   })
 
   window.addEventListener('modal-open-click', async (e) => {
@@ -131,7 +183,7 @@ window.addEventListener('web3sdk-ready', async () => {
     const row = database[index]
     const boxes = []
     Object.keys(row.attributes).forEach(trait => {
-      const value = row.attributes[trait]
+      const value = row.attributes[trait].value
       const occurance = occurances[trait][value]
       const percent = Math.floor(
         (occurance / database.length) * 10000
@@ -147,8 +199,9 @@ window.addEventListener('web3sdk-ready', async () => {
       await royalty.read()['releaseable(uint256)'](row.edition)
     )
     const modal = theme.toElement(template.modal, {
-      '{COLOR}': row.attributes.Background.toLowerCase(),
+      '{COLOR}': row.attributes.Background.value.toLowerCase(),
       '{ID}': row.edition,
+      '{RANK}': row.rank,
       '{CONTRACT}': nft.address,
       '{IMAGE}': `/images/collection/${row.edition}_${level - 1}.png`,
       '{REWARDS}': parseFloat(

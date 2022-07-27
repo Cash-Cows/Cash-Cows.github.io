@@ -394,6 +394,37 @@ a, a:hover, a:active, a:visited {
   color: #008800;
 }
 
+.badge {
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #FFFFFF;
+  font-size: 10px;
+  overflow: hidden;
+  padding: 5px 10px;
+}
+
+.badge-muted {
+  background-color: #CDCDCD;
+  border-color: #AAAAAA;
+  color: #333333;
+}
+
+.badge-success {
+  background-color: #058B00;
+  border-color: #06A700;
+}
+
+.badge-warning {
+  background-color: #DA9902;
+  border-color: #B47E00;
+}
+
+.badge-info {
+  background-color: #004688;
+  border-color: #00396e;
+}
+
 .countdown {
   align-items: center;
   display: flex;
