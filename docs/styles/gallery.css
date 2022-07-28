@@ -1,7 +1,3 @@
-h1 {
-  font-size: 20px;
-  padding: 0 20px;
-}
 .gallery {
   display: flex;
   padding: 0 20px;
@@ -10,6 +6,10 @@ h1 {
 .gallery .filters {
   min-width: 230px;
   padding-bottom: 20px;
+}
+
+.gallery .filters .attributes {
+  margin-top: 70px;
 }
 
 .gallery .toggleable {
@@ -53,11 +53,23 @@ h1 {
 
 .gallery .form-row label .badge {
   background-color: #F9AF00;
-  border-radius: 10px;
+  border-width: 0;
   float: right;
   font-size: 11px;
   margin-top: -2px;
   padding: 5px 10px;
+}
+
+.gallery h1 {
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 25px;
+}
+
+.gallery .sort {
+  padding: 5px 10px;
+  position: relative;
+  top: -5px;
 }
 
 .gallery .results {

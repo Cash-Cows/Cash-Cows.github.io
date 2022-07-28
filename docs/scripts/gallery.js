@@ -8,6 +8,7 @@ window.addEventListener('web3sdk-ready', async () => {
   let occurances = {}
   let page = 0
   let loading = false
+  let order = () => Math.random() - 0.5
   let filters = {}
   let abort = false
   let rendering = false
@@ -34,6 +35,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const renderResults = async function(start = 0, range = 24) {
     rendering = true
+    
     const matches = database.filter(row => {
       const criteria = {}
       Object.keys(filters).forEach(traitType => {
@@ -51,7 +53,7 @@ window.addEventListener('web3sdk-ready', async () => {
       }
 
       return true
-    }).sort(() => Math.random() - 0.5).slice(start, start + range)
+    }).sort(order).slice(start, start + range)
 
     for (const row of matches) {
       if (abort) {
@@ -161,6 +163,34 @@ window.addEventListener('web3sdk-ready', async () => {
       }
       filters[name].push(input.value)
     })
+
+    if (rendering) {
+      abort = true
+      const interval = setInterval(() => {
+        if (!abort) {
+          clearInterval(interval)
+          results.innerHTML = ''
+          renderResults()
+        }
+      }, 10)
+    } else {
+      results.innerHTML = ''
+      renderResults()
+    }
+  })
+
+  window.addEventListener('sort-change', async(e) => {
+    if (e.for.value == 'random') {
+      order = () => Math.random() - 0.5
+    } else if (e.for.value == 'highest') {
+      order = (a, b) => b.edition - a.edition
+    } else if (e.for.value == 'lowest') {
+      order = (a, b) => a.edition - b.edition
+    } else if (e.for.value == 'rare') {
+      order = (a, b) => a.rank - b.rank
+    } else if (e.for.value == 'common') {
+      order = (a, b) => b.rank - a.rank
+    }
 
     if (rendering) {
       abort = true

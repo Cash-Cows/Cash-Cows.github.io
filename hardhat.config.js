@@ -52,7 +52,8 @@ module.exports = {
       contracts: {
         nft: '0x1A371de4634c3DEBf7196A1EFc59e620aff0915F',
         treasury: '0x837844a20cFe576057b58bcF6f1556BF6795FB2F',
-        metadata: '0xeb41c53e2Debf30C168fc743BA58dAd2345A0113'
+        metadata: '0xeb41c53e2Debf30C168fc743BA58dAd2345A0113',
+        token: '0x981E826E1238213b6848EFD54015BA83F48406Ba'
       }
     },
   },
