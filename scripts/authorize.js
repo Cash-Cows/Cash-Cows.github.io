@@ -23,6 +23,7 @@ async function main() {
   const signer = new ethers.Wallet(wallet)
   let totalFree = 0
   const authorized = {}
+  const check = {}
 
   //make a message
   for (let i = 0; i < whitelist.length; i++) {
@@ -41,6 +42,7 @@ async function main() {
     ]
 
     totalFree += maxFree
+    check[address.toLowerCase()] = maxFree
   }
 
   fs.writeFileSync(
@@ -50,7 +52,7 @@ async function main() {
 
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/whitelist.json'),
-    JSON.stringify(Object.keys(authorized), null, 2)
+    JSON.stringify(check, null, 2)
   )
 
   console.log(totalFree, ' free mint')

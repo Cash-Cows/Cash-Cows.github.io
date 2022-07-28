@@ -23,6 +23,7 @@ async function main() {
   const signer = new ethers.Wallet(wallet)
 
   const authorized = {}
+  const check = {}
 
   //make a message
   for (let i = 0; i < whitelist.length; i++) {
@@ -31,6 +32,7 @@ async function main() {
     let maxMint = 9
     const message = authorize(address, maxMint, maxFree)
     authorized[address.toLowerCase()] = await signer.signMessage(message)
+    check[address.toLowerCase()] = 0
   }
 
   fs.writeFileSync(
@@ -40,7 +42,7 @@ async function main() {
 
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/allowlist.json'),
-    JSON.stringify(Object.keys(authorized), null, 2)
+    JSON.stringify(check, null, 2)
   )
 }
 

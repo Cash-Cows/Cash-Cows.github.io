@@ -76,13 +76,18 @@
 
   window.addEventListener('check-click', () => {
     const address = document.querySelector('input.wallet-address').value
-    if (whitelist.indexOf(address.toLowerCase()) > -1) {
+    if (typeof whitelist[address.toLowerCase()] === 'number') {
+      document.querySelector('div.authorized p').innerHTML = 
+        `You can mint up to ${whitelist[address.toLowerCase()]} FREE`
+        + ', then 9 max 0.005 ETH each.'
       theme.hide('div.authorized', false)
       theme.hide('div.allowed', true)
       theme.hide('div.public', true)
       notify('success', 'You are on the Whitelist')
       play(document.querySelector('div.authorized h2'))
-    } else if (allowlist.indexOf(address.toLowerCase()) > -1) {
+    } else if (typeof allowlist[address.toLowerCase()] === 'number') {
+      document.querySelector('div.allowed p').innerHTML = 
+        'You can mint up to 9 max 0.005 ETH each.'
       theme.hide('div.authorized', true)
       theme.hide('div.allowed', false)
       theme.hide('div.public', true)
