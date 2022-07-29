@@ -6,18 +6,20 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const verified = await (await fetch('/data/verified.json')).json()
 
-  const authorizedTime = Date.now() + (1000 * 20)//1659139200000
-  const allowedTime = Date.now() + (1000 * 20 * 2)//1659186000000
+  const authorizedTime = 1659139200000
+  const allowedTime = 1659186000000
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const price = await nft.read().MINT_PRICE()
-  const maxFree = 1//await nft.read().maxFreePerWallet()
+  const maxFree = await nft.read().maxFreePerWallet()
 
   let opened = await nft.read().mintOpened()
 
   //public mint config by default
   const config = { maxMint: 9, maxFree, minted: 0, list: 'public' }
+  //intervals
+  const intervals = {}
 
   //------------------------------------------------------------------//
   // Functions
@@ -41,29 +43,34 @@ window.addEventListener('web3sdk-ready', async () => {
       waitForAllowlist()
     } else if (config.list === 'whitelist' && authorizedTime > Date.now()) {
       waitForWhitelist()
+    } else {
+      message.innerHTML = 'Choose Mint Amount...'
     }
   }
 
   const waitForPublic = _ => {
-    const interval = setInterval(async () => {
-      message.innerHTML = 'Checking...'
+    Object.keys(intervals).forEach(interval => clearInterval(interval))
+    intervals.public = setInterval(async () => {
       opened = await nft.read().mintOpened()
-      if (!opened) {
-        clearInterval(interval)
+      if (opened) {
+        clearInterval(intervals.public)
         message.innerHTML = 'Choose Mint Amount...'
+      } else {
+        message.innerHTML = 'Public Mint Not Open...'
       }
     }, 5000)
   }
 
   const waitForWhitelist = _ => {
-    const interval = setInterval(_ => {
+    Object.keys(intervals).forEach(interval => clearInterval(interval))
+    intervals.whitelist = setInterval(_ => {
       const diff = authorizedTime - Date.now()
       if (diff > 0) {
         const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
         const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24)
         const diffMinutes = Math.floor((diff / (1000 * 60)) % 60)
         const diffSeconds = Math.floor((diff / 1000) % 60)
-        message.innerHTML = 'Starts in<br>' + [
+        message.innerHTML = 'Whitelist starts in<br>' + [
           diffDays < 10 ? "0" + diffDays : diffDays,
           diffHours < 10 ? "0" + diffHours : diffHours,
           diffMinutes < 10 ? "0" + diffMinutes : diffMinutes,
@@ -71,20 +78,21 @@ window.addEventListener('web3sdk-ready', async () => {
         ].join(':')
         return
       }
-      clearInterval(interval)
+      clearInterval(intervals.whitelist)
       message.innerHTML = 'Choose Mint Amount...'
     }, 1000)
   }
 
   const waitForAllowlist = _ => {
-    const interval = setInterval(_ => {
+    Object.keys(intervals).forEach(interval => clearInterval(interval))
+    intervals.allowlist = setInterval(_ => {
       const diff = allowedTime - Date.now()
       if (diff > 0) {
         const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
         const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24)
         const diffMinutes = Math.floor((diff / (1000 * 60)) % 60)
         const diffSeconds = Math.floor((diff / 1000) % 60)
-        message.innerHTML = 'Starts in<br>' + [
+        message.innerHTML = 'Allowlist starts in<br>' + [
           diffDays < 10 ? "0" + diffDays : diffDays,
           diffHours < 10 ? "0" + diffHours : diffHours,
           diffMinutes < 10 ? "0" + diffMinutes : diffMinutes,
@@ -92,12 +100,22 @@ window.addEventListener('web3sdk-ready', async () => {
         ].join(':')
         return
       }
-      clearInterval(interval)
+      clearInterval(intervals.allowlist)
       message.innerHTML = 'Choose Mint Amount...'
     }, 1000)
   }
 
-  const disconnected = async (state, error, session) => {}
+  const disconnected = async (state, error, session) => {
+    config.maxMint = 9
+    config.maxFree = maxFree
+    config.minted = 0
+    config.list = 'public'
+    console.log('dc', intervals)
+    for (const interval in intervals) {
+      clearInterval(interval)
+    }
+    window.location.reload()
+  }
 
   //------------------------------------------------------------------//
   // Events
@@ -113,16 +131,9 @@ window.addEventListener('web3sdk-ready', async () => {
       return notify('error', `You minted ${config.minted} already, so you can only mint ${config.canMint} more.`)
     }
 
-    message.innerHTML = 'Loading...'
     Web3SDK.state.quantity = quantity
 
     //if not opened
-    if (!opened) {
-      //check again
-      opened = await nft.read().mintOpened()
-    }
-
-    //if still not opened
     if (!opened) {
       //if whitelist and not time
       if ((config.list === 'allowlist' && allowedTime > Date.now()) 
@@ -132,7 +143,6 @@ window.addEventListener('web3sdk-ready', async () => {
         || config.list === 'public'
       ) {
         //show error
-        message.innerHTML = 'Choose Mint Amount...'
         return notify('error', 'Your mint time has not started')
       }
     }
@@ -150,36 +160,67 @@ window.addEventListener('web3sdk-ready', async () => {
   })
 
   window.addEventListener('mint-click', async e => {
-    if (!Web3SDK.state?.quantity) {
+    const { account, quantity } = Web3SDK.state
+    //if no account
+    if (!account) {
+      return notify('error', 'Please connect your wallet first...')
+    //no quantity
+    } else if (!quantity) {
       return notify('error', 'Use the Number Pad to Choose a Mint Amount...')
     }
 
-    //check proof
-    if (!config.proof)
+    //check supply
+    const supply = await nft.read().totalSupply()
+    if ((quantity + supply) > 7777) {
+      return notify('error', 'Moo :( no more cows left.')
+    }
 
-    e.for.classList.add('active')
-    message.innerHTML = `Minting ${Web3SDK.state.quantity}...`
-
-    if (!opened) {
-      opened = await nft.read().mintOpened()
-    } else {
-      const supply = await nft.read().totalSupply()
-      if ((Web3SDK.state.quantity + supply) > 7777) {
-        return notify('error', 'Moo :( no more cows left.')
+    //default settings for public mint
+    let method = 'mint(uint256)'
+    const args = [ quantity ]
+    //if not public mint
+    if (config.list !== 'public') {
+      if (//whitelist and not open and not whitelist time yet
+        (config.list === 'whitelist' && !opened && authorizedTime > Date.now())
+        //or allowlist and not open and not allowlist time yet
+        || (config.list === 'allowlist' && !opened && allowedTime > Date.now())
+      ) {
+        return notify('error', 'Your mint time has not started')
       }
+      //if no proof, get it
+      if (!config.proof) {
+        config.proof = (await (
+          await fetch(`/data/proof/${account.substring(10, 12).toLowerCase()}.json`)
+        ).json())[account.toLowerCase()]
+      }
+
+      //only if there if a proof
+      if (config.proof) {
+        //change up the method
+        //use WL method and args
+        method = 'mint(uint256,uint256,uint256,bytes)'
+        //args.push.apply(args, [ 9, 7, config.proof ])
+        args.push.apply(args, [ config.maxMint, config.maxFree, config.proof ])
+      }
+    //if public
+    } else {
+      //if not opened, try to open it
+      if (!opened) opened = await nft.read().mintOpened()
+      //if still not opened
+      if (!opened) return notify('error', 'Your mint time has not started')
     }
 
-    //if opened now
-    if (opened) {
-      //use the public settings
-      config.maxMint = maxMint
-      config.maxFree = maxFree
-    }
+    console.log(opened)
 
-    let totalPrice = price * (Web3SDK.state.quantity - config.maxFree)
-    if (Web3SDK.state.quantity <= config.maxFree) {
-      totalPrice = 0
-    }
+    //no more errors, we can start minting
+    e.for.classList.add('active')
+    message.innerHTML = `Minting ${quantity}...`
+    //determine the price that needs to be paid
+    const totalPrice = quantity > config.maxFree 
+      ? price * (quantity - config.maxFree)
+      : 0
+
+    const priceText = totalPrice ? Web3SDK.toEther(totalPrice): 'FREE'
 
     const confirmations = 2
     const gas = nft.gas(Web3SDK.state.account, totalPrice)
@@ -217,22 +258,8 @@ window.addEventListener('web3sdk-ready', async () => {
         )
       }
     })
+    //lever up
     e.for.classList.remove('active')
-    
-    //by default, public mint
-    let method = 'mint(uint256)'
-    const args = [ Web3SDK.state.quantity ]
-    //but if it's whitelist time
-    if (!opened) {
-      //if no proof
-      if (!config.proof) {
-        return notify('error', 'You are not allowed to mint right now...')
-      }
-      //use WL method and args
-      method = 'mint(uint256,uint256,uint256,bytes)'
-      //args.push.apply(args, [ 10, 7, config.proof ])
-      args.push.apply(args, [ config.maxMint, config.maxFree, config.proof ])
-    }
 
     //gas check
     try {
@@ -242,18 +269,25 @@ window.addEventListener('web3sdk-ready', async () => {
       const matches = e.message.match(pattern)
       if (matches && matches.length === 3) {
         e.message = e.message.replace(pattern, `have ${
-          Web3SDK.toEther(matches[1], 'int').toFixed(5)
+          Web3SDK.toEther(matches[1], 'number').toFixed(5)
         } ETH want ${
-          Web3SDK.toEther(matches[2], 'int').toFixed(5)
+          Web3SDK.toEther(matches[2], 'number').toFixed(5)
         } ETH`)
       }
       notify('error', e.message.replace('err: i', 'I'))
       console.error(e)
+      message.innerHTML = `${quantity} = ${priceText}.<br />Pull the lever.`
       return
     }
 
-    //now mint
-    await write[method](...args)
+    try {//to mint
+      await write[method](...args)
+    } catch(e) {
+      notify('error', e.message)
+      console.error(e)
+      message.innerHTML = `${quantity} = ${priceText}.<br />Pull the lever.`
+      return
+    }
   })
 
   //------------------------------------------------------------------//
@@ -268,42 +302,6 @@ window.addEventListener('web3sdk-ready', async () => {
       clearInterval(interval)
     }
   }, 5000)
-
-  const intervalAuthorize = setInterval(async () => {
-    const diff = authorizedTime - Date.now()
-    if (diff > 0) {
-      const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
-      const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24)
-      const diffMinutes = Math.floor((diff / (1000 * 60)) % 60)
-      const diffSeconds = Math.floor((diff / 1000) % 60)
-
-      message.innerHTML = 'Starts in<br>' + [
-        diffDays < 10 ? "0" + diffDays : diffDays,
-        diffHours < 10 ? "0" + diffHours : diffHours,
-        diffMinutes < 10 ? "0" + diffMinutes : diffMinutes,
-        diffSeconds < 10 ? "0" + diffSeconds : diffSeconds
-      ].join(':')
-      return
-    }
-    clearInterval(intervalAuthorize)
-    authorized = await (await fetch(
-      '/data/authorized.json', 
-      { refresh: true }
-    )).json()
-    await connected(Web3SDK.state || {})
-    message.innerHTML = 'Choose Mint Amount...'
-  }, 1000)
-
-  const intervalAllow = setInterval(async () => {
-    const diff = allowedTime - Date.now()
-    if (diff > 0) return
-    clearInterval(intervalAllow)
-    allowed = await (await fetch(
-      '/data/allowed.json', 
-      { refresh: true }
-    )).json()
-    await connected(Web3SDK.state || {})
-  }, 1000)
 
   network.startSession(connected, disconnected, true)
 })
