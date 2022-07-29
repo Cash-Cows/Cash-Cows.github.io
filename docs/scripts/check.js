@@ -1,8 +1,7 @@
 (async (window) => {
   //------------------------------------------------------------------//
   // Variables
-  const whitelist = await (await fetch('/data/whitelist.json')).json()
-  const allowlist = await (await fetch('/data/allowlist.json')).json()
+  const verified = await (await fetch('/data/verified.json')).json()
 
   //------------------------------------------------------------------//
   // Functions
@@ -76,16 +75,16 @@
 
   window.addEventListener('check-click', () => {
     const address = document.querySelector('input.wallet-address').value
-    if (typeof whitelist[address.toLowerCase()] === 'number') {
+    if (verified.whitelist[address.toLowerCase()]) {
       document.querySelector('div.authorized p').innerHTML = 
-        `You can mint up to ${whitelist[address.toLowerCase()]} FREE`
+        `You can mint up to ${verified.whitelist[address.toLowerCase()]} FREE`
         + ', then 9 max 0.005 ETH each.'
       theme.hide('div.authorized', false)
       theme.hide('div.allowed', true)
       theme.hide('div.public', true)
       notify('success', 'You are on the Whitelist')
       play(document.querySelector('div.authorized h2'))
-    } else if (typeof allowlist[address.toLowerCase()] === 'number') {
+    } else if (verified.allowlist[address.toLowerCase()]) {
       document.querySelector('div.allowed p').innerHTML = 
         'You can mint up to 9 max 0.005 ETH each.'
       theme.hide('div.authorized', true)

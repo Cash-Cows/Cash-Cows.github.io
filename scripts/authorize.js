@@ -4,10 +4,11 @@
 const fs = require('fs')
 const path = require('path')
 const hardhat = require('hardhat')
+const allowlist = require('../data/allowlist.json') 
 const whitelist = require('../data/whitelist.json') 
 
-// function authorize(recipient, maxMint = 9, maxFree = 5) {
-function authorize(recipient, maxMint = 9, maxFree = 1) {
+// function compose(recipient, maxMint = 9, maxFree = 5)
+function compose(recipient, maxMint = 9, maxFree = 1) {
   return Buffer.from(
     ethers.utils.solidityKeccak256(
       ['string', 'address', 'uint256', 'uint256'],
@@ -17,45 +18,64 @@ function authorize(recipient, maxMint = 9, maxFree = 1) {
   )
 }
 
+const maxMint = 9
+const chunk = 2
+const start = 10
+const proof = {}
+const check = { whitelist: {}, allowlist: {} }
+
+async function authorize(signer) {
+  let free = 0
+  for (let i = 0; i < whitelist.length; i++) {
+    const [ address, maxFree ] = whitelist[i]
+    const message = compose(address, maxMint, maxFree)
+    const signature = await signer.signMessage(message)
+    const key = address.substring(start, start + chunk).toLowerCase()
+    if (!proof[key]) proof[key] = {}
+    proof[key][address.toLowerCase()] = signature
+    check.whitelist[address.toLowerCase()] = maxFree
+    free += maxFree
+  }
+  return free
+}
+
+async function allow(signer) {
+  for (let i = 0; i < allowlist.length; i++) {
+    const address = allowlist[i]
+    const message = compose(address, maxMint, 0)
+    const signature = await signer.signMessage(message)
+    const key = address.substring(start, start + chunk).toLowerCase()
+    if (!proof[key]) proof[key] = {}
+    proof[key][address.toLowerCase()] = signature
+    check.allowlist[address.toLowerCase()] = true
+  }
+  return Object.keys(check.allowlist).length
+}
+
 async function main() {
   //sign message wallet PK
   const wallet = hardhat.config.networks[hardhat.config.defaultNetwork].accounts[0]
   const signer = new ethers.Wallet(wallet)
-  let totalFree = 0
-  const authorized = {}
-  const check = {}
+  
+  const totals = {
+    paidmint: await allow(signer),
+    freemint: await authorize(signer)
+  }
 
-  //make a message
-  for (let i = 0; i < whitelist.length; i++) {
-    let address = whitelist[i]
-    let maxFree = 1
-    let maxMint = 9
-    if (Array.isArray(whitelist[i])) {
-      address = whitelist[i][0]
-      maxFree = whitelist[i][1]
-    }
-    const message = authorize(address, maxMint, maxFree)
-    authorized[address.toLowerCase()] = [
-      maxMint,
-      maxFree,
-      await signer.signMessage(message)
-    ]
-
-    totalFree += maxFree
-    check[address.toLowerCase()] = maxFree
+  for (const key in proof) {
+    fs.writeFileSync(
+      path.resolve(__dirname, `../docs/data/proof/${key}.json`),
+      JSON.stringify(proof[key], null, 2)
+    )
   }
 
   fs.writeFileSync(
-    path.resolve(__dirname, '../docs/data/authorized.json'),
-    JSON.stringify(authorized, null, 2)
-  )
-
-  fs.writeFileSync(
-    path.resolve(__dirname, '../docs/data/whitelist.json'),
+    path.resolve(__dirname, '../docs/data/verified.json'),
     JSON.stringify(check, null, 2)
   )
 
-  console.log(totalFree, ' free mint')
+  console.log(totals.freemint, 'free mints')
+  console.log(totals.paidmint, 'paid mints')
 }
 
 // We recommend this pattern to be able to use async/await everywhere
