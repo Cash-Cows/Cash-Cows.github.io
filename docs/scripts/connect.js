@@ -14,16 +14,14 @@
     walletconnect: {
       package: WalletConnectProvider,
       options: {
-        // Mikko's test key - don't copy as your mileage may vary
-        infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
+        infuraId: "2a7154bb1cf244d9a412d1925398058c",
       }
     },
 
     fortmatic: {
       package: Fortmatic,
       options: {
-        // Mikko's TESTNET api key
-        key: "pk_test_391E26A3B43A3350"
+        key: "pk_live_7C75AFDDC4136F81"
       }
     }
   }
