@@ -173,7 +173,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
     //check supply
     const supply = await nft.read().totalSupply()
-    if ((quantity + supply) > 7777) {
+    if ((parseFloat(quantity) + parseFloat(supply)) > 7777) {
       return notify('error', 'Moo :( no more cows left.')
     }
 
