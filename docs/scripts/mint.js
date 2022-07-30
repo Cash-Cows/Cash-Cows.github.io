@@ -5,7 +5,7 @@ window.addEventListener('web3sdk-ready', async () => {
   const message = document.querySelector('div.monitor div.connected.message')
 
   const verified = await (await fetch('/data/verified.json')).json()
-  //verified.allowlist = {}
+  verified.allowlist = {}
 
   const authorizedTime = 1659139200000
   const allowedTime = 0//1659153600000
