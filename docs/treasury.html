@@ -133,7 +133,7 @@
         </section>
       </div>
     </main>
-    <footer class="foot"></footer>
+    <footer class="foot"></footer> 
     <template id="template-result-item">
       <div 
         class="item" 
@@ -144,6 +144,7 @@
       >
         <div class="preview">
           <img src="{IMAGE}" loading="lazy" />
+          <span class="badge badge-{BADGE}">#{RANK}</span>
         </div>
         <div class="info">
           <h6 class="label">Cash Cows</h6>
@@ -194,7 +195,7 @@
                 Redeem
               </a>
             </div>
-            <h2>Properties</h2>
+            <h2>Rank #{RANK}</h2>
             <div class="attributes">{ATTRIBUTES}</div>
           </div>
         </div>
@@ -217,6 +218,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/treasury.js?v1"></script>
+    <script type="text/javascript" src="/scripts/treasury.js?v2"></script>
   </body>
 </html>

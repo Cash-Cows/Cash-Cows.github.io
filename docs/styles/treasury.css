@@ -110,7 +110,14 @@ h2 {
   box-shadow: 1px 1px 1px #DDDDDD;
   height: 250px;
   overflow: hidden;
+  position: relative;
   width: 250px;
+}
+
+.section-2 .results .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
 }
 
 .section-2 .results .item .preview img {
