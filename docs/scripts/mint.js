@@ -39,63 +39,6 @@ window.addEventListener('web3sdk-ready', async () => {
     message.innerHTML = 'Choose Mint Amount...'
   }
 
-  const waitForPublic = _ => {
-    Object.keys(intervals).forEach(interval => clearInterval(interval))
-    intervals.public = setInterval(async () => {
-      opened = await nft.read().mintOpened()
-      if (opened) {
-        clearInterval(intervals.public)
-        message.innerHTML = 'Choose Mint Amount...'
-      } else {
-        message.innerHTML = 'Public Mint Not Open...'
-      }
-    }, 5000)
-  }
-
-  const waitForWhitelist = _ => {
-    Object.keys(intervals).forEach(interval => clearInterval(interval))
-    intervals.whitelist = setInterval(_ => {
-      const diff = authorizedTime - Date.now()
-      if (diff > 0) {
-        const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
-        const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24)
-        const diffMinutes = Math.floor((diff / (1000 * 60)) % 60)
-        const diffSeconds = Math.floor((diff / 1000) % 60)
-        message.innerHTML = 'Whitelist starts in<br>' + [
-          diffDays < 10 ? "0" + diffDays : diffDays,
-          diffHours < 10 ? "0" + diffHours : diffHours,
-          diffMinutes < 10 ? "0" + diffMinutes : diffMinutes,
-          diffSeconds < 10 ? "0" + diffSeconds : diffSeconds
-        ].join(':')
-        return
-      }
-      clearInterval(intervals.whitelist)
-      message.innerHTML = 'Choose Mint Amount...'
-    }, 1000)
-  }
-
-  const waitForAllowlist = _ => {
-    Object.keys(intervals).forEach(interval => clearInterval(interval))
-    intervals.allowlist = setInterval(_ => {
-      const diff = allowedTime - Date.now()
-      if (diff > 0) {
-        const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
-        const diffHours = Math.floor((diff / (1000 * 60 * 60)) % 24)
-        const diffMinutes = Math.floor((diff / (1000 * 60)) % 60)
-        const diffSeconds = Math.floor((diff / 1000) % 60)
-        message.innerHTML = 'Allowlist starts in<br>' + [
-          diffDays < 10 ? "0" + diffDays : diffDays,
-          diffHours < 10 ? "0" + diffHours : diffHours,
-          diffMinutes < 10 ? "0" + diffMinutes : diffMinutes,
-          diffSeconds < 10 ? "0" + diffSeconds : diffSeconds
-        ].join(':')
-        return
-      }
-      clearInterval(intervals.allowlist)
-      message.innerHTML = 'Choose Mint Amount...'
-    }, 1000)
-  }
-
   const disconnected = async (state, error, session) => {
     config.maxMint = 9
     config.maxFree = maxFree
