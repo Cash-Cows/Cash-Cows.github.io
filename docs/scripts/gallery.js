@@ -2,7 +2,7 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Variables
   const response = await fetch('/data/metadata.json')
-  const database = await response.json()
+  const database = (await response.json()).slice(0, 4030)
   const range = 24
   
   let occurances = {}
