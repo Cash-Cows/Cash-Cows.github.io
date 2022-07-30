@@ -55,6 +55,7 @@ window.addEventListener('web3sdk-ready', async () => {
   // Events
 
   window.addEventListener('amount-click', async e => {
+    return notify('error', 'Minting now closed')
     if (!Web3SDK.state?.account) {
       return notify('error', 'Please connect your wallet first...')
     }
@@ -82,6 +83,7 @@ window.addEventListener('web3sdk-ready', async () => {
   })
 
   window.addEventListener('mint-click', async e => {
+    return notify('error', 'Minting now closed')
     const { account, quantity } = Web3SDK.state
     //if no account
     if (!account) {
