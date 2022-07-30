@@ -5,9 +5,10 @@ window.addEventListener('web3sdk-ready', async () => {
   const message = document.querySelector('div.monitor div.connected.message')
 
   const verified = await (await fetch('/data/verified.json')).json()
+  //verified.allowlist = {}
 
   const authorizedTime = 1659139200000
-  const allowedTime = 1659153600000
+  const allowedTime = 0//1659153600000
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
@@ -196,8 +197,10 @@ window.addEventListener('web3sdk-ready', async () => {
         ).json())[account.toLowerCase()]
       }
 
-      //only if there if a proof
-      if (config.proof) {
+      const change = config.list === 'whitelist' || !opened 
+
+      //only if there is a proof
+      if (config.proof && change) {
         //change up the method
         //use WL method and args
         method = 'mint(uint256,uint256,uint256,bytes)'
