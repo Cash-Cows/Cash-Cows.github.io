@@ -113,8 +113,6 @@ window.addEventListener('web3sdk-ready', async () => {
     results.innerHTML = ''
   }
 
-  let listening = false
-
   //------------------------------------------------------------------//
   // Events
 
@@ -324,8 +322,5 @@ window.addEventListener('web3sdk-ready', async () => {
   ) || '0.00').toFixed(6)
 
   //start session
-  if (window.localStorage.getItem('WEB3_LOGGED_IN') === 'true') {
-    network.startSession(connected, disconnected, listening === false)
-    listening = true
-  }
+  network.startSession(connected, disconnected, listening === false)
 })
