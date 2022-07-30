@@ -7,7 +7,7 @@ window.addEventListener('web3sdk-ready', async () => {
   const verified = await (await fetch('/data/verified.json')).json()
 
   const authorizedTime = 1659139200000
-  const allowedTime = 1659186000000
+  const allowedTime = 1659153600000
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
