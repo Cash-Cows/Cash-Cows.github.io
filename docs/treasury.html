@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v2" />
   </head>
   <body>
     <div class="stars"></div>
@@ -118,11 +118,11 @@
           </span>
           <a 
             class="cta-redeem"
-            data-do="redeem-all"
+            data-do="redeem-toggle"
             data-on="click"
             href="javascript:void(0)"
           >
-            Redeem All
+            Redeem Selected
           </a>
         </div>
       </section>
@@ -131,22 +131,53 @@
           <h2>My Cows</h2>
           <main class="results"></main>
         </section>
+        <section class="section section-3 hide">
+          <a 
+            class="btn-pixel btn-pixel-lg btn-pixel-success"
+            data-do="redeem-selected"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Redeem Selected
+          </a>
+          &nbsp;
+          <a 
+            class="cancel"
+            data-do="redeem-toggle"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Cancel
+          </a>
+        </section>
       </div>
     </main>
     <footer class="foot"></footer> 
     <template id="template-result-item">
-      <div 
-        class="item" 
-        data-do="modal-open" 
-        data-on="click" 
-        data-level="{LEVEL}" 
-        data-index="{INDEX}"
-      >
-        <div class="preview">
+      <div class="item">
+        <div class="checkbox-item-main hide">
+          <div class="round">
+            <input type="checkbox" class="checkbox-item" value="{CHECKVALUE}" id="{CHECKVALUE}-id"  />
+            <label for="{CHECKVALUE}-id"></label>
+          </div> 
+        </div>
+        <div 
+          class="preview"
+          data-do="modal-open" 
+          data-on="click" 
+          data-level="{LEVEL}" 
+          data-index="{INDEX}"
+        >
           <img src="{IMAGE}" loading="lazy" />
           <span class="badge badge-{BADGE}">#{RANK}</span>
         </div>
-        <div class="info">
+        <div 
+          class="info"
+          data-do="modal-open" 
+          data-on="click" 
+          data-level="{LEVEL}" 
+          data-index="{INDEX}"
+        >
           <h6 class="label">Cash Cows</h6>
           <h4 class="token">#{ID}</h4>
           <h6 class="level">Level {LEVEL}</h6>
@@ -218,6 +249,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/treasury.js?v2"></script>
+    <script type="text/javascript" src="/scripts/treasury.js?v3"></script>
   </body>
 </html>

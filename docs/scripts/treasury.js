@@ -21,6 +21,8 @@ window.addEventListener('web3sdk-ready', async () => {
   const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
+  let toggled = false
+
   //------------------------------------------------------------------//
   // Functions
 
@@ -34,7 +36,7 @@ window.addEventListener('web3sdk-ready', async () => {
       rewards.innerHTML = 'Loading...'
     }
 
-    Web3SDK.state.tokens.forEach(async tokenId => {
+    Web3SDK.state.tokens.forEach(async (tokenId, i) => {
       const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
       const row = database[index]
@@ -54,8 +56,11 @@ window.addEventListener('web3sdk-ready', async () => {
         '{SCORE}': row.score,
         '{ID}': tokenId,
         '{LEVEL}': stage + 1,
-        '{IMAGE}': `/images/collection/${tokenId}_${stage}.png`
+        '{IMAGE}': `/images/collection/${tokenId}_${stage}.png`,
+        '{CHECKVALUE}': tokenId,
+        '{ISCHECKED}': i < 10 ? 'checked': ''
       })
+
       results.appendChild(item)
       window.doon(item)
     })
@@ -216,13 +221,23 @@ window.addEventListener('web3sdk-ready', async () => {
     }
   })
 
-  window.addEventListener('redeem-all-click', async () => {
+  window.addEventListener('redeem-selected-click', async () => {
     if (!Web3SDK.state.tokens?.length) {
       return notify('error', 'You don\'t have a cow.')
     }
+    let selectedtokens = [];
+    const selecteds = document.getElementsByClassName('checkbox-item'); 
+    for(var selected of selecteds ){
+      if(selected.checked){ 
+        selectedtokens.push(selected.value);
+      }
+    }
+    if (selectedtokens.length <= 0) {
+      return notify('error', 'No token selected')
+    }
     //gas check
     try {
-      await royalty.gas(Web3SDK.state.account, 0)['releaseBatch(uint256[])'](Web3SDK.state.tokens)
+      await royalty.gas(Web3SDK.state.account, 0)['releaseBatch(uint256[])'](selectedtokens)
     } catch(e) {
       const pattern = /have (\d+) want (\d+)/
       const matches = e.message.match(pattern)
@@ -273,7 +288,8 @@ window.addEventListener('web3sdk-ready', async () => {
            1000000
           )
         }
-      })['releaseBatch(uint256[])'](Web3SDK.state.tokens)
+      })['releaseBatch(uint256[])'](selectedtokens)
+
     } catch(e) {
       notify('error', e.message.replace('err: i', 'I'))
       console.error(e)
@@ -281,13 +297,18 @@ window.addEventListener('web3sdk-ready', async () => {
     }
   })
 
+  window.addEventListener('redeem-toggle-click', () => {
+    //toggle hide
+    theme.hide('section.section-3', toggled)
+    theme.hide('div.checkbox-item-main', toggled)
+    toggled = !toggled
+  })
+
   //------------------------------------------------------------------//
   // Initialize
 
   //count occurances
   rarity()
-
-
 
   //get unclaimed
   unclaimed.innerHTML = parseFloat(Web3SDK.toEther(
