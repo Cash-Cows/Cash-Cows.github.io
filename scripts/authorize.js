@@ -58,7 +58,7 @@ async function main() {
   const signer = new ethers.Wallet(wallet)
   
   const totals = {
-    paidmint: await allow(signer),
+    //paidmint: await allow(signer),
     freemint: await authorize(signer)
   }
 
@@ -75,7 +75,7 @@ async function main() {
   )
 
   console.log(totals.freemint, 'free mints')
-  console.log(totals.paidmint, 'paid mints')
+  //console.log(totals.paidmint, 'paid mints')
 }
 
 // We recommend this pattern to be able to use async/await everywhere
