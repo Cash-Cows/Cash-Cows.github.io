@@ -1,0 +1,257 @@
+.head {
+  position: relative;
+  z-index: 1;
+}
+.body {
+  background-image: url(/images/mint/panel-red.png);
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 100%;
+  font-family: "Press Start 2P", Courier, monospace;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+.body .container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.body .container > .left {
+  margin: 0 5px;
+  width: 350px;
+}
+
+.body .container > .right {
+  margin: 0 5px;
+  width: 400px;
+}
+
+.section-1 {
+  background-image: url(/images/mint/panel-1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  height: 180px;
+  padding: 0 50px;
+  text-align: center;
+}
+
+.section-1 a {
+  background-image: url(/images/mint/btn-connect.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+.section-1 a:hover {
+  background-image: url(/images/mint/btn-connect-hover.png);
+}
+
+.section-1 a:active {
+  background-image: url(/images/mint/btn-connect-connected.png);
+}
+
+.section-1 a.connected {
+  background-image: url(/images/mint/btn-connect-connected.png);
+}
+
+.section-1 a.connected:hover {
+  background-image: url(/images/mint/btn-connect-connected.png);
+}
+
+.section-2 {
+  align-items: center;
+  background-image: url(/images/mint/panel-2.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  height: 310px;
+  justify-content: center;
+  padding: 0 50px;
+}
+
+.section-2 .monitor {
+  background-image: url(/images/mint/monitor-2.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: #985856;
+  height: 88px;
+  line-height: 88px;
+  margin-bottom: 20px;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.section-2 img {
+  width: 100%;
+}
+
+.section-3 {
+  background-image: url(/images/mint/panel-3.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  height: 490px;
+  justify-content: center;
+  padding: 0 35px;
+}
+
+.section-3 .monitor {
+  background-image: url(/images/mint/monitor-1.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  color: #985856;
+  height: 237px;
+  margin-bottom: 20px;
+  padding: 0 40px;
+  text-align: center;
+  width: calc(100% - 80px);
+}
+
+.section-3 .monitor > div {
+  height: calc(100% - 80px);
+  padding: 40px 0;
+}
+
+.section-3 .monitor img {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.section-3 .monitor .message {
+  line-height: 30px;
+}
+
+.section-3 .control-panel {
+  display: flex;
+}
+
+.section-3 .control-panel .lever {
+  width: 50%;
+}
+.section-3 .control-panel .lever img {
+  width: 100%;
+}
+
+.section-3 .control-panel .lever:hover img {
+  filter: hue-rotate(20deg);
+}
+
+.section-3 .control-panel .lever.active img,
+.section-3 .control-panel .lever:active img {
+  filter: hue-rotate(20deg);
+  transform: rotate(180deg);
+}
+
+.section-3 .control-panel .keypad {
+  background-image: url(/images/mint/keypad.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  padding: 15px 0 30px;
+  width: 50%;
+}
+
+.section-3 .control-panel .keypad .keyrow {
+  display: flex;
+  justify-content: center;
+}
+
+.section-3 .control-panel .keypad .keyrow a {
+  background-image: url(/images/mint/keys.png);
+  background-repeat: no-repeat;
+  background-size: 130px;
+  display: block;
+  height: 43px;
+  margin: 2px;
+  position: relative;
+  width: 43px;
+}
+
+.section-3 .control-panel .keypad .keypad-1 {
+  background-position: 0 0;
+}
+
+.section-3 .control-panel .keypad .keypad-2 {
+  background-position: -43px 0;
+}
+
+.section-3 .control-panel .keypad .keypad-3 {
+  background-position: -86px 0;
+}
+
+.section-3 .control-panel .keypad .keypad-4 {
+  background-position: 0 -43px;
+}
+
+.section-3 .control-panel .keypad .keypad-5 {
+  background-position: -43px -43px;
+}
+
+.section-3 .control-panel .keypad .keypad-6 {
+  background-position: -86px -43px;
+}
+
+.section-3 .control-panel .keypad .keypad-7 {
+  background-position: 0 -86px;
+}
+
+.section-3 .control-panel .keypad .keypad-8 {
+  background-position: -43px -86px;
+}
+
+.section-3 .control-panel .keypad .keypad-9 {
+  background-position: -86px -86px;
+}
+
+.section-3 .control-panel .keypad a:hover {
+  opacity: 0.85;
+}
+
+.section-3 .control-panel .keypad a.active::after,
+.section-3 .control-panel .keypad a:active::after {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 7px;
+  content: " ";
+  display: block;
+  left: 7px;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+}
+
+@media(max-width: 800px) {
+	.body .container {
+    display: block;
+  }
+
+  .body .container > .left,
+  .body .container > .right {
+    margin: auto;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .section-1 {
+    height: 210px;
+    margin-bottom: 10px;
+  }
+  .section-2 {
+    height: 340px;
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,259 @@
+ion-content{ 
+    --background: #000;
+}
+.headers{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 29px;
+    place-items: center;
+    img{
+        height: 70px;
+        margin-right: 29px;
+    }
+    a{
+        font-size: 19px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+h1,h2,h3,h4,h5,h6,b,p,a,span{
+    color: #fff;
+    font-family: 'Courier New'  !important; 
+} 
+
+h1 {
+    margin: 0;
+    padding: 0 20px;
+  }
+  
+  .gallery {
+    display: flex;
+    padding: 0 20px;
+  }
+  
+  .gallery .results {
+    padding-left: 20px;
+  }
+  
+  .gallery .results::after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 1px;
+    width: 1px;
+  }
+  
+  .gallery .results .item {
+    float: left; 
+    margin: 5px; 
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .gallery .results .item .preview { 
+  }
+  
+  .gallery .results .item .preview img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 3em;
+  }
+  
+  .gallery .results .item h6 {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 10px 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    bottom: .8em;
+    width: 100%;
+  }
+  
+  .gallery .filters {
+    min-width: 250px;
+    padding-bottom: 20px;
+  }
+  
+  .gallery .toggleable {
+    border-bottom: 1px solid #EDEDED;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  
+  .gallery .toggleable::after {
+    // content: "\f053";
+    display: block;
+    font-family: "Font Awesome 6 Free";
+    font-size: 14px;
+    float: right;
+    margin-top: 3px;
+  }
+  
+  .gallery .toggleable.open::after {
+    // content: "\f078";
+  }
+  
+  .gallery .series .options {
+    display: none;
+  }
+  
+  .gallery .attributes .fields {
+    display: none;
+  }
+  
+  .gallery .form-row {
+    font-size: 13px;
+    padding: 10px 0;
+  }
+  
+  .gallery .form-row label {
+    clear: both;
+    display: block;
+  }
+  
+  .gallery .form-row label .badge {
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    float: right;
+    font-size: 11px;
+    margin-top: -2px;
+    padding: 5px 10px;
+    color: #000 !important;
+  }
+  
+  .modal {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    bottom: 0;
+    display: flex;
+    left: 0;
+    justify-content: center;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    h3{
+        color: #000;
+        margin: 0px;
+        font-size: 18px;
+        font-weight: 900;
+    }
+    p{
+        color: #000;
+        margin: 0px;
+        font-size: 14px;
+    }
+  }
+  
+  .modal .overlay {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px; 
+    img{
+        border-radius: 10px;
+    }
+  }
+  
+  .modal .preview {
+    border-radius: 20px;
+    margin: auto;
+    overflow: hidden;
+    width: 300px;
+  }
+  
+  .modal .preview img {
+    width: 100%;
+  }
+  
+  .modal .info {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .modal .attributes { 
+  }
+  
+  .modal .attribute-box {
+    background-color: #F4E8DA;
+    border: 1px solid #EDEDED;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 10px;
+    width: 150px;
+  }
+  
+  .modal .attribute-box h6 {
+    font-size: 11px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  .modal .attribute-box span {
+    display: block;
+    font-size: 13px;
+    padding: 10px 0;
+  }
+  
+  .modal .attribute-box p {
+    font-size: 11px;
+    color: #666666;
+    margin: 0;
+  }
+  
+  @media(max-width: 830px) {
+    .gallery {
+      display: block;
+    }
+  
+    .gallery .results {
+      justify-content: center;
+      padding-left: 0;
+    }
+  
+    .gallery .results .item { 
+    }
+  
+    .gallery .results .item .preview {
+      border-radius: 0;
+      box-shadow: none;
+      height: auto;
+      width: auto;
+    }
+  }
+  
+  .filter-main{
+    display: flex; 
+    justify-content: space-between;
+    place-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #EDEDED;
+    h4{
+        border-bottom: 0px solid #EDEDED !important; 
+        padding-bottom: 0px !important; 
+        position: inherit !important;
+    }
+  }
+
+
+  @media(max-width: 560px) {
+    .gallery .results .item { 
+    }
+  
+    .gallery .results .item .preview {
+      height: auto;
+      overflow: visible;
+      width: 100%;
+    }
+  
+    .modal {
+      display: block;
+    }
+  
+    .modal .attribute-box {
+      width: 120px;
+    }
+  }

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Check Whitelist | Cash Cows</title>
+    <meta name="description" content="Check to see if you got whitelist. If you did, Moo! congrats!" />
+    <meta property="og:title" content="Check Whitelist | Cash Cows" />
+    <meta property="og:description" content="Check to see if you got whitelist. If you did, Moo! congrats!" />
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    <meta property="og:url" content="https://www.wearecashcows.com/check" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="Check Whitelist | Cash Cows" />
+    <meta name="twitter:description" content="Check to see if you got whitelist. If you did, Moo! congrats!" />
+    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/check.css?v1" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <header class="head">
+      <div class="container">
+        <nav class="left">
+          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
+            <img src="/images/twitter-pixel.png" />
+          </a>
+          <a class="social" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
+            <img src="/images/opensea-pixel.png" />
+          </a>
+          <a class="social" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
+            <img src="/images/etherscan-pixel.png" />
+          </a>
+        </nav>
+        <nav class="center">
+          <a class="logo" href="/">
+            <img src="/images/logo-cashcows-long.gif" />
+          </a>
+          <div>
+            <a href="/mint.html">Minting Cows</a>
+            <a href="/check.html">Check Whitelist</a>
+          </div>
+        </nav>
+        <nav class="right">
+          <div class="connected hide">
+            <a 
+              class="btn btn-outline btn-primary btn-address" 
+              href="javascript:void(0)"
+            ></a>
+            <a 
+              class="btn btn-outline btn-primary" 
+              data-do="disconnect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              <i class="fas fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+          <div class="disconnected">
+            <a 
+              class="btn-pixel btn-pixel-warning" 
+              data-do="connect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Connect Wallet
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="body">
+      <section class="section section-1">
+        <div class="container">
+          <h1>Check Whitelist</h1>
+          <input class="form-control wallet-address" placeholder="Enter a wallet address." />
+          <button 
+            class="btn-pixel btn-pixel-lg btn-pixel-warning"
+            data-do="check"
+            data-on="click"
+          >Check</button>
+
+          <div class="results authorized hide">
+            <h2>Moo! You are Whitelisted</h2>
+            <p></p>
+            <h6>Whitelist Minting Begins On</h6>
+            <div 
+              class="countdown" 
+              data-date="1659139200000" 
+              data-do="countdown" 
+            > 
+              <div class="countdown-item"> 
+                <span class="days">??</span> 
+                <small>Days</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="hours">??</span> 
+                <small>Hours</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="minutes">??</span> 
+                <small>Mins</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="seconds">??</span> 
+                <small>Secs</small> 
+              </div> 
+            </div>
+            <a class="btn-pixel btn-pixel-lg btn-pixel-success" href="/data/mint.ics" target="_blank">
+              Save to Calendar
+            </a>
+          </div>
+          <div class="results allowed hide">
+            <h2>Moo! You are on the Allowlist</h2>
+            <p></p>
+            <h6>Allowlist Minting Begins On</h6>
+            <div 
+              class="countdown" 
+              data-date="1659186000000" 
+              data-do="countdown" 
+            > 
+              <div class="countdown-item"> 
+                <span class="days">??</span> 
+                <small>Days</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="hours">??</span> 
+                <small>Hours</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="minutes">??</span> 
+                <small>Mins</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="seconds">??</span> 
+                <small>Secs</small> 
+              </div> 
+            </div>
+            <a class="btn-pixel btn-pixel-lg btn-pixel-success" href="/data/mint.ics" target="_blank">
+              Save to Calendar
+            </a>
+          </div>
+          <div class="results public hide">
+            <h2>Moo :( Sorry you are not on any list.</h2>
+            <h6>Public Minting Begins On</h6>
+            <div 
+              class="countdown" 
+              data-date="1659193200000" 
+              data-do="countdown" 
+            > 
+              <div class="countdown-item"> 
+                <span class="days">??</span> 
+                <small>Days</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="hours">??</span> 
+                <small>Hours</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="minutes">??</span> 
+                <small>Mins</small> 
+              </div> 
+              <div class="countdown-item"> 
+                <span class="seconds">??</span> 
+                <small>Secs</small> 
+              </div> 
+            </div>
+            <a class="btn-pixel btn-pixel-lg btn-pixel-success" href="/data/mint.ics" target="_blank">
+              Save to Calendar
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="foot"></footer>
+    <script id="network" data-value="mainnet"></script>
+    <script type="text/javascript" src="/scripts/lib/doon.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/lib/notify.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js"></script>
+    <script type="text/javascript" src="/scripts/check.js?v3"></script>
+  </body>
+</html>

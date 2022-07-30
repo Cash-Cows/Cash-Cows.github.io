@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>The Treasury | Cash Cows</title>
+    <meta name="description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
+    <meta property="og:title" content="Redeem Rewards | Cash Cows" />
+    <meta property="og:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    <meta property="og:url" content="https://www.wearecashcows.com/treasury" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="Redeem Rewards | Cash Cows" />
+    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Now get some rewards." />
+    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v1" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <header class="head">
+      <div class="container">
+        <nav class="left">
+          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
+            <img src="/images/twitter-pixel.png" />
+          </a>
+          <a class="social" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
+            <img src="/images/opensea-pixel.png" />
+          </a>
+          <a class="social" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
+            <img src="/images/etherscan-pixel.png" />
+          </a>
+        </nav>
+        <nav class="center">
+          <a class="logo" href="/">
+            <img src="/images/logo-cashcows-long.gif" />
+          </a>
+          <div>
+            <a href="./treasury.html">Treasury</a>
+            <a href="./gallery.html">Gallery</a>
+          </div>
+        </nav>
+        <nav class="right">
+          <div class="connected hide">
+            <a 
+              class="btn btn-outline btn-primary btn-address" 
+              href="javascript:void(0)"
+            ></a>
+            <a 
+              class="btn btn-outline btn-primary" 
+              data-do="disconnect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              <i class="fas fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+          <div class="disconnected">
+            <a 
+              class="btn-pixel btn-pixel-warning" 
+              data-do="connect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Connect Wallet
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="body">
+      <section class="section section-1">
+        <h2>The Treasury</h2>
+        <a 
+          class="contract" 
+          href="https://etherscan.io/address/0x9CcD8e9305532E2d981E59BfC877098E111DeFA1" 
+          target="_blank"
+        >
+          0x9CcD8e9305532E2d981E59BfC877098E111DeFA1
+        </a>
+        <div class="stats">
+          <div class="stat">
+            <h6>Redeemed</h6>
+            <span class="treasury-redeemed btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">Ξ</span>
+              <span class="value">???</span>
+            </span>
+          </div>
+          <div class="stat">
+            <h6>Unclaimed</h6>
+            <span class="treasury-unclaimed btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">Ξ</span>
+              <span class="value">???</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="connected">
+          <h3>My Rewards</h3>
+          <span class="total-rewards btn-pixel btn-pixel-lg btn-pixel-success">
+            <span class="btn-prefix">Ξ</span>
+            <span class="value">???</span>
+          </span>
+          <a 
+            class="cta-redeem"
+            data-do="redeem-all"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Redeem All
+          </a>
+        </div>
+      </section>
+      <div class="connected">
+        <section class="section section-2">
+          <h2>My Cows</h2>
+          <main class="results"></main>
+        </section>
+      </div>
+    </main>
+    <footer class="foot"></footer>
+    <template id="template-result-item">
+      <div 
+        class="item" 
+        data-do="modal-open" 
+        data-on="click" 
+        data-level="{LEVEL}" 
+        data-index="{INDEX}"
+      >
+        <div class="preview">
+          <img src="{IMAGE}" loading="lazy" />
+        </div>
+        <div class="info">
+          <h6 class="label">Cash Cows</h6>
+          <h4 class="token">#{ID}</h4>
+          <h6 class="level">Level {LEVEL}</h6>
+        </div>
+      </div>
+    </template>
+    <template id="template-modal">
+      <div class="modal">
+        <div class="overlay pfp-{COLOR}">
+          <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+            <i class="fas fa-times"></i>
+          </a>
+          <div class="preview">
+            <img src="{IMAGE}" loading="lazy" />
+          </div>
+          <div class="info">
+            <div class="box box-name">
+              <i class="fas fa-hashtag"></i>
+              <div class="name">
+                <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+                <h3>{ID}</h3>
+                <div class="markets">
+                  <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-opensea.png" />
+                  </a>
+                  <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-looksrare.webp" />
+                  </a>
+                  <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{ID}" target="_blank">
+                    <img src="/images/logo-x2y2.webp" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <h2>Rewards</h2>
+            <div class="box box-rewards">
+              <span class="fa-eth">Ξ</span>
+              <h3 class="rewards-value">{REWARDS}</h3>
+              <a 
+                class="cta-redeem"
+                data-id="{ID}"
+                data-do="redeem" 
+                data-on="click"
+                href="javascript:void(0)"
+              >
+                Redeem
+              </a>
+            </div>
+            <h2>Properties</h2>
+            <div class="attributes">{ATTRIBUTES}</div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template id="template-attribute-box">
+      <div class="attribute-box">
+        <h6>{NAME}</h6>
+        <span>{VALUE}</span>
+        <p>{PERCENT}% have this trait</p>
+      </div>
+    </template>
+    <script id="network" data-value="testnet"></script>
+    <script type="text/javascript" src="/scripts/lib/doon.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/lib/notify.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js"></script>
+    <script type="text/javascript" src="/scripts/treasury.js?v1"></script>
+  </body>
+</html>

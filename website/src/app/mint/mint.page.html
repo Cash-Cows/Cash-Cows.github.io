@@ -1,0 +1,117 @@
+
+<ion-content>
+  <ion-row class="c-main-justify-center  " >
+  <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12" >
+  
+  
+    <ion-row>
+      <ion-col size="12" size-lg="5.6" size-md="12" size-sm="12" > 
+        <div class="c-a1">
+          <div class="c-a1-1">
+            <img class="c-bg-1" src="/assets/bg-1.png" alt="">
+            <div class="c-a1-1-content">
+              
+              <ion-row>
+                <ion-col size="5" style="place-self: center;"> 
+                  <div class="c-a1-1-content-1">
+                    <img class="c-twitter" src="/assets/twitter.png" alt=""
+                    (click)="onOpenWindow('https://twitter.com/WeAreCashCows')"
+                    onmouseover="this.src='/assets/twitter-click.png'"
+                    onmouseout="this.src='/assets/twitter.png'">
+      
+                    <img class="" src="/assets/discord.png" alt="">
+                  </div>
+                </ion-col>
+                <ion-col  >  
+                  <img class="c-connect" src="/assets/connect.png" alt=""
+                  (click)="onConnectWallet()"
+                  onmouseover="this.src='/assets/connect-click.png'"
+                  onmouseout="this.src='/assets/connect.png'">
+                </ion-col>
+              </ion-row>
+  
+            </div>
+          </div>
+          <div class="c-a1-2"> 
+            <img class="c-a1-2-bg" src="/assets/bg-2.png" alt="">
+            <div class="c-a1-2-content">
+              <img src="/assets/dashboard.png" alt="">
+              <img class="c-know-more" src="/assets/know-more.png" alt=""
+                onmouseover="this.src='/assets/know-more-click.png'"
+                onmouseout="this.src='/assets/know-more.png'" (click)="onOpenWindow('https://medium.com/@cashcows/moo-cash-cows-genesis-b774dc283da3')">
+              <img class="c-cc" src="/assets/cc.png" alt=""
+                onmouseover="this.src='/assets/cc-click.png'"
+                onmouseout="this.src='/assets/cc.png'">
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-lg="6.4" size-md="12" size-sm="12" >
+        <div class="c-a2">
+          <div class="c-a2-1">
+            <img class="c-a2-1-bg" src="/assets/bg-3.png" alt="">
+            <div class="c-a2-1-content">
+              <div class="c-a2-1-content-1">
+                <ion-row>
+                  <ion-col size="12"
+                  class="c-monitor" >
+                    <img [src]="isChainLoaded ? '/assets/empty-monitor.png' : '/assets/connect-monitor.png'" alt=""> 
+                    <div class="c-monitor-content" *ngIf="isChainLoaded"> 
+                      <p class="c-title-pull">PULL-DOWN TO MINT</p>
+                      <a   [href]="env.configchain.SCAN_LINK" target="_blank">{{env.configchain.CONTRACT_ADDRESS}}</a> 
+                      <p class="c-receipt" *ngIf="chainModel.totalSupply"> 
+                        {{chainModel.totalSupply}} / {{chainModel.MAX_SUPPLY}}
+                        <br>
+                        {{receiptDisplay}}
+                      </p>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">  
+                    <div class="c-a2-1-content-1-1"> 
+                      <img id="c-pull" class="c-pull" src="/assets/pull.png" alt="" 
+                        (click)="onMint()">
+                        
+                      <div class="c-pull-div"> 
+                        <img *ngIf="isChainLoaded" class="c-pull-msg" [src]="
+                        !env.isStartedMint ? '/assets/minting-soon.png' : 
+                        chainModel.totalSupply == chainModel.MAX_SUPPLY && myUserAddress ? '/assets/soldout.png' : 
+                        chainModel.totalSupply < chainModel.MAX_SUPPLY && myUserAddress ? '/assets/connected-msg.png' : '' 
+                        " alt="">
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <div class="c-a2-1-content-1-2"> 
+                      <div class="c-num-pad">
+                        <img class="c-num-pad-bg" src="/assets/numpad/bg.png" alt="">
+                        <ion-row class="c-a2-content-1-3">
+                          <ion-col size="4" *ngFor="let a of [].constructor(maxMint);index as i">
+                            <img class="c-num" (click)="onNumMint(i+1)" [src]="'/assets/numpad/'+(i+1)+'.png'" alt=""
+                            (mouseover)="onMouseOutClick($event,'/assets/numpad/'+(i+1)+'-click.png')"
+                            (mouseout)="onMouseOutClick($event,'/assets/numpad/'+(i+1)+'.png')">
+                          </ion-col>
+                        </ion-row>
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </ion-col>
+    </ion-row>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </ion-col>
+  </ion-row>
+  </ion-content>
+  

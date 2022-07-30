@@ -1,0 +1,70 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 150vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.section-1 {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.section-1 .container {
+  max-width: 500px;
+}
+
+.section-1 .wallet-address {
+  margin-bottom: 20px;
+}
+
+.results {
+  padding: 150px 0;
+}
+
+.results ul {
+  display: inline-block;
+}
+
+.results li {
+  line-height: 30px;
+  text-align: left;
+}
+
+.results a {
+  color: #FFFFFF;
+}
