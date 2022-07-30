@@ -12,4 +12,7 @@ const ipfs = ipfsClient.create({
   headers: {
     authorization: `Basic ${Buffer.from(`${key}:${secret}`).toString('base64')}`
   }
-});
+})
+
+const JSON_FOLDER = path.join(process.cwd(), 'artengine/build/json')
+ipfs.add(files, (pin ? { pin: true } : {}))
