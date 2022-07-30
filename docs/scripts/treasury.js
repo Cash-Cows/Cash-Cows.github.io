@@ -322,5 +322,5 @@ window.addEventListener('web3sdk-ready', async () => {
   ) || '0.00').toFixed(6)
 
   //start session
-  network.startSession(connected, disconnected, listening === false)
+  network.startSession(connected, disconnected, true)
 })
