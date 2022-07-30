@@ -146,11 +146,13 @@ window.addEventListener('web3sdk-ready', async () => {
         return notify('error', 'Your mint time has not started')
       }
     }
-
+    
+    let freeLeft = config.maxFree - config.minted
+    if (freeLeft < 0) freeLeft = 0
     let totalPrice = `${Web3SDK.toEther(
-      price.toString()) * (Web3SDK.state.quantity - config.maxFree
+      price.toString()) * (Web3SDK.state.quantity - freeLeft
     )} ETH`
-    if (Web3SDK.state.quantity <= config.maxFree) {
+    if (Web3SDK.state.quantity <= freeLeft) {
       totalPrice = 'FREE'
     }
 
@@ -210,14 +212,14 @@ window.addEventListener('web3sdk-ready', async () => {
       if (!opened) return notify('error', 'Your mint time has not started')
     }
 
-    console.log(opened)
-
     //no more errors, we can start minting
     e.for.classList.add('active')
     message.innerHTML = `Minting ${quantity}...`
     //determine the price that needs to be paid
-    const totalPrice = quantity > config.maxFree 
-      ? price * (quantity - config.maxFree)
+    let freeLeft = config.maxFree - config.minted
+    if (freeLeft < 0) freeLeft = 0
+    const totalPrice = quantity > freeLeft
+      ? price * (quantity - freeLeft)
       : 0
 
     const priceText = totalPrice ? Web3SDK.toEther(totalPrice): 'FREE'
