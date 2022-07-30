@@ -7,8 +7,8 @@ window.addEventListener('web3sdk-ready', async () => {
   const verified = await (await fetch('/data/verified.json')).json()
   verified.allowlist = {}
 
-  const authorizedTime = 1659139200000
-  const allowedTime = 0//1659153600000
+  const authorizedTime = 0
+  const allowedTime = 0
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
@@ -30,23 +30,13 @@ window.addEventListener('web3sdk-ready', async () => {
     config.account = state.account.toLowerCase()
     if (verified.whitelist[config.account]) {
       config.list = 'whitelist'
-      if (!opened) config.maxFree = verified.whitelist[config.account]
-    } else if (verified.allowlist[config.account]) {
-      config.list = 'allowlist'
-      if (!opened) config.maxFree = 0
+      config.maxFree = verified.whitelist[config.account]
     }
+
     config.minted = await nft.read().minted(state.account)
     config.canMint = config.maxMint - config.minted
     //is it their time to mint?
-    if (config.list === 'public' && !opened) {
-      waitForPublic()
-    } else if (config.list === 'allowlist' && allowedTime > Date.now()) {
-      waitForAllowlist()
-    } else if (config.list === 'whitelist' && authorizedTime > Date.now()) {
-      waitForWhitelist()
-    } else {
-      message.innerHTML = 'Choose Mint Amount...'
-    }
+    message.innerHTML = 'Choose Mint Amount...'
   }
 
   const waitForPublic = _ => {
@@ -133,20 +123,6 @@ window.addEventListener('web3sdk-ready', async () => {
     }
 
     Web3SDK.state.quantity = quantity
-
-    //if not opened
-    if (!opened) {
-      //if whitelist and not time
-      if ((config.list === 'allowlist' && allowedTime > Date.now()) 
-        //or allowlist and not time
-        || (config.list === 'whitelist' && authorizedTime > Date.now()) 
-        //or public
-        || config.list === 'public'
-      ) {
-        //show error
-        return notify('error', 'Your mint time has not started')
-      }
-    }
     
     let freeLeft = config.maxFree - config.minted
     if (freeLeft < 0) freeLeft = 0
@@ -183,13 +159,6 @@ window.addEventListener('web3sdk-ready', async () => {
     const args = [ quantity ]
     //if not public mint
     if (config.list !== 'public') {
-      if (//whitelist and not open and not whitelist time yet
-        (config.list === 'whitelist' && !opened && authorizedTime > Date.now())
-        //or allowlist and not open and not allowlist time yet
-        || (config.list === 'allowlist' && !opened && allowedTime > Date.now())
-      ) {
-        return notify('error', 'Your mint time has not started')
-      }
       //if no proof, get it
       if (!config.proof) {
         config.proof = (await (
@@ -197,10 +166,8 @@ window.addEventListener('web3sdk-ready', async () => {
         ).json())[account.toLowerCase()]
       }
 
-      const change = config.list === 'whitelist' || !opened 
-
       //only if there is a proof
-      if (config.proof && change) {
+      if (config.proof) {
         //change up the method
         //use WL method and args
         method = 'mint(uint256,uint256,uint256,bytes)'
