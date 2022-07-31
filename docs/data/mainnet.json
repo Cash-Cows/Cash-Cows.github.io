@@ -19,6 +19,9 @@
         },
         "token": {
           "address": "0x981E826E1238213b6848EFD54015BA83F48406Ba"
+        },
+        "index": {
+          "address": "0x2ccbb4175c8335F536435B5ad5AD886a2804Fc36"
         }
       }
     }
@@ -2144,6 +2147,32 @@
         "name": "unpause",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ],
+    "index": [
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC721Supply",
+            "name": "collection",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "ownerTokens",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
         "type": "function"
       }
     ]

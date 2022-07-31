@@ -55,6 +55,8 @@ describe('CashCows Tests', function () {
     await bindContract('withMetadata', 'CashCowsMetadata', metadata, signers)
     const royalty = await deploy('CashCowsTreasury', nft.address)
     await bindContract('withTreasury', 'CashCowsTreasury', royalty, signers)
+    const index = await deploy('CashCowsIndex')
+    await bindContract('withIndex', 'CashCowsIndex', index, signers)
 
     //fix minting overrides
     //['mint(uint256)']
@@ -251,7 +253,10 @@ describe('CashCows Tests', function () {
     expect(await admin.withNFT.ownerOf(23)).to.equal(tokenOwner2.address)
     expect(await admin.withNFT.ownerOf(24)).to.equal(tokenOwner2.address)
     
-    const tokens = await admin.withNFT.ownerTokens(tokenOwner2.address)
+    const tokens = await admin.withIndex.ownerTokens(
+      tokenOwner2.withNFT.address, 
+      tokenOwner2.address
+    )
     expect(tokens[0]).to.equal(21)
     expect(tokens[1]).to.equal(22)
     expect(tokens[2]).to.equal(23)
@@ -367,5 +372,25 @@ describe('CashCows Tests', function () {
     await admin.withNFT.grantRole(getRole('APPROVED_ROLE'), admin.address)
     await admin.withNFT.transferFrom(tokenOwner3.address, tokenOwner2.address, 27)
     expect(await admin.withNFT.ownerOf(27)).to.equal(tokenOwner2.address)
+  })
+
+  it('Should burn', async function () {
+    const { admin, tokenOwner2} = this.signers
+    await tokenOwner2.withNFT.burn(24)
+
+    await expect(
+      admin.withNFT.ownerOf(24)
+    ).to.be.revertedWith('NonExistentToken()')
+
+    const tokens = await admin.withIndex.ownerTokens(
+      tokenOwner2.withNFT.address, 
+      tokenOwner2.address
+    )
+
+    expect(tokens[0]).to.equal(21)
+    expect(tokens[1]).to.equal(22)
+    expect(tokens[2]).to.equal(23)
+    expect(tokens[3]).to.equal(27)
+    expect(tokens.length).to.equal(4)
   })
 })

@@ -1,0 +1,151 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.body {
+  padding-top: 100px;
+  text-align: center;
+}
+
+h2 {
+  color: #F9AF00;
+}
+
+.section-3 {
+  background-color: #333333;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  z-index: 500;
+}
+
+.body .connected {
+  text-align: center;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.results .item {
+  cursor: pointer;
+  margin: 5px;
+  width: 250px;
+  position: relative;
+}
+
+.results .item .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+  width: 250px;
+}
+
+.results .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.results .item .preview img {
+  width: 100%;
+}
+
+.results .item h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.results .item h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.results .item .label {
+  color: #AAAAAA;
+}
+
+.results .item .level {
+  color: #F9AF00;
+}
+
+@media(max-width: 830px) {
+  .results .item {
+    height: auto;
+    width: calc(33% - 10px);
+  }
+
+  .results .item .preview {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media(max-width: 560px) {
+  .results .item {
+    width: calc(50% - 10px);
+  }
+
+  .results .item .preview {
+    height: auto;
+    overflow: visible;
+    width: 100%;
+  }
+}

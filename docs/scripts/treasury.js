@@ -18,6 +18,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
+  const index = network.contract('index')
   const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
@@ -28,8 +29,8 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const connected = async state => {
     //populate cows
-    Web3SDK.state.tokens = await nft.read().ownerTokens(state.account)
- 
+    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)
+
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
     } else {
@@ -66,16 +67,10 @@ window.addEventListener('web3sdk-ready', async () => {
     })
 
     //get total rewards
-    let unclaimed = 0
-    for (const tokenId of Web3SDK.state.tokens) {
-      unclaimed += Web3SDK.toEther(
-        await royalty.read()['releaseable(uint256)'](tokenId),
-        'number'
-      )
-      rewards.innerHTML = unclaimed.toFixed(6)
-    }
-
-    rewards.innerHTML = unclaimed.toFixed(6)
+    rewards.innerHTML = Web3SDK.toEther(
+      await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
+      'number'
+    ).toFixed(6)
   }
 
   const rarity = function() {
