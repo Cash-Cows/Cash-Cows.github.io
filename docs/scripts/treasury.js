@@ -2,7 +2,7 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Variables
   const response = await fetch('/data/metadata.json')
-  const database = (await response.json()).slice(0, 4030)
+  const database = await response.json()
   const occurances = {}
 
   const unclaimed = document.querySelector('span.treasury-unclaimed span.value')
@@ -98,8 +98,13 @@ window.addEventListener('web3sdk-ready', async () => {
     })
 
     //now we need to determine each rank
-    database.slice().sort((a, b) => b.score - a.score).forEach((row, i) => {
-      row.rank = i + 1
+    let rank = 1
+    const ranked = database.slice().sort((a, b) => b.score - a.score)
+    ranked.forEach((row, i) => {
+      row.rank = i == 0 
+        || Math.floor(ranked[i - 1].score) == Math.floor(row.score) 
+        ? rank
+        : ++rank
     })
   }
 
