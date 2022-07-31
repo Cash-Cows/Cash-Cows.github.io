@@ -74,21 +74,28 @@ describe('CashCowsCulling Tests', function () {
     this.signers = { admin, holder }
   })
 
+  it('Should set conversion', async function () {
+    const { admin } = this.signers
+    
+    await admin.withCulling.setTokenConversion(1000)
+    
+    expect(
+      await admin.withCulling.tokenConversion()
+    ).to.equal(1000)
+  })
+
   it('Should burn', async function () {
-    const { admin, holder} = this.signers
+    const { admin, holder } = this.signers
 
     expect(
       await admin.withCulling.balanceOf(holder.address)
     ).to.equal(0)
 
-    await admin.withCulling.setTokenConversion(1000)
     await holder.withCulling.burn(1)
 
     expect(
       await admin.withCulling.redeemable(holder.address)
     ).to.equal(ethers.utils.parseEther('1000'))
-
-    await holder.withCulling.redeem()
 
     await expect(
       admin.withNFT.ownerOf(24)
@@ -101,9 +108,37 @@ describe('CashCowsCulling Tests', function () {
     expect(
       await admin.withCulling.balanceOf(holder.address)
     ).to.equal(1)
+  })
+
+  it('Should redeem', async function () {
+    const { admin, holder } = this.signers
+
+    await holder.withCulling.redeem()
 
     expect(
       await admin.withToken.balanceOf(holder.address)
     ).to.equal(ethers.utils.parseEther('1000'))
+  })
+
+  it('Should burn and redeem', async function () {
+    const { admin, holder } = this.signers
+
+    await holder.withCulling.burnRedeem(2)
+
+    expect(
+      await admin.withToken.balanceOf(holder.address)
+    ).to.be.above(ethers.utils.parseEther('2111'))
+
+    await expect(
+      admin.withNFT.ownerOf(2)
+    ).to.be.revertedWith('NonExistentToken()')
+
+    expect(
+      await admin.withNFT.burned(2)
+    ).to.equal(holder.address)
+
+    expect(
+      await admin.withCulling.balanceOf(holder.address)
+    ).to.equal(2)
   })
 })

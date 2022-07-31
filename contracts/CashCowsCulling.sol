@@ -56,6 +56,13 @@ contract CashCowsCulling is Ownable {
     return _unclaimed[owner] * _tokenConversion;
   }
 
+  /**
+   * @dev Returns the token conversion
+   */
+  function tokenConversion() public view returns(uint256) {
+    return _tokenConversion;
+  }
+
   // ============ Write Methods ============
 
   /**
@@ -68,7 +75,7 @@ contract CashCowsCulling is Ownable {
     if (owner != _collection.ownerOf(tokenId)) revert InvalidCall();
     //set burnt balance
     _balances[owner]++; 
-    //get releaseable
+    //set unclaimed
     _unclaimed[owner] += _treasury.releaseable(tokenId);
     //burn it... muahhahaha
     //this contract needs permission to burn
@@ -84,6 +91,27 @@ contract CashCowsCulling is Ownable {
     //this contract needs permission to mint
     _token.mint(owner, redeemable(owner));
     _unclaimed[owner] = 0;
+  }
+
+  /**
+   * @dev Burn and Redeem
+   */
+  function burnRedeem(uint256 tokenId) external {
+    //get owner
+    address owner = _msgSender();
+    //only the caller can burn their own token
+    if (owner != _collection.ownerOf(tokenId)) revert InvalidCall();
+    //set burnt balance
+    _balances[owner]++; 
+    //get unclaimed
+    uint256 unclaimed = _treasury.releaseable(tokenId);
+    //burn it... muahhahaha
+    //this contract needs permission to burn
+    _collection.burn(tokenId);
+    if (unclaimed > 0) {
+      //this contract needs permission to mint
+      _token.mint(owner, unclaimed * _tokenConversion);
+    }
   }
 
   // ============ Admin Methods ============
