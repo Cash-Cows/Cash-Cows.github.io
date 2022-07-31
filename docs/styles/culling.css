@@ -124,6 +124,10 @@ h2 {
   color: #F9AF00;
 }
 
+.results .item.burning img {
+  filter: grayscale(100%)
+}
+
 @media(max-width: 830px) {
   .results .item {
     height: auto;

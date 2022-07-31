@@ -2,7 +2,7 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Variables
   const response = await fetch('/data/metadata.json')
-  const database = await response.json()
+  const database = (await response.json()).slice(0, 4030)
   const occurances = {}
 
   const results = document.querySelector('main.results')
@@ -116,9 +116,11 @@ window.addEventListener('web3sdk-ready', async () => {
     }
     //now burn
     try {
+      e.for.classList.add('burning')
       await nft.write(Web3SDK.state.account, 0, 2).burn(tokenId)
       e.for.parentNode.removeChild(e.for)
     } catch(e) {
+      e.for.classList.remove('burning')
       notify('error', e.message.replace('err: i', 'I'))
       console.error(e)
       return
