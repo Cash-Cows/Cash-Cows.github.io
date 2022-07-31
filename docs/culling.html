@@ -85,6 +85,13 @@
     </header>
     <main class="body">
       <h2>The Culling</h2>
+      <a 
+        class="contract" 
+        href="https://etherscan.io/address/0x439668884008A40A735a87d3Ea5E6133AecB2ee4" 
+        target="_blank"
+      >
+        0x439668884008A40A735a87d3Ea5E6133AecB2ee4
+      </a>
       <div class="disconnected">
         <a 
           class="btn-pixel btn-pixel-lg btn-pixel-warning" 
@@ -95,14 +102,41 @@
           Connect Wallet
         </a>
       </div>
-      <div class="connected hide">  
-        <p>Choose a cow to burn</p>
+      <div class="connected hide">
+        <div class="stats">
+          <div class="stat">
+            <h6>Milk</h6>
+            <span class="milk btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">
+                <img src="/images/milk.png" />
+              </span>
+              <span class="value">Loading...</span>
+            </span>
+          </div>
+          <div class="stat">
+            <h6>Steak</h6>
+            <span class="steak btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="btn-prefix">
+                <img src="/images/steak.png" />
+              </span>
+              <span class="value">Loading...</span>
+            </span>
+          </div>
+        </div>
+
+        <p>Burn a cow, get $MILK and steak.</p>
         <main class="results"></main>
       </div>
     </main>
     <footer class="foot"></footer> 
     <template id="template-result-item">
-      <div class="item" data-do="burn" data-on="click" data-id="{ID}">
+      <div 
+        class="item" 
+        data-do="modal-open" 
+        data-on="click" 
+        data-id="{ID}" 
+        data-level="{LEVEL}"
+      >
         <div class="preview">
           <img src="{IMAGE}" loading="lazy" />
           <span class="badge badge-{BADGE}">#{RANK}</span>
@@ -111,6 +145,31 @@
           <h6 class="label">Cash Cows</h6>
           <h4 class="token">#{ID}</h4>
           <h6 class="level">Level {LEVEL}</h6>
+        </div>
+      </div>
+    </template>
+    <template id="template-modal">
+      <div class="modal">
+        <div class="overlay pfp-{COLOR}">
+          <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+            <i class="fas fa-times"></i>
+          </a>
+          <div class="preview">
+            <img src="{IMAGE}" loading="lazy" />
+          </div>
+          <div class="box">
+            <h3>Burning #{ID}</h3>
+            <p>{MESSAGE}</p>
+            <a 
+              class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+              data-id="{ID}" 
+              data-do="burn"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Burn. Moo!
+            </a>
+          </div>
         </div>
       </div>
     </template>

@@ -6,20 +6,27 @@ window.addEventListener('web3sdk-ready', async () => {
   const occurances = {}
 
   const results = document.querySelector('main.results')
+  const milk = document.querySelector('span.milk span.value')
+  const steak = document.querySelector('span.steak span.value')
 
   const template = {
-    item: document.getElementById('template-result-item').innerHTML
+    item: document.getElementById('template-result-item').innerHTML,
+    modal: document.getElementById('template-modal').innerHTML
   }
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const index = network.contract('index')
+  const token = network.contract('token')
+  const culling = network.contract('culling')
   const metadata = network.contract('metadata')
 
   //------------------------------------------------------------------//
   // Functions
 
   const connected = async state => {
+    steak.innerHTML = parseFloat(await culling.read().balanceOf(state.account)).toFixed(0)
+    milk.innerHTML = parseFloat(await token.read().balanceOf(state.account)).toFixed(6)
     //populate cows
     Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)
  
@@ -95,11 +102,36 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Events
 
+  window.addEventListener('modal-open-click', async (e) => {
+    const id = parseInt(e.for.getAttribute('data-id'))
+    const row = database[id -1]
+    const level = parseInt(e.for.getAttribute('data-level'))
+    const releaseable = 0
+
+    const message = releaseable > 0 
+      ? `You will receive 1 steak and your unclaimed Ξ ${
+        parseFloat(releaseable).toFixed(6)
+      } will be redeemable for ${(releaseable * 10000).toFixed(6)} $MILK`
+      : `You will receive 1 steak but, you claimed all your rewards! No milk for you. Are you sure?`
+    const modal = theme.toElement(template.modal, {
+      '{ID}': id,
+      '{COLOR}': row.attributes.Background.value.toLowerCase(),
+      '{IMAGE}': `/images/collection/${id}_${level - 1}.png`,
+      '{MESSAGE}': message
+    })
+    document.body.appendChild(modal)
+    window.doon(modal)
+  })
+
+  window.addEventListener('modal-close-click', () => {
+    document.body.removeChild(document.querySelector('div.modal'))
+  })
+
   window.addEventListener('burn-click', async (e) => {
     const tokenId = parseInt(e.for.getAttribute('data-id'))
     //gas check
     try {
-      await nft.gas(Web3SDK.state.account, 0).burn(tokenId)
+      await culling.gas(Web3SDK.state.account, 0).burn(tokenId)
     } catch(e) {
       const pattern = /have (\d+) want (\d+)/
       const matches = e.message.match(pattern)
@@ -117,7 +149,7 @@ window.addEventListener('web3sdk-ready', async () => {
     //now burn
     try {
       e.for.classList.add('burning')
-      await nft.write(Web3SDK.state.account, 0, 2).burn(tokenId)
+      await culling.write(Web3SDK.state.account, 0, 2).burn(tokenId)
       e.for.parentNode.removeChild(e.for)
     } catch(e) {
       e.for.classList.remove('burning')

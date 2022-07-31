@@ -39,28 +39,59 @@
   z-index: 2;
 }
 
+h2 {
+  color: #F9AF00;
+  margin-bottom: 0;
+}
+
 .body {
   padding-top: 100px;
   text-align: center;
 }
 
-h2 {
-  color: #F9AF00;
-}
-
-.section-3 {
-  background-color: #333333;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  padding: 20px;
-  position: fixed;
-  z-index: 500;
+.body .contract {
+  color: #CCCCCC;
+  display: inline-block;
+  font-size: 11px;
 }
 
 .body .connected {
   text-align: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.stats .stat {
+  padding: 0 32px;
+}
+
+.stats .stat h6 {
+  margin: 0;
+}
+
+.stats .milk,
+.stats .steak {
+  position: relative;
+}
+
+.stats .milk .btn-prefix,
+.stats .steak .btn-prefix {
+  left: 5px;
+  position: absolute;
+  top: 8px;
+}
+
+.stats .milk .value,
+.stats .steak .value {
+  padding-left: 25px;
+}
+
+.stats img {
+  width: 30px;
 }
 
 .results {
@@ -126,6 +157,34 @@ h2 {
 
 .results .item.burning img {
   filter: grayscale(100%)
+}
+
+.modal .overlay {
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal .preview {
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+}
+
+.modal .box {
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #222222;
+  margin-top: -5px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.modal p {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  line-height: 30px;
 }
 
 @media(max-width: 830px) {
