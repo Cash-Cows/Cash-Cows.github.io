@@ -2165,6 +2165,11 @@
             "internalType": "address",
             "name": "owner",
             "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastId",
+            "type": "uint256"
           }
         ],
         "name": "ownerTokens",

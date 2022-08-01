@@ -57,7 +57,7 @@ module.exports = {
         treasury: '0x837844a20cFe576057b58bcF6f1556BF6795FB2F',
         metadata: '0xeb41c53e2Debf30C168fc743BA58dAd2345A0113',
         token: '0x981E826E1238213b6848EFD54015BA83F48406Ba',
-        index: '0x2ccbb4175c8335F536435B5ad5AD886a2804Fc36',
+        index: '0x8d75c9d0F3AF4A0eC3440a00d997b59C99814cFf',
         culling: '0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7'
       }
     },

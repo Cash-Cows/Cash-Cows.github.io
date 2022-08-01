@@ -35,7 +35,11 @@ window.addEventListener('web3sdk-ready', async () => {
       await token.read().balanceOf(state.account), 'number'
     ).toFixed(6)
     //populate cows
-    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)
+    Web3SDK.state.tokens = await index.read().ownerTokens(
+      nft.address, 
+      state.account,
+      4030
+    )
  
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
