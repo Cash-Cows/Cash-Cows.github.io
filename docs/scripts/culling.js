@@ -128,7 +128,7 @@ window.addEventListener('web3sdk-ready', async () => {
     const message = releaseable > 0 
       ? `You will receive 1 steak and your unclaimed Ξ ${
         parseFloat(releaseable).toFixed(6)
-      } will be redeemable for ${(releaseable * conversion).toFixed(6)} $MILK`
+      } will be exchanged for ${(releaseable * conversion).toFixed(6)} $MILK`
       : `You will receive 1 steak but, you claimed all your rewards! No milk for you. Are you sure?`
     const modal = theme.toElement(template.modal, {
       '{ID}': id,
