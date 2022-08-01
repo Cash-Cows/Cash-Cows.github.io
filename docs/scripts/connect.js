@@ -93,4 +93,16 @@
   } catch(e) {
     console.error(e)
   }
+
+  
+  window.ethereum.on("accountsChanged", async (accounts) => {  
+    network.startSession(connected, disconnected, listening === false)
+  });
+  window.ethereum.on("chainChanged", async () => { 
+    network.startSession(connected, disconnected, listening === false)
+  });
+  window.ethereum.on("close", (error) => { 
+      console.log("Errorethereum",error);
+  }); 
+  network.startSession(connected, disconnected, listening === false)
 })(window)
