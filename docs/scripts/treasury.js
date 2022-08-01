@@ -40,10 +40,12 @@ window.addEventListener('web3sdk-ready', async () => {
   }
   const connected = async state => {
     //populate cows 
-    console.log("connected",Web3SDK.state);
     loading(true); 
-    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)  
-    console.log("Web3SDK.state.tokens",Web3SDK.state);
+    Web3SDK.state.tokens = await index.read().ownerTokens(
+      nft.address, 
+      state.account,
+      4030
+    )  
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
     } else {
@@ -85,11 +87,7 @@ window.addEventListener('web3sdk-ready', async () => {
       await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
       'number'
     ).toFixed(6)
-
-     
-    theme.hide('.connected', false)
-    theme.hide('.disconnected', true)
-    theme.hide('.hide',true);  
+ 
     loading(false);
   }
 
@@ -122,7 +120,7 @@ window.addEventListener('web3sdk-ready', async () => {
     const ranked = database.slice().sort((a, b) => b.score - a.score)
     ranked.forEach((row, i) => {
       row.rank = i == 0 
-        || Math.floor(ranked[i - 1].score) == Math.floor(row.score) 
+        || Math.floor(ranked[i - 1].score * 100) == Math.floor(row.score * 100) 
         ? rank
         : ++rank
     })

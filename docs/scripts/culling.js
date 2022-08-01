@@ -35,7 +35,11 @@ window.addEventListener('web3sdk-ready', async () => {
       await token.read().balanceOf(state.account), 'number'
     ).toFixed(6)
     //populate cows
-    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)
+    Web3SDK.state.tokens = await index.read().ownerTokens(
+      nft.address, 
+      state.account,
+      4030
+    )
  
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
@@ -96,12 +100,11 @@ window.addEventListener('web3sdk-ready', async () => {
     })
 
     //now we need to determine each rank
-    //now we need to determine each rank
     let rank = 1
     const ranked = database.slice().sort((a, b) => b.score - a.score)
     ranked.forEach((row, i) => {
       row.rank = i == 0 
-        || Math.floor(ranked[i - 1].score) == Math.floor(row.score) 
+        || Math.floor(ranked[i - 1].score * 100) == Math.floor(row.score * 100) 
         ? rank
         : ++rank
     })
