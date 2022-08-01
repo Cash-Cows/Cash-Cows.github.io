@@ -342,7 +342,6 @@ window.addEventListener('web3sdk-ready', async () => {
   ) || '0.00').toFixed(6)
 
   //start session
-<<<<<<< HEAD
 
   window.ethereum.on("accountsChanged", async (accounts) => {  
     network.startSession(connected, disconnected, true)
@@ -353,7 +352,5 @@ window.addEventListener('web3sdk-ready', async () => {
   window.ethereum.on("close", (error) => { 
       console.log("Errorethereum",error);
   });
-=======
->>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
   network.startSession(connected, disconnected, true)
 })
