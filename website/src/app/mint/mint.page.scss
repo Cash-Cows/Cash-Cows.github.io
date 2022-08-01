@@ -68,34 +68,6 @@ ion-content{
         }
         .c-a2-1-content{
             padding: 4em;
-            .c-monitor{
-                .c-monitor-content{
-                    position: absolute;
-                    top: 26%;
-                    padding: 2.4em;
-                    width: 100%;
-                    height: 72%;
-                    text-align: center;
-                    p{
-                        margin: 0px;
-                    }
-                    a{
-                        font-size: 16px;
-                        color: #B36B68;
-                    }
-                    .c-title-pull{
-                        margin: 0px;
-                        color: #B36B68;
-                        font-size: 63px;
-                    }
-                    .c-receipt{
-                        margin: 0px;
-                        margin-top: 28px;
-                        color: #B36B68;
-                        font-size: 40px;
-                    }
-                }
-            }
             .c-a2-1-content-1-1{
                 position: relative;
                 .c-pull{
@@ -104,12 +76,13 @@ ion-content{
                 .c-receipt{
                     margin: 0px;
                     font-size: 42px;
-                    color: #1C0F0B; 
+                    color: #1C0F0B;
+                    margin-top: 10px;
                     text-align: center;
                 }
                 .c-pull-div{ 
-                    animation: hideAnimation 0s ease-in 15s;
-                    animation-fill-mode: forwards;
+                    // animation: hideAnimation 0s ease-in 15s;
+                    // animation-fill-mode: forwards;
                 }
                 .c-pull-msg{ 
                     animation: float 2s ease-in-out infinite; 

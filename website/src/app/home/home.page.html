@@ -1,7 +1,6 @@
-
 <ion-content> 
 
-<!-- <div class="c-header">
+<div class="c-header">
     
     <img class="bg" src="/assets/bg1.png" alt="">
 
@@ -16,32 +15,24 @@
 </ion-row>
     </div> 
 </div>
- -->
+
 
 <div class="c-section-1">
     
-    <img class="bg" src="/assets/banner.png" alt="">
+    <img class="bg" src="/assets/bg2.png" alt="">
 
 
-<ion-row class="c-main-justify-center  " style="padding-top: 4em;"   >
+<ion-row class="c-main-justify-center  "   >
 <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12">
         <div class="c-section-1-content">
-            <img class="logo" src="/assets/longlogo.gif" alt="">
+            <img src="/assets/longlogo.gif" alt="">
             <div class="actions">
                 <ion-row> 
                 <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
-                    <img *ngIf="env.isStartedMint" (click)="onOpenWindow('/mint')" src="/assets/mint-now.png" alt="">
-                    <img  *ngIf="!env.isStartedMint"   src="/assets/minting-soon-1.png" alt="">
-                    
+                    <img (click)="onOpenWindow('/mint')" src="/assets/mint-now.png" alt="">
                 </ion-col>
                 <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
                     <img  (click)="onOpenWindow('https://medium.com/@cashcows')" src="/assets/learnmore.png" alt="">
-                </ion-col>
-                <ion-col size="12" 
-                style="display: flex; column-gap: 10px; height: 60px; place-content: center; margin-top: 10px;">
-                    <!-- <img  (click)="onOpenWindow('')" src="/assets/etherscan.png" alt="">
-                    <img  (click)="onOpenWindow('')" src="/assets/opensea.png" alt=""> -->
-                    <img  (click)="onOpenWindow('https://twitter.com/WeAreCashCows')" src="/assets/twitter.png" alt="">
                 </ion-col>
                 </ion-row>
             </div>
@@ -54,18 +45,16 @@
 
 <div class="c-section-2">
 
-    <div class="galaxy"></div>
-    <!-- <img class="bg" src="/assets/bg3.png" alt="">  -->
+    <img class="bg" src="/assets/bg3.png" alt=""> 
 
 <ion-row class="c-main-justify-center  "   >
 <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12">
         <div class="c-section-2-content">
             <ion-row>
                 <ion-col size="12" size-lg="6" size-md="12" size-sm="12" style="    text-align: center;">
-                    <img style="width: 100%;" src="/assets/cows-group.png" alt="">
+                    <img src="/assets/cows-group.png" alt="">
                 </ion-col>
-                <ion-col size="12" size-lg="6" size-md="12" size-sm="12" style="display: grid;
-                align-content: center;">
+                <ion-col size="12" size-lg="6" size-md="12" size-sm="12">
                     <div class="c-section-2-content-1">
                         <div class="c-txt"> 
                             <h1>More Than Just 7,777 Cows</h1>
@@ -79,8 +68,8 @@
                             </span>
                         </div>
                         <div class="actions"> 
-                            <!-- <img (click)="onOpenWindow('/claim-royalty')" src="/assets/redeem.png" alt=""> -->
-                            <!-- <img (click)="onOpenWindow('')" src="/assets/view-cows.png" alt=""> -->
+                            <img (click)="onOpenWindow('/claim-royalty')" src="/assets/redeem.png" alt="">
+                            <img (click)="onOpenWindow('/claim-royalty')" src="/assets/view-cows.png" alt="">
                         </div>
                     </div>
                 </ion-col>
@@ -91,28 +80,12 @@
 
 </div>
 
- 
-<div class="c-section-3">
-    
-    <div class="galaxy1"></div>
-    <div  class="bg"> 
-        <ion-row>
-            <ion-col size="12" style="padding:0px">  
-                <div style="z-index: 0; background-color: rgba(0,0,0,0); height: 100vh;   " class="galaxy"> 
-                </div> 
-                <div style="z-index: -1;height: 27em;background: linear-gradient(0deg, #140737, #000);position: relative;"></div>
-                <div style=" z-index: -1;height: 15em; background-color: rgba(20, 7, 55);position: relative;" class="g-3"></div>
-                <div style=" z-index: -1;height: 7em; background-color: rgba(26, 8, 77);position: relative;" class="g-3"></div>
-                <div style=" z-index: -1;height: 5em; background-color: rgba(0, 54, 119);position: relative;" class="g-3"></div> 
-            </ion-col> 
-            <ion-col size="12" style="padding:0px">  
-                <img class="isDesktop" style="z-index: 100;" src="/assets/cc-farm.png" alt=""> 
-                <img class="isMobile" style="z-index: 100;" src="/assets/cc-farm-mobile.png" alt=""> 
-            </ion-col>
-        </ion-row>
-    </div>
 
-<ion-row class="c-main-justify-center"  style="text-align: center;"  >
+<div class="c-section-3">
+
+    <img class="bg" src="/assets/bg-money.png" alt=""> 
+
+<ion-row class="c-main-justify-center  "  style="text-align: center;"  >
 <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12">
         <div class="c-section-3-content">
             <ion-row>
@@ -132,14 +105,13 @@
 
 <div class="c-section-4">
 
-    <img class="bg" src="/assets/dirt.png" alt=""> 
+    <img class="bg" src="/assets/bg4.png" alt=""> 
 
 <ion-row class="c-main-justify-center  "   >
 <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12">
         <div class="c-section-4-content">
             <ion-row>
-                <ion-col size="12" size-lg="6" size-md="12" size-sm="12"
-                style="display: grid;align-items: center;text-align: center;">
+                <ion-col size="12" size-lg="6" size-md="12" size-sm="12">
                     <div class="c-section-4-content-1">
                         <div class="c-txt"> 
                             <h1>The Moo-Cow-Nomics</h1>
@@ -159,7 +131,7 @@
 </div>
 
 
-<!-- <div class="c-section-5">
+<div class="c-section-5">
 
     <img class="bg" src="/assets/bg5.png" alt=""> 
 
@@ -177,13 +149,12 @@
 </ion-col>
 </ion-row>
 
-</div> -->
+</div>
 
 
 <div class="c-section-6">
 
-    <div class="galaxy"></div>
-    <!-- <img class="bg" src="/assets/bg6.png" alt="">  -->
+    <img class="bg" src="/assets/bg6.png" alt=""> 
 
 <ion-row class="c-main-justify-center  "   >
 <ion-col class="container" size="12" size-lg="11" size-md="12" size-sm="12">
@@ -224,7 +195,7 @@
                     <div class="c-section-6-content-1">
                         <div class="c-item"> 
                             <h3>How do I get on the Whitelist?</h3>
-                            <p>Please follow us on Twitter <a href="https://twitter.com/WeAreCashCows" target="_blank">@wearecashcows</a> to get info on getting on the whitelist.</p> 
+                            <p>Please follow us on Twitter @wearecashcows to get info on getting on the whitelist.</p> 
                         </div>  
                         <div class="c-item"> 
                             <h3>What do I need to know before owning a Cow?</h3>
@@ -240,9 +211,8 @@
                         </div> 
                         <div class="c-item"> 
                             <h3>Can I see the contracts?</h3>
-                            <!-- <p>• NFT Contract <br>
-                                • RoyaltySplitter Contract</p>  -->
-                            <p>We will provide the contract links as soon as we get closer to the mint date. At least 2 days prior</p>
+                            <p>• NFT Contract <br>
+                                • RoyaltySplitter Contract</p> 
                         </div>  
                     </div>
                 </ion-col> 

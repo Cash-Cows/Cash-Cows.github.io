@@ -13,7 +13,6 @@ window.addEventListener('web3sdk-ready', async () => {
   const template = {
     item: document.getElementById('template-result-item').innerHTML,
     modal: document.getElementById('template-modal').innerHTML,
-    loadingModal: document.getElementById('template-loading-modal').innerHTML,
     attribute: document.getElementById('template-attribute-box').innerHTML
   }
 
@@ -27,30 +26,21 @@ window.addEventListener('web3sdk-ready', async () => {
 
   //------------------------------------------------------------------//
   // Functions
-  const loading = (isShow)=>{
-    if(isShow){
-      const modal = theme.toElement(template.loadingModal, {
-        '{MESSAGE}': "Please wait...", 
-      }) 
-      document.body.appendChild(modal)
-      window.doon(modal)
-    }else{ 
-      document.body.removeChild(document.querySelector('div.loading'))
-    }
-  }
+
   const connected = async state => {
-    //populate cows 
-    console.log("connected",Web3SDK.state);
-    loading(true); 
-    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)  
-    console.log("Web3SDK.state.tokens",Web3SDK.state);
+    //populate cows
+    Web3SDK.state.tokens = await index.read().ownerTokens(
+      nft.address, 
+      state.account,
+      4030
+    )
+
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
     } else {
       rewards.innerHTML = 'Loading...'
     }
 
-    results.innerHTML = "";
     Web3SDK.state.tokens.forEach(async (tokenId, i) => {
       const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
@@ -85,12 +75,6 @@ window.addEventListener('web3sdk-ready', async () => {
       await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
       'number'
     ).toFixed(6)
-
-     
-    theme.hide('.connected', false)
-    theme.hide('.disconnected', true)
-    theme.hide('.hide',true);  
-    loading(false);
   }
 
   const rarity = function() {
@@ -342,15 +326,5 @@ window.addEventListener('web3sdk-ready', async () => {
   ) || '0.00').toFixed(6)
 
   //start session
-
-  window.ethereum.on("accountsChanged", async (accounts) => {  
-    network.startSession(connected, disconnected, true)
-  });
-  window.ethereum.on("chainChanged", async () => { 
-    network.startSession(connected, disconnected, true)
-  });
-  window.ethereum.on("close", (error) => { 
-      console.log("Errorethereum",error);
-  });
   network.startSession(connected, disconnected, true)
 })

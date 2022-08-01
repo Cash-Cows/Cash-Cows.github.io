@@ -15,8 +15,6 @@ export class RoyaltyBrowserPage implements OnInit {
   myUserAddress:any;totalRoyalties=0;isLoaded=false;
   chainModel:ChainModel={};
   config= environment.configchain;
-  walletConnected: boolean = false;isShowDashboard: boolean = false;
-  ethereum= (<any>window).ethereum; 
 
   constructor(
     private http:HttpClient,
@@ -25,39 +23,25 @@ export class RoyaltyBrowserPage implements OnInit {
     private toast:ToastMessageService,
     private popoverController: PopoverController,
     private alertController:AlertController
-  ) { 
-    
-    var _this = this;  
-    if(this.ethereum){
-      this.ethereum.on("accountsChanged", async (accounts) => {  
-        _this.myUserAddress = null;
-        await _this.onConnectWallet();  
-      });
-      this.ethereum.on("chainChanged", async () => { 
-        _this.myUserAddress = null;
-        await _this.onConnectWallet();   
-      });
-      this.ethereum.on("close", (error) => { 
-          console.log("Errorethereum",error);
-      });
+  ) { }
+
+
+  ngOnInit(): void {
+    if(!environment.production){
+      this.onConnectWallet();
     }
   }
 
 
-  ngOnInit(): void {  
-  }
-
-
   async onConnectWallet(){
-    await this.connectWallet.connect(); 
-    this.walletConnected = true;  
+    await this.connectWallet.connect();
     await this.onRefreshChainData();
   }
 
-  onRefreshChainData() { 
+  onRefreshChainData() {
+    
     return new Promise<any>(async resolve=>{ 
       this.isLoaded = false;
-      this.isShowDashboard = true;
       this.myUserAddress = this.connectWallet.userAddress;  
       
       const loading = await this.loadingController.create({ message: "Please wait ...."  });
@@ -65,7 +49,6 @@ export class RoyaltyBrowserPage implements OnInit {
       const ownerTokens =  await this.connectWallet.contract.methods.ownerTokens(this.myUserAddress).call(); 
       this.chainModel.tokenData = [];
       this.chainModel.ownerTokens = [];
-      console.log("Chain ownerTokens", ownerTokens);  
 
       for(let i = 0 ; i < ownerTokens.length ; i ++){
         this.chainModel.ownerTokens.push(parseInt(ownerTokens[i]));
@@ -100,7 +83,8 @@ export class RoyaltyBrowserPage implements OnInit {
       }
 
 
-      console.log("Chain Model", this.chainModel);  
+      console.log("Chain Model", this.chainModel);   
+
       this.isLoaded = true;
       await loading.dismiss(); 
       resolve({});
