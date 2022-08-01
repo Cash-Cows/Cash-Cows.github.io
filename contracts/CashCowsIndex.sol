@@ -19,7 +19,7 @@ contract CashCowsIndex {
    * from your other contract instead.
    */
   function ownerTokens(
-    IERC721Supply collection,
+    IERC721Supply collection, 
     address owner,
     uint256 lastId
   ) external view returns(uint256[] memory) {
@@ -32,10 +32,19 @@ contract CashCowsIndex {
     }
     //this is how we can fix the array size
     uint256[] memory tokenIds = new uint256[](balance);
+<<<<<<< HEAD
+    //next get the total supply
+    uint256 supply = collection.totalSupply();
+    //next declare the array index
+    uint256 index;
+    //loop through the supply
+    for (uint256 i = 1; i <= supply; i++) {
+=======
     //next declare the array index
     uint256 index;
     //loop through the supply
     for (uint256 i = 1; i <= lastId; i++) {
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
       try collection.ownerOf(i) 
       returns (address tokenOwner) {
         //if we found a token owner ows

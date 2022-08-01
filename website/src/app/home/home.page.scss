@@ -1,3 +1,6 @@
+ion-content{
+    --background:#000;
+}
 span,p,h1,h2,h3,h4,h5,div{
     font-family: 'IMFellDWPica-Regular';
 }
@@ -37,6 +40,10 @@ span,p,h1,h2,h3,h4,h5,div{
         display: grid;
         place-items: center;
         text-align: center;
+        margin-top: 8em;
+        .logo{
+            max-width: 600px;
+        }
         .actions{
             display: flex;
             column-gap: 22px;
@@ -60,19 +67,20 @@ span,p,h1,h2,h3,h4,h5,div{
         position: absolute;
     }
     .c-section-2-content{
+        padding: 0px 10em;     
         .c-section-2-content-1{
-            margin-left: 40px;
+            margin-left: 20px;
             .c-txt{
                 h1{
                     font-weight: 400;
                     font-size: 40px;
                     line-height: 50px;
-                    margin-top: 0px;
+                    margin-top: 70px;
                 }
                 p{
                     font-style: normal;
                     font-weight: 400;
-                    font-size: 24px;
+                    font-size: 15px;
                     line-height: 30px;
                 }
                 span{
@@ -98,15 +106,19 @@ span,p,h1,h2,h3,h4,h5,div{
 
 .c-section-3{
     position: relative;
-    padding-bottom: 10em;
+    padding-bottom: 22em;
     padding-top: 10em;
     display: grid;
     align-content: center;
     .bg{ 
-        height: 100%;
-        object-fit: cover;
-        width: 100%; 
         position: absolute;
+        bottom: 0px; 
+        width: 100%;
+        img{  
+            /* height: 100%; */
+            // object-fit: cover;
+            width: 100%;
+        }
     }
 }
 
@@ -136,7 +148,7 @@ span,p,h1,h2,h3,h4,h5,div{
                 p{
                     font-style: normal;
                     font-weight: 400;
-                    font-size: 24px;
+                    font-size: 15px;
                     line-height: 30px;
                 }
                 span{
@@ -182,7 +194,7 @@ span,p,h1,h2,h3,h4,h5,div{
         p{
             font-style: normal;
             font-weight: 400;
-            font-size: 24px;
+            font-size: 15px;
             line-height: 30px;  
             text-align: center;
         }
@@ -237,9 +249,28 @@ span,p,h1,h2,h3,h4,h5,div{
 
 
 
+.isMobile{
+    display: none;
+}
+.isDesktop{
+    display: block;
+}
 // Mobile
 @media only screen and (max-width: 1024px) {
-
+    
+    .c-section-1{ 
+        .c-section-1-content{ 
+            .logo{
+                max-width: 100%;
+            } 
+        } 
+    }
+    .isMobile{
+        display: block;
+    }
+    .isDesktop{
+        display: none;
+    }
     .c-header{ 
         .header-actions{ 
             column-gap: 5px;
@@ -254,6 +285,7 @@ span,p,h1,h2,h3,h4,h5,div{
     
     .c-section-2{ 
         .c-section-2-content{
+            padding: 0px;         
             .c-section-2-content-1{
                 margin-left: 0px; 
                 .actions{          
@@ -272,3 +304,191 @@ span,p,h1,h2,h3,h4,h5,div{
         }  
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GALAXY
+// -----------------------------------------------------------------------------
+// Twinkle Animations
+// -----------------------------------------------------------------------------
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// Twinkle Animations > Twinkle 1
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+@-webkit-keyframes twinkle_one {
+    0%   { opacity: 1; }
+    30%  { opacity: 1; }
+    70%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes twinkle_one {
+    0%   { opacity: 1; }
+    30%  { opacity: 1; }
+    70%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes twinkle_one {
+    0%   { opacity: 1; }
+    30%  { opacity: 1; }
+    70%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes twinkle_one {
+    0%   { opacity: 1; }
+    30%  { opacity: 1; }
+    70%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // Twinkle Animations > Twinkle 2
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @-webkit-keyframes twinkle_two {
+    0%   { opacity: 1; }
+    25%  { opacity: 0; }
+    80%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes twinkle_two {
+    0%   { opacity: 1; }
+    25%  { opacity: 0; }
+    80%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes twinkle_two {
+    0%   { opacity: 1; }
+    25%  { opacity: 0; }
+    80%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes twinkle_two {
+    0%   { opacity: 1; }
+    25%  { opacity: 0; }
+    80%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // Twinkle Animations > Twinkle 3
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @-webkit-keyframes twinkle_three {
+    0%   { opacity: 1; }
+    30%  { opacity: 0; }
+    40%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes twinkle_three {
+    0%   { opacity: 1; }
+    30%  { opacity: 0; }
+    40%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes twinkle_three {
+    0%   { opacity: 1; }
+    30%  { opacity: 0; }
+    40%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes twinkle_three {
+    0%   { opacity: 1; }
+    30%  { opacity: 0; }
+    40%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .galaxy{
+      z-index: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 2100px;
+      height: 100vh;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0);
+        
+        .star{
+          position: absolute;
+          background-color: white;
+        }
+  
+        .star-type1{
+          width: 1px;
+          height: 1px;
+          border-radius: 2px;
+          background-color: yellow; 
+          -webkit-box-shadow: 0 0 1px 1px yellow;
+                  box-shadow: 0 0 1px 1px yellow;
+          -webkit-animation: twinkle_one 3s ease-in-out infinite;
+             -moz-animation: twinkle_one 3s ease-in-out infinite;
+               -o-animation: twinkle_one 3s ease-in-out infinite;
+                  animation: twinkle_one 3s ease-in-out infinite;
+        }
+        .star-type2{
+          width: 2px;
+          height: 2px;
+          border-radius: 2px;
+          background-color: white; 
+          -webkit-box-shadow: 0 0 2px 1px white;
+                  box-shadow: 0 0 2px 1px white;
+          -webkit-animation: twinkle_two 12s ease-in-out infinite;
+             -moz-animation: twinkle_two 12s ease-in-out infinite;
+               -o-animation: twinkle_two 12s ease-in-out infinite;
+                  animation: twinkle_two 12s ease-in-out infinite;
+        }
+        .star-type3{
+          width: 2px;
+          height: 2px;
+          border-radius: 2px;
+          background-color: #003677;
+          -webkit-box-shadow: 0 0 2px 0 #003677;
+                  box-shadow: 0 0 2px 0 #003677;
+          -webkit-animation: twinkle_three 7s ease-in-out infinite;
+             -moz-animation: twinkle_three 7s ease-in-out infinite;
+               -o-animation: twinkle_three 7s ease-in-out infinite;
+                  animation: twinkle_three 7s ease-in-out infinite;
+        } 
+        
+      }

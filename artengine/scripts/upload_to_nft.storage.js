@@ -13,7 +13,7 @@ const rateLimiter = new Bottleneck({ maxConcurrent: 1, minTime: 3000 })
 
 async function uploadBuildImages(client, datalist) {
   const previews = path.resolve(paths.build, 'preview')
-  const images = path.resolve(paths.build, 'images')
+  const images = path.resolve(paths.build, 'image')
   const jsons = path.resolve(paths.build, 'json')
   if (!fs.existsSync(images)) {
     throw new Error('build/images folder missing')
@@ -48,25 +48,29 @@ async function uploadBuildImages(client, datalist) {
     }
 
     if (!uploaded[image]) {
-      const { dna } = require(json)
+      let jsonNFT = require(json); 
       //upload image
-      uploaded[image] = await rateLimiter.schedule(() => client.storeBlob(new Blob([
+      uploaded[image] = await rateLimiter.schedule(async () => client.storeBlob(new Blob([
         await fs.promises.readFile(image)
-      ])))
-      if (uploaded[image] !== dna) {
-        console.error(`Uploaded ${uploaded[image]} does not match IPFS ${dna}`)
-        continue
-      }
+      ]))) 
+      jsonNFT.dna = uploaded[image];
+      jsonNFT.image = `https://ipfs.io/ipfs/${uploaded[image]}`;  
+
+      // if (uploaded[image] !== dna) {
+      //   console.error(`${JSON.stringify(uploaded)},Uploaded ${uploaded[image]} does not match IPFS ${dna}`)
+      //   continue
+      // }
 
       //upload preview
-      if (add_preview) {
-        if (!uploaded[preview]) {
-          uploaded[preview] = await rateLimiter.schedule(() => client.storeBlob(new Blob([
-            await fs.promises.readFile(preview)
-          ])))
-        }
-      }
-
+      // if (add_preview) {
+      //   if (!uploaded[preview]) {
+      //     uploaded[preview] = await rateLimiter.schedule( async () => client.storeBlob(new Blob([
+      //       await fs.promises.readFile(preview)
+      //     ])))
+      //   }
+      // } 
+      console.log("Uploaded",uploaded[image],json);
+      fs.writeFileSync(path.join(jsons, `${path.basename(name.split(".")[0])}.json`), JSON.stringify(jsonNFT, null, 2)) 
       fs.writeFileSync(CACHE_FILE, JSON.stringify(uploaded, null, 2))
     }
 
@@ -85,7 +89,7 @@ async function main() {
   const client = new NFTStorage({ token: process.env.NFT_STORAGE })
   await uploadBuildImages(client, datalist)
 
-  console.log('Uploading all json...')
+  console.log('Uploading all json...',datalist)
   const cid = await client.storeDirectory(datalist)
   console.log(`JSON folder found in https://ipfs.io/ipfs/${cid}`)
   console.log('Done!')

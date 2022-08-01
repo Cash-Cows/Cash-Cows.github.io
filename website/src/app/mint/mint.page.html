@@ -53,6 +53,26 @@
             <div class="c-a2-1-content">
               <div class="c-a2-1-content-1">
                 <ion-row>
+<<<<<<< HEAD
+                  <ion-col size="12"
+                  class="c-monitor" >
+                    <img [src]="isChainLoaded ? '/assets/empty-monitor.png' : '/assets/connect-monitor.png'" alt=""> 
+                    <div class="c-monitor-content" *ngIf="isChainLoaded"> 
+                      <p class="c-title-pull">PULL-DOWN TO MINT</p>
+                      <a   [href]="env.configchain.SCAN_LINK" target="_blank">{{env.configchain.CONTRACT_ADDRESS}}</a> 
+                      <p class="c-receipt" *ngIf="chainModel.totalSupply"> 
+                        {{chainModel.totalSupply}} / {{chainModel.MAX_SUPPLY}}
+                        <br>
+                        {{receiptDisplay}}
+                      </p>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">  
+                    <div class="c-a2-1-content-1-1"> 
+                      <img id="c-pull" class="c-pull" src="/assets/pull.png" alt="" 
+                        (click)="onMint()">
+                        
+=======
                   <ion-col size="12">
                     <img src="/assets/connect-monitor.png" alt="">
                   </ion-col>
@@ -61,6 +81,7 @@
                       <img class="c-pull" src="/assets/pull.png" alt="" 
                         (click)="onMint()">
                       <p class="c-receipt">{{receiptDisplay}}</p>
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
                       <div class="c-pull-div"> 
                         <img *ngIf="isChainLoaded" class="c-pull-msg" [src]="
                         !env.isStartedMint ? '/assets/minting-soon.png' : 

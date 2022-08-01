@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v2" />
+    <link rel="stylesheet" type="text/css" href="/styles/treasury.css?v3" />
   </head>
   <body>
     <div class="stars"></div>
@@ -232,6 +232,16 @@
         </div>
       </div>
     </template>
+    <template id="template-loading-modal">
+      <div class="modal loading"> 
+        <div class="modal-main"> 
+          <img src="images/loading.gif" alt="">
+          {MESSAGE}
+        </div>
+      </div>
+      <!-- align-items: center;
+    column-gap: 10px; -->
+    </template>
     <template id="template-attribute-box">
       <div class="attribute-box">
         <h6>{NAME}</h6>
@@ -248,7 +258,7 @@
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/connect.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v1"></script>
     <script type="text/javascript" src="/scripts/treasury.js?v7"></script>
   </body>
 </html>

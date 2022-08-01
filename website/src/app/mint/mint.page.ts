@@ -156,16 +156,16 @@ export class MintPage implements OnInit {
         to: this.config.CONTRACT_ADDRESS,
         from: this.myUserAddress ,
         value: value 
-      });
+      }); 
       await this.connectWallet.contract.methods.mint(quantity, this.maxMint, maxFree, proof).send({ 
         gasLimit: totalGasLimit,
         to: this.config.CONTRACT_ADDRESS,
         from: this.myUserAddress ,
         value: value 
-      }); 
-
+      });  
     }else{
       // Public Minting
+      
     } 
 
 
@@ -178,6 +178,19 @@ export class MintPage implements OnInit {
 
     this.numMint = 0 ;
     this.onReceipt();
+  }
+
+  animatePull() {
+    return new Promise<any>((resolve)=>{ 
+      setTimeout(()=>{
+        var a =document.getElementById("c-pull");
+        a.style.transform = "rotate(180deg)";
+        setTimeout(()=>{ 
+            a.style.transform = "rotate(0deg)";
+            resolve({});
+        },800)
+      },200);
+    })
   }
 
   onReceipt(){    

@@ -348,6 +348,26 @@ h2 {
   opacity: 1;
 }
 
+.loading{
+  align-items: center;
+}
+
+.loading .modal-main{
+  height: fit-content; 
+  display: flex;
+  align-items: center;
+  column-gap: 11px;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  border-radius: 10px;
+}
+
+.loading .modal-main img{
+  height: 50px;
+}
+
+
 
 @media(max-width: 1000px) {
   .modal .overlay {
