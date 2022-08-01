@@ -100,12 +100,11 @@ window.addEventListener('web3sdk-ready', async () => {
     })
 
     //now we need to determine each rank
-    //now we need to determine each rank
     let rank = 1
     const ranked = database.slice().sort((a, b) => b.score - a.score)
     ranked.forEach((row, i) => {
       row.rank = i == 0 
-        || Math.floor(ranked[i - 1].score) == Math.floor(row.score) 
+        || Math.floor(ranked[i - 1].score * 100) == Math.floor(row.score * 100) 
         ? rank
         : ++rank
     })
