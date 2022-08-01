@@ -53,6 +53,7 @@
             <div class="c-a2-1-content">
               <div class="c-a2-1-content-1">
                 <ion-row>
+<<<<<<< HEAD
                   <ion-col size="12"
                   class="c-monitor" >
                     <img [src]="isChainLoaded ? '/assets/empty-monitor.png' : '/assets/connect-monitor.png'" alt=""> 
@@ -71,6 +72,16 @@
                       <img id="c-pull" class="c-pull" src="/assets/pull.png" alt="" 
                         (click)="onMint()">
                         
+=======
+                  <ion-col size="12">
+                    <img src="/assets/connect-monitor.png" alt="">
+                  </ion-col>
+                  <ion-col size="6">  
+                    <div class="c-a2-1-content-1-1"> 
+                      <img class="c-pull" src="/assets/pull.png" alt="" 
+                        (click)="onMint()">
+                      <p class="c-receipt">{{receiptDisplay}}</p>
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
                       <div class="c-pull-div"> 
                         <img *ngIf="isChainLoaded" class="c-pull-msg" [src]="
                         !env.isStartedMint ? '/assets/minting-soon.png' : 

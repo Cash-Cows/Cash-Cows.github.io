@@ -1,21 +1,34 @@
+<<<<<<< HEAD
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ToastMessageService } from '../utils/toast-message.service';
 
 
 declare var $:any;
+=======
+import { Component, OnInit } from '@angular/core';
+import { ToastMessageService } from '../utils/toast-message.service';
+
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+<<<<<<< HEAD
   encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
   env = environment;
+=======
+})
+export class HomePage implements OnInit {
+  
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
   constructor( private toast:ToastMessageService) {  
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     // Random Stars
     var generateStars = function(){
         
@@ -59,15 +72,21 @@ export class HomePage implements OnInit {
     };
 
     generateStars();
+=======
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
   }
 
   onOpenWindow(src){
     if(src==''){ this.toast.presentToast("Coming Soon..."); return;}
+<<<<<<< HEAD
     console.log(src.split("")[0]);
     if(src.split("")[0] == "/"){ 
       window.open(src,"_self");
     }else{ 
       window.open(src,"_blank")
     }
+=======
+    window.open(src,"_blank")
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
   }
 }

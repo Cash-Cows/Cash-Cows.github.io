@@ -255,7 +255,12 @@ describe('CashCows Tests', function () {
     
     const tokens = await admin.withIndex.ownerTokens(
       tokenOwner2.withNFT.address, 
+<<<<<<< HEAD
       tokenOwner2.address
+=======
+      tokenOwner2.address,
+      24
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
     )
     expect(tokens[0]).to.equal(21)
     expect(tokens[1]).to.equal(22)
@@ -384,7 +389,12 @@ describe('CashCows Tests', function () {
 
     const tokens = await admin.withIndex.ownerTokens(
       tokenOwner2.withNFT.address, 
+<<<<<<< HEAD
       tokenOwner2.address
+=======
+      tokenOwner2.address,
+      30
+>>>>>>> 82145cdcb87e48cda650f59e412353d2c2089215
     )
 
     expect(tokens[0]).to.equal(21)
