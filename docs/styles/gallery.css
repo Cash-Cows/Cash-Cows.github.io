@@ -138,35 +138,8 @@
   color: #F9AF00;
 }
 
-.modal {
-  background-color: rgba(0, 0, 0, 0.65);
-  bottom: 0;
-  display: flex;
-  left: 0;
-  justify-content: center;
-  overflow: auto;
-  padding: 0 20px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 2000;
-}
-
 .modal .overlay {
-  background-color: #FFFFFF;
   display: flex;
-  margin: 40px auto;
-  max-width: 960px;
-  overflow: auto;
-  position: relative;
-}
-
-.modal .overlay .close {
-  font-size: 30px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 2000;
 }
 
 .modal .preview {

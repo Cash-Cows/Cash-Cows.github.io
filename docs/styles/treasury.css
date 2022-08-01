@@ -69,7 +69,22 @@ h2 {
   margin: 0;
 }
 
-.connected{
+.section-3 {
+  background-color: #333333;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  z-index: 500;
+}
+
+.section-3 .cancel {
+  color: #FFFFFF;
+}
+
+.body .connected {
   display: grid;
   justify-items: center;
 }
@@ -158,35 +173,8 @@ h2 {
   color: #F9AF00;
 }
 
-.modal {
-  background-color: rgba(0, 0, 0, 0.65);
-  bottom: 0;
-  display: flex;
-  left: 0;
-  justify-content: center;
-  overflow: auto;
-  padding: 0 20px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 2000;
-}
-
 .modal .overlay {
-  background-color: #FFFFFF;
   display: flex;
-  margin: 40px auto;
-  max-width: 960px;
-  overflow: auto;
-  position: relative;
-}
-
-.modal .overlay .close {
-  font-size: 30px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 2000;
 }
 
 .modal .preview {
@@ -359,6 +347,26 @@ h2 {
 .round input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
+
+.loading{
+  align-items: center;
+}
+
+.loading .modal-main{
+  height: fit-content; 
+  display: flex;
+  align-items: center;
+  column-gap: 11px;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  border-radius: 10px;
+}
+
+.loading .modal-main img{
+  height: 50px;
+}
+
 
 
 @media(max-width: 1000px) {

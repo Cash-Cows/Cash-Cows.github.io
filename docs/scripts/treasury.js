@@ -13,29 +13,45 @@ window.addEventListener('web3sdk-ready', async () => {
   const template = {
     item: document.getElementById('template-result-item').innerHTML,
     modal: document.getElementById('template-modal').innerHTML,
+    loadingModal: document.getElementById('template-loading-modal').innerHTML,
     attribute: document.getElementById('template-attribute-box').innerHTML
   }
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
+  const index = network.contract('index')
   const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
+  let toggled = false
+
   //------------------------------------------------------------------//
   // Functions
-
+  const loading = (isShow)=>{
+    if(isShow){
+      const modal = theme.toElement(template.loadingModal, {
+        '{MESSAGE}': "Please wait...", 
+      }) 
+      document.body.appendChild(modal)
+      window.doon(modal)
+    }else{ 
+      document.body.removeChild(document.querySelector('div.loading'))
+    }
+  }
   const connected = async state => {
-    //populate cows
-    console.log(state);
-    Web3SDK.state.tokens = await nft.read().ownerTokens(state.account)
- 
+    //populate cows 
+    console.log("connected",Web3SDK.state);
+    loading(true); 
+    Web3SDK.state.tokens = await index.read().ownerTokens(nft.address, state.account)  
+    console.log("Web3SDK.state.tokens",Web3SDK.state);
     if (!Web3SDK.state.tokens.length) {
       results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
     } else {
       rewards.innerHTML = 'Loading...'
     }
 
-    Web3SDK.state.tokens.forEach(async tokenId => {
+    results.innerHTML = "";
+    Web3SDK.state.tokens.forEach(async (tokenId, i) => {
       const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
       const row = database[index]
@@ -57,22 +73,24 @@ window.addEventListener('web3sdk-ready', async () => {
         '{LEVEL}': stage + 1,
         '{IMAGE}': `/images/collection/${tokenId}_${stage}.png`,
         '{CHECKVALUE}': tokenId,
+        '{ISCHECKED}': i < 10 ? 'checked': ''
       })
+
       results.appendChild(item)
       window.doon(item)
     })
 
     //get total rewards
-    let unclaimed = 0
-    for (const tokenId of Web3SDK.state.tokens) {
-      unclaimed += Web3SDK.toEther(
-        await royalty.read()['releaseable(uint256)'](tokenId),
-        'number'
-      )
-      rewards.innerHTML = unclaimed.toFixed(6)
-    }
+    rewards.innerHTML = Web3SDK.toEther(
+      await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
+      'number'
+    ).toFixed(6)
 
-    rewards.innerHTML = unclaimed.toFixed(6)
+     
+    theme.hide('.connected', false)
+    theme.hide('.disconnected', true)
+    theme.hide('.hide',true);  
+    loading(false);
   }
 
   const rarity = function() {
@@ -100,8 +118,13 @@ window.addEventListener('web3sdk-ready', async () => {
     })
 
     //now we need to determine each rank
-    database.slice().sort((a, b) => b.score - a.score).forEach((row, i) => {
-      row.rank = i + 1
+    let rank = 1
+    const ranked = database.slice().sort((a, b) => b.score - a.score)
+    ranked.forEach((row, i) => {
+      row.rank = i == 0 
+        || Math.floor(ranked[i - 1].score) == Math.floor(row.score) 
+        ? rank
+        : ++rank
     })
   }
 
@@ -218,12 +241,12 @@ window.addEventListener('web3sdk-ready', async () => {
     }
   })
 
-  window.addEventListener('redeem-all-click', async () => {
+  window.addEventListener('redeem-selected-click', async () => {
     if (!Web3SDK.state.tokens?.length) {
       return notify('error', 'You don\'t have a cow.')
     }
     let selectedtokens = [];
-    const selecteds = document.getElementsByClassName("checkbox-item"); 
+    const selecteds = document.getElementsByClassName('checkbox-item'); 
     for(var selected of selecteds ){
       if(selected.checked){ 
         selectedtokens.push(selected.value);
@@ -232,7 +255,6 @@ window.addEventListener('web3sdk-ready', async () => {
     if (selectedtokens.length <= 0) {
       return notify('error', 'No token selected')
     }
-    console.log("selectedtokens",selectedtokens);
     //gas check
     try {
       await royalty.gas(Web3SDK.state.account, 0)['releaseBatch(uint256[])'](selectedtokens)
@@ -295,13 +317,18 @@ window.addEventListener('web3sdk-ready', async () => {
     }
   })
 
+  window.addEventListener('redeem-toggle-click', () => {
+    //toggle hide
+    theme.hide('section.section-3', toggled)
+    theme.hide('div.checkbox-item-main', toggled)
+    toggled = !toggled
+  })
+
   //------------------------------------------------------------------//
   // Initialize
 
   //count occurances
   rarity()
-
-
 
   //get unclaimed
   unclaimed.innerHTML = parseFloat(Web3SDK.toEther(
@@ -315,5 +342,15 @@ window.addEventListener('web3sdk-ready', async () => {
   ) || '0.00').toFixed(6)
 
   //start session
+
+  window.ethereum.on("accountsChanged", async (accounts) => {  
+    network.startSession(connected, disconnected, true)
+  });
+  window.ethereum.on("chainChanged", async () => { 
+    network.startSession(connected, disconnected, true)
+  });
+  window.ethereum.on("close", (error) => { 
+      console.log("Errorethereum",error);
+  });
   network.startSession(connected, disconnected, true)
 })

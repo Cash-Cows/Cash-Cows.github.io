@@ -57,7 +57,8 @@ export class MintPage implements OnInit {
   async onRefreshChainData(){
     return new Promise<any>(async resolve=>{ 
       const loading = await this.loadingController.create({ message: "Please wait ...."  });
-      await loading.present();  
+      await loading.present(); 
+      this.isChainLoaded = false; 
 
       this.myUserAddress = this.connectWallet.userAddress; 
       this.chainModel.TREASURY =  await this.connectWallet.contract.methods.TREASURY().call(); 
@@ -82,7 +83,6 @@ export class MintPage implements OnInit {
 
   async onMint(){
     let gasLimit = this.config.GAS_LIMIT; 
-    await this.animatePull();
     if(!this.myUserAddress){
       this.toast.presentToast("Wallet is not yet connected");
       return;

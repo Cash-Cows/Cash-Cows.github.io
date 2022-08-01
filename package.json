@@ -3,7 +3,7 @@
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",
-    "authorize": "npx hardhat run scripts/authorize.js",
+    "authorize":"npx hardhat run scripts/authorize.js",
     "start": "node server/index.js",
     "art_setup": "node artengine/scripts/config_layers.js",
     "art_build": "node artengine/scripts/build_collection.js",
@@ -21,9 +21,9 @@
     "@pinata/sdk": "1.1.24",
     "axios": "0.26.1",
     "bottleneck": "2.19.5",
+    "dotenv": "^14.2.0",
     "canvas": "^2.8.0",
     "chai": "4.3.4",
-    "dotenv": "^14.2.0",
     "erc721b": "0.2.1",
     "ethereum-waffle": "3.4.0",
     "ethers": "5.4.1",
@@ -35,9 +35,5 @@
     "hardhat-gas-reporter": "1.0.6",
     "ipfs-http-client": "57.0.3",
     "ipfs-only-hash": "4.0.0"
-  },
-  "dependencies": {
-    "cids": "^1.1.9",
-    "nft.storage": "^6.4.1"
   }
 }
