@@ -348,6 +348,7 @@ h2 {
   opacity: 1;
 }
 
+
 .loading{
   align-items: center;
 }
@@ -366,9 +367,6 @@ h2 {
 .loading .modal-main img{
   height: 50px;
 }
-
-
-
 @media(max-width: 1000px) {
   .modal .overlay {
     display: block;

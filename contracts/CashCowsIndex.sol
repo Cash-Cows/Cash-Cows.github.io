@@ -19,7 +19,7 @@ contract CashCowsIndex {
    * from your other contract instead.
    */
   function ownerTokens(
-    IERC721Supply collection, 
+    IERC721Supply collection,
     address owner,
     uint256 lastId
   ) external view returns(uint256[] memory) {

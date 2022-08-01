@@ -22,10 +22,6 @@ const routes: Routes = [
     path: 'mint',
     loadChildren: () => import('./mint/mint.module').then( m => m.MintPageModule)
   },
-  {
-    path: 'gallery',
-    loadChildren: () => import('./gallery/gallery.module').then( m => m.GalleryPageModule)
-  },
 ];
 
 @NgModule({

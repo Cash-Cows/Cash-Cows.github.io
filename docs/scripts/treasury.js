@@ -27,6 +27,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   //------------------------------------------------------------------//
   // Functions
+
   const loading = (isShow)=>{
     if(isShow){
       const modal = theme.toElement(template.loadingModal, {
@@ -38,6 +39,7 @@ window.addEventListener('web3sdk-ready', async () => {
       document.body.removeChild(document.querySelector('div.loading'))
     }
   }
+
   const connected = async state => {
     //populate cows 
     loading(true); 
@@ -52,7 +54,7 @@ window.addEventListener('web3sdk-ready', async () => {
       rewards.innerHTML = 'Loading...'
     }
 
-    results.innerHTML = "";
+    results.innerHTML = ""; 
     Web3SDK.state.tokens.forEach(async (tokenId, i) => {
       const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
@@ -87,7 +89,6 @@ window.addEventListener('web3sdk-ready', async () => {
       await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
       'number'
     ).toFixed(6)
- 
     loading(false);
   }
 
@@ -339,8 +340,7 @@ window.addEventListener('web3sdk-ready', async () => {
     'number'
   ) || '0.00').toFixed(6)
 
-  //start session
-
+  //start session  
   window.ethereum.on("accountsChanged", async (accounts) => {  
     network.startSession(connected, disconnected, true)
   });
