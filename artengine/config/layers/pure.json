@@ -1,0 +1,713 @@
+[
+  {
+    "name": "Background",
+    "visible": true,
+    "order": 0,
+    "attributes": {
+      "Bells": {
+        "id": 1,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Bells#10/0.png",
+          "/layers/0-Background/Bells#10/1.png",
+          "/layers/0-Background/Bells#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Cash": {
+        "id": 2,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Cash#5/0.png",
+          "/layers/0-Background/Cash#5/1.png",
+          "/layers/0-Background/Cash#5/2.png"
+        ],
+        "weight": 5,
+        "no": [ 11, 111, 128 ]
+      },
+      "Cyan": {
+        "id": 3,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Cyan#20/0.png",
+          "/layers/0-Background/Cyan#20/1.png",
+          "/layers/0-Background/Cyan#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Diamonds": {
+        "id": 4,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Diamonds#5/0.png",
+          "/layers/0-Background/Diamonds#5/1.png",
+          "/layers/0-Background/Diamonds#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Gray": {
+        "id": 5,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Gray#20/0.png",
+          "/layers/0-Background/Gray#20/1.png",
+          "/layers/0-Background/Gray#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Green": {
+        "id": 6,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Green#20/0.png",
+          "/layers/0-Background/Green#20/1.png",
+          "/layers/0-Background/Green#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 111, 128 ]
+      },
+      "Indigo": {
+        "id": 7,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Indigo#20/0.png",
+          "/layers/0-Background/Indigo#20/1.png",
+          "/layers/0-Background/Indigo#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Money": {
+        "id": 8,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Money#5/0.png",
+          "/layers/0-Background/Money#5/1.png",
+          "/layers/0-Background/Money#5/2.png"
+        ],
+        "weight": 5,
+        "no": [ 11, 111, 128 ]
+      },
+      "Orange": {
+        "id": 9,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Orange#20/0.png",
+          "/layers/0-Background/Orange#20/1.png",
+          "/layers/0-Background/Orange#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Peach": {
+        "id": 10,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Peach#20/0.png",
+          "/layers/0-Background/Peach#20/1.png",
+          "/layers/0-Background/Peach#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Violet": {
+        "id": 11,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Violet#20/0.png",
+          "/layers/0-Background/Violet#20/1.png",
+          "/layers/0-Background/Violet#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Yellow": {
+        "id": 12,
+        "visible": true,
+        "paths": [
+          "/layers/0-Background/Yellow#20/0.png",
+          "/layers/0-Background/Yellow#20/1.png",
+          "/layers/0-Background/Yellow#20/2.png"
+        ],
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Hide",
+    "visible": true,
+    "order": 1,
+    "attributes": {
+      "Black": {
+        "id": 19,
+        "visible": true,
+        "paths": [
+          "/layers/1-Hide/Black#20/0.png",
+          "/layers/1-Hide/Black#20/1.png",
+          "/layers/1-Hide/Black#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 63, 65, 76 ]
+      },
+      "Brown": {
+        "id": 20,
+        "visible": true,
+        "paths": [
+          "/layers/1-Hide/Brown#20/0.png",
+          "/layers/1-Hide/Brown#20/1.png",
+          "/layers/1-Hide/Brown#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 155, 170, 172 ]
+      },
+      "Dark Brown": {
+        "id": 24,
+        "visible": true,
+        "paths": [
+          "/layers/1-Hide/Dark Brown#20/0.png",
+          "/layers/1-Hide/Dark Brown#20/1.png",
+          "/layers/1-Hide/Dark Brown#20/2.png"
+        ],
+        "weight": 20
+      },
+      "White": {
+        "id": 40,
+        "visible": true,
+        "paths": [
+          "/layers/1-Hide/White#20/0.png",
+          "/layers/1-Hide/White#20/1.png",
+          "/layers/1-Hide/White#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 155, 170, 172 ]
+      }
+    }
+  },
+  {
+    "name": "Mask",
+    "visible": true,
+    "order": 2,
+    "attributes": {
+      "None": {
+        "id": 58,
+        "visible": true,
+        "paths": [
+          "/layers/2-Mask/None#30/0.png",
+          "/layers/2-Mask/None#30/1.png",
+          "/layers/2-Mask/None#30/2.png"
+        ],
+        "weight": 30
+      }
+    }
+  },
+  {
+    "name": "Eyes",
+    "visible": true,
+    "order": 3,
+    "attributes": {
+      "Oh Yeah": {
+        "id": 72,
+        "visible": true,
+        "paths": [
+          "/layers/3-Eyes/Oh Yeah#20/0.png",
+          "/layers/3-Eyes/Oh Yeah#20/1.png",
+          "/layers/3-Eyes/Oh Yeah#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Stare": {
+        "id": 75,
+        "visible": true,
+        "paths": [
+          "/layers/3-Eyes/Stare#20/0.png",
+          "/layers/3-Eyes/Stare#20/1.png",
+          "/layers/3-Eyes/Stare#20/2.png"
+        ],
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Mouth",
+    "visible": true,
+    "order": 4,
+    "attributes": {
+      "Gold Teeth": {
+        "id": 80,
+        "visible": true,
+        "paths": [
+          "/layers/4-Mouth/Gold Teeth#5/0.png",
+          "/layers/4-Mouth/Gold Teeth#5/1.png",
+          "/layers/4-Mouth/Gold Teeth#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Money": {
+        "id": 83,
+        "visible": true,
+        "paths": [
+          "/layers/4-Mouth/Money#5/0.png",
+          "/layers/4-Mouth/Money#5/1.png",
+          "/layers/4-Mouth/Money#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Serious": {
+        "id": 86,
+        "visible": true,
+        "paths": [
+          "/layers/4-Mouth/Serious#20/0.png",
+          "/layers/4-Mouth/Serious#20/1.png",
+          "/layers/4-Mouth/Serious#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Silver Teeth": {
+        "id": 87,
+        "visible": true,
+        "paths": [
+          "/layers/4-Mouth/Silver Teeth#5/0.png",
+          "/layers/4-Mouth/Silver Teeth#5/1.png",
+          "/layers/4-Mouth/Silver Teeth#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Smile": {
+        "id": 88,
+        "visible": true,
+        "paths": [
+          "/layers/4-Mouth/Smile#20/0.png",
+          "/layers/4-Mouth/Smile#20/1.png",
+          "/layers/4-Mouth/Smile#20/2.png"
+        ],
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Nose",
+    "visible": true,
+    "order": 5,
+    "attributes": {
+      "Black": {
+        "id": 92,
+        "visible": true,
+        "paths": [
+          "/layers/5-Nose/Black#20/0.png",
+          "/layers/5-Nose/Black#20/1.png",
+          "/layers/5-Nose/Black#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 100, 101, 102, 103, 104, 105 ]
+      },
+      "Brown": {
+        "id": 93,
+        "visible": true,
+        "paths": [
+          "/layers/5-Nose/Brown#20/0.png",
+          "/layers/5-Nose/Brown#20/1.png",
+          "/layers/5-Nose/Brown#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 99, 101, 102, 103, 104, 105 ]
+      },
+      "Orange": {
+        "id": 96,
+        "visible": true,
+        "paths": [
+          "/layers/5-Nose/Orange#10/0.png",
+          "/layers/5-Nose/Orange#10/1.png",
+          "/layers/5-Nose/Orange#10/2.png"
+        ],
+        "weight": 10,
+        "no": [ 99, 100, 101, 102, 104, 105 ]
+      },
+      "Pink": {
+        "id": 97,
+        "visible": true,
+        "paths": [
+          "/layers/5-Nose/Pink#20/0.png",
+          "/layers/5-Nose/Pink#20/1.png",
+          "/layers/5-Nose/Pink#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 99, 100, 101, 102, 103, 105 ]
+      }
+    }
+  },
+  {
+    "name": "Belly",
+    "visible": true,
+    "order": 6,
+    "attributes": {
+      "Black": {
+        "id": 99,
+        "visible": true,
+        "paths": [
+          "/layers/6-Belly/Black#30/0.png",
+          "/layers/6-Belly/Black#30/1.png",
+          "/layers/6-Belly/Black#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Brown": {
+        "id": 100,
+        "visible": true,
+        "paths": [
+          "/layers/6-Belly/Brown#30/0.png",
+          "/layers/6-Belly/Brown#30/1.png",
+          "/layers/6-Belly/Brown#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Orange": {
+        "id": 103,
+        "visible": true,
+        "paths": [
+          "/layers/6-Belly/Orange#20/0.png",
+          "/layers/6-Belly/Orange#20/1.png",
+          "/layers/6-Belly/Orange#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Pink": {
+        "id": 104,
+        "visible": true,
+        "paths": [
+          "/layers/6-Belly/Pink#30/0.png",
+          "/layers/6-Belly/Pink#30/1.png",
+          "/layers/6-Belly/Pink#30/2.png"
+        ],
+        "weight": 30
+      }
+    }
+  },
+  {
+    "name": "Earrings",
+    "visible": true,
+    "order": 7,
+    "attributes": {
+      "Both": {
+        "id": 106,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/Both#10/0.png",
+          "/layers/7-Earrings/Both#10/1.png",
+          "/layers/7-Earrings/Both#10/2.png"
+        ],
+        "weight": 10,
+        "no": [ 112, 115, 118, 121, 122, 124, 129, 139, 144, 145, 147 ]
+      },
+      "Left": {
+        "id": 107,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/Left#10/0.png",
+          "/layers/7-Earrings/Left#10/1.png",
+          "/layers/7-Earrings/Left#10/2.png"
+        ],
+        "weight": 10,
+        "no": [ 112, 115, 118, 121, 122, 124, 129, 139, 144, 145, 147 ]
+      },
+      "None": {
+        "id": 108,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/None#30/0.png",
+          "/layers/7-Earrings/None#30/1.png",
+          "/layers/7-Earrings/None#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Right": {
+        "id": 109,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/Right#10/0.png",
+          "/layers/7-Earrings/Right#10/1.png",
+          "/layers/7-Earrings/Right#10/2.png"
+        ],
+        "weight": 10,
+        "no": [ 112, 115, 118, 121, 122, 124, 129, 139, 144, 145, 147 ]
+      }
+    }
+  },
+  {
+    "name": "Head",
+    "visible": true,
+    "order": 8,
+    "attributes": {
+      "Bare": {
+        "id": 70001,
+        "visible": true,
+        "paths": [
+          "/layers/7-Earrings/None#30/0.png",
+          "/layers/7-Earrings/None#30/1.png",
+          "/layers/7-Earrings/None#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Black Durag": {
+        "id": 116,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Black Durag#20/0.png",
+          "/layers/8-Head/Black Durag#20/1.png",
+          "/layers/8-Head/Black Durag#20/2.png"
+        ],
+        "weight": 20,
+        "no": [ 149, 176 ]
+      },
+      "Black Horns": {
+        "id": 117,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Black Horns#20/0.png",
+          "/layers/8-Head/Black Horns#20/1.png",
+          "/layers/8-Head/Black Horns#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Gold Horns": {
+        "id": 127,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Gold Horns#5/0.png",
+          "/layers/8-Head/Gold Horns#5/1.png",
+          "/layers/8-Head/Gold Horns#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Halo": {
+        "id": 132,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/Halo#10/0.png",
+          "/layers/8-Head/Halo#10/1.png",
+          "/layers/8-Head/Halo#10/2.png"
+        ],
+        "weight": 5
+      },
+      "White Horns": {
+        "id": 148,
+        "visible": true,
+        "paths": [
+          "/layers/8-Head/White Horns#20/0.png",
+          "/layers/8-Head/White Horns#20/1.png",
+          "/layers/8-Head/White Horns#20/2.png"
+        ],
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Outwear",
+    "visible": true,
+    "order": 9,
+    "attributes": {
+      "Angel": {
+        "id": 149,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Angel#2/0.png",
+          "/layers/9-Outwear/Angel#2/1.png",
+          "/layers/9-Outwear/Angel#2/2.png"
+        ],
+        "weight": 2
+      },
+      "Black Kimono": {
+        "id": 151,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Black Kimono#10/0.png",
+          "/layers/9-Outwear/Black Kimono#10/1.png",
+          "/layers/9-Outwear/Black Kimono#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Gold Armor": {
+        "id": 165,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Gold Armor#5/0.png",
+          "/layers/9-Outwear/Gold Armor#5/1.png",
+          "/layers/9-Outwear/Gold Armor#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Muay Thai": {
+        "id": 169,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Muay Thai#10/0.png",
+          "/layers/9-Outwear/Muay Thai#10/1.png",
+          "/layers/9-Outwear/Muay Thai#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Naked": {
+        "id": 170,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Naked#30/0.png",
+          "/layers/9-Outwear/Naked#30/1.png",
+          "/layers/9-Outwear/Naked#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Robe": {
+        "id": 176,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Robe#20/0.png",
+          "/layers/9-Outwear/Robe#20/1.png",
+          "/layers/9-Outwear/Robe#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Wings": {
+        "id": 180,
+        "visible": true,
+        "paths": [
+          "/layers/9-Outwear/Wings#10/0.png",
+          "/layers/9-Outwear/Wings#10/1.png",
+          "/layers/9-Outwear/Wings#10/2.png"
+        ],
+        "weight": 5
+      }
+    }
+  },
+  {
+    "name": "Neck",
+    "visible": true,
+    "order": 10,
+    "attributes": {
+      "Blue Bandana": {
+        "id": 42,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Blue Bandana#20/0.png",
+          "/layers/10-Neck/Blue Bandana#20/1.png",
+          "/layers/10-Neck/Blue Bandana#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Blue Bell Necklace": {
+        "id": 43,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Blue Bell Necklace#20/0.png",
+          "/layers/10-Neck/Blue Bell Necklace#20/1.png",
+          "/layers/10-Neck/Blue Bell Necklace#20/2.png"
+        ],
+        "weight": 20
+      },
+      "C Chain": {
+        "id": 44,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/C Chain#10/0.png",
+          "/layers/10-Neck/C Chain#10/1.png",
+          "/layers/10-Neck/C Chain#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Camo Bandana": {
+        "id": 45,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Camo Bandana#20/0.png",
+          "/layers/10-Neck/Camo Bandana#20/1.png",
+          "/layers/10-Neck/Camo Bandana#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Circle Necklace": {
+        "id": 46,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Circle Necklace#10/0.png",
+          "/layers/10-Neck/Circle Necklace#10/1.png",
+          "/layers/10-Neck/Circle Necklace#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Cow Necklace": {
+        "id": 47,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Cow Necklace#10/0.png",
+          "/layers/10-Neck/Cow Necklace#10/1.png",
+          "/layers/10-Neck/Cow Necklace#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Diamond Necklace": {
+        "id": 48,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Diamond Necklace#5/0.png",
+          "/layers/10-Neck/Diamond Necklace#5/1.png",
+          "/layers/10-Neck/Diamond Necklace#5/2.png"
+        ],
+        "weight": 5
+      },
+      "Dollar Chain": {
+        "id": 49,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Dollar Chain#10/0.png",
+          "/layers/10-Neck/Dollar Chain#10/1.png",
+          "/layers/10-Neck/Dollar Chain#10/2.png"
+        ],
+        "weight": 10
+      },
+      "Green Bandana": {
+        "id": 50,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Green Bandana#20/0.png",
+          "/layers/10-Neck/Green Bandana#20/1.png",
+          "/layers/10-Neck/Green Bandana#20/2.png"
+        ],
+        "weight": 20
+      },
+      "None": {
+        "id": 51,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/None#30/0.png",
+          "/layers/10-Neck/None#30/1.png",
+          "/layers/10-Neck/None#30/2.png"
+        ],
+        "weight": 30
+      },
+      "Red Bandana": {
+        "id": 52,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Red Bandana#20/0.png",
+          "/layers/10-Neck/Red Bandana#20/1.png",
+          "/layers/10-Neck/Red Bandana#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Red Bell Necklace": {
+        "id": 53,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Red Bell Necklace#20/0.png",
+          "/layers/10-Neck/Red Bell Necklace#20/1.png",
+          "/layers/10-Neck/Red Bell Necklace#20/2.png"
+        ],
+        "weight": 20
+      },
+      "Silver Necklace": {
+        "id": 54,
+        "visible": true,
+        "paths": [
+          "/layers/10-Neck/Silver Necklace#10/0.png",
+          "/layers/10-Neck/Silver Necklace#10/1.png",
+          "/layers/10-Neck/Silver Necklace#10/2.png"
+        ],
+        "weight": 10
+      }
+    }
+  }
+]
