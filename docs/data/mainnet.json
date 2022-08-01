@@ -24,7 +24,7 @@
           "address": "0x2ccbb4175c8335F536435B5ad5AD886a2804Fc36"
         },
         "culling": {
-          "address": "0x439668884008A40A735a87d3Ea5E6133AecB2ee4"
+          "address": "0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7"
         }
       }
     }
@@ -2237,6 +2237,19 @@
         "type": "function"
       },
       {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "burnRedeem",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
         "inputs": [],
         "name": "owner",
         "outputs": [
@@ -2332,6 +2345,19 @@
         "name": "setTreasury",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "tokenConversion",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
         "type": "function"
       },
       {
