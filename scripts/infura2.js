@@ -15,7 +15,7 @@ const CACHE_FILE = path.join(process.cwd(), '.artengine/.infura_json.json')
 const TOOL_FILE = '/Users/cblanquera/server/tools/ipfs'
 const JSON_FOLDER = path.join(process.cwd(), 'artengine/build/json')
 const uploaded = fs.existsSync(CACHE_FILE)? fs.readJsonSync(CACHE_FILE): {}
-const rateLimiter = new Bottleneck({ maxConcurrent: 50, minTime: 333 })
+const rateLimiter = new Bottleneck({ maxConcurrent: 50, minTime: 0 })
 
 const exec = command => {
   return new Promise((resolve, reject) => {

@@ -78,7 +78,10 @@ window.addEventListener('web3sdk-ready', async () => {
   const rarity = function() {
     database.forEach(row => {
       Object.keys(row.attributes).forEach(trait => {
-        const value = row.attributes[trait]
+        if (trait == 'Level' && !row.attributes[trait]) {
+          row.attributes[trait] = 0
+        }
+        const value = String(row.attributes[trait])
         if (!occurances[trait]) occurances[trait] = {}
         if (!occurances[trait][value]) occurances[trait][value] = 0
         occurances[trait][value]++
@@ -97,6 +100,7 @@ window.addEventListener('web3sdk-ready', async () => {
         row.attributes[trait].score = 1 / (occurance / database.length)
         row.score += row.attributes[trait].score
       })
+      row.score += row.attributes.Level.value * 2000
     })
 
     //now we need to determine each rank
@@ -178,6 +182,10 @@ window.addEventListener('web3sdk-ready', async () => {
       console.error(e)
       return
     }
+  })
+
+  window.addEventListener('watch-click', async(e) => {
+    await token.addToWallet()
   })
 
   //------------------------------------------------------------------//

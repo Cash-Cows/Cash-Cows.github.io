@@ -18,7 +18,11 @@
           "address": "0xeb41c53e2Debf30C168fc743BA58dAd2345A0113"
         },
         "token": {
-          "address": "0x981E826E1238213b6848EFD54015BA83F48406Ba"
+          "address": "0x981E826E1238213b6848EFD54015BA83F48406Ba",
+          "type": "ERC20", 
+          "symbol": "MILK", 
+          "decimals": 18, 
+          "image": "https://www.wearecashcows.com/images/logo-milk.png"
         },
         "index": {
           "address": "0x8d75c9d0F3AF4A0eC3440a00d997b59C99814cFf"

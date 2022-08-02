@@ -51,7 +51,10 @@ module.exports = {
       chainId: 1,
       scanner: 'https://etherscan.io',
       opensea: 'https://opensea.io',
-      accounts: [process.env.BLOCKCHAIN_ETHEREUM_PRIVATE_KEY],
+      accounts: [
+        process.env.BLOCKCHAIN_ETHEREUM_PRIVATE_KEY, 
+        process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY
+      ],
       contracts: {
         nft: '0x1A371de4634c3DEBf7196A1EFc59e620aff0915F',
         treasury: '0x837844a20cFe576057b58bcF6f1556BF6795FB2F',
