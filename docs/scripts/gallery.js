@@ -284,4 +284,21 @@ window.addEventListener('web3sdk-ready', async () => {
 
   populate()
   renderResults()
+
+  //check edition
+  const query = new URLSearchParams(window.location.search)
+  for (const params of query) {
+    if (params[0] === 'edition') {
+      const tokenId = parseInt(params[1])
+      const row = database[tokenId - 1]
+      const stage = parseInt(await metadata.read().stage(tokenId))
+      const trigger = document.createElement('div')
+      trigger.setAttribute('data-level', stage + 1)
+      trigger.setAttribute('data-index', tokenId - 1)
+      trigger.setAttribute('data-do', 'modal-open')
+      trigger.setAttribute('data-on', 'click')
+      window.doon(trigger)
+      trigger.click()
+    }
+  }
 })

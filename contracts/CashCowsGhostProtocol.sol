@@ -49,7 +49,7 @@ contract CashCowsGhostProtocol is ReentrancyGuard, CashCowsAbstract {
   //the sale price per token
   uint256 public mintPrice = 0.04 ether;
 
-  IBurnableBalance private _culled;
+  IBurnableBalance private _burned;
 
   // ============ Deploy ============
 
@@ -96,8 +96,21 @@ contract CashCowsGhostProtocol is ReentrancyGuard, CashCowsAbstract {
     _safeMint(recipient, quantity);
   }
 
+  /**
+   * @dev Allows recipeints that redeem to mint tokens
+   */
   function redeem(uint256 quantity) external {
-    //_culled 
+    address recipient = _msgSender();
+    uint256 maxMint = _burned.balanceOf(recipient) / 4;
+    //revert if what was already minted is 
+    //or more than the max possible mint
+    if (minted[recipient] >= maxMint
+      //of if what can be minted is less 
+      //than the requested quantity 
+      || (maxMint - minted[recipient]) < quantity
+    ) revert InvalidCall();
+    //okay to mint
+    _safeMint(recipient, quantity);
   }
 
   // ============ Admin Methods ============
@@ -127,8 +140,8 @@ contract CashCowsGhostProtocol is ReentrancyGuard, CashCowsAbstract {
   /**
    * @dev Starts the sale
    */
-  function setCulling(IBurnableBalance culled) external onlyRole(_CURATOR_ROLE) {
-    _culled = culled;
+  function setBurned(IBurnableBalance burned) external onlyRole(_CURATOR_ROLE) {
+    _burned = burned;
   }
 
   /**
