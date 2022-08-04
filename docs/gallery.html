@@ -100,7 +100,7 @@
             <option value="rare">Rare</option>
             <option value="common">Common</option>
           </select>
-          <span class="dated">Last Updated: Tuesday, 02-Aug-22 20:39:53 UTC</span>
+          <span class="dated"></span>
           <main class="results"></main>
           <div class="pagination hide alert alert-outline">Loading &hellip;</div>
         </main>
@@ -137,9 +137,9 @@
           <span class="badge badge-{BADGE}">#{RANK}</span>
         </div>
         <div class="info">
-          <h6 class="label">Cash Cows</h6>
+          <h6 class="label">Cash Cows - Level {LEVEL}</h6>
           <h4 class="token">#{ID}</h4>
-          <h6 class="level">Level {LEVEL}</h6>
+          <h6 class="level">{PRICE}</h6>
         </div>
       </div>
     </template>
@@ -176,7 +176,7 @@
               <span class="fa-eth">Ξ</span>
               <h3 class="rewards-value">{REWARDS}</h3>
             </div>
-            <h2>Rank #{RANK}</h2>
+            <h2>Rank #{RANK} - Rating {SCORE}</h2>
             <div class="attributes">{ATTRIBUTES}</div>
           </div>
         </div>
@@ -199,6 +199,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/gallery.js?v12"></script>
+    <script type="text/javascript" src="/scripts/gallery.js?v13"></script>
   </body>
 </html>

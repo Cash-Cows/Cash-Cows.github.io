@@ -4,7 +4,7 @@ window.addEventListener('web3sdk-ready', async () => {
   const response = await fetch('/data/metadata.json')
   const database = await response.json()
   const range = 24
-  
+
   let occurances = {}
   let page = 0
   let loading = false
@@ -13,6 +13,7 @@ window.addEventListener('web3sdk-ready', async () => {
   let abort = false
   let rendering = false
 
+  const dated = document.querySelector('span.dated')
   const results = document.querySelector('main.results')
   const pagination = document.querySelector('div.pagination')
   const attributesOptions = document.querySelector('aside.filters div.attributes div.options')
@@ -36,7 +37,7 @@ window.addEventListener('web3sdk-ready', async () => {
   const renderResults = async function(start = 0, range = 24) {
     rendering = true
     
-    const matches = database.filter(row => {
+    const matches = database.rows.filter(row => {
       const criteria = {}
       Object.keys(filters).forEach(traitType => {
         criteria[traitType] = row.attributes[traitType].value
@@ -55,6 +56,18 @@ window.addEventListener('web3sdk-ready', async () => {
       return true
     }).sort(order).slice(start, start + range)
 
+    let listings = {}
+    try {
+      const query = matches.map(row => `token_ids=${row.edition}`)
+      const response = await fetch(`https://www.incept.asia/seaport.php?${query.join('&')}`)
+      const json = await response.json()
+      json.results.orders.forEach(row => {
+        row.maker_asset_bundle.assets.forEach(asset => {
+          listings[parseInt(asset.token_id)] = Web3SDK.toEther(row.current_price, 'number')
+        })
+      })
+    } catch(e) {}
+
     for (const row of matches) {
       if (abort) {
         rendering = false
@@ -62,7 +75,7 @@ window.addEventListener('web3sdk-ready', async () => {
         return
       }
       const tokenId = row.edition
-      const index = row.edition - 1
+      const index = row.index
       const stage = parseInt(await metadata.read().stage(tokenId))
       let badge = 'muted'
       if (row.rank < 100) {
@@ -72,8 +85,15 @@ window.addEventListener('web3sdk-ready', async () => {
       } else if (row.rank < 1000) {
         badge = 'info'
       }
+
+      let price = ' '
+      if (listings[tokenId] > 0) {
+        price = 'Ξ ' + listings[tokenId].toFixed(3)
+      }
+
       const item = theme.toElement(template.item, {
         '{INDEX}': index,
+        '{PRICE}': price,
         '{NAME}': `#${tokenId}`,
         '{RANK}': row.rank,
         '{BADGE}': badge,
@@ -90,44 +110,47 @@ window.addEventListener('web3sdk-ready', async () => {
   }
 
   const rarity = function() {
-    occurances = {}
-    database.forEach(row => {
+    //remove burned
+    database.rows = database.rows.filter(row => row.attributes.Level > 0)
+    //add indexes
+    database.rows.forEach((row, i) => (row.index = i))
+    //count occurances
+    database.rows.forEach(row => {
       Object.keys(row.attributes).forEach(trait => {
-        if (trait == 'Level' && !row.attributes[trait]) {
-          row.attributes[trait] = 0
-        }
         const value = String(row.attributes[trait])
         if (!occurances[trait]) occurances[trait] = {}
         if (!occurances[trait][value]) occurances[trait][value] = 0
-        occurances[trait][value]++
+        if (row.attributes.Level > 0) occurances[trait][value]++
         //reformat
         row.attributes[trait] = { value }
       })
     })
-
     //add occurance and score to each
-    database.forEach(row => {
+    database.rows.forEach(row => {
       row.score = 0
       Object.keys(row.attributes).forEach(trait => {
         const value = row.attributes[trait].value
         const occurance = occurances[trait][value]
         row.attributes[trait].occurances = occurance
-        row.attributes[trait].score = 1 / (occurance / database.length)
+        row.attributes[trait].score = 1 / (occurance / database.rows.length)
         row.score += row.attributes[trait].score
       })
-      row.score += row.attributes.Level.value * 2000
-    })
 
+      row.score += row.attributes.Level.value * 1000
+    })
     //now we need to determine each rank
     let rank = 1
-    const ranked = database.slice().sort((a, b) => b.score - a.score)
+    const ranked = database.rows.slice().sort((a, b) => b.score - a.score)
     ranked.forEach((row, i) => {
       row.rank = i == 0 
         || Math.floor(ranked[i - 1].score * 100) == Math.floor(row.score * 100) 
         ? rank
         : ++rank
     })
-  
+  }
+
+  const populate = function() {
+    dated.innerHTML = (new Date(database.updated)).toString()
     //populate attribute filters
     for (const attribute in occurances) {
       const set = theme.toElement(template.fieldset, {'{LEGEND}': attribute})
@@ -219,13 +242,13 @@ window.addEventListener('web3sdk-ready', async () => {
   window.addEventListener('modal-open-click', async (e) => {
     const level = parseInt(e.for.getAttribute('data-level'))
     const index = parseInt(e.for.getAttribute('data-index'))
-    const row = database[index]
+    const row = database.rows[index]
     const boxes = []
     Object.keys(row.attributes).forEach(trait => {
       const value = row.attributes[trait].value
       const occurance = occurances[trait][value]
       const percent = Math.floor(
-        (occurance / database.length) * 10000
+        (occurance / database.rows.length) * 10000
       ) / 100
       boxes.push(template.attribute
         .replace('{NAME}', trait)
@@ -241,6 +264,7 @@ window.addEventListener('web3sdk-ready', async () => {
       '{COLOR}': row.attributes.Background.value.toLowerCase(),
       '{ID}': row.edition,
       '{RANK}': row.rank,
+      '{SCORE}': row.score.toFixed(2),
       '{CONTRACT}': nft.address,
       '{IMAGE}': `/images/collection/${row.edition}_${level - 1}.png`,
       '{REWARDS}': parseFloat(
@@ -276,17 +300,8 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Initialize
 
-  //count occurances
-  database.forEach((row, i) => {
-    Object.keys(row.attributes).forEach(trait => {
-      const value = row.attributes[trait]
-      if (!occurances[trait]) occurances[trait] = {}
-      if (!occurances[trait][value]) occurances[trait][value] = 0
-      occurances[trait][value]++
-    })
-  })
-
   rarity()
+  populate()
   renderResults()
 
   //check edition

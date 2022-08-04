@@ -28,7 +28,7 @@ window.addEventListener('web3sdk-ready', async () => {
   //------------------------------------------------------------------//
   // Functions
 
-  const loading = (isShow)=>{
+  const loading = isShow => {
     if(isShow){
       const modal = theme.toElement(template.loadingModal, {
         '{MESSAGE}': "Please wait...", 
@@ -56,9 +56,8 @@ window.addEventListener('web3sdk-ready', async () => {
 
     results.innerHTML = ""; 
     Web3SDK.state.tokens.forEach(async (tokenId, i) => {
-      const index = tokenId - 1
       const stage = parseInt(await metadata.read().stage(tokenId))
-      const row = database[index]
+      const row = database.rows.filter(row => row.edition == tokenId)[0]
       let badge = 'muted'
       if (row.rank < 100) {
         badge = 'success'
@@ -68,7 +67,7 @@ window.addEventListener('web3sdk-ready', async () => {
         badge = 'info'
       }
       const item = theme.toElement(template.item, {
-        '{INDEX}': index,
+        '{INDEX}': row.index,
         '{NAME}': `#${tokenId}`,
         '{RANK}': row.rank,
         '{BADGE}': badge,
@@ -93,36 +92,37 @@ window.addEventListener('web3sdk-ready', async () => {
   }
 
   const rarity = function() {
-    database.forEach(row => {
+    //remove burned
+    database.rows = database.rows.filter(row => row.attributes.Level > 0)
+    //add indexes
+    database.rows.forEach((row, i) => (row.index = i))
+    //count occurances
+    database.rows.forEach(row => {
       Object.keys(row.attributes).forEach(trait => {
-        if (trait == 'Level' && !row.attributes[trait]) {
-          row.attributes[trait] = 0
-        }
         const value = String(row.attributes[trait])
         if (!occurances[trait]) occurances[trait] = {}
         if (!occurances[trait][value]) occurances[trait][value] = 0
-        occurances[trait][value]++
+        if (row.attributes.Level > 0) occurances[trait][value]++
         //reformat
         row.attributes[trait] = { value }
       })
     })
-
     //add occurance and score to each
-    database.forEach(row => {
+    database.rows.forEach(row => {
       row.score = 0
       Object.keys(row.attributes).forEach(trait => {
         const value = row.attributes[trait].value
         const occurance = occurances[trait][value]
         row.attributes[trait].occurances = occurance
-        row.attributes[trait].score = 1 / (occurance / database.length)
+        row.attributes[trait].score = 1 / (occurance / database.rows.length)
         row.score += row.attributes[trait].score
       })
-      row.score += row.attributes.Level.value * 2000
-    })
 
+      row.score += row.attributes.Level.value * 1000
+    })
     //now we need to determine each rank
     let rank = 1
-    const ranked = database.slice().sort((a, b) => b.score - a.score)
+    const ranked = database.rows.slice().sort((a, b) => b.score - a.score)
     ranked.forEach((row, i) => {
       row.rank = i == 0 
         || Math.floor(ranked[i - 1].score * 100) == Math.floor(row.score * 100) 
@@ -142,13 +142,13 @@ window.addEventListener('web3sdk-ready', async () => {
   window.addEventListener('modal-open-click', async (e) => {
     const level = parseInt(e.for.getAttribute('data-level'))
     const index = parseInt(e.for.getAttribute('data-index'))
-    const row = database[index]
+    const row = database.rows[index]
     const boxes = []
     Object.keys(row.attributes).forEach(trait => {
       const value = row.attributes[trait].value
       const occurance = occurances[trait][value]
       const percent = Math.floor(
-        (occurance / database.length) * 10000
+        (occurance / database.rows.length) * 10000
       ) / 100
       boxes.push(template.attribute
         .replace('{NAME}', trait)

@@ -4,10 +4,36 @@
 const fs = require('fs')
 const path = require('path')
 const hardhat = require('hardhat')
-const Bottleneck = require('bottleneck')
 const database = require('../docs/data/metadata.json')
 
-const rateLimiter = new Bottleneck({ maxConcurrent: 50, minTime: 0 })
+class TaskRunner {
+  constructor(maxThreads = 1, sleep = 300) {
+    this.maxThreads = maxThreads
+    this.sleep = sleep
+  }
+
+  thread(resolve, error) {
+    //if queue is empty
+    if (!this.queue.length) return resolve()
+    //run task
+    const task = this.queue.shift()
+    task().then(_ => {
+      setTimeout(() => {
+        //otherwise, move on to the next one
+        this.thread(resolve, error)
+      }, this.sleep)
+      
+    }).catch(e => { error(e) })
+  }
+
+  run(error) {
+    return new Promise(resolve => {
+      for (let i = 0; i < this.maxThreads; i++) {
+        this.thread(resolve, error)
+      }
+    })
+  }
+}
 
 async function bindContract(key, name, contract, signers) {
   //attach contracts
@@ -20,30 +46,30 @@ async function bindContract(key, name, contract, signers) {
 }
 
 function reset() {
-  database.forEach(row => (delete row.attributes.Level))
+  database.rows.forEach(row => (delete row.attributes.Level))
 }
 
 async function main() {
   const network = hardhat.config.defaultNetwork
   const config = hardhat.config.networks[network]
-
   const signers = await hardhat.ethers.getSigners();
   await bindContract('withNFT', 'CashCows', config.contracts.nft, signers)
   await bindContract('withData', 'CashCowsMetadata', config.contracts.metadata, signers)
 
-  //reset()
+  const burned = []
 
-  const wrapped = rateLimiter.wrap(row => {
+  reset()
+  const runner = new TaskRunner(25, 0)
+  runner.queue = database.rows.map(row => async _ => {
+    if (typeof row.attributes.Level !== 'undefined') return
+    let stage = -1
     try {
-      return signers[1].withData.stage(row.edition)  
+      await signers[1].withNFT.ownerOf(row.edition)
+      stage = await signers[1].withData.stage(row.edition)
     } catch(e) {
-      return async _ => -1
+      burned.push(row.edition)
     }
-  })
-
-  for (const row of database) {
-    if (typeof row.attributes.Level !== 'undefined') continue
-    const stage = await wrapped(row)
+    
     row.attributes.Level = parseInt(stage) + 1
     console.log(row.edition, row.attributes.Level)
 
@@ -51,7 +77,16 @@ async function main() {
       path.resolve(__dirname, '../docs/data/metadata.json'),
       JSON.stringify(database, null, 2)
     )
-  }
+  })
+
+  await runner.run(error => {})
+  database.updated = Date.now()
+  database.supply = database.rows.length - burned.length
+  fs.writeFileSync(
+    path.resolve(__dirname, '../docs/data/metadata.json'),
+    JSON.stringify(database, null, 2)
+  )
+  console.log('burned', burned)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
