@@ -104,6 +104,10 @@ window.addEventListener('web3sdk-ready', async () => {
       })
       results.appendChild(item)
       window.doon(item)
+      if (abort) {
+        rendering = false
+        abort = false
+      }
     }
 
     rendering = false
@@ -199,6 +203,7 @@ window.addEventListener('web3sdk-ready', async () => {
     if (rendering) {
       abort = true
       const interval = setInterval(() => {
+        console.log('aborting to filter')
         if (!abort) {
           clearInterval(interval)
           results.innerHTML = ''
@@ -227,6 +232,7 @@ window.addEventListener('web3sdk-ready', async () => {
     if (rendering) {
       abort = true
       const interval = setInterval(() => {
+        console.log('aborting to sort')
         if (!abort) {
           clearInterval(interval)
           results.innerHTML = ''
@@ -309,11 +315,11 @@ window.addEventListener('web3sdk-ready', async () => {
   for (const params of query) {
     if (params[0] === 'edition') {
       const tokenId = parseInt(params[1])
-      const row = database[tokenId - 1]
+      const row = database.rows.filter(row => row.edition == tokenId)[0]
       const stage = parseInt(await metadata.read().stage(tokenId))
       const trigger = document.createElement('div')
       trigger.setAttribute('data-level', stage + 1)
-      trigger.setAttribute('data-index', tokenId - 1)
+      trigger.setAttribute('data-index', row.index)
       trigger.setAttribute('data-do', 'modal-open')
       trigger.setAttribute('data-on', 'click')
       window.doon(trigger)
