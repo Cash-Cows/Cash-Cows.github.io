@@ -123,7 +123,7 @@
             data-on="click"
             href="javascript:void(0)"
           >
-            Redeem Selected
+            Redeem
           </a>
         </div>
       </section>
@@ -133,6 +133,8 @@
           <main class="results"></main>
         </section>
         <section class="section section-3 hide">
+          <span id="selected-count"></span>
+          &nbsp;
           <a 
             class="btn-pixel btn-pixel-lg btn-pixel-success"
             data-do="redeem-selected"
@@ -158,7 +160,14 @@
       <div class="item">
         <div class="checkbox-item-main hide">
           <div class="round">
-            <input type="checkbox" class="checkbox-item" value="{CHECKVALUE}" id="{CHECKVALUE}-id"  />
+            <input
+              data-do="update-count"
+              data-on="change"
+              type="checkbox"
+              class="checkbox-item"
+              value="{CHECKVALUE}"
+              id="{CHECKVALUE}-id"
+            />
             <label for="{CHECKVALUE}-id"></label>
           </div> 
         </div>

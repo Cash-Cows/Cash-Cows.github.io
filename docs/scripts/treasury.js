@@ -327,6 +327,26 @@ window.addEventListener('web3sdk-ready', async () => {
     toggled = !toggled
   })
 
+  window.addEventListener('update-count-change', () => {
+    // update count on click
+    const selecteds = document.getElementsByClassName('checkbox-item');
+
+    let count = 0;
+    for (let selected of selecteds) {
+      if (selected.checked) {
+        count++;
+      }
+    }
+
+    const counter = document.getElementById('selected-count');
+
+    if (count > 0) {
+      counter.innerHTML = `${count} Cow${count > 1 ? 's' : ''}`;
+    } else {
+      counter.innerHTML = '';
+    }
+  })
+
   //------------------------------------------------------------------//
   // Initialize
 
