@@ -1,6 +1,6 @@
   (() => {
     let playing = false
-    const player = new Audio('/chiptune.mp3');
+    const player = new Audio('/media/chiptune.mp3');
     player.loop = true
     window.addEventListener('play-click', (e) => {
       if (playing) {
