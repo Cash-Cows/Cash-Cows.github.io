@@ -40,7 +40,8 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
   //additional roles
   bytes32 private constant _MINTER_ROLE = keccak256("MINTER_ROLE");
   //max amount that can be minted in this collection
-  uint16 public constant MAX_SUPPLY = 1000;
+  uint16 public constant MAX_SUPPLY = 2000;
+  uint16 public constant MAX_PUBLIC = 1000;
 
   // ============ Storage ============
 
@@ -95,8 +96,8 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
       //or what was already minted plus the quantity
       //is or more than the max possible mint
       || (minted[recipient] + quantity) > maxMint
-      //the quantity being minted should not exceed the max supply
-      || (lastId() + quantity) > MAX_SUPPLY
+      //the quantity being minted should not exceed the max public mint
+      || (lastId() + quantity) > MAX_PUBLIC
     ) revert InvalidCall();
     //mark that they minted
     minted[recipient] += quantity;
@@ -121,7 +122,7 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
       //is or more than the max possible mint
       || (minted[recipient] + quantity) > maxMint
       //or last id plus the quantity exceeds the max supply
-      || (lastId() + quantity) > MAX_SUPPLY
+      || (lastId() + quantity) > MAX_PUBLIC
       //make sure the minter signed this off
       || !hasRole(_MINTER_ROLE, ECDSA.recover(
         ECDSA.toEthSignedMessageHash(
