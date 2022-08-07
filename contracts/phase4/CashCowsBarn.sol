@@ -88,7 +88,7 @@ contract CashCowsBarn is Ownable {
   }
 
   /**
-   * @dev Releases tokens without unstaking
+   * @dev Releases tokens
    */
   function release(address collection, uint256[] memory tokenIds) external {
     //get the staker

@@ -20,7 +20,7 @@ pragma solidity ^0.8.0;
 // ============ Contract ============
 
 /**
- * @dev ERC1155; This is the CC and CCC store front. You can 
- * get loot with either $DOLLA or ETH
+ * @dev ERC1155; This is the loot store. You  
+ * can get loot with either $DOLLA or ETH
  */
 contract CashCowsLoot {}
