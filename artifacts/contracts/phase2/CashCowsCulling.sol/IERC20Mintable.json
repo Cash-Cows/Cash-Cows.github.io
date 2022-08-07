@@ -1,62 +1,44 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "IRoyaltySplitter",
-  "sourceName": "contracts/IRoyaltySplitter.sol",
+  "contractName": "IERC20Mintable",
+  "sourceName": "contracts/phase2/CashCowsCulling.sol",
   "abi": [
     {
-      "inputs": [],
-      "name": "InvalidCall",
-      "type": "error"
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract IERC20",
-          "name": "token",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "ERC20PaymentReleased",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "internalType": "address",
           "name": "from",
           "type": "address"
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "PaymentReceived",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "to",
           "type": "address"
@@ -64,41 +46,27 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "amount",
+          "name": "value",
           "type": "uint256"
         }
       ],
-      "name": "PaymentReleased",
+      "name": "Transfer",
       "type": "event"
     },
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "payee",
-      "outputs": [
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
         {
           "internalType": "address",
-          "name": "",
+          "name": "spender",
           "type": "address"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "releaseable",
+      "name": "allowance",
       "outputs": [
         {
           "internalType": "uint256",
@@ -112,38 +80,25 @@
     {
       "inputs": [
         {
-          "internalType": "contract IERC20",
-          "name": "token",
+          "internalType": "address",
+          "name": "spender",
           "type": "address"
         },
         {
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "amount",
           "type": "uint256"
         }
       ],
-      "name": "releaseable",
+      "name": "approve",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "bool",
           "name": "",
-          "type": "uint256"
+          "type": "bool"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "shares",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -154,7 +109,7 @@
           "type": "address"
         }
       ],
-      "name": "shares",
+      "name": "balanceOf",
       "outputs": [
         {
           "internalType": "uint256",
@@ -168,12 +123,24 @@
     {
       "inputs": [
         {
-          "internalType": "contract IERC20",
-          "name": "token",
+          "internalType": "address",
+          "name": "to",
           "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
         }
       ],
-      "name": "totalReleased",
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalSupply",
       "outputs": [
         {
           "internalType": "uint256",
@@ -185,16 +152,56 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "totalReleased",
-      "outputs": [
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "amount",
           "type": "uint256"
         }
       ],
-      "stateMutability": "view",
+      "name": "transfer",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
