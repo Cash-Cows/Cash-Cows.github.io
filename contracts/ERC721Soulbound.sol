@@ -82,7 +82,7 @@ contract ERC721Soulbound is Context, ERC165, IERC721 {
    */
   function supportsInterface(
     bytes4 interfaceId
-  ) public view override(ERC165, IERC165) returns(bool) {
+  ) public view virtual override(ERC165, IERC165) returns(bool) {
     return interfaceId == type(IERC721).interfaceId
       || super.supportsInterface(interfaceId);
   }

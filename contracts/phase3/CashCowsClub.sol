@@ -51,6 +51,8 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
   uint256 public mintPrice;
   //the sale price per token
   uint256 public maxMint;
+  //flag for if the mint is open to the public
+  bool public mintOpened;
 
   IRedeemable private _redeemable;
   uint256 private _redeemableExchange;
@@ -85,12 +87,15 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
 
   /**
    * @dev Mints new tokens for the `recipient`. Its token ID will be 
-   * automatically assigned
+   * automatically assigned. What de/activates this is the maxMint and 
+   * mintOpened
    */
   function mint(uint256 quantity) external payable nonReentrant {
     address recipient = _msgSender();
     //revert if contract
     if (Address.isContract(recipient) 
+      //has the sale started?
+      || !mintOpened
       //or what is sent is less than what needs to be paid 
       || (quantity * mintPrice) > msg.value
       //or what was already minted plus the quantity
@@ -107,6 +112,7 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
 
   /**
    * @dev Allows anyone to mint tokens that was approved by the owner
+   * What de/activates this is the proof and maxMint
    */
   function mint(
     uint256 quantity, 
@@ -139,6 +145,7 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
 
   /**
    * @dev Allows recipeints that redeem to mint tokens
+   * What de/activates this is maxRedeem
    */
   function redeem(uint256 quantity) external {
     address recipient = _msgSender();
@@ -158,6 +165,13 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
   }
 
   // ============ Admin Methods ============
+
+  /**
+   * @dev Starts the sale
+   */
+  function openMint(bool yes) external onlyRole(_CURATOR_ROLE) {
+    mintOpened = yes;
+  }
 
   /**
    * @dev Sets the max mint

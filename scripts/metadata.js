@@ -56,12 +56,14 @@ async function main() {
   await bindContract('withNFT', 'CashCows', config.contracts.nft, signers)
   await bindContract('withData', 'CashCowsMetadata', config.contracts.metadata, signers)
 
-  const burned = []
+  let burned = []
+  let additions = 0
 
-  reset()
+  //reset()
   const runner = new TaskRunner(25, 0)
   runner.queue = database.rows.map(row => async _ => {
-    if (typeof row.attributes.Level !== 'undefined') return
+    if (row.attributes.Level > 0) return
+    //if (typeof row.attributes.Level !== 'undefined') return
     let stage = -1
     try {
       await signers[1].withNFT.ownerOf(row.edition)
@@ -73,20 +75,28 @@ async function main() {
     row.attributes.Level = parseInt(stage) + 1
     console.log(row.edition, row.attributes.Level)
 
+    if (row.attributes.Level > 0) additions ++
+
     fs.writeFileSync(
       path.resolve(__dirname, '../docs/data/metadata.json'),
       JSON.stringify(database, null, 2)
     )
   })
 
-  await runner.run(error => {})
+  while (true) {
+    additions = 0
+    burned = []
+    await runner.run(error => { console.log(error) })
+    if (!additions) break
+  }
+
   database.updated = Date.now()
   database.supply = database.rows.length - burned.length
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/metadata.json'),
     JSON.stringify(database, null, 2)
   )
-  console.log('burned', burned)
+  console.log('burned', burned.length)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
