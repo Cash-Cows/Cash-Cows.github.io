@@ -1,12 +1,10 @@
-# Cash-Cows.github.io
-Official Sandbox
+# Official CashCows End-to-End Repository
 
-Estimates
+Moo. 
 
-```
-CashCows         = 0.13970396574194750
-CashCowsMetadata = 0.03244425825070986
-RoyaltySplitter  = 0.06144393241167434
---------------------------------------
-Total              0.2335921564
-```
+If you found this repo and want to use it, you can! But you must also 
+open source your code too.
+
+Please see our **MIT License** [here](https://github.com/Cash-Cows/Cash-Cows.github.io/LICENSE)
+
+Moo.
