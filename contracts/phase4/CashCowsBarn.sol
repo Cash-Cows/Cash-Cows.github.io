@@ -105,10 +105,11 @@ contract CashCowsBarn is Ownable {
       //add to be released
       toRelease += pending;
     }
+
     //next mint tokens
-    collection.functionCall(
+    address(_token).functionCall(
       abi.encodeWithSelector(
-        IERC20Mintable(collection).mint.selector, 
+        IERC20Mintable(_token).mint.selector, 
         staker, 
         toRelease
       ), 
