@@ -21,8 +21,6 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
-import "@openzeppelin/contracts/utils/Strings.sol";
-
 import "../IRegistry.sol";
 
 // ============ Contract ============
@@ -32,7 +30,6 @@ import "../IRegistry.sol";
  * Abilities are based on collection and crew
  */
 contract CashCowsRegistry is AccessControl, IRegistry {
-  using Strings for uint256;
 
   // ============ Errors ============
 
@@ -102,7 +99,7 @@ contract CashCowsRegistry is AccessControl, IRegistry {
         keccak256(abi.encodePacked(
           "registry", 
           address(collection), 
-          tokenId.toString(), 
+          tokenId, 
           name,
           crew,
           eyes,
