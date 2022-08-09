@@ -346,6 +346,7 @@ contract CashCowsLoot is
   ) internal override {
     //revert if paused
     if (paused()) revert InvalidCall();
+    super._beforeTokenTransfer(from, to, tokenId);
   }
 
   /**

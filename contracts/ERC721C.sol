@@ -98,8 +98,8 @@ abstract contract ERC721C is ERC721B, IERC721C {
     uint256 index;
     //loop through the supply
     for (uint256 i = 1; i <= supply; i++) {
-      //if we found a token owner ows
-      if (_burned[i] != address(0) && owner == ownerOf(i)) {
+      //if we found a token owner
+      if (_burned[i] == address(0) && owner == ownerOf(i)) {
         //add it to the token ids
         tokenIds[index++] = i;
         //if the index is equal to the balance
