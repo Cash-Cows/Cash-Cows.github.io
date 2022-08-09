@@ -16,7 +16,6 @@ window.addEventListener('web3sdk-ready', async () => {
   const nft = network.contract('nft')
   const index = network.contract('index')
   const royalty = network.contract('royalty')
-  const metadata = network.contract('metadata')
 
   const communityGoals = [
     { value: 10, image: "/images/badges/community/morgan_stanley.png" },
@@ -56,7 +55,7 @@ window.addEventListener('web3sdk-ready', async () => {
         '{IMAGE}': goal.image,
         '{VALUE}': goal.value,
         // '' empty string for incomplete, 'completed' for completed
-        '{STATUS}': totalVolume > goal.value ? 'completed' : ''
+        '{STATUS}': totalVolume > goal.value ? 'completed' : '',
       })
 
       community.appendChild(goalElement)
