@@ -10,6 +10,6 @@ We cannot guarantee that this code will work for everyone.
 
 If want to use it, you can! But you must also open source your code too.
 
-Please see our **MIT License** [here](https://github.com/Cash-Cows/Cash-Cows.github.io/LICENSE)
+Please see our **MIT License** [here](https://github.com/Cash-Cows/Cash-Cows.github.io/blob/main/LICENSE)
 
 Moo.
