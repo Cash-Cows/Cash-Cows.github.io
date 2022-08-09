@@ -28,7 +28,7 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const holderGoals = [
     { name: "Cowboy", count: 1, image: "/images/badges/individual/cowboy.png" },
-    { name: "Wrangler", count: 3, image: "/images/badges/individual/wrangler.png" },
+    { name: "Rancher", count: 3, image: "/images/badges/individual/rancher.png" },
     { name: "Cow Herder", count: 5, image: "/images/badges/individual/herder.png" },
     { name: "Cow Breeder", count: 10, image: "/images/badges/individual/breeder.png" },
     { name: "Cow Mogul", count: 20, image: "/images/badges/individual/mogul.png" },
