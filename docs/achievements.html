@@ -91,6 +91,27 @@
       <section class="section section-2">
         <div class="connected">
           <h2>Profile</h2>
+          <div class="search">
+            <a
+              class="toggle-btn"
+              data-on="click"
+              data-do="toggle-search"
+              href="javascript:void(0)"
+            >
+              Toggle Search
+            </a>
+            <div class="searchbox">
+              <input class="searchbox-input" type="text">
+              <button
+                class="searchbox-btn"
+                type="button"
+                data-do="search-user"
+                data-on="click"
+              >
+                Fetch 
+              </button>
+            </div>
+          </div>
           <h4>Individual Achievements</h4>
           <div class="individual">
             <h5>Cow Assets</h5>
@@ -98,6 +119,9 @@
 
             <h5>Net Worth</h5>
             <div class="badge-holder net-worth"></div>
+
+            <h5>Cow Culling</h5>
+            <div class="badge-holder culling"></div>
           </div>
         </div>
         <div class="disconnected">
@@ -121,23 +145,11 @@
         </aside>
       </template>
 
-      <template id="template-individual-holder">
+      <template id="template-individual">
         <div class="badge-section">
           <img class="{STATUS}" src="{IMAGE}" alt="{NAME} Badge"/>
           <h6>{NAME}</h6>
-          <p>
-            {COUNT} x Cow Holder
-          </p>
-        </div>
-      </template>
-
-      <template id="template-individual-wealth">
-        <div class="badge-section">
-          <img class="{STATUS}" src="{IMAGE}" alt="{NAME} Badge"/>
-          <h6>{NAME}</h6>
-          <p>
-            {VALUE} Redeemable
-          </p>
+          <p>{CONTENT}</p>
         </div>
       </template>
     </main>
@@ -152,6 +164,6 @@
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
     <script type="text/javascript" src="/scripts/connect.js?v1"></script>
-    <script type="text/javascript" src="/scripts/achievements.js?v0"></script>
+    <script type="text/javascript" src="/scripts/achievements.js?v1"></script>
   </body>
 </html>
