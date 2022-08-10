@@ -5,18 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>The Culling | Cash Cows</title>
-    <meta name="description" content="Moo :(" />
-    <meta property="og:title" content="The Culling | Cash Cows" />
-    <meta property="og:description" content="Moo :(" />
+    <title>Achievements | Cash Cows</title> <meta name="description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" /> <meta property="og:title" content="View Achievements | Cash Cows" />
+    <meta property="og:description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/culling" />
+    <meta property="og:url" content="https://www.wearecashcows.com/treasury" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
-    <meta name="twitter:title" content="The Culling | Cash Cows" />
-    <meta name="twitter:description" content="Moo :(" />
+    <meta name="twitter:title" content="View Achievements | Cash Cows" />
+    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" />
     <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
@@ -28,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/culling.css?v2" />
+    <link rel="stylesheet" type="text/css" href="/styles/achievements.css" />
   </head>
   <body>
     <div class="stars"></div>
@@ -56,9 +54,7 @@
             <a href="./achievements.html">Achievements</a>
             <a href="https://dao.wearecashcows.com/#/ " target="_blank">CAO</a>
           </div>
-        </nav>
-        <nav class="right">
-          <div class="connected hide">
+        </nav> <nav class="right"> <div class="connected hide">
             <a 
               class="btn btn-outline btn-primary btn-address" 
               href="javascript:void(0)"
@@ -86,98 +82,57 @@
       </div>
     </header>
     <main class="body">
-      <h2>The Culling</h2>
-      <a 
-        class="contract" 
-        href="https://etherscan.io/address/0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7" 
-        target="_blank"
-      >
-        0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7
-      </a>
-      <div class="disconnected">
-        <a 
-          class="btn-pixel btn-pixel-lg btn-pixel-warning" 
-          data-do="connect" 
-          data-on="click" 
-          href="javascript:void(0)"
-        >
-          Connect Wallet
-        </a>
-      </div>
-      <div class="connected hide">
-        <div class="stats">
-          <div class="stat">
-            <h6>Milk</h6>
-            <span class="milk btn-pixel btn-pixel-lg btn-pixel-secondary">
-              <span class="btn-prefix">
-                <img src="/images/milk.png" />
-              </span>
-              <span class="value">Loading...</span>
-            </span>
-            <a class="watch" data-do="watch" data-on="click" href="javascript:void(0)">
-              Add to Wallet
-            </a>
-          </div>
-          <div class="stat">
-            <h6>Steak</h6>
-            <span class="steak btn-pixel btn-pixel-lg btn-pixel-secondary">
-              <span class="btn-prefix">
-                <img src="/images/steak.png" />
-              </span>
-              <span class="value">Loading...</span>
-            </span>
-          </div>
+      <section class="section section-1">
+        <h2>Achievements</h2>
+        <h4>Community Volume</h4>
+        <div class="community"></div>
+      </section>
+
+      <section class="section section-2">
+        <h2>Profile</h2>
+        <h4>Individual Achievements</h4>
+        <div class="connected hide individual">
+          <h5>Cow Assets</h5>
+          <div class="badge-holder assets"></div>
+
+          <h5>Net Worth</h5>
+          <div class="badge-holder net-worth"></div>
         </div>
 
-        <p>Burn a cow, get $MILK and steak.</p>
-        <main class="results"></main>
-      </div>
+        <p class="disconnected">Connect Wallet to View</p>
+
+      </section>
+
+      <!-- Templates -->
+      <template id="template-community-goal">
+        <aside class="{STATUS} {POSITION}">
+          <img src="{IMAGE}"/>
+          <h6>{VALUE}ETH</h6>
+          <span class="bar"></span>
+        </aside>
+      </template>
+
+      <template id="template-individual-holder">
+        <div class="badge-section">
+          <img class="{STATUS}" src="{IMAGE}" alt="{NAME} Badge"/>
+          <h6>{NAME}</h6>
+          <p>
+            {COUNT} x Cow Holder
+          </p>
+        </div>
+      </template>
+
+      <template id="template-individual-wealth">
+        <div class="badge-section">
+          <img class="{STATUS}" src="{IMAGE}" alt="{NAME} Badge"/>
+          <h6>{NAME}</h6>
+          <p>
+            {VALUE} Redeemable
+          </p>
+        </div>
+      </template>
     </main>
     <footer class="foot"></footer> 
-    <template id="template-result-item">
-      <div 
-        class="item" 
-        data-do="modal-open" 
-        data-on="click" 
-        data-id="{ID}" 
-        data-level="{LEVEL}"
-      >
-        <div class="preview">
-          <img src="{IMAGE}" loading="lazy" />
-          <span class="badge badge-{BADGE}">#{RANK}</span>
-        </div>
-        <div class="info">
-          <h6 class="label">Cash Cows</h6>
-          <h4 class="token">#{ID}</h4>
-          <h6 class="level">Level {LEVEL}</h6>
-        </div>
-      </div>
-    </template>
-    <template id="template-modal">
-      <div class="modal">
-        <div class="overlay pfp-{COLOR}">
-          <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
-            <i class="fas fa-times"></i>
-          </a>
-          <div class="preview">
-            <img src="{IMAGE}" loading="lazy" />
-          </div>
-          <div class="box">
-            <h3>Burning #{ID}</h3>
-            <p>{MESSAGE}</p>
-            <a 
-              class="btn-pixel btn-pixel-lg btn-pixel-warning" 
-              data-id="{ID}" 
-              data-do="burn"
-              data-on="click"
-              href="javascript:void(0)"
-            >
-              Burn. Moo!
-            </a>
-          </div>
-        </div>
-      </div>
-    </template>
     <script id="network" data-value="mainnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
     <script type="text/javascript" src="/scripts/lib/theme.js"></script>
@@ -187,7 +142,7 @@
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/culling.js?v3"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v1"></script>
+    <script type="text/javascript" src="/scripts/achievements.js?v0"></script>
   </body>
 </html>
