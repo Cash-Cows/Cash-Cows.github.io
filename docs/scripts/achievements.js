@@ -124,15 +124,6 @@ window.addEventListener('web3sdk-ready', async () => {
 
   populateCommunity()
 
-  //start session  
-  window.ethereum.on("accountsChanged", async (accounts) => {  
-    network.startSession(connected, disconnected, true)
-  });
-  window.ethereum.on("chainChanged", async () => { 
-    network.startSession(connected, disconnected, true)
-  });
-  window.ethereum.on("close", (error) => { 
-      console.log("Errorethereum",error);
-  });
+  //start session
   network.startSession(connected, disconnected, true)
 });
