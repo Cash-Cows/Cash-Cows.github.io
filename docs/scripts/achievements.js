@@ -196,7 +196,6 @@ window.addEventListener('web3sdk-ready', async () => {
 
   //------------------------------------------------------------------//
   // Initialize
-
   populateCommunity()
 
   //start session
