@@ -19,7 +19,7 @@ describe('CashCowsRegistry Tests', function () {
     await bindContract('withRegistry', 'CashCowsRegistry', registry, signers)
     const [ admin ] = signers
     //grant admin to all roles
-    await admin.withRegistry.grantRole(getRole('AUTHORIZE_ROLE'), admin.address)
+    await admin.withRegistry.grantRole(getRole('CURATOR_ROLE'), admin.address)
     this.signers = { admin }
   })
 

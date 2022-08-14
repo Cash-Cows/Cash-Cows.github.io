@@ -12,16 +12,107 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Copy the 'artengine' folder
-    - name: Push to artengine
+    # Copy the artengine folder
+    - name: Push to artengine config
       uses: dmnemec/copy_file_to_another_repo_action@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_file: 'artengine/' # Folder to copy
+        source_file: 'artengine/config/' # Folder to copy
         destination_repo: 'Cash-Cows/artengine' # Target repo
         destination_folder: './' # Folder where to copy it
         user_email: 'moo@wearecashcows.com'
         user_name: 'Cowveloper'
-        commit_message: "Syncing Files"
+        commit_message: "Syncing config"
+        git_server: 'github.com'
+    
+    - name: Push to artengine layers
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'artengine/layers/' # Folder to copy
+        destination_repo: 'Cash-Cows/artengine' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing layers"
+        git_server: 'github.com'
+    
+    - name: Push to artengine scripts
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'artengine/scripts/' # Folder to copy
+        destination_repo: 'Cash-Cows/artengine' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing scripts"
+        git_server: 'github.com'
+    
+    - name: Push to contracts artifacts
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'artifacts/' # Folder to copy
+        destination_repo: 'Cash-Cows/contracts' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing artifacts"
+        git_server: 'github.com'
+    
+    - name: Push to contracts contracts
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'contracts/' # Folder to copy
+        destination_repo: 'Cash-Cows/contracts' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing contracts"
+        git_server: 'github.com'
+    
+    - name: Push to contracts tests
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'tests/' # Folder to copy
+        destination_repo: 'Cash-Cows/contracts' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing tests"
+        git_server: 'github.com'
+    
+    - name: Push to website docs
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'docs/' # Folder to copy
+        destination_repo: 'Cash-Cows/website' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing docs"
+        git_server: 'github.com'
+    
+    - name: Push to website server
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'server/' # Folder to copy
+        destination_repo: 'Cash-Cows/website' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing server"
         git_server: 'github.com'
