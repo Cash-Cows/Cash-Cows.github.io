@@ -5,17 +5,20 @@ window.addEventListener('web3sdk-ready', async () => {
   const community = document.querySelector('section.section-1 div.community')
   const holder = document.querySelector('section.section-2 div.assets')
   const wealth = document.querySelector('section.section-2 div.net-worth')
+  const burned = document.querySelector('section.section-2 div.culling')
+  const searchbox = document.querySelector('section.section-2 div.searchbox')
+  const searchInput = document.querySelector('section.section-2 div.searchbox input.searchbox-input')
 
   const template = {
     community: document.getElementById('template-community-goal').innerHTML,
-    holder: document.getElementById('template-individual-holder').innerHTML,
-    wealth: document.getElementById('template-individual-wealth').innerHTML,
+    individual: document.getElementById('template-individual').innerHTML,
   }
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const index = network.contract('index')
   const royalty = network.contract('royalty')
+  const culling = network.contract('culling')
 
   const communityGoals = [
     { value: 10, image: "/images/badges/community/morgan_stanley.png" },
@@ -42,10 +45,20 @@ window.addEventListener('web3sdk-ready', async () => {
     { name: "Money Bags", value: 0.10, image: "/images/badges/redeemable/money_bags.png" },
     { name: "Money Vault", value: 0.20, image: "/images/badges/redeemable/money_vault.png" },
     { name: "50 Cent", value: 0.50, image: "/images/badges/redeemable/50_cent.png" },
-    { name: "chuck_norris", value: 1.00, image: "/images/badges/redeemable/chuck_norris.png" }
+    { name: "Chuck Norris", value: 1.00, image: "/images/badges/redeemable/chuck_norris.png" }
   ]
 
-  const totalVolume = 45.7
+  const burnedGoals = [
+    { name: "Beef Cubes", count: 4, image: "/images/badges/culling/beef_cubes.png" },
+    { name: "Beef Jerky", count: 8, image: "/images/badges/culling/beef_jerky.png" },
+    { name: "Burger Steak", count: 16, image: "/images/badges/culling/burger_steak.png" },
+    { name: "Well Done", count: 32, image: "/images/badges/culling/well_done.png" },
+    { name: "Momma's Ribs", count: 64, image: "/images/badges/culling/mommas_ribs.png" },
+    { name: "Cookout", count: 128, image: "/images/badges/culling/cookout.png" },
+  ]
+
+  let toggledSearch = false;
+  const totalVolume = 46.6
 
   //------------------------------------------------------------------//
   // Functions 
@@ -64,22 +77,21 @@ window.addEventListener('web3sdk-ready', async () => {
 
   const populateHolder = (userCowCount) => {
     holderGoals.forEach(badge => {
-      const badgeElement = theme.toElement(template.holder, {
+      const badgeElement = theme.toElement(template.individual, {
         '{IMAGE}': badge.image,
-        '{COUNT}': badge.count,
+        '{CONTENT}': `${badge.count} x Cow Holder`,
         '{NAME}': badge.name,
         '{STATUS}': userCowCount >= badge.count ? 'active' : ''
       })
-
       holder.appendChild(badgeElement)
     })
   }
 
   const populateWealth = (userTotalRedeemable) => {
     wealthGoals.forEach(badge => {
-      const badgeElement = theme.toElement(template.wealth, {
+      const badgeElement = theme.toElement(template.individual, {
         '{IMAGE}': badge.image,
-        '{VALUE}': badge.value.toFixed(2),
+        '{CONTENT}': `${badge.value.toFixed(2)} Redeemable`,
         '{NAME}': badge.name,
         '{STATUS}': userTotalRedeemable >= badge.value ? 'active' : ''
       })
@@ -88,40 +100,102 @@ window.addEventListener('web3sdk-ready', async () => {
     })
   }
 
-  const connected = async state => {
+  const populateCulling = (userCulledCount) => {
+    burnedGoals.forEach(badge => {
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.count} Cows Burned`,
+        '{NAME}': badge.name,
+        '{STATUS}': userCulledCount >= badge.count ? 'active' : ''
+      })
+
+      burned.appendChild(badgeElement)
+    })
+  }
+
+  const individualReset = () => {
     holder.innerHTML = ''
     wealth.innerHTML = ''
+    burned.innerHTML = ''
+  }
 
-    Web3SDK.state.tokens = await index.read().ownerTokens(
-      nft.address, 
-      state.account,
-      4030
-    )  
+  const populate = async () => {
+    let account;
+    let tokens;
+
+    if (toggledSearch) {
+      account = searchInput.value;
+      try {
+        tokens = await index.read().ownerTokens(
+          nft.address, 
+          account,
+          4030
+        )  
+      } catch (_) {
+        notify('error', "Invalid Address")
+        return
+      }
+    } else {
+      if (!Web3SDK.state) return;
+      account = Web3SDK.state.account,
+      tokens = await index.read().ownerTokens(
+        nft.address, 
+        account,
+        4030
+      )  
+    }
 
     //get total rewards
     const redeemable = Web3SDK.toEther(
-      await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
+      await royalty.read()['releaseableBatch(uint256[])'](tokens),
       'number'
     ).toFixed(6)
 
-    populateHolder(Web3SDK.state.tokens.length)
+    // get total culled
+    const culled = parseFloat(
+      await culling.read().balanceOf(account)
+    ).toFixed(0)
+
+    populateHolder(tokens.length)
     populateWealth(redeemable)
+    populateCulling(culled);
+  }
+
+  const connected = async _ => {
+    individualReset()
+    populate()
   }
 
   const disconnected = async _ => {
     delete Web3.state.tokens
-    const individual = document.querySelector('section.section-2 div.individual')
-    individual.innerHTML = ''
-    holder.innerHTML = ''
-    wealth.innerHTML = ''
+    const individualHolder = document.querySelector('section.section-2 div.individual')
+    individualHolder.innerHTML = ''
+
+    individualReset()
   }
 
   //------------------------------------------------------------------//
-  // Event
+  // Events
+  window.addEventListener('toggle-search-click', () => {
+    toggledSearch = !toggledSearch;
+
+    individualReset();
+
+    if (toggledSearch) {
+      searchbox.classList.add('show-search');
+    } else {
+      searchbox.classList.remove('show-search');
+      populate()
+    }
+  })
+
+  window.addEventListener('search-user-click', () => {
+    individualReset()
+    populate()
+  })
 
   //------------------------------------------------------------------//
   // Initialize
-
   populateCommunity()
 
   //start session
