@@ -1,0 +1,27 @@
+on:
+  push:
+     branches:
+       - master
+
+name: Distribute code to artengine, contracts, website
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Copy the 'artengine' folder
+    - name: Push to artengine
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'artengine/' # Folder to copy
+        destination_repo: 'Cash-Cows/artengine' # Target repo
+        destination_folder: './' # Folder where to copy it
+        user_email: 'moo@wearecashcows.com'
+        user_name: 'Cowveloper'
+        commit_message: "Syncing Files"
+        git_server: 'github.com'
