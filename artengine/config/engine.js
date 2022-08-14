@@ -13,7 +13,7 @@ module.exports = {
     width: 2000,
     height: 2000
   },
-  pixelated: 2 / 24,
+  pixelated: 1 / 27,
   start_edition: 1,
   cid_version: 0,
   smoothing: true,

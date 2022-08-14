@@ -1,28 +1,10 @@
-const { expect, deploy, bindContract, getRole } = require('../utils');
+const { expect, deploy, bindContract, getRole } = require('../utils')
 
-function authorize(
-  nft,   tokenId, 
-  name,  crew,
-  eyes,  head,
-  mask,  neck,
-  outerwear
-) {
+function release(collection, tokenId, rate) {
   return Buffer.from(
     ethers.utils.solidityKeccak256(
-      [
-        'string',   'address',
-        'uint256',  'string',
-        'string',   'string',
-        'string',   'string',
-        'string',   'string'
-      ],
-      [
-        'registry', nft.address, 
-        tokenId,    name,
-        crew,       eyes,
-        head,       mask,
-        neck,       outerwear
-      ]
+      [ 'string', 'address', 'uint256', 'uint256' ],
+      [ 'release', collection, tokenId, rate ]
     ).slice(2),
     'hex'
   )
@@ -32,17 +14,16 @@ describe('CashCowsBarn Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners()
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
+    this.start = Math.floor(Date.now() / 1000)
 
     const nft1 = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT1', 'CashCows', nft1, signers)
     const nft2 = await deploy('CashCowsClub', this.preview, signers[0].address)
     await bindContract('withNFT2', 'CashCowsClub', nft2, signers)
-    const registry = await deploy('CashCowsRegistry', signers[0].address)
-    await bindContract('withRegistry', 'CashCowsRegistry', registry, signers)
-    const barn = await deploy('CashCowsBarn')
-    await bindContract('withBarn', 'CashCowsBarn', barn, signers)
     const token = await deploy('CashCowsMilk', signers[0].address)
     await bindContract('withToken', 'CashCowsMilk', token, signers)
+    const barn = await deploy('CashCowsBarn', token.address, this.start, signers[0].address)
+    await bindContract('withBarn', 'CashCowsBarn', barn, signers)
 
     const [ admin, holder1, holder2 ] = signers
 
@@ -51,7 +32,7 @@ describe('CashCowsBarn Tests', function () {
     await admin.withNFT1.grantRole(getRole('CURATOR_ROLE'), admin.address)
     await admin.withNFT2.grantRole(getRole('MINTER_ROLE'), admin.address)
     await admin.withNFT2.grantRole(getRole('CURATOR_ROLE'), admin.address)
-    await admin.withRegistry.grantRole(getRole('AUTHORIZE_ROLE'), admin.address)
+    await admin.withBarn.grantRole(getRole('MINTER_ROLE'), admin.address)
 
     //grant mint role to barn
     await admin.withToken.grantRole(getRole('MINTER_ROLE'), barn.address)
@@ -63,31 +44,20 @@ describe('CashCowsBarn Tests', function () {
     await admin.withNFT2.openMint(true)
     await holder2.withNFT2['mint(uint256)'](10, { value: ethers.utils.parseEther('0.40') })
 
-    //register some tokens
-    const method1 = 'register(address,uint256,string,string,string,string,string,string,string,bytes)'
-    await admin.withRegistry[method1](admin.withNFT1.address, 1, 
-      'a', 'b', 'c', 'd', 'e', 'f', 'g', 
-      await admin.signMessage(
-        authorize(admin.withNFT1, 1, 'a', 'b', 'c', 'd', 'e', 'f', 'g')
-      )
-    )
-    await admin.withRegistry[method1](admin.withNFT2.address, 1, 
-      'h', 'i', 'j', 'k', 'l', 'm', 'n', 
-      await admin.signMessage(
-        authorize(admin.withNFT2, 1, 'h', 'i', 'j', 'k', 'l', 'm', 'n')
-      )
-    )
+    //set some rates
+    this.proofs = [
+      await admin.signMessage(release(nft1.address, 1, 1)),
+      await admin.signMessage(release(nft1.address, 2, 2)),
+      await admin.signMessage(release(nft2.address, 1, 1)),
+      await admin.signMessage(release(nft2.address, 2, 2))
+    ]
 
-    //add registry to barn
-    await admin.withBarn.setRegistry(admin.withRegistry.address)
-    //add token to barn
-    await admin.withBarn.setToken(admin.withToken.address)
-    //set rate
-    await admin.withBarn.setRate(admin.withNFT1.address, 'b', 1)
-    await admin.withBarn.setRate(admin.withNFT2.address, 'i', 2)
-
-    this.releaseable1 = await admin.withBarn.releaseable(admin.withNFT1.address, 1)
-    this.releaseable2 = await admin.withBarn.releaseable(admin.withNFT2.address, 1)
+    this.releaseables = [
+      await admin.withBarn.releaseable(admin.withNFT1.address, 1, 1),
+      await admin.withBarn.releaseable(admin.withNFT1.address, 2, 2),
+      await admin.withBarn.releaseable(admin.withNFT2.address, 1, 1),
+      await admin.withBarn.releaseable(admin.withNFT2.address, 2, 2)
+    ]
 
     this.signers = { admin, holder1, holder2 }
   })
@@ -95,44 +65,111 @@ describe('CashCowsBarn Tests', function () {
   it('Should be releaseable', async function () {
     const { admin } = this.signers
 
-    await admin.withBarn.setRate(admin.withNFT1.address, 'b', 1)
-    await admin.withBarn.setRate(admin.withNFT2.address, 'i', 2)
+    //write something random (this is done so the timestamp can tick again)
+    await admin.withNFT2.openMint(true)
 
     expect(
-      await admin.withBarn.releaseable(admin.withNFT1.address, 1)
-    ).to.be.above(this.releaseable1)
+      await admin.withBarn.releaseable(admin.withNFT1.address, 1, 1)
+    ).to.be.above(this.releaseables[0])
+    expect(
+      await admin.withBarn.releaseable(admin.withNFT1.address, 2, 2)
+    ).to.be.above(this.releaseables[1])
+    
+    expect(
+      await admin.withBarn.releaseable(admin.withNFT2.address, 1, 1)
+    ).to.be.above(this.releaseables[2])
+    expect(
+      await admin.withBarn.releaseable(admin.withNFT2.address, 2, 2)
+    ).to.be.above(this.releaseables[3])
 
     expect(
-      await admin.withBarn.releaseable(admin.withNFT2.address, 1)
-    ).to.be.above(this.releaseable2)
-
-    expect(
-      await admin.withBarn.releaseable(admin.withNFT2.address, 1)
+      await admin.withBarn.releaseable(admin.withNFT2.address, 2, 2)
     ).to.be.above(
-      await admin.withBarn.releaseable(admin.withNFT1.address, 1)
+      await admin.withBarn.releaseable(admin.withNFT1.address, 1, 1)
     )
   })
-
 
   it('Should release', async function () {
     const { admin, holder1, holder2 } = this.signers
 
-    await holder1.withBarn.release(admin.withNFT1.address, [1])
-    expect(await admin.withToken.balanceOf(holder1.address)).to.equal(21)
+    //single release
+    await holder1.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT1.address, 1, 1, this.proofs[0])
+    expect(await admin.withToken.balanceOf(holder1.address)).to.be.above(13)
 
-    await holder2.withBarn.release(admin.withNFT2.address, [1])
-    expect(await admin.withToken.balanceOf(holder2.address)).to.equal(44)
+    await holder2.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT2.address, 2, 2, this.proofs[3])
+    expect(await admin.withToken.balanceOf(holder2.address)).to.be.above(26)
+
+    //multi release
+    await holder1.withBarn['release(address,uint256[],uint256[],bytes[])'](
+      admin.withNFT1.address, 
+      [1, 2], 
+      [1, 2], 
+      [this.proofs[0], this.proofs[1]]
+    )
+    expect(await admin.withToken.balanceOf(holder1.address)).to.be.above(47)
+
+    await holder2.withBarn['release(address,uint256[],uint256[],bytes[])'](
+      admin.withNFT2.address, 
+      [1, 2], 
+      [1, 2], 
+      [this.proofs[2], this.proofs[3]]
+    )
+    expect(await admin.withToken.balanceOf(holder2.address)).to.above(47)
   })
 
   it('Should not release', async function () {
     const { admin, holder1, holder2 } = this.signers
 
-    await expect(
-      holder2.withBarn.release(admin.withNFT1.address, [1])
+    //write something random (this is done so the timestamp can tick again)
+    await admin.withNFT2.openMint(true)
+
+    await expect(//not owner
+      holder2.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT1.address, 1, 1, this.proofs[0])
+    ).to.be.revertedWith('InvalidCall()')
+    await expect(//not owner
+      holder1.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT2.address, 1, 2, this.proofs[2])
     ).to.be.revertedWith('InvalidCall()')
 
-    await expect(
-      holder1.withBarn.release(admin.withNFT2.address, [1])
+    await expect(//not owner
+      holder2.withBarn['release(address,uint256[],uint256[],bytes[])'](
+        admin.withNFT1.address, 
+        [1, 2], 
+        [1, 2], 
+        [this.proofs[0], this.proofs[1]]
+      )
+    ).to.be.revertedWith('InvalidCall()')
+
+    await expect(//not owner
+      holder1.withBarn['release(address,uint256[],uint256[],bytes[])'](
+        admin.withNFT2.address, 
+        [1, 2], 
+        [1, 2], 
+        [this.proofs[2], this.proofs[3]]
+      )
+    ).to.be.revertedWith('InvalidCall()')
+
+    await expect(//wrong proof
+      holder2.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT1.address, 1, 1, this.proofs[1])
+    ).to.be.revertedWith('InvalidCall()')
+    await expect(//wrong proof
+      holder2.withBarn['release(address,uint256,uint256,bytes)'](admin.withNFT2.address, 1, 1, this.proofs[1])
+    ).to.be.revertedWith('InvalidCall()')
+
+    await expect(//wrong proof
+      holder2.withBarn['release(address,uint256[],uint256[],bytes[])'](
+        admin.withNFT1.address, 
+        [1, 2], 
+        [1, 2], 
+        [this.proofs[0], this.proofs[3]]
+      )
+    ).to.be.revertedWith('InvalidCall()')
+    await expect(//wrong proof
+      holder1.withBarn['release(address,uint256[],uint256[],bytes[])'](
+        admin.withNFT2.address, 
+        [1, 2], 
+        [1, 3], 
+        [this.proofs[2], this.proofs[3]]
+      )
     ).to.be.revertedWith('InvalidCall()')
   })
 })

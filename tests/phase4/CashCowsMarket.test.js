@@ -1,33 +1,5 @@
 const { expect, deploy, bindContract, getRole } = require('../utils');
 
-function authorize(
-  nft,   tokenId, 
-  name,  crew,
-  eyes,  head,
-  mask,  neck,
-  outerwear
-) {
-  return Buffer.from(
-    ethers.utils.solidityKeccak256(
-      [
-        'string',   'address',
-        'uint256',  'string',
-        'string',   'string',
-        'string',   'string',
-        'string',   'string'
-      ],
-      [
-        'registry', nft.address, 
-        tokenId,    name,
-        crew,       eyes,
-        head,       mask,
-        neck,       outerwear
-      ]
-    ).slice(2),
-    'hex'
-  )
-}
-
 describe('CashCowsBarn Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners()

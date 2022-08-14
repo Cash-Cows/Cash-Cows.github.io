@@ -3,34 +3,33 @@
 pragma solidity ^0.8.0;
 
 interface IRegistry {
-  // ============ Struct ============
-
-  struct Metadata {
-    string name;
-    string crew;
-    string eyes;
-    string head;
-    string mask;
-    string neck;
-    string outerwear;
-    bool active;
-  }
-
-  // ============ Read Methods ============
+  /**
+   * @dev Returns the trait `index` value of a `collection` `tokenId`
+   */
+  function traitOf(
+    address collection, 
+    uint256 tokenId,
+    uint256 index
+  ) external view returns(uint256);
 
   /**
-   * @dev Returns the metadata of a `collections`s `token`
+   * @dev Returns the trait `index` value of a `collectionId`
    */
-  function metadata(
-    address collection, 
-    uint256 tokenId
-  ) external view returns(Metadata memory);
+  function traitOf(
+    uint256 collectionId,
+    uint256 index
+  ) external view returns(uint256);
 
   /**
-   * @dev Returns the owner of a `collections`s `token`
+   * @dev Returns the trait `index` value of a `collection` `tokenId`
    */
-  function ownerOf(
+  function traitsOf(
     address collection, 
     uint256 tokenId
-  ) external view returns(address);
+  ) external view returns(uint256);
+
+  /**
+   * @dev Returns the trait `index` value of a `collectionId`
+   */
+  function traitsOf(uint256 collectionId) external view returns(uint256);
 }

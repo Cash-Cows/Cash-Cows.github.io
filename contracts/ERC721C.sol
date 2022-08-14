@@ -93,11 +93,11 @@ abstract contract ERC721C is ERC721B, IERC721C {
     //this is how we can fix the array size
     uint256[] memory tokenIds = new uint256[](balance);
     //next get the total supply
-    uint256 supply = totalSupply();
+    uint256 last = lastId();
     //next declare the array index
     uint256 index;
     //loop through the supply
-    for (uint256 i = 1; i <= supply; i++) {
+    for (uint256 i = 1; i <= last; i++) {
       //if we found a token owner
       if (_burned[i] == address(0) && owner == ownerOf(i)) {
         //add it to the token ids
