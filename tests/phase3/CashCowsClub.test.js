@@ -10,7 +10,7 @@ function authorize(recipient) {
   )
 }
 
-describe('CashCowsClub Tests', function () {
+describe.only('CashCowsClub Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners();
     this.base = 'https://ipfs.io/ipfs/Qm123abc/'
@@ -38,10 +38,6 @@ describe('CashCowsClub Tests', function () {
 
     //setup metadata
     await admin.withMetadata.setBaseURI(this.base)
-    await admin.withMetadata.setTreasury(royalty.address)
-    await admin.withMetadata.setStage(0, ethers.utils.parseEther('0.03'))
-    await admin.withMetadata.setStage(1, ethers.utils.parseEther('0.06'))
-    await admin.withMetadata.setStage(2, ethers.utils.parseEther('0.09'))
     
     this.signers = { 
       admin,
@@ -180,8 +176,14 @@ describe('CashCowsClub Tests', function () {
   it('Should withdraw', async function () {
     const { admin } = this.signers
 
-    const startingBalance = parseFloat(
+    await admin.withNFT.updateTreasury(admin.withTreasury.address)
+
+    const adminBalance = parseFloat(
       ethers.utils.formatEther(await admin.getBalance())
+    )
+
+    const treasuryBalance = parseFloat(
+      ethers.utils.formatEther(await ethers.provider.getBalance(admin.withTreasury.address))
     )
 
     await expect(//no base uri set
@@ -194,7 +196,17 @@ describe('CashCowsClub Tests', function () {
     expect(parseFloat(
       ethers.utils.formatEther(await admin.getBalance())
       //also less gas
-    ) - startingBalance).to.be.above(0.91)
+    ) - adminBalance).to.be.above(0.45)
+    
+    expect(parseFloat(
+      ethers.utils.formatEther(await ethers.provider.getBalance(admin.withTreasury.address))
+      //also less gas
+    ) - treasuryBalance).to.be.above(0.45)
+    
+    expect(parseFloat(
+      ethers.utils.formatEther(await ethers.provider.getBalance(admin.withNFT.address))
+      //also less gas
+    )).to.equal(0)
   })
 
   it('Should get the correct token URIs', async function () {
@@ -203,40 +215,7 @@ describe('CashCowsClub Tests', function () {
     for (let i = 1; i <= 23; i++) {
       expect(
         await admin.withNFT.tokenURI(i)
-      ).to.equal(`${this.base}${i}_0.json`)
-    }
-
-    //load eth in treasury
-    await admin.sendTransaction({
-      to: admin.withTreasury.address,
-      value: ethers.utils.parseEther('1')
-    })
-    for (let i = 1; i <= 23; i++) {
-      expect(
-        await admin.withNFT.tokenURI(i)
-      ).to.equal(`${this.base}${i}_1.json`)
-    }
-
-    //load eth in treasury
-    await admin.sendTransaction({
-      to: admin.withTreasury.address,
-      value: ethers.utils.parseEther('1')
-    })
-    for (let i = 1; i <= 23; i++) {
-      expect(
-        await admin.withNFT.tokenURI(i)
-      ).to.equal(`${this.base}${i}_2.json`)
-    }
-
-    //load eth in treasury
-    await admin.sendTransaction({
-      to: admin.withTreasury.address,
-      value: ethers.utils.parseEther('1')
-    })
-    for (let i = 1; i <= 23; i++) {
-      expect(
-        await admin.withNFT.tokenURI(i)
-      ).to.equal(`${this.base}${i}_2.json`)
+      ).to.equal(`${this.base}${i}.json`)
     }
   })
 

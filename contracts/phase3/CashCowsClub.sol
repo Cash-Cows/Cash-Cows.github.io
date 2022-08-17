@@ -204,7 +204,13 @@ contract CashCowsClub is ReentrancyGuard, CashCowsClubAbstract {
    */
   function withdraw(address recipient) external onlyOwner nonReentrant {
     //cannot withdraw without setting a base URI first
-    if (address(_metadata) == address(0)) revert InvalidCall();
+    if (address(_metadata) == address(0) 
+      //treasury needs to be set
+      || address(treasury) == address(0)
+    ) revert InvalidCall();
+    //first transfer to the treasury
+    payable(address(treasury)).transfer(address(this).balance / 2);
+    //then transfer the rest to the specified wallet
     payable(recipient).transfer(address(this).balance);
   }
 }

@@ -39,7 +39,6 @@ async function drawImage(canvas, imageObject) {
 
 async function main() {
   const images = path.resolve(paths.build, 'image')
-  console.log(images)
   if (!fs.existsSync(images)) throw new Error('build/images folder missing')
   //purge
   purge()
