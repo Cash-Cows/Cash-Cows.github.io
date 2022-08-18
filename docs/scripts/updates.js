@@ -1,12 +1,14 @@
 (() => {
-  const nav = document.querySelectorAll('#nav-update a')
+  const nav = document.querySelectorAll('a.nav-hash')
   const content = document.querySelectorAll('div.content')
 
   Array.from(nav).forEach(link => {
     link.addEventListener('click', e => {
       Array.from(nav).forEach(link => link.classList.remove('active'))
+      Array.from(nav).forEach(navlink => {
+        if (navlink.href == link.href) navlink.classList.add('active')
+      })
       Array.from(content).forEach(content => content.classList.remove('active'))
-      link.classList.add('active')
       document.querySelector(link.getAttribute('href')).classList.add('active')
     })
   })
