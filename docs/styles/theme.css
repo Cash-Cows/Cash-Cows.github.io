@@ -535,6 +535,13 @@ a, a:hover, a:active, a:visited {
   border-radius: 0;
 }
 
+.head .members {
+  border: 1px solid #F9AF00;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px;
+}
+
 .body h1 {
   text-transform: uppercase;
 }

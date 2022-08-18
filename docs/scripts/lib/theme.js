@@ -50,6 +50,20 @@
       template.innerHTML = html.trim();
       return template.content.firstChild;
     }
+
+    static toggle(elements, className) {
+      if (typeof elements === 'string') {
+        elements = Array.from(document.querySelectorAll(elements))
+      }
+    
+      if (!Array.isArray(elements)) {
+        elements = [elements]
+      }
+  
+      elements.forEach((element) => {
+        element.classList.toggle(className)
+      })
+    }
   }
 
   window.theme = Theme;

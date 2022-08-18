@@ -1,0 +1,102 @@
+.body {
+  padding: 100px 0;
+}
+
+.article-banner {
+  border:1px solid #555555;
+  margin: 60px 0 20px;
+  padding:50px 200px;
+}
+
+.nav-left aside {
+  float: left;
+  width: 250px
+}
+
+.nav-left aside a {
+  border: 1px solid #777777;
+  color: #777777;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.nav-left aside a.active {
+  border: 1px solid #CCCCCC;
+  color: #CCCCCC;
+}
+
+.nav-left aside a em {
+  display: block;
+  font-size: 12px;
+}
+
+.nav-left aside a span {
+  display: block;
+}
+
+.nav-left main {
+  padding-left: 270px;
+}
+
+.nav-left main .content {
+  display: none;
+}
+
+.nav-left main .content.active {
+  display: block;
+}
+
+.nav-left main .content h2 {
+  color: #F9AF00;
+  margin: 10px 0 0;
+  text-transform: uppercase;
+}
+
+.nav-left main .content h3 {
+  margin: 10px 0 0;
+}
+
+.nav-left main .content img {
+  width: 100%;
+}
+
+.nav-left main .content img.white-border {
+  border: 5px solid #FFFFFF;
+  width: calc(100% - 10px);
+}
+
+.nav-left main .content a {
+  color: #FFFFFF
+}
+
+.nav-left main .content {
+  color: #CDCDCD;
+}
+
+@media(max-width: 767px) {
+  .article-banner {
+    margin: 40px 0 20px;
+    padding: 20px 40px;
+  }
+}
+
+@media(max-width: 420px) {
+  .article-banner {
+    padding: 10px 20px;
+  }
+
+  .nav-left aside {
+    float: none;
+    margin-bottom: 10px;
+    width: auto;
+  }
+  .nav-left aside a {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+  .nav-left main {
+    padding-left: 0;
+  }
+}

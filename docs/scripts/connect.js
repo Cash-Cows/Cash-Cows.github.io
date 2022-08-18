@@ -81,7 +81,6 @@
 
   //------------------------------------------------------------------//
   // Initialize
-  window.doon(document.body)
 
   if (window.localStorage.getItem('WEB3_LOGGED_IN') === 'true') {
     network.startSession(connected, disconnected, listening === false)
@@ -93,4 +92,10 @@
   } catch(e) {
     console.error(e)
   }
+
+  window.addEventListener('toggle-show-click', e => {
+    theme.toggle(e.for.getAttribute('data-target'), 'hide')
+  })
+
+  window.doon(document.body)
 })(window)

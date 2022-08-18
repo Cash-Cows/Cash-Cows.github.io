@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v2" />
     <link rel="stylesheet" type="text/css" href="/styles/achievements.css" />
   </head>
   <body>
@@ -48,13 +48,18 @@
             <img src="/images/logo-cashcows-long.gif" />
           </a>
           <div>
+            <a href="./updates.html">Updates</a>
             <a href="./gallery.html">Gallery</a>
-            <a href="./treasury.html">Treasury</a>
-            <a href="./culling.html">Culling</a>
-            <a href="./achievements.html">Achievements</a>
+            <a data-do="toggle-show" data-on="click" data-target="#members" href="javascript:void(0)">Members</a>
             <a href="https://dao.wearecashcows.com/#/ " target="_blank">CAO</a>
           </div>
-        </nav> <nav class="right"> <div class="connected hide">
+          <div id="members" class="members hide">
+            <a href="./achievements.html">Achievements</a>
+            <a href="./treasury.html">Treasury</a>
+            <a href="./culling.html">Culling</a>
+          </div>
+        </nav>
+        <nav class="right"> <div class="connected hide">
             <a 
               class="btn btn-outline btn-primary btn-address" 
               href="javascript:void(0)"
@@ -156,14 +161,14 @@
     <footer class="foot"></footer> 
     <script id="network" data-value="mainnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
-    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/connect.js?v1"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v2"></script>
     <script type="text/javascript" src="/scripts/achievements.js?v1"></script>
   </body>
 </html>
