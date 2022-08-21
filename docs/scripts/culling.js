@@ -128,16 +128,10 @@ window.addEventListener('web3sdk-ready', async () => {
     const level = parseInt(e.for.getAttribute('data-level'))
     const releaseable = Web3SDK.toEther(await royalty.read().releaseable(id))
 
-    const message = releaseable > 0 
-      ? `You will receive 1 steak and your unclaimed Ξ ${
-        parseFloat(releaseable).toFixed(6)
-      } will be exchanged for ${(releaseable * conversion).toFixed(6)} $MILK`
-      : `You will receive 1 steak but, you claimed all your rewards! No milk for you. Are you sure?`
     const modal = theme.toElement(template.modal, {
       '{ID}': id,
       '{COLOR}': row.attributes.Background.value.toLowerCase(),
-      '{IMAGE}': `/images/collection/${id}_${level - 1}.png`,
-      '{MESSAGE}': message
+      '{IMAGE}': `/images/collection/${id}_${level - 1}.png`
     })
     document.body.appendChild(modal)
     window.doon(modal)
@@ -151,7 +145,7 @@ window.addEventListener('web3sdk-ready', async () => {
     const tokenId = parseInt(e.for.getAttribute('data-id'))
     //gas check
     try {
-      await culling.gas(Web3SDK.state.account, 0).burnRedeem(tokenId)
+      await culling.gas(Web3SDK.state.account, 0).burn(tokenId)
     } catch(e) {
       const pattern = /have (\d+) want (\d+)/
       const matches = e.message.match(pattern)
@@ -168,7 +162,7 @@ window.addEventListener('web3sdk-ready', async () => {
     }
     //now burn
     try {
-      await culling.write(Web3SDK.state.account, 0, 2).burnRedeem(tokenId)
+      await culling.write(Web3SDK.state.account, 0, 2).burn(tokenId)
       e.for.parentNode.removeChild(e.for)
       document.body.removeChild(document.querySelector('div.modal'))
       steak.innerHTML = parseFloat(
