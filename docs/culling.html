@@ -170,8 +170,18 @@
             <img src="{IMAGE}" loading="lazy" />
           </div>
           <div class="box">
-            <h3>Culling Paused</h3>
-            <p>Culling is paused right now. Check <a href="https://twitter.com/wearecashcows/" target="_blank">Twitter</a> for updates.</p>
+            <h3>Burning #{ID}</h3>
+            <blockquote>"{MESSAGE}"</blockquote>
+            <p>You will receive 1 steak.</p>
+            <a 
+              class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+              data-id="{ID}" 
+              data-do="burn"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Burn. Moo!
+            </a>
           </div>
         </div>
       </div>
