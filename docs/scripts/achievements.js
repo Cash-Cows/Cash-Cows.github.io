@@ -58,7 +58,7 @@ window.addEventListener('web3sdk-ready', async () => {
   ]
 
   let toggledSearch = false;
-  const totalVolume = 46.6
+  const totalVolume = 57.4;
 
   //------------------------------------------------------------------//
   // Functions 
