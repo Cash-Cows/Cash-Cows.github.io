@@ -19,54 +19,56 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-import "../IRegistry.sol";
 import "../IERC20Burnable.sol";
-import "../ERC721Soulbound.sol";
 
 // ============ Contract ============
 
 /**
- * @dev ERC721; This is the loot store. You can get loot using 
+ * @dev ERC721; This is the item store. You can get item using 
  * ETH or any erc20 tokeb. Loot is soulbound to the NFT, and cannot be 
  * transferred, traded or burned.
  */
 contract CashCowsLoot is 
-  ERC721Soulbound, 
+  ERC1155, 
   Ownable, 
   AccessControl,
   Pausable, 
-  ReentrancyGuard,
-  IERC721Metadata
+  ReentrancyGuard
 {
+  // ============ Errors ============
+
+  error InvalidCall();
+
   // ============ Constants ============
 
-  bytes32 public constant _FUNDER_ROLE = keccak256("FUNDER_ROLE");
-  bytes32 public constant _MINTER_ROLE = keccak256("MINTER_ROLE");
-  bytes32 public constant _PAUSER_ROLE = keccak256("PAUSER_ROLE");
-  bytes32 public constant _CURATOR_ROLE = keccak256("CURATOR_ROLE");
+  bytes32 private constant _FUNDER_ROLE = keccak256("FUNDER_ROLE");
+  bytes32 private constant _BURNER_ROLE = keccak256("BURNER_ROLE");
+  bytes32 private constant _MINTER_ROLE = keccak256("MINTER_ROLE");
+  bytes32 private constant _PAUSER_ROLE = keccak256("PAUSER_ROLE");
+  bytes32 private constant _CURATOR_ROLE = keccak256("CURATOR_ROLE");
   
   // ============ Storage ============
 
-  //mapping of loot id to uri
-  mapping(uint256 => string) private _lootURI;
-  //mapping of loot id to max supply
-  mapping(uint256 => uint256) private _lootMax;
-  //mapping of loot id to current supply
-  mapping(uint256 => uint256) private _lootSupply;
+  //mapping of item id to uri
+  mapping(uint256 => string) private _itemURI;
+  //mapping of item id to max supply
+  mapping(uint256 => uint256) private _itemMax;
+  //mapping of item id to current supply
+  mapping(uint256 => uint256) private _itemSupply;
+  //mapping of item id to default price
+  mapping(uint256 => uint256) private _itemETHPrice;
+  //mapping of item id to default ERC20 price
+  mapping(uint256 => mapping(IERC20 => uint256)) private _itemERC20Price;
 
-  //the last loot id
-  uint256 private _lastId;
-  //mapping of token id to loot id
-  mapping(uint256 => uint256) private _tokenLoot;
-  //mapping of collection id to loot id to has
-  mapping(uint256 => mapping(uint256 => bool)) private _collectionLoot;
+  //the last item id
+  uint256 private _lastItemId;
   //checks to see if we should burn this or not
   mapping(address => bool) private _burnable;
 
@@ -75,7 +77,7 @@ contract CashCowsLoot is
   /**
    * @dev Sets the role admin
    */
-  constructor(address admin) {
+  constructor(string memory _uri, address admin) ERC1155(_uri) {
     _setupRole(DEFAULT_ADMIN_ROLE, admin);
     _setupRole(_PAUSER_ROLE, admin);
   }
@@ -83,21 +85,17 @@ contract CashCowsLoot is
   // ============ Read Methods ============
 
   /**
-   * @dev Returns true if this collection has this loot
+   * @dev Returns the last item ID created
    */
-  function exists(
-    address collection, 
-    uint256 token,
-    uint256 lootId
-  ) public view returns(bool) {
-    return _collectionLoot[_packCollection(collection, token)][lootId];
+  function lastItemId() external view returns(uint256) {
+    return _lastItemId;
   }
 
   /**
-   * @dev Returns the max supply of `lootId`
+   * @dev Returns the max supply of `itemId`
    */
-  function maxSupply(uint256 lootId) public view returns(uint256) {
-    return _lootMax[lootId];
+  function maxSupply(uint256 itemId) external view returns(uint256) {
+    return _itemMax[itemId];
   }
 
   /**
@@ -108,75 +106,30 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Returns last loot id
+   * @dev Returns the ETH price of `itemId`
    */
-  function lastLootId() external view returns(uint256) {
-    return _lastId;
+  function priceOf(uint256 itemId) external view returns(uint256) {
+    return _itemETHPrice[itemId];
   }
 
   /**
-   * @dev Returns the loot id of tokenId
+   * @dev Returns the ERC20 `token` price of `itemId`
    */
-  function lootOf(uint256 tokenId) public view returns(uint256) {
-    return _tokenLoot[tokenId];
+  function priceOf(
+    uint256 itemId, 
+    IERC20 token
+  ) external view returns(uint256) {
+    return _itemERC20Price[itemId][token];
   }
 
   /**
-   * @dev Returns all the collection token loot ids
-   */
-  function loots(
-    address collection, 
-    uint256 token
-  ) public view returns(uint256[] memory) {
-    //get the collection id 
-    uint256 collectionId = _packCollection(collection, token);
-    //get the balance
-    uint256 balance = _balanceOf(collectionId);
-    //if no balance
-    if (balance == 0) {
-      //return empty array
-      return new uint256[](0);
-    }
-
-    //this is how we can fix the array size
-    uint256[] memory lootIds = new uint256[](balance);
-    //next declare the array index
-    uint256 index;
-    //loop through the supply
-    for (uint256 i = 1; i <= _lastId; i++) {
-      //if collection has this loot
-      if (_collectionLoot[collectionId][i]) {
-        //add it to the token ids
-        lootIds[index++] = i;
-        //if the index is equal to the balance
-        if (index == balance) {
-          //break out to save time
-          break;
-        }
-      }
-    }
-    //finally return the token ids
-    return lootIds;
-  }
-
-  /**
-   * @dev Returns the Uniform Resource Identifier (URI) for `lootId`.
-   */
-  function lootURI(uint256 lootId) public view returns(string memory) {
-    string memory uri = _lootURI[lootId];
-    if (bytes(uri).length == 0) revert InvalidCall();
-    return uri;
-  }
-
-  /**
-   * @dev Returns true if this contract implements  
-   * the interface defined by `interfaceId`.
+   * @dev Returns true if this contract implements the interface 
+   * defined by `interfaceId`.
    */
   function supportsInterface(
     bytes4 interfaceId
-  ) public view override(AccessControl, ERC721Soulbound, IERC165) returns(bool) {
-    return interfaceId == type(IERC721).interfaceId
-      || super.supportsInterface(interfaceId);
+  ) public view override(AccessControl, ERC1155) returns (bool) {
+    return super.supportsInterface(interfaceId);
   }
 
   /**
@@ -187,175 +140,187 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
+   * @dev Returns the overall amount of tokens generated for `itemId`
    */
-  function tokenURI(uint256 tokenId) external view returns(string memory) {
-    //if token does not exist
-    if (ownerOf(tokenId) == address(0)) revert InvalidCall();
-    return lootURI(lootOf(tokenId));
+  function totalSupply(uint256 itemId) external view returns(uint256) {
+    return _itemSupply[itemId];
   }
 
   /**
-   * @dev Returns the overall amount of tokens generated for `lootId`
+   * @dev Returns the Uniform Resource Identifier (URI) for `itemId`.
    */
-  function totalSupply(uint256 lootId) public view returns(uint256) {
-    return _lootSupply[lootId];
+  function uri(
+    uint256 itemId
+  ) public view override returns(string memory) {
+    string memory itemURI = _itemURI[itemId];
+    return bytes(itemURI).length > 0 ? itemURI : super.uri(itemId);
   }
 
   // ============ Mint Methods ============
 
   /**
-   * @dev Allows anyone to mint for any NFT by purchasing with eth
+   * @dev Allows anyone to mint for anyone with eth
    */
   function mint(
-    address collection, 
-    uint256 token,
-    uint256 lootId,
-    uint256 price,
-    bytes memory proof
+    address to, 
+    uint256 itemId,
+    uint256 amount
   ) external payable nonReentrant {
-    if (//revert if invalid proof
-      !hasRole(_MINTER_ROLE, ECDSA.recover(
-        ECDSA.toEthSignedMessageHash(
-          keccak256(abi.encodePacked(
-            "mint", 
-            collection,
-            token,
-            lootId,
-            address(0),
-            price
-          ))
-        ),
-        proof
-      ))
-      //or if there is no price or the amount sent is less than the price
-      || price == 0 || msg.value < price
+    //revert if no price
+    if (_itemETHPrice[itemId] == 0
+      //or if the eth sent is less than price x amount
+      || msg.value < (_itemETHPrice[itemId] * amount)
     ) revert InvalidCall();
     //we can go ahead and mint
-    _safeMint(collection, token, lootId, "");
+    _mint(to, itemId, amount, "");
   }
 
   /**
-   * @dev Allows anyone to mint for any NFT by purchasing with erc20 token
+   * @dev Allows anyone to batch mint for anyone with eth
    */
   function mint(
-    address collection, 
-    uint256 token,
-    uint256 lootId,
-    address payment,
-    uint256 price,
-    bytes memory proof
+    address to, 
+    uint256[] memory itemIds,
+    uint256[] memory amounts
+  ) external payable nonReentrant {
+    //revert if length mismatch
+    if (itemIds.length != amounts.length) revert InvalidCall();
+    uint256 total;
+    for (uint256 i; i < itemIds.length; i++) {
+      //revert if no price
+      if (_itemETHPrice[itemIds[i]] == 0) revert InvalidCall();
+      total += _itemETHPrice[itemIds[i]] * amounts[i];
+    }
+    //if the eth sent is less than the total
+    if (msg.value < total) revert InvalidCall();
+    //we can go ahead and mint
+    _mintBatch(to, itemIds, amounts, "");
+  }
+
+  /**
+   * @dev Allows anyone to mint for anyone with erc20 token
+   */
+  function mint(
+    address to, 
+    uint256 itemId,
+    address token,
+    uint256 amount
   ) external nonReentrant {
-    //revert if invalid proof
-    if (!hasRole(_MINTER_ROLE, ECDSA.recover(
-      ECDSA.toEthSignedMessageHash(
-        keccak256(abi.encodePacked(
-          "mint", 
-          collection,
-          token,
-          lootId,
-          payment,
-          price
-        ))
-      ),
-      proof
-    ))) revert InvalidCall();
+    uint256 price = _itemERC20Price[itemId][IERC20(token)];
     //revert there is no price
     if (price == 0) revert InvalidCall();
     //if burnable
-    if (_burnable[payment]) {
+    if (_burnable[token]) {
       //burn it. muhahaha
       //(the payer is the caller)
-      IERC20Burnable(payment).burnFrom(_msgSender(), price);
+      IERC20Burnable(token).burnFrom(_msgSender(), price * amount);
     } else {
       //transfer it here
       //(the payer is the caller)
       //this will only pass if we have the allowance...
-      IERC20(payment).transferFrom(_msgSender(), address(this), price);
+      IERC20(token).transferFrom(
+        _msgSender(), 
+        address(this), 
+        price * amount
+      );
     }
+
     //we can go ahead and mint
-    _safeMint(collection, token, lootId, "");
+    _mint(to, itemId, amount, "");
   }
-  
+
+  /**
+   * @dev Allows anyone to batch mint for anyone with erc20 token
+   */
+  function mint(
+    address to, 
+    uint256[] memory itemIds,
+    address token,
+    uint256[] memory amounts
+  ) external nonReentrant {
+    //revert if length mismatch
+    if (itemIds.length != amounts.length) revert InvalidCall();
+    uint256 total;
+    IERC20 erc20Token = IERC20(token);
+    for (uint256 i; i < itemIds.length; i++) {
+      //revert if no price
+      if (_itemERC20Price[itemIds[i]][erc20Token] == 0) revert InvalidCall();
+      total += _itemERC20Price[itemIds[i]][erc20Token] * amounts[i];
+    }
+
+    //if burnable
+    if (_burnable[token]) {
+      //burn it. muhahaha
+      //(the payer is the caller)
+      IERC20Burnable(token).burnFrom(_msgSender(), total);
+    } else {
+      //transfer it here
+      //(the payer is the caller)
+      //this will only pass if we have the allowance...
+      IERC20(token).transferFrom(
+        _msgSender(), 
+        address(this), 
+        total
+      );
+    }
+
+    //we can go ahead and mint
+    _mintBatch(to, itemIds, amounts, "");
+  }
+
   // ============ Burn Methods ============
 
   /**
-   * @dev Add loot burning to the mix
+   * @dev Allows owner, burner or approved to burn
    */
-  function burn(uint256 tokenId) external {
-    //go ahead and burn
-    _burn(tokenId);
-  }
-  
-  // ============ Transfer Methods ============
+  function burn(
+    address account,
+    uint256 itemId,
+    uint256 value
+  ) public virtual {
+    address operator = _msgSender();
+    //revert if caller is not account
+    if(account != operator
+      //and caller is not a burner
+      && !hasRole(_BURNER_ROLE, operator)
+      //and caller is not approved
+      && !isApprovedForAll(account, operator)
+    ) revert InvalidCall();
 
-  /**
-   * @dev Allows anyone to safe transfer loot to current owner of 
-   * the collection
-   */
-  function safeTransferFrom(
-    address collection,
-    uint256 token,
-    uint256 tokenId
-  ) external {
-    safeTransferFrom(collection, token, tokenId, "");
+    _burn(account, itemId, value);
   }
 
   /**
-   * @dev Allows anyone to safe transfer loot to current owner of 
-   * the collection
+   * @dev Allows owner, burner or approved to burn
    */
-  function safeTransferFrom(
-    address collection,
-    uint256 token,
-    uint256 tokenId,
-    bytes memory _data
-  ) public {
-    _safeTransfer(collection, token, tokenId, _data);
-  }
+  function burn(
+    address account,
+    uint256[] memory ids,
+    uint256[] memory values
+  ) public virtual {
+    address operator = _msgSender();
+    //revert if caller is not account
+    if(account != operator
+      //and caller is not a burner
+      && !hasRole(_BURNER_ROLE, operator)
+      //and caller is not approved
+      && !isApprovedForAll(account, operator)
+    ) revert InvalidCall();
 
-  /**
-   * @dev Allows anyone to transfer loot to current owner of 
-   * the collection
-   */
-  function transferFrom(
-    address collection,
-    uint256 token,
-    uint256 tokenId
-  ) external {
-    _transfer(collection, token, tokenId);
+    _burnBatch(account, ids, values);
   }
 
   // ============ Admin Methods ============
 
   /**
-   * @dev Adds loot for minting
+   * @dev Adds item for minting
    */
-  function add(
-    string memory uri, 
-    uint256 max
+  function addItem(
+    string memory itemURI, 
+    uint256 itemMax
   ) external onlyRole(_CURATOR_ROLE) {
-    _lootURI[++_lastId] = uri;
-    _lootMax[_lastId] = max;
-  }
-  
-  /**
-   * @dev Allows minter role to mint (this is good for integrations)
-   */
-  function mint(
-    address collection, 
-    uint256 token,
-    uint256 lootId
-  ) external onlyRole(_MINTER_ROLE) {
-    //we can go ahead and mint
-    _safeMint(collection, token, lootId, "");
-  }
-
-  /**
-   * @dev Pauses all token transfers.
-   */
-  function pause() public virtual onlyRole(_PAUSER_ROLE) {
-    _pause();
+    _itemURI[++_lastItemId] = itemURI;
+    _itemMax[_lastItemId] = itemMax;
   }
 
   /**
@@ -370,6 +335,67 @@ contract CashCowsLoot is
   }
   
   /**
+   * @dev Allows minter role to mint (this is good for integrations)
+   */
+  function mint(
+    address to, 
+    uint256 itemId, 
+    uint256 amount,
+    bytes memory data
+  ) external onlyRole(_MINTER_ROLE) {
+    //we can go ahead and mint
+    _mint(to, itemId, amount, data);
+  }
+
+  /**
+   * @dev Allows minter role to mint (this is good for integrations)
+   */
+  function mint(
+    address to, 
+    uint256[] memory itemIds, 
+    uint256[] memory amounts,
+    bytes memory data
+  ) external onlyRole(_MINTER_ROLE) {
+    //we can go ahead and mint
+    _mintBatch(to, itemIds, amounts, data);
+  }
+
+  /**
+   * @dev Pauses all token transfers.
+   */
+  function pause() public virtual onlyRole(_PAUSER_ROLE) {
+    _pause();
+  }
+
+  /**
+   * @dev Sets the retail price
+   */
+  function setPrice(
+    uint256 itemId, 
+    uint256 price
+  ) external onlyRole(_CURATOR_ROLE) {
+    _itemETHPrice[itemId] = price;
+  }
+
+  /**
+   * @dev Sets the retail price
+   */
+  function setPrice(
+    uint256 itemId, 
+    IERC20 token,
+    uint256 price
+  ) external onlyRole(_CURATOR_ROLE) {
+    _itemERC20Price[itemId][token] = price;
+  }
+
+  /**
+   * @dev Sets the default URI
+   */
+  function setPrice(string memory uri_) external onlyRole(_CURATOR_ROLE) {
+    _setURI(uri_);
+  }
+  
+  /**
    * @dev Unpauses all token transfers.
    */
   function unpause() public virtual onlyRole(_PAUSER_ROLE) {
@@ -377,23 +403,23 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Updates loot URI
+   * @dev Updates item URI
    */
   function updateURI(
-    uint256 lootId, 
-    string memory uri
+    uint256 itemId, 
+    string memory itemURI
   ) external onlyRole(_CURATOR_ROLE) {
-    _lootURI[lootId] = uri;
+    _itemURI[itemId] = itemURI;
   }
 
   /**
-   * @dev Updates loot max supply
+   * @dev Updates item max supply
    */
   function updateMaxSupply(
-    uint256 lootId, 
-    uint256 max
+    uint256 itemId, 
+    uint256 itemMax
   ) external onlyRole(_CURATOR_ROLE) {
-    _lootMax[lootId] = max;
+    _itemMax[itemId] = itemMax;
   }
 
   /**
@@ -406,8 +432,7 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev This contract should not hold any tokens in the first place. 
-   * This method exists to transfer out tokens funds.
+   * @dev Sends the `amount` token out to a `recipient`.
    */
   function withdraw(
     IERC20 erc20, 
@@ -424,66 +449,36 @@ contract CashCowsLoot is
    * and burning.
    */
   function _beforeTokenTransfer(
+    address operator,
     address from,
     address to,
-    address collection, 
-    uint256 token,
-    uint256 tokenId
+    uint256[] memory itemIds,
+    uint256[] memory amounts,
+    bytes memory data
   ) internal override {
     //revert if paused
     if (paused()) revert InvalidCall();
-    super._beforeTokenTransfer(from, to, collection, token, tokenId);
-  }
 
-  /**
-   * @dev Add loot burning to the mix
-   */
-  function _burn(uint256 tokenId) internal override {
-    //get loot id
-    uint256 lootId = lootOf(tokenId);
-    //get collection id
-    uint256 collectionId = collectionIdOf(tokenId);
-    //we need the following checks to make sure supplies are accurate
-    //also to prevent underflow
-    //if no collection to loot
-    if (!_collectionLoot[collectionId][lootId]
-      //or no token to loot
-    ) revert InvalidCall();
-    //underflow check above
-    unchecked {
-      _lootSupply[lootOf(tokenId)]--;
+    //if minting
+    if (from == address(0)) {
+      uint256 index;
+      uint256 itemId;
+      uint256 amount;
+      do {
+        itemId = itemIds[index];
+        amount = amounts[index];
+        //revert if no item exists
+        if (itemId > _lastItemId 
+          //or if there is a max 
+          || (_itemMax[itemId] > 0
+            //and the current supply plus the amount exceeds the max 
+            && (_itemSupply[itemId] + amount) > _itemMax[itemId]
+          )
+        ) revert InvalidCall();
+        _itemSupply[itemId] += amount;
+      } while(++index < itemIds.length);
     }
-    delete _tokenLoot[tokenId];
-    delete _collectionLoot[collectionId][tokenId];
 
-    //go ahead and burn
-    super._burn(tokenId);
-  }
-
-  /**
-   * @dev Loot minting
-   */
-  function _safeMint(
-    address collection, 
-    uint256 token,
-    uint256 lootId,
-    bytes memory data
-  ) internal {
-    //revert if no URI
-    if (bytes(_lootURI[lootId]).length == 0
-      //or if collection token already has this loot
-      || exists(collection, token, lootId)
-      //or if max and supply passed max
-      || (_lootMax[lootId] > 0 && (_lootSupply[lootId] + 1) > _lootMax[lootId])
-    ) revert InvalidCall();
-
-    //go ahead and mint
-    super._safeMint(collection, token, data);
-
-    uint256 tokenId = lastId();
-    
-    _lootSupply[lootId]++;
-    _tokenLoot[tokenId] = lootId;
-    _collectionLoot[collectionIdOf(tokenId)][tokenId] = true;
+    super._beforeTokenTransfer(operator, from, to, itemIds, amounts, data);
   }
 }

@@ -1,6 +1,6 @@
 const { expect, deploy, bindContract, getRole } = require('../utils');
 
-describe('CashCowsBarn Tests', function () {
+describe('CashCowsMarket Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners()
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'

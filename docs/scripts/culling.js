@@ -6,8 +6,8 @@ window.addEventListener('web3sdk-ready', async () => {
   const occurances = {}
 
   const results = document.querySelector('main.results')
-  const milk = document.querySelector('span.milk span.value')
-  const steak = document.querySelector('span.steak span.value')
+  const milkValue = document.querySelector('span.milk span.value')
+  const steakValue = document.querySelector('span.steak span.value')
 
   const template = {
     item: document.getElementById('template-result-item').innerHTML,
@@ -17,9 +17,8 @@ window.addEventListener('web3sdk-ready', async () => {
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const index = network.contract('index')
-  const token = network.contract('token')
+  const milk = network.contract('milk')
   const culling = network.contract('culling')
-  const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
   const messages = [
@@ -49,11 +48,11 @@ window.addEventListener('web3sdk-ready', async () => {
   // Functions
 
   const connected = async state => {
-    steak.innerHTML = parseFloat(
+    steakValue.innerHTML = parseFloat(
       await culling.read().balanceOf(state.account)
     ).toFixed(0)
-    milk.innerHTML = Web3SDK.toEther(
-      await token.read().balanceOf(state.account), 'number'
+    milkValue.innerHTML = Web3SDK.toEther(
+      await milk.read().balanceOf(state.account), 'number'
     ).toFixed(6)
     //populate cows
     Web3SDK.state.tokens = await index.read().ownerTokens(
@@ -186,11 +185,11 @@ window.addEventListener('web3sdk-ready', async () => {
       await culling.write(Web3SDK.state.account, 0, 2).burn(tokenId)
       e.for.parentNode.removeChild(e.for)
       document.body.removeChild(document.querySelector('div.modal'))
-      steak.innerHTML = parseFloat(
+      steakValue.innerHTML = parseFloat(
         await culling.read().balanceOf(Web3SDK.state.account)
       ).toFixed(0)
-      milk.innerHTML = Web3SDK.toEther(
-        await token.read().balanceOf(Web3SDK.state.account), 'number'
+      milkValue.innerHTML = Web3SDK.toEther(
+        await milk.read().balanceOf(Web3SDK.state.account), 'number'
       ).toFixed(6)
     } catch(e) {
       notify('error', e.message.replace('err: i', 'I'))
@@ -200,7 +199,7 @@ window.addEventListener('web3sdk-ready', async () => {
   })
 
   window.addEventListener('watch-click', async(e) => {
-    await token.addToWallet()
+    await milk.addToWallet()
   })
 
   //------------------------------------------------------------------//

@@ -41,9 +41,10 @@ module.exports = {
         nft: '0x03C048bFAd8Dd8dfe87AdaaD4463ca5D13861a2e',
         treasury: '0x5560eCb4d47BaC8744cAecCe23a1B0b20210fD63',
         metadata: '0x01acB1858aC0536a3CA2eA71fB2483796afb9186',
-        token: '0x4bFDb8fa13BD9f9E946a6BDDa00907ed77b1C76a',
+        milk: '0x4bFDb8fa13BD9f9E946a6BDDa00907ed77b1C76a',
         index: '0xcf2e9e92E72B4f9ad243Db2c3E71E0e1c65Fcb19',
-        culling: '0x98E8D05dcfDf30b9938A15861fC6eC0a48b643e4'
+        culling: '0x98E8D05dcfDf30b9938A15861fC6eC0a48b643e4',
+        barn: '0xF6E1d179ee7f6bcd08960Da477b8CF1Bff99C250'
       }
     },
     ethereum: {
@@ -59,7 +60,7 @@ module.exports = {
         nft: '0x1A371de4634c3DEBf7196A1EFc59e620aff0915F',
         treasury: '0x837844a20cFe576057b58bcF6f1556BF6795FB2F',
         metadata: '0xeb41c53e2Debf30C168fc743BA58dAd2345A0113',
-        token: '0x981E826E1238213b6848EFD54015BA83F48406Ba',
+        milk: '0x981E826E1238213b6848EFD54015BA83F48406Ba',
         index: '0x8d75c9d0F3AF4A0eC3440a00d997b59C99814cFf',
         culling: '0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7'
       }

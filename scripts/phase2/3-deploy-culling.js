@@ -27,7 +27,7 @@ async function main() {
   console.log('Deploying CashCowsCulling ...')
   const network = hardhat.config.networks[hardhat.config.defaultNetwork]
   const nft = { address: network.contracts.nft }
-  const token = { address: network.contracts.token }
+  const milk = { address: network.contracts.milk }
   const treasury = { address: network.contracts.treasury }
   const culling = await deploy('CashCowsCulling')
 
@@ -47,12 +47,12 @@ async function main() {
   console.log(` - ${network.scanner}/address/${nft.address}#writeContract`)
   console.log(` - grantRole( ${getRole('APPROVED_ROLE')}, ${culling.address} )`)
   console.log('In CashCowsMilk contract, grant MINTER_ROLE to culling contract')
-  console.log(` - ${network.scanner}/address/${token.address}#writeContract`)
+  console.log(` - ${network.scanner}/address/${milk.address}#writeContract`)
   console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${culling.address} )`)
   console.log('In CashCowsCulling contract, add nft, tokem treasury')
   console.log(` - ${network.scanner}/address/${culling.address}#writeContract`)
   console.log(` - setCollection( ${nft.address} )`)
-  console.log(` - setToken( ${token.address} )`)
+  console.log(` - setToken( ${milk.address} )`)
   console.log(` - setTreasury( ${treasury.address} )`)
   console.log(` - setTokenConversion( 10000 )`)
   console.log('')

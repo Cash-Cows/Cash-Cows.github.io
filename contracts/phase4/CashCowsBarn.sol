@@ -22,7 +22,6 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
-import "../IRegistry.sol";
 import "../IERC20Mintable.sol";
 
 // ============ Interfaces ============

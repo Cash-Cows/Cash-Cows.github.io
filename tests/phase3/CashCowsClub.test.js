@@ -10,7 +10,7 @@ function authorize(recipient) {
   )
 }
 
-describe.only('CashCowsClub Tests', function () {
+describe('CashCowsClub Tests', function () {
   before(async function() {
     const signers = await ethers.getSigners();
     this.base = 'https://ipfs.io/ipfs/Qm123abc/'
