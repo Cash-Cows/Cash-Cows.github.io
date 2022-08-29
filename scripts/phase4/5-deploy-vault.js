@@ -1,5 +1,5 @@
 //to run this on testnet:
-//$ npx hardhat run scripts/phase4/5-deploy-game.js
+//$ npx hardhat run scripts/phase4/5-deploy-vault.js
 
 const hardhat = require('hardhat')
 
@@ -28,16 +28,16 @@ async function main() {
   const network = hardhat.config.networks[hardhat.config.defaultNetwork]
   const admin = new ethers.Wallet(network.accounts[0])
 
-  console.log('Deploying CashCowsGame ...')
-  const game = await deploy('CashCowsGame', admin.address)
+  console.log('Deploying CashCowsVault ...')
+  const vault = await deploy('CashCowsVault', admin.address)
 
   console.log('')
   console.log('-----------------------------------')
-  console.log('CashCowsGame deployed to:', game.address)
+  console.log('CashCowsVault deployed to:', vault.address)
   console.log(
     'npx hardhat verify --show-stack-traces --network',
     hardhat.config.defaultNetwork,
-    game.address,
+    vault.address,
     `"${admin.address}"`
   )
   console.log('')
