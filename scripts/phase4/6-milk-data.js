@@ -94,8 +94,6 @@ async function main() {
   const signer = new ethers.Wallet(network.accounts[0])
   const barn = { address: network.contracts.barn }
   for (const row of database.rows) {
-    //find crew
-    row.attributes.Crew
     row.barn = {
       rate: crews[row.attributes.Crew],
       proof: await signer.signMessage(
