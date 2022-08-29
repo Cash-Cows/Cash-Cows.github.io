@@ -36,8 +36,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
 
   // ============ Events ============
 
-  event Attached(uint256 characterId, uint256 itemId, uint256 amount);
-  event Detached(uint256 characterId, uint256 itemId, uint256 amount);
+  event Injected(uint256 characterId, uint256 itemId, uint256 amount);
+  event Ejected(uint256 characterId, uint256 itemId, uint256 amount);
 
   // ============ Constants ============
 
@@ -62,8 +62,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   mapping(uint256 => mapping(uint256 => uint256)) private _balances; 
   //checks to see if we should burn this or not
   mapping(address => bool) private _burnable;
-  //flag that allows items to be detached
-  bool private _canDetach;
+  //flag that allows items to be ejected
+  bool private _canEject;
   
   // ============ Deploy ============
 
@@ -121,15 +121,15 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   // ============ Write Methods ============
 
   /**
-   * @dev Allows anyone to attach an `amount` of `itemId` they 
+   * @dev Allows anyone to inject an `amount` of `itemId` they 
    * own to a `characterId`. This includes even gifting.
    */
-  function attach(
+  function inject(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
     bytes calldata data
-  ) external {
+  ) public {
     ( //get the item address and item token id
       address itemAddress, 
       uint256 itemTokenId
@@ -144,30 +144,37 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     );
     //add to character item balance
     _balances[itemId][characterId] += amount;
-    //emit attached
-    emit Attached(characterId, itemId, amount);
+    //emit injected
+    emit Injected(characterId, itemId, amount);
   }
 
   /**
-   * @dev Allows the owner of the `characterId` to detach an `amount` 
+   * @dev Allows the owner of the `characterId` to eject an `amount` 
    * of `itemId` back to them.
    */
-  function detach(
+  function eject(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
     address to,
     bytes calldata data
   ) external {
-    //revert if cant detach
-    if (!_canDetach) revert InvalidCall();
+    //revert if cant eject
+    if (!_canEject) revert InvalidCall();
+
     ( //get the character address and character id
       address characterAddress, 
       uint256 characterTokenId
-    ) = _unpackCollection(itemId);
-    _deatach(
-      characterAddress, 
-      characterTokenId, 
+    ) = _unpackCollection(characterId);
+
+    try IERC721(characterAddress).ownerOf(characterTokenId)
+    returns(address owner) {
+      if (owner != _msgSender()) revert InvalidCall();
+    } catch(bytes memory) {
+      revert InvalidCall();
+    }
+
+    _eject(
       characterId, 
       itemId, 
       amount, 
@@ -182,7 +189,6 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
    */
   function mint(
     uint256 characterId, 
-    IERC1155Mintable store,
     uint256 itemId,
     uint256 price,
     uint256 amount,
@@ -197,7 +203,6 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
         ECDSA.toEthSignedMessageHash(
           keccak256(abi.encodePacked(
             "mint", 
-            address(store),
             characterId,
             itemId,
             price
@@ -207,7 +212,7 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       ))
     ) revert InvalidCall();
     
-    _mint(characterId, store, itemId, amount);
+    _mint(characterId, itemId, amount);
   }
 
   /**
@@ -216,7 +221,6 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
    */
   function mint(
     uint256 characterId, 
-    IERC1155Mintable store,
     uint256 itemId,
     address token,
     uint256 price,
@@ -230,7 +234,6 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
         ECDSA.toEthSignedMessageHash(
           keccak256(abi.encodePacked(
             "mint", 
-            address(store),
             characterId,
             itemId,
             token,
@@ -257,7 +260,32 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       );
     }
     
-    _mint(characterId, store, itemId, amount);
+    _mint(characterId, itemId, amount);
+  }
+
+  /**
+   * @dev Allows anyone to safely inject an `amount` of `itemId` they 
+   * own to a `characterId`. This includes even gifting.
+   */
+  function safeInject(
+    uint256 characterId, 
+    uint256 itemId, 
+    uint256 amount,
+    bytes calldata data
+  ) external {
+    ( //get the character address and character id
+      address characterAddress, 
+      uint256 characterTokenId
+    ) = _unpackCollection(itemId);
+
+    try IERC721(characterAddress).ownerOf(characterTokenId)
+    returns(address owner) {
+      if (owner == address(0)) revert InvalidCall();
+    } catch(bytes memory) {
+      revert InvalidCall();
+    }
+
+    inject(characterId, itemId, amount, data);
   }
   
   // ============ Admin Methods ============
@@ -274,10 +302,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   }
 
   /**
-   * @dev Allows admin to `characterId` to detach an `amount` 
+   * @dev Allows admin to `characterId` to eject an `amount` 
    * of `itemId` back to them.
    */
-  function deatach(
+  function eject(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
@@ -286,11 +314,9 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     ( //get the character address and character id
       address characterAddress, 
       uint256 characterTokenId
-    ) = _unpackCollection(itemId);
-    //can only detach
-    _deatach(
-      characterAddress, 
-      characterTokenId, 
+    ) = _unpackCollection(characterId);
+    //can only eject
+    _eject(
       characterId, 
       itemId, 
       amount, 
@@ -300,10 +326,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   }
 
   /**
-   * @dev Allows/revokes the ability for items to be detached
+   * @dev Allows/revokes the ability for items to be ejected
    */
-  function deatachable(bool yes) external onlyRole(_CURATOR_ROLE) {
-    _canDetach = yes;
+  function ejectable(bool yes) external onlyRole(_CURATOR_ROLE) {
+    _canEject = yes;
   }
 
   /**
@@ -312,11 +338,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
    */
   function mint(
     uint256 characterId, 
-    IERC1155Mintable store,
     uint256 itemId,
     uint256 amount
   ) external onlyRole(_MINTER_ROLE) {
-    _mint(characterId, store, itemId, amount);
+    _mint(characterId, itemId, amount);
   }
 
   /**
@@ -342,12 +367,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   // ============ Internal Methods ============
 
   /**
-   * @dev Allows the owner of the `characterId` to detach an `amount` 
+   * @dev Allows the owner of the `characterId` to eject an `amount` 
    * of `itemId` back to them.
    */
-  function _deatach(
-    address characterAddress, 
-    uint256 characterTokenId,
+  function _eject(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
@@ -356,10 +379,6 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   ) internal {
     //revert if character item balance is less than the amount given
     if (_balances[itemId][characterId] < amount) revert InvalidCall();
-    
-    if (//revert if caller is not the owner of this character
-      IERC721(characterAddress).ownerOf(characterTokenId) != _msgSender()
-    ) revert InvalidCall();
     
     ( //get the item address and item token id
       address itemAddress, 
@@ -379,8 +398,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       _balances[itemId][characterId] -= amount;  
     }
     
-    //emit attached
-    emit Detached(characterId, itemId, amount);
+    //emit injected
+    emit Ejected(characterId, itemId, amount);
   }
 
   /**
@@ -389,12 +408,15 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
    */
   function _mint(
     uint256 characterId, 
-    IERC1155Mintable store,
     uint256 itemId,
     uint256 amount
   ) internal {
+    ( //get the item address and item token id
+      address itemAddress, 
+      uint256 itemTokenId
+    ) = _unpackCollection(itemId);
     //mint to this address
-    store.mint(address(this), itemId, amount, "");
+    IERC1155Mintable(itemAddress).mint(address(this), itemTokenId, amount, "");
     //add to character item balance
     _balances[itemId][characterId] += amount;
   }

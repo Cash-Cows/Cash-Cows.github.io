@@ -11,6 +11,8 @@ describe('CashCowsLoot Tests', function() {
     await bindContract('withDolla', 'CashCowsDolla', dolla, signers)
     const loot = await deploy('CashCowsLoot', this.preview, signers[0].address)
     await bindContract('withLoot', 'CashCowsLoot', loot, signers)
+    const weth = await deploy('MockERC20WETH')
+    await bindContract('withWETH', 'MockERC20WETH', weth, signers)
 
     const [ admin, holder1, holder2 ] = signers
 
@@ -25,6 +27,9 @@ describe('CashCowsLoot Tests', function() {
     //allow loot to burn dolla
     await admin.withDolla.grantRole(getRole('BURNER_ROLE'), loot.address)
     
+    //mint weth for holder
+    await admin.withWETH.mint(holder1.address, 100)
+    await admin.withWETH.mint(holder2.address, 200)
     //mint dolla for holder
     await admin.withLoot.burnTokens(admin.withDolla.address, true)
     await admin.withDolla.mint(holder1.address, 100)
@@ -230,5 +235,74 @@ describe('CashCowsLoot Tests', function() {
     await expect(//no price
       admin.withLoot['mint(address,uint256[],address,uint256[])'](admin.address, [4], dolla, [1])
     ).to.be.revertedWith('InvalidCall()')
+  })
+
+  it('Should mint (weth)', async function () {
+    const { admin, holder1, holder2 } = this.signers
+
+    const weth = admin.withWETH.address
+    await admin.withLoot.addItem('ipfs://item6', 3)
+    await admin.withLoot['setPrice(uint256,address,uint256)'](6, weth, 50)
+
+    await holder1.withWETH.approve(admin.withLoot.address, 100)
+    await holder2.withWETH.approve(admin.withLoot.address, 200)
+
+    await holder1.withLoot['mint(address,uint256,address,uint256)'](holder1.address, 6, weth, 1)
+    await holder2.withLoot['mint(address,uint256,address,uint256)'](holder2.address, 6, weth, 2)
+
+    expect(await admin.withLoot.balanceOf(holder1.address, 6)).to.equal(1)
+    expect(await admin.withLoot.balanceOf(holder2.address, 6)).to.equal(2)
+    expect(await admin.withLoot.totalSupply(6)).to.equal(3)
+
+    expect(await admin.withWETH.balanceOf(holder1.address)).to.equal(50)
+    expect(await admin.withWETH.balanceOf(holder2.address)).to.equal(100)
+    expect(await admin.withWETH.balanceOf(holder1.withLoot.address)).to.equal(150)
+  })
+
+  it('Should not mint (weth)', async function () {
+    const { admin } = this.signers
+    const weth = admin.withWETH.address
+    await expect(//no more supply
+      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 6, weth, 20)
+    ).to.be.revertedWith('ERC20: transfer amount exceeds balance')
+    await expect(//no price
+      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 4, weth, 1)
+    ).to.be.revertedWith('InvalidCall()')
+  })
+
+  it('Should mint batch (weth)', async function () {
+    const { admin, holder1, holder2 } = this.signers
+
+    const weth = admin.withWETH.address
+    await admin.withLoot['setPrice(uint256,address,uint256)'](3, weth, 10)
+    await admin.withLoot['setPrice(uint256,address,uint256)'](5, weth, 10)
+
+    await holder1.withLoot['mint(address,uint256[],address,uint256[])'](holder1.address, [3, 5], weth, [1, 1])
+    await holder2.withLoot['mint(address,uint256[],address,uint256[])'](holder2.address, [3, 5], weth, [2, 2])
+
+    expect(await admin.withLoot.balanceOf(holder1.address, 3)).to.equal(3)
+    expect(await admin.withLoot.balanceOf(holder2.address, 3)).to.equal(6)
+    expect(await admin.withLoot.balanceOf(holder1.address, 5)).to.equal(3)
+    expect(await admin.withLoot.balanceOf(holder2.address, 5)).to.equal(6)
+
+    expect(await admin.withLoot.totalSupply(3)).to.equal(9)
+    expect(await admin.withLoot.totalSupply(5)).to.equal(9)
+
+    expect(await admin.withWETH.balanceOf(holder1.address)).to.equal(30)
+    expect(await admin.withWETH.balanceOf(holder2.address)).to.equal(60)
+    expect(await admin.withWETH.balanceOf(holder1.withLoot.address)).to.equal(210)
+  })
+
+  it('Should withdraw', async function () {
+    const { admin, holder1 } = this.signers
+
+    expect(await ethers.provider.getBalance(admin.withLoot.address)).to.equal(270)
+    const ethBalance = await holder1.getBalance()
+    await admin.withLoot['withdraw(address)'](holder1.address)
+    expect((await holder1.getBalance()).sub(ethBalance).toString()).to.be.equal('270')
+
+    expect(await admin.withWETH.balanceOf(admin.withLoot.address)).to.equal(210)
+    await admin.withLoot['withdraw(address,address,uint256)'](admin.withWETH.address, holder1.address, 210)
+    expect(await admin.withWETH.balanceOf(holder1.address)).to.be.equal(240)
   })
 })

@@ -53,6 +53,7 @@ contract CashCowsLoot is
   bytes32 private constant _MINTER_ROLE = keccak256("MINTER_ROLE");
   bytes32 private constant _PAUSER_ROLE = keccak256("PAUSER_ROLE");
   bytes32 private constant _CURATOR_ROLE = keccak256("CURATOR_ROLE");
+  bytes32 private constant _APPROVED_ROLE = keccak256("APPROVED_ROLE");
   
   // ============ Storage ============
 
@@ -83,6 +84,18 @@ contract CashCowsLoot is
   }
 
   // ============ Read Methods ============
+
+  /**
+   * @dev Override isApprovedForAll to whitelist marketplaces 
+   * to enable gas-less listings.
+   */
+  function isApprovedForAll(
+    address owner, 
+    address operator
+  ) public view override returns(bool) {
+    return hasRole(_APPROVED_ROLE, operator) 
+      || super.isApprovedForAll(owner, operator);
+  }
 
   /**
    * @dev Returns the last item ID created
