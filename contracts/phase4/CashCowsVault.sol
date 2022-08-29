@@ -29,15 +29,15 @@ interface IERC1155Mintable is IERC1155, IERC1155Receiver {
 
 // ============ Contract ============
 
-contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
+contract CashCowsVault is Context, ReentrancyGuard, AccessControl {
   // ============ Errors ============
 
   error InvalidCall();
 
   // ============ Events ============
 
-  event Injected(uint256 characterId, uint256 itemId, uint256 amount);
-  event Ejected(uint256 characterId, uint256 itemId, uint256 amount);
+  event Deposited(uint256 characterId, uint256 itemId, uint256 amount);
+  event Withdrawn(uint256 characterId, uint256 itemId, uint256 amount);
 
   // ============ Constants ============
 
@@ -62,8 +62,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   mapping(uint256 => mapping(uint256 => uint256)) private _balances; 
   //checks to see if we should burn this or not
   mapping(address => bool) private _burnable;
-  //flag that allows items to be ejected
-  bool private _canEject;
+  //flag that allows items to be withdrawed
+  bool private _canWithdraw;
   
   // ============ Deploy ============
 
@@ -121,10 +121,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   // ============ Write Methods ============
 
   /**
-   * @dev Allows anyone to inject an `amount` of `itemId` they 
+   * @dev Allows anyone to deposit an `amount` of `itemId` they 
    * own to a `characterId`. This includes even gifting.
    */
-  function inject(
+  function deposit(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
@@ -144,23 +144,23 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     );
     //add to character item balance
     _balances[itemId][characterId] += amount;
-    //emit injected
-    emit Injected(characterId, itemId, amount);
+    //emit deposited
+    emit Deposited(characterId, itemId, amount);
   }
 
   /**
-   * @dev Allows the owner of the `characterId` to eject an `amount` 
+   * @dev Allows the owner of the `characterId` to withdraw an `amount` 
    * of `itemId` back to them.
    */
-  function eject(
+  function withdraw(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
     address to,
     bytes calldata data
   ) external {
-    //revert if cant eject
-    if (!_canEject) revert InvalidCall();
+    //revert if cant withdraw
+    if (!_canWithdraw) revert InvalidCall();
 
     ( //get the character address and character id
       address characterAddress, 
@@ -174,7 +174,7 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       revert InvalidCall();
     }
 
-    _eject(
+    _withdraw(
       characterId, 
       itemId, 
       amount, 
@@ -264,7 +264,7 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   }
 
   /**
-   * @dev Allows anyone to safely inject an `amount` of `itemId` they 
+   * @dev Allows anyone to safely deposit an `amount` of `itemId` they 
    * own to a `characterId`. This includes even gifting.
    */
   function safeInject(
@@ -285,7 +285,7 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       revert InvalidCall();
     }
 
-    inject(characterId, itemId, amount, data);
+    deposit(characterId, itemId, amount, data);
   }
   
   // ============ Admin Methods ============
@@ -302,10 +302,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   }
 
   /**
-   * @dev Allows admin to `characterId` to eject an `amount` 
+   * @dev Allows admin to `characterId` to withdraw an `amount` 
    * of `itemId` back to them.
    */
-  function eject(
+  function withdraw(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
@@ -315,8 +315,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       address characterAddress, 
       uint256 characterTokenId
     ) = _unpackCollection(characterId);
-    //can only eject
-    _eject(
+    //can only withdraw
+    _withdraw(
       characterId, 
       itemId, 
       amount, 
@@ -326,10 +326,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   }
 
   /**
-   * @dev Allows/revokes the ability for items to be ejected
+   * @dev Allows/revokes the ability for items to be withdrawed
    */
-  function ejectable(bool yes) external onlyRole(_CURATOR_ROLE) {
-    _canEject = yes;
+  function withdrawable(bool yes) external onlyRole(_CURATOR_ROLE) {
+    _canWithdraw = yes;
   }
 
   /**
@@ -367,10 +367,10 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   // ============ Internal Methods ============
 
   /**
-   * @dev Allows the owner of the `characterId` to eject an `amount` 
+   * @dev Allows the owner of the `characterId` to withdraw an `amount` 
    * of `itemId` back to them.
    */
-  function _eject(
+  function _withdraw(
     uint256 characterId, 
     uint256 itemId, 
     uint256 amount,
@@ -398,8 +398,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       _balances[itemId][characterId] -= amount;  
     }
     
-    //emit injected
-    emit Ejected(characterId, itemId, amount);
+    //emit deposited
+    emit Withdrawn(characterId, itemId, amount);
   }
 
   /**

@@ -61,7 +61,7 @@ function mintERC20(characterId, itemId, token, price) {
   )
 }
 
-describe.only('CashCowsGame Tests', function() {
+describe.only('CashCowsVault Tests', function() {
   before(async function() {
     const signers = await ethers.getSigners()
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
@@ -72,8 +72,8 @@ describe.only('CashCowsGame Tests', function() {
     await bindContract('withDolla', 'CashCowsDolla', dolla, signers)
     const loot = await deploy('CashCowsLoot', this.preview, signers[0].address)
     await bindContract('withLoot', 'CashCowsLoot', loot, signers)
-    const game = await deploy('CashCowsGame', signers[0].address)
-    await bindContract('withGame', 'CashCowsGame', game, signers)
+    const game = await deploy('CashCowsVault', signers[0].address)
+    await bindContract('withVault', 'CashCowsVault', game, signers)
     const weth = await deploy('MockERC20WETH')
     await bindContract('withWETH', 'MockERC20WETH', weth, signers)
 
@@ -85,11 +85,11 @@ describe.only('CashCowsGame Tests', function() {
     await admin.withDolla.grantRole(getRole('MINTER_ROLE'), admin.address)
     await admin.withLoot.grantRole(getRole('CURATOR_ROLE'), admin.address)
     await admin.withLoot.grantRole(getRole('MINTER_ROLE'), admin.address)
-    await admin.withGame.grantRole(getRole('MINTER_ROLE'), admin.address)
-    await admin.withGame.grantRole(getRole('CURATOR_ROLE'), admin.address)
-    await admin.withGame.grantRole(getRole('FUNDER_ROLE'), admin.address)
+    await admin.withVault.grantRole(getRole('MINTER_ROLE'), admin.address)
+    await admin.withVault.grantRole(getRole('CURATOR_ROLE'), admin.address)
+    await admin.withVault.grantRole(getRole('FUNDER_ROLE'), admin.address)
     //allow game to burn dolla
-    await admin.withGame.burnTokens(dolla.address, true)
+    await admin.withVault.burnTokens(dolla.address, true)
     await admin.withDolla.grantRole(getRole('BURNER_ROLE'), game.address)
     //allow game to mint and transfer loot
     await admin.withLoot.grantRole(getRole('MINTER_ROLE'), game.address)
@@ -112,7 +112,7 @@ describe.only('CashCowsGame Tests', function() {
     this.zero = '0x0000000000000000000000000000000000000000'
   })
 
-  it('Should inject', async function () {
+  it('Should deposit', async function () {
     const { admin, holder1 } = this.signers
     
     await admin.withLoot['mint(address,uint256,uint256,bytes)'](holder1.address, 1, 2, [])
@@ -121,25 +121,25 @@ describe.only('CashCowsGame Tests', function() {
     const itemId = getCollectionId(admin.withLoot.address, 1)
 
     //attach item 1 to character 1
-    await holder1.withGame.inject(characterId, itemId, 1, [])
+    await holder1.withVault.deposit(characterId, itemId, 1, [])
 
-    expect(await admin.withGame.balanceOf(characterId, itemId)).to.equal(1)
+    expect(await admin.withVault.balanceOf(characterId, itemId)).to.equal(1)
   })
 
-  it('Should not inject', async function () {
+  it('Should not deposit', async function () {
     const { admin, holder1 } = this.signers
 
     const characterId = getCollectionId(admin.withNFT.address, 1)
     const itemId = getCollectionId(admin.withLoot.address, 1)
 
     await expect(//no balance
-      admin.withGame.inject(characterId, itemId, 1, [])
+      admin.withVault.deposit(characterId, itemId, 1, [])
     ).to.be.revertedWith('ERC1155: insufficient balance for transfer')
     await expect(//not enough balance
-      holder1.withGame.inject(characterId, itemId, 2, [])
+      holder1.withVault.deposit(characterId, itemId, 2, [])
     ).to.be.revertedWith('ERC1155: insufficient balance for transfer')
     await expect(//not a real character
-      holder1.withGame.safeInject(1, itemId, 1, [])
+      holder1.withVault.safeInject(1, itemId, 1, [])
     ).to.be.reverted
   })
 
@@ -149,13 +149,13 @@ describe.only('CashCowsGame Tests', function() {
     const characterId = getCollectionId(admin.withNFT.address, 11)
     const itemId = getCollectionId(admin.withLoot.address, 1)
     //mint character 11 item 2 of item 1 (price 10)
-    await holder2.withGame['mint(uint256,uint256,uint256,uint256,bytes)'](
+    await holder2.withVault['mint(uint256,uint256,uint256,uint256,bytes)'](
       characterId, itemId, 10, 2, await admin.signMessage(
         mintETH(characterId, itemId, 10)
       ), { value: 20 }
     )
 
-    expect(await admin.withGame.balanceOf(characterId, itemId)).to.equal(2)
+    expect(await admin.withVault.balanceOf(characterId, itemId)).to.equal(2)
   })
 
   it('Should mint (dolla)', async function () {
@@ -165,21 +165,21 @@ describe.only('CashCowsGame Tests', function() {
     const itemId = getCollectionId(admin.withLoot.address, 1)
     const token = admin.withDolla.address
     //mint character 2 item 2 of item 1 (price 10)
-    await holder1.withGame['mint(uint256,uint256,address,uint256,uint256,bytes)'](
+    await holder1.withVault['mint(uint256,uint256,address,uint256,uint256,bytes)'](
       characterId, itemId, token, 20, 2, await admin.signMessage(
         mintERC20(characterId, itemId, token, 20)
       )
     )
 
-    expect(await admin.withGame.balanceOf(characterId, itemId)).to.equal(2)
-    expect(await admin.withDolla.balanceOf(holder1.withGame.address)).to.equal(0)
+    expect(await admin.withVault.balanceOf(characterId, itemId)).to.equal(2)
+    expect(await admin.withDolla.balanceOf(holder1.withVault.address)).to.equal(0)
   })
 
   it('Should mint (weth)', async function () {
     const { admin, holder1 } = this.signers
 
     await admin.withWETH.mint(holder1.address, 100)
-    await holder1.withWETH.approve(admin.withGame.address, 100)
+    await holder1.withWETH.approve(admin.withVault.address, 100)
     await admin.withLoot.addItem('ipfs://item3', 3)
     
     const characterId = getCollectionId(admin.withNFT.address, 3)
@@ -187,55 +187,55 @@ describe.only('CashCowsGame Tests', function() {
     const token = admin.withWETH.address
     
     //mint character 3 item 3 of item 3 (price 30)
-    await holder1.withGame['mint(uint256,uint256,address,uint256,uint256,bytes)'](
+    await holder1.withVault['mint(uint256,uint256,address,uint256,uint256,bytes)'](
       characterId, itemId, token, 30, 3, await admin.signMessage(
         mintERC20(characterId, itemId, token, 30)
       )
     )
 
-    expect(await admin.withGame.balanceOf(characterId, itemId)).to.equal(3)
-    expect(await admin.withWETH.balanceOf(holder1.withGame.address)).to.equal(90)
+    expect(await admin.withVault.balanceOf(characterId, itemId)).to.equal(3)
+    expect(await admin.withWETH.balanceOf(holder1.withVault.address)).to.equal(90)
   })
 
-  it('Should not eject', async function () {
+  it('Should not withdraw', async function () {
     const { admin, holder1, holder2 } = this.signers
 
     const characterId = getCollectionId(admin.withNFT.address, 2)
     const itemId = getCollectionId(admin.withLoot.address, 1)
     //mint character 2 item 2 of item 1 (price 10)
     await expect(
-      holder1.withGame['eject(uint256,uint256,uint256,address,bytes)'](
+      holder1.withVault['withdraw(uint256,uint256,uint256,address,bytes)'](
         characterId, itemId, 1, holder2.address, []
       )
     ).to.be.revertedWith('InvalidCall()')
   })
 
-  it('Should eject', async function () {
+  it('Should withdraw', async function () {
     const { admin, holder1, holder2 } = this.signers
 
-    await admin.withGame.ejectable(true)
+    await admin.withVault.withdrawable(true)
 
     expect(await admin.withLoot.balanceOf(holder2.address, 1)).to.equal(0)
 
     const characterId = getCollectionId(admin.withNFT.address, 1)
     const itemId = getCollectionId(admin.withLoot.address, 1)
-    await holder1.withGame['eject(uint256,uint256,uint256,address,bytes)'](
+    await holder1.withVault['withdraw(uint256,uint256,uint256,address,bytes)'](
       characterId, itemId, 1, holder2.address, []
     )
 
     expect(await admin.withLoot.balanceOf(holder2.address, 1)).to.equal(1)
   })
 
-  it('Should withdraw', async function () {
+  it('Should withdraw funds', async function () {
     const { admin, holder1 } = this.signers
 
-    expect(await ethers.provider.getBalance(admin.withGame.address)).to.equal(20)
+    expect(await ethers.provider.getBalance(admin.withVault.address)).to.equal(20)
     const ethBalance = await holder1.getBalance()
-    await admin.withGame['withdraw(address)'](holder1.address)
+    await admin.withVault['withdraw(address)'](holder1.address)
     expect((await holder1.getBalance()).sub(ethBalance).toString()).to.be.equal('20')
 
-    expect(await admin.withWETH.balanceOf(admin.withGame.address)).to.equal(90)
-    await admin.withGame['withdraw(address,address,uint256)'](admin.withWETH.address, holder1.address, 90)
+    expect(await admin.withWETH.balanceOf(admin.withVault.address)).to.equal(90)
+    await admin.withVault['withdraw(address,address,uint256)'](admin.withWETH.address, holder1.address, 90)
     expect(await admin.withWETH.balanceOf(holder1.address)).to.be.equal(100)
   })
 })
