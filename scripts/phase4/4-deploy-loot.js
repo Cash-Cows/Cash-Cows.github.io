@@ -54,6 +54,8 @@ async function main() {
   console.log(` - PAUSER_ROLE - ${getRole('PAUSER_ROLE')}`)
   console.log(` - CURATOR_ROLE - ${getRole('CURATOR_ROLE')}`)
   console.log('')
+  console.log('-----------------------------------')
+  console.log('Next Steps:')
   console.log('In CashCowsDolla contract, grant BURNER_ROLE to loot contract')
   console.log(` - ${network.scanner}/address/${dolla.address}#writeContract`)
   console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${loot.address} )`)

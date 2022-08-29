@@ -273,7 +273,7 @@ contract CashCowsClubTreasury is Context, ReentrancyGuard, IRoyaltySplitter {
     emit ERC20PaymentReleased(token, account, payment);
   }
 
-  // ============ Write Methods ============
+  // ============ Internal Methods ============
 
   /**
    * @dev internal logic for computing the pending payment of an 

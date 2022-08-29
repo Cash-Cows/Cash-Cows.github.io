@@ -42,7 +42,6 @@ async function main() {
     `"${admin.address}"`
   )
   console.log('')
-  console.log('')
   console.log('-----------------------------------')
   console.log('Next Steps:')
   console.log('In CashCowsMilk contract, grant MINTER_ROLE to barn contract')

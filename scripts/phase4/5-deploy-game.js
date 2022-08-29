@@ -1,5 +1,5 @@
 //to run this on testnet:
-//$ npx hardhat run scripts/phase4/5-deploy-vault.js
+//$ npx hardhat run scripts/phase4/5-deploy-game.js
 
 const hardhat = require('hardhat')
 
@@ -26,18 +26,20 @@ function getRole(name) {
 async function main() {
   //get network and admin
   const network = hardhat.config.networks[hardhat.config.defaultNetwork]
+  const dolla = { address: network.contracts.dolla }
+  const loot = { address: network.contracts.loot }
   const admin = new ethers.Wallet(network.accounts[0])
 
-  console.log('Deploying CashCowsVault ...')
-  const vault = await deploy('CashCowsVault', admin.address)
+  console.log('Deploying CashCowsGame ...')
+  const game = await deploy('CashCowsGame', admin.address)
 
   console.log('')
   console.log('-----------------------------------')
-  console.log('CashCowsVault deployed to:', vault.address)
+  console.log('CashCowsGame deployed to:', game.address)
   console.log(
     'npx hardhat verify --show-stack-traces --network',
     hardhat.config.defaultNetwork,
-    vault.address,
+    game.address,
     `"${admin.address}"`
   )
   console.log('')
@@ -47,6 +49,19 @@ async function main() {
   console.log(` - MINTER_ROLE - ${getRole('MINTER_ROLE')}`)
   console.log(` - CURATOR_ROLE - ${getRole('CURATOR_ROLE')}`)
   console.log('')
+  console.log('-----------------------------------')
+  console.log('Next Steps:')
+  console.log('In CashCowsGame contract, make DOLLA burnable')
+  console.log(` - ${network.scanner}/address/${game.address}#writeContract`)
+  console.log(` - burnable( ${dolla.address} )`)
+  console.log('In CashCowsDolla contract, grant MINTER_ROLE, BURNER_ROLE to game contract')
+  console.log(` - ${network.scanner}/address/${dolla.address}#writeContract`)
+  console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${game.address} )`)
+  console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${game.address} )`)
+  console.log('In CashCowsLoot contract, grant MINTER_ROLE, APPROVED_ROLE to game contract')
+  console.log(` - ${network.scanner}/address/${loot.address}#writeContract`)
+  console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${game.address} )`)
+  console.log(` - grantRole( ${getRole('APPROVED_ROLE')}, ${game.address} )`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
