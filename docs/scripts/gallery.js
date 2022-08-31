@@ -1,4 +1,4 @@
-window.addEventListener('web3sdk-ready', async () => {
+window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
   const response = await fetch('/data/metadata.json')

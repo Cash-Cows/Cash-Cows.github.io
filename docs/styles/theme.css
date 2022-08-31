@@ -28,27 +28,27 @@ a, a:hover, a:active, a:visited {
 }
 
 .text-primary {
-  color: #F9AF00;
+  color: #F9AF00 !important;
 }
 
 .text-secondary {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .text-success {
-  color: #06a700;
+  color: #06a700 !important;
 }
 
 .text-warning {
-  color: #c59100;
+  color: #c59100 !important;
 }
 
 .text-danger {
-  color: #c20f02;
+  color: #c20f02 !important;
 }
 
 .text-muted {
-  color: #AAAAAA;
+  color: #AAAAAA !important;
 }
 
 .pfp-bells {
@@ -485,7 +485,7 @@ a, a:hover, a:active, a:visited {
   align-items: center;
   display: flex;
   font-size: 13px;
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 .head a {
@@ -495,51 +495,27 @@ a, a:hover, a:active, a:visited {
   text-transform: uppercase;
 }
 
-.head .left .social img {
-  height: 51px;
-}
-
-.head .center {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.head .center .logo {
-  display: block;
-  height: 55px;
-}
-
-.head .center .logo img {
-  height: 100%;
-}
-
-.head .center div a {
-  display: inline-block;
-  margin: 0 10px;
+.head .left .logo img {
+  height: 50px;
 }
 
 .head .right {
-  line-height: 30px;
-  text-align: right;
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: end;
 }
 
-.head .right .disconnected {
-  margin-left: 13px;
+.head .right .link {
+  margin-right: 20px;
 }
 
-.head .right a {
-  display: inline-block;
+.head .right .social .link {
+  margin-right: 0;
 }
 
-.head .right .btn {
-  border-radius: 0;
-}
-
-.head .members {
-  border: 1px solid #F9AF00;
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px;
+.head .right .social img {
+  height: 40px;
 }
 
 .body h1 {
@@ -559,21 +535,24 @@ a, a:hover, a:active, a:visited {
   }
 
   .head .left {
-    padding-top: 10px;
     text-align: center;
   }
 
   .head .right {
-    padding-top: 10px;
+    display: block;
     text-align: center;
   }
 
-  .head .right .disconnected {
-    margin-left: 0;
+  .head .right .link {
+    margin: 5px;
   }
 
-  .head .center div a {
-    margin: 10px;
+  .head .right .social {
+    padding-top: 10px;
+  }
+
+  .head .right .social .link {
+    margin: 0;
   }
 }
 

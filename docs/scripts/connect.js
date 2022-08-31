@@ -35,7 +35,7 @@
   //------------------------------------------------------------------//
   // Functions
 
-  const connected = async (newstate, session) => {
+  const connected = (newstate, session) => {
     //update state
     Object.assign(Web3SDK.state, newstate, { connected: true })
     //update loggedin state
@@ -53,9 +53,13 @@
         Web3SDK.state.account.substring(Web3SDK.state.account.length - 4)
       }`
     })
+
+    setTimeout(_ => {
+      window.dispatchEvent(new Event('web3sdk-connected'))
+    }, 100)
   }
 
-  const disconnected = async (newstate, error, session) => {
+  const disconnected = (newstate, error, session) => {
     //update state
     Object.assign(Web3SDK.state, newstate)
     //update loggedin state
@@ -65,32 +69,36 @@
     //update html state
     theme.hide('.connected', true)
     theme.hide('.disconnected', false)
+
+    setTimeout(_ => {
+      window.dispatchEvent(new Event('web3sdk-disconnected'))
+    }, 100)
   }
 
   //------------------------------------------------------------------//
   // Events
 
-  window.addEventListener('connect-click', () => {
+  window.addEventListener('connect-click', _ => {
     network.connectCB(providers, connected, disconnected, listening === false)
     listening = true
   })
 
-  window.addEventListener('disconnect-click', () => {
+  window.addEventListener('disconnect-click', _ => {
     disconnected({ connected: false, account: undefined, provider: undefined })
   })
 
   //------------------------------------------------------------------//
   // Initialize
 
-  if (window.localStorage.getItem('WEB3_LOGGED_IN') === 'true') {
-    network.startSession(connected, disconnected, listening === false)
-    listening = true
-  }
-
   try {
     window.dispatchEvent(new Event('web3sdk-ready'))
   } catch(e) {
     console.error(e)
+  }
+
+  if (window.localStorage.getItem('WEB3_LOGGED_IN') === 'true') {
+    network.startSession(connected, disconnected, listening === false)
+    listening = true
   }
 
   window.addEventListener('toggle-show-click', e => {

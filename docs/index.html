@@ -31,62 +31,29 @@
     <link rel="stylesheet" type="text/css" href="/styles/index.css?v1" />
   </head>
   <body>
-    <div class="stars"></div>
     <header class="head">
       <div class="container">
         <nav class="left">
-          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
-            <img src="/images/twitter-pixel.png" />
-          </a>
-          <a class="social" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
-            <img src="/images/opensea-pixel.png" />
-          </a>
-          <a class="social" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
-            <img src="/images/etherscan-pixel.png" />
-          </a>
-          <a class="social" href="https://github.com/cash-cows" target="_blank">
-            <img src="/images/github-pixel.png" />
-          </a>
-        </nav>
-        <nav class="center">
           <a class="logo" href="/">
             <img src="/images/logo-cashcows-long.gif" />
           </a>
-          <div>
-            <a href="./updates.html">Updates</a>
-            <a href="./gallery.html">Gallery</a>
-            <a data-do="toggle-show" data-on="click" data-target="#members" href="javascript:void(0)">Members</a>
-            <a href="https://dao.wearecashcows.com/#/ " target="_blank">CAO</a>
-          </div>
-          <div id="members" class="members hide">
-            <a href="./achievements.html">Achievements</a>
-            <a href="./treasury.html">Treasury</a>
-            <a href="./culling.html">Culling</a>
-          </div>
         </nav>
         <nav class="right">
-          <div class="connected hide">
-            <a 
-              class="btn btn-outline btn-primary btn-address" 
-              href="javascript:void(0)"
-            ></a>
-            <a 
-              class="btn btn-outline btn-primary" 
-              data-do="disconnect"
-              data-on="click"
-              href="javascript:void(0)"
-            >
-              <i class="fas fa-arrow-right-from-bracket"></i>
+          <a class="link" href="./updates.html">Updates</a>
+          <a class="link" href="./gallery.html">Gallery</a>
+          <a class="link" href="./members.html">Members</a>
+          <div class="social">
+            <a class="link" href="https://twitter.com/WeAreCashCows" target="_blank">
+              <img src="/images/twitter-pixel.png" />
             </a>
-          </div>
-          <div class="disconnected">
-            <a 
-              class="btn-pixel btn-pixel-warning" 
-              data-do="connect"
-              data-on="click"
-              href="javascript:void(0)"
-            >
-              Connect Wallet
+            <a class="link" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
+              <img src="/images/opensea-pixel.png" />
+            </a>
+            <a class="link" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
+              <img src="/images/etherscan-pixel.png" />
+            </a>
+            <a class="link" href="https://github.com/cash-cows" target="_blank">
+              <img src="/images/github-pixel.png" />
             </a>
           </div>
         </nav>
@@ -94,18 +61,38 @@
     </header>
     <main class="body">
       <section class="section section-1">
-        <img src="/images/logo-cashcows-long.gif" />
-        <div class="cta">
-          <a 
-            class="btn-pixel btn-pixel-lg btn-pixel-secondary" 
-            href="https://medium.com/@cashcows/moo-cash-cows-genesis-b774dc283da3"
-            target="_blank"
-          >
-            Learn More
-          </a>
+        <div class="video">
+          <video autoplay loop muted playsinline>
+            <source src="/media/cc-teaser-1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </section>
-      <section class="section section-2">
+      <section class="section section-2" data-do="goals">
+        <div class="stars"></div>
+        <div class="content">
+          <h2>Community Achievements</h2>
+          <p>The Herd Effort. Members earn ETH per marketplace sale. We Win Together.</p>
+          <div class="stats">
+            <div class="stat">
+              <h6>Redeemed</h6>
+              <span class="treasury-redeemed btn-pixel btn-pixel-lg btn-pixel-secondary">
+                <span class="btn-prefix">Ξ</span>
+                <span class="value">???</span>
+              </span>
+            </div>
+            <div class="stat">
+              <h6>Unclaimed</h6>
+              <span class="treasury-unclaimed btn-pixel btn-pixel-lg btn-pixel-secondary">
+                <span class="btn-prefix">Ξ</span>
+                <span class="value">???</span>
+              </span>
+            </div>
+          </div>
+          <div class="community"></div>
+        </div>
+      </section>
+      <section class="section section-3">
         <img src="/images/home/brady-bunch.png" />
         <div class="info">
           <h1>More Than Just 4,000 Cows</h1>
@@ -120,10 +107,10 @@
           </ul>
         </div>
       </section>
-      <section class="section section-3">
+      <section class="section section-4">
         <img src="/images/home/farm.png" />
       </section>
-      <section class="section section-4">
+      <section class="section section-5">
         <div class="container">
           <h2>FAQ</h2>
           <div class="faq">
@@ -221,6 +208,13 @@
         <i class="fas fa-play" data-do="play" data-on="click"></i>
       </div>
     </div>
+    <template id="template-community-goal">
+      <aside class="{STATUS} {POSITION}">
+        <img src="{IMAGE}"/>
+        <h6>{VALUE}ETH</h6>
+        <span class="bar"></span>
+      </aside>
+    </template>
     <script id="network" data-value="mainnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
     <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>

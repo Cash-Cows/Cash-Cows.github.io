@@ -1,4 +1,4 @@
-(() => {
+(_ => {
   const nav = document.querySelectorAll('a.nav-hash')
   const content = document.querySelectorAll('div.content')
 

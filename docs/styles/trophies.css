@@ -1,0 +1,123 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 0px 0px #E7BA10;
+  }
+  to {
+    box-shadow: 0 0 40px 10px #E7BA10;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.section-1 {
+  padding: 100px 0 50px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section .wallet {
+  color: #F9AF00;
+  font-size: 24px;
+}
+
+.section-1 .wallet a {
+  color: #F9AF00;
+}
+
+.section-1 nav {
+  margin-top: 20px;
+}
+
+.section-1 nav a {
+  color: #CCCCCC;
+  margin: 0 20px;
+  text-decoration: none;
+}
+
+.section-1 nav a.active {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.section-2 .trophies {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 50px;
+}
+
+.section-2 .badge-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.section-2 .badge-section.active {
+  display: flex;
+}
+
+.section-2 .badge-section img {
+  border-radius: 14px;
+  width: 100px;
+  opacity: 0.3;
+}
+
+.section-2 .badge-section.active img {
+  opacity: 1;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.section-2 .badge-section h6 {
+  margin: 5px 0 0 0;
+  line-height: 15px;
+}
+
+.section-2 .badge-section p {
+  padding: 0;
+}
+
+@media(max-width: 430px) {
+  .section-1 nav a {
+    margin: 0 10px;
+  }
+}
