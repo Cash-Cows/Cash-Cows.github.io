@@ -1,4 +1,28 @@
+html, body {
+  background-image: url(/images/mint/panel-red.png);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 500px auto;
+}
+
+.head {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
 .section-1 {
-  margin: 50px 0;
+  margin: 100px 0;
+  text-align: center;
+}
+
+.section-1 table {
+  background-color: #E1C18A;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-1 table td {
+  border-bottom: 1px solid #BD9F6D;
+  color: #000000;
+  padding: 10px 15px;
   text-align: center;
 }
