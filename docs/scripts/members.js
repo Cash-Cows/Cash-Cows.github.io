@@ -30,9 +30,10 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   const board = theme.toElement(template.board)
 
-  leaders.forEach(row => {
+  leaders.forEach((row, i) => {
     board.querySelector('tbody').appendChild(
       theme.toElement(template.row
+        .replace('{INDEX}', i + 1)
         .replace('{ADDRESS}', `${row.address.substring(0, 4)}...${
           row.address.substring(row.address.length - 4)
         }`)
