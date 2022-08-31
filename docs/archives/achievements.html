@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Achievements | Cash Cows</title> <meta name="description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" /> <meta property="og:title" content="View Achievements | Cash Cows" />
+    <meta property="og:description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" />
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    <meta property="og:url" content="https://www.wearecashcows.com/treasury" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="View Achievements | Cash Cows" />
+    <meta name="twitter:description" content="Moo. Thanks, Cow Crew! Check our Moochievements!" />
+    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v2" />
+    <link rel="stylesheet" type="text/css" href="/styles/achievements.css" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <header class="head">
+      <div class="container">
+        <nav class="left">
+          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
+            <img src="/images/twitter-pixel.png" />
+          </a>
+          <a class="social" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
+            <img src="/images/opensea-pixel.png" />
+          </a>
+          <a class="social" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
+            <img src="/images/etherscan-pixel.png" />
+          </a>
+          <a class="social" href="https://github.com/cash-cows" target="_blank">
+            <img src="/images/github-pixel.png" />
+          </a>
+        </nav>
+        <nav class="center">
+          <a class="logo" href="/">
+            <img src="/images/logo-cashcows-long.gif" />
+          </a>
+          <div>
+            <a href="./updates.html">Updates</a>
+            <a href="./gallery.html">Gallery</a>
+            <a data-do="toggle-show" data-on="click" data-target="#members" href="javascript:void(0)">Members</a>
+            <a href="https://dao.wearecashcows.com/#/ " target="_blank">CAO</a>
+          </div>
+          <div id="members" class="members hide">
+            <a href="./achievements.html">Achievements</a>
+            <a href="./treasury.html">Treasury</a>
+            <a href="./culling.html">Culling</a>
+          </div>
+        </nav>
+        <nav class="right"> <div class="connected hide">
+            <a 
+              class="btn btn-outline btn-primary btn-address" 
+              href="javascript:void(0)"
+            ></a>
+            <a 
+              class="btn btn-outline btn-primary" 
+              data-do="disconnect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              <i class="fas fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+          <div class="disconnected">
+            <a 
+              class="btn-pixel btn-pixel-warning" 
+              data-do="connect"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Connect Wallet
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="body">
+      <section class="section section-1">
+        <h2>Achievements</h2>
+        <h4>Community Volume</h4>
+        <div class="community"></div>
+      </section>
+
+      <section class="section section-2">
+        <div class="connected">
+          <h2>Profile</h2>
+          <div class="search">
+            <a
+              class="toggle-btn"
+              data-on="click"
+              data-do="toggle-search"
+              href="javascript:void(0)"
+            >
+              Toggle Search
+            </a>
+            <div class="searchbox">
+              <input class="searchbox-input" type="text">
+              <button
+                class="searchbox-btn"
+                type="button"
+                data-do="search-user"
+                data-on="click"
+              >
+                Fetch 
+              </button>
+            </div>
+          </div>
+          <h4>Individual Achievements</h4>
+          <div class="individual">
+            <h5>Cow Assets</h5>
+            <div class="badge-holder assets"></div>
+
+            <h5>Net Worth</h5>
+            <div class="badge-holder net-worth"></div>
+
+            <h5>Cow Culling</h5>
+            <div class="badge-holder culling"></div>
+          </div>
+        </div>
+        <div class="disconnected">
+          <a 
+            class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+            data-do="connect"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Connect Wallet
+          </a>
+        </div>
+      </section>
+
+      <!-- Templates -->
+      <template id="template-community-goal">
+        <aside class="{STATUS} {POSITION}">
+          <img src="{IMAGE}"/>
+          <h6>{VALUE}ETH</h6>
+          <span class="bar"></span>
+        </aside>
+      </template>
+
+      <template id="template-individual">
+        <div class="badge-section">
+          <img class="{STATUS}" src="{IMAGE}" alt="{NAME} Badge"/>
+          <h6>{NAME}</h6>
+          <p>{CONTENT}</p>
+        </div>
+      </template>
+    </main>
+    <footer class="foot"></footer> 
+    <script id="network" data-value="mainnet"></script>
+    <script type="text/javascript" src="/scripts/lib/doon.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
+    <script type="text/javascript" src="/scripts/lib/web3.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/lib/notify.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v2"></script>
+    <script type="text/javascript" src="/scripts/achievements.js?v2"></script>
+  </body>
+</html>

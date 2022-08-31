@@ -1,0 +1,221 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+h2 {
+  color: #F9AF00;
+  margin-bottom: 0;
+}
+
+.body {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.body .contract {
+  color: #CCCCCC;
+  display: inline-block;
+  font-size: 11px;
+}
+
+.body .connected {
+  text-align: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.stats .watch {
+  color: #FFFFFF;
+  display: block;
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.stats .stat {
+  padding: 0 32px;
+}
+
+.stats .stat h6 {
+  margin: 0;
+}
+
+.stats .milk,
+.stats .steak {
+  position: relative;
+}
+
+.stats .milk .btn-prefix,
+.stats .steak .btn-prefix {
+  left: 5px;
+  position: absolute;
+  top: 8px;
+}
+
+.stats .milk .value,
+.stats .steak .value {
+  padding-left: 25px;
+}
+
+.stats img {
+  width: 30px;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.results .item {
+  cursor: pointer;
+  margin: 5px;
+  width: 250px;
+  position: relative;
+}
+
+.results .item .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+  width: 250px;
+}
+
+.results .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.results .item .preview img {
+  width: 100%;
+}
+
+.results .item h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.results .item h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.results .item .label {
+  color: #AAAAAA;
+}
+
+.results .item .level {
+  color: #F9AF00;
+}
+
+.results .item.burning img {
+  filter: grayscale(100%)
+}
+
+.modal .overlay {
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal .preview {
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+}
+
+.modal .box {
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #222222;
+  margin-top: -5px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.modal p {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  line-height: 30px;
+}
+
+@media(max-width: 830px) {
+  .results .item {
+    height: auto;
+    width: calc(33% - 10px);
+  }
+
+  .results .item .preview {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media(max-width: 560px) {
+  .results .item {
+    width: calc(50% - 10px);
+  }
+
+  .results .item .preview {
+    height: auto;
+    overflow: visible;
+    width: 100%;
+  }
+}
