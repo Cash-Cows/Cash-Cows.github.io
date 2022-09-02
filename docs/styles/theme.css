@@ -586,11 +586,13 @@ a, a:hover, a:active, a:visited {
   height: 50px;
 }
 
+.head .left {
+  flex-grow: 1;
+}
+
 .head .right {
   align-items: center;
   display: flex;
-  flex-grow: 1;
-  justify-content: end;
 }
 
 .head .right .link {

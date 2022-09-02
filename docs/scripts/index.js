@@ -20,14 +20,18 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Events
   window.addEventListener('goals-init', async (e) => {
-    const unclaimed = parseFloat(Web3SDK.toEther(
-      (await Web3SDK.web3().eth.getBalance(royalty.address)).toString(), 
-      'number'
-    )) || 3.496336
-    const redeemed =  parseFloat(Web3SDK.toEther(
-      (await royalty.read()['totalReleased()']()).toString(),
-      'number'
-    )) || 2.879933
+    let unclaimed = 3.496336
+    let redeemed = 2.879933
+    try {
+      unclaimed = parseFloat(Web3SDK.toEther(
+        (await Web3SDK.web3().eth.getBalance(royalty.address)).toString(), 
+        'number'
+      ))
+      redeemed =  parseFloat(Web3SDK.toEther(
+        (await royalty.read()['totalReleased()']()).toString(),
+        'number'
+      ))
+    } catch(e) {}
     const totalVolume = (unclaimed + redeemed) * 10
 
     //get unclaimed
