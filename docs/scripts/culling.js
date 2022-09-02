@@ -2,8 +2,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
 
-  const response = await fetch('/data/metadata.json')
-  const database = await response.json()
+  let database = []
 
   const template = {
     game: document.getElementById('template-game').innerHTML
@@ -53,6 +52,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Events
 
   window.addEventListener('web3sdk-connected', async _ => {
+    database = await (await fetch('/data/metadata.json')).json()
     const row = await getRow()
     if (!row) window.location.href = '/cows.html'
     const stage = parseInt(await metadata.read().stage(row.edition))
