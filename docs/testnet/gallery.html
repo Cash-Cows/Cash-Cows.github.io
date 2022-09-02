@@ -27,57 +27,34 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v1" />
-    <link rel="stylesheet" type="text/css" href="/styles/gallery.css?v1" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
+    <link rel="stylesheet" type="text/css" href="/styles/gallery.css?v5" />
   </head>
   <body>
     <div class="stars"></div>
     <header class="head">
       <div class="container">
         <nav class="left">
-          <a class="social" href="https://twitter.com/WeAreCashCows" target="_blank">
-            <img src="/images/twitter-pixel.png" />
-          </a>
-          <a class="social" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
-            <img src="/images/opensea-pixel.png" />
-          </a>
-          <a class="social" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
-            <img src="/images/etherscan-pixel.png" />
-          </a>
-        </nav>
-        <nav class="center">
           <a class="logo" href="/">
             <img src="/images/logo-cashcows-long.gif" />
           </a>
-          <div>
-            <a href="./gallery.html">Gallery</a>
-            <a href="./treasury.html">Treasury</a>
-            <a href="https://dao.idavoll.network/project-detail/CowDAO(CAO)" target="_blank">CAO</a>
-          </div>
         </nav>
         <nav class="right">
-          <div class="connected hide">
-            <a 
-              class="btn btn-outline btn-primary btn-address" 
-              href="javascript:void(0)"
-            ></a>
-            <a 
-              class="btn btn-outline btn-primary" 
-              data-do="disconnect"
-              data-on="click"
-              href="javascript:void(0)"
-            >
-              <i class="fas fa-arrow-right-from-bracket"></i>
+          <a class="link" href="./updates.html">Updates</a>
+          <a class="link" href="./gallery.html">Gallery</a>
+          <a class="link" href="./members.html">Members</a>
+          <div class="social">
+            <a class="link" href="https://twitter.com/WeAreCashCows" target="_blank">
+              <img src="/images/twitter-pixel.png" />
             </a>
-          </div>
-          <div class="disconnected">
-            <a 
-              class="btn-pixel btn-pixel-warning" 
-              data-do="connect"
-              data-on="click"
-              href="javascript:void(0)"
-            >
-              Connect Wallet
+            <a class="link" href="https://opensea.io/collection/cash-cows-crew" target="_blank">
+              <img src="/images/opensea-pixel.png" />
+            </a>
+            <a class="link" href="https://etherscan.io/address/0x1A371de4634c3DEBf7196A1EFc59e620aff0915F" target="_blank">
+              <img src="/images/etherscan-pixel.png" />
+            </a>
+            <a class="link" href="https://github.com/cash-cows" target="_blank">
+              <img src="/images/github-pixel.png" />
             </a>
           </div>
         </nav>
@@ -99,6 +76,7 @@
             <option value="rare">Rare</option>
             <option value="common">Common</option>
           </select>
+          <span class="dated"></span>
           <main class="results"></main>
           <div class="pagination hide alert alert-outline">Loading &hellip;</div>
         </main>
@@ -135,9 +113,9 @@
           <span class="badge badge-{BADGE}">#{RANK}</span>
         </div>
         <div class="info">
-          <h6 class="label">Cash Cows</h6>
+          <h6 class="label">Cash Cows - Level {LEVEL}</h6>
           <h4 class="token">#{ID}</h4>
-          <h6 class="level">Level {LEVEL}</h6>
+          <h6 class="level">{PRICE}</h6>
         </div>
       </div>
     </template>
@@ -174,7 +152,7 @@
               <span class="fa-eth">Ξ</span>
               <h3 class="rewards-value">{REWARDS}</h3>
             </div>
-            <h2>Rank #{RANK}</h2>
+            <h2>Rank #{RANK} - Rating {SCORE}</h2>
             <div class="attributes">{ATTRIBUTES}</div>
           </div>
         </div>
@@ -189,14 +167,14 @@
     </template>
     <script id="network" data-value="testnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
-    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/connect.js"></script>
-    <script type="text/javascript" src="/scripts/gallery.js?v1"></script>
+    <script type="text/javascript" src="/scripts/gallery.js?v5"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v5"></script>
   </body>
 </html>

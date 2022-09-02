@@ -48,6 +48,10 @@ async function main() {
   console.log(` - ${network.scanner}/address/${milk.address}#writeContract`)
   console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${barn.address} )`)
   console.log('')
+  console.log('In CashCowsBarn contract, grant MINTER_ROLE to admin')
+  console.log(` - ${network.scanner}/address/${barn.address}#writeContract`)
+  console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${admin.address} )`)
+  console.log('')
 }
 
 // We recommend this pattern to be able to use async/await everywhere

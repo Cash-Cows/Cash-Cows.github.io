@@ -92,12 +92,14 @@ const crews = {
 async function main() {
   const network = hardhat.config.networks[hardhat.config.defaultNetwork]
   const signer = new ethers.Wallet(network.accounts[0])
-  const barn = { address: network.contracts.barn }
+  const nft = { address: network.contracts.nft }
+
   for (const row of database.rows) {
+    const rate = ethers.utils.parseUnits(String(crews[row.attributes.Crew])).div(60 * 60 * 24).toString()
     row.barn = {
-      rate: crews[row.attributes.Crew],
+      rate: rate,
       proof: await signer.signMessage(
-        release(barn.address, row.edition, crews[row.attributes.Crew])
+        release(nft.address, row.edition, rate)
       )
     }
   }

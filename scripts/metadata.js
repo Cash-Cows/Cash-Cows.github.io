@@ -83,6 +83,8 @@ async function main() {
     )
   })
 
+  console.log('burned', burned.length)
+
   while (true) {
     additions = 0
     burned = []
@@ -96,7 +98,6 @@ async function main() {
     path.resolve(__dirname, '../docs/data/metadata.json'),
     JSON.stringify(database, null, 2)
   )
-  console.log('burned', burned.length)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

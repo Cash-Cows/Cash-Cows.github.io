@@ -14,7 +14,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Events
 
   window.addEventListener('web3sdk-connected', async _ => {
-    window.location.href = '/trophies.html'
+    window.location.href = './trophies.html'
   })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {})

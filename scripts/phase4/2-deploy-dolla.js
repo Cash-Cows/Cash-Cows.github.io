@@ -37,6 +37,7 @@ async function main() {
   console.log(
     'npx hardhat verify --show-stack-traces --network',
     hardhat.config.defaultNetwork,
+    '--contract contracts/phase4/CashCowsDolla.sol:CashCowsDolla',
     token.address,
     `"${admin.address}"`
   )

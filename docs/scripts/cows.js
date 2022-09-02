@@ -169,7 +169,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {
-    window.location.href = '/members.html'
+    window.location.href = './members.html'
   })
 
   window.addEventListener('redeem-toggle-click', async e => {
@@ -198,7 +198,7 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   window.addEventListener('cow-select-click', async e => {
     if (document.body.classList.contains('selecting')) {
-      window.location.href = `/deets.html?edition=${e.for.getAttribute('data-edition')}`
+      window.location.href = `./deets.html?edition=${e.for.getAttribute('data-edition')}`
     } else if (document.body.classList.contains('redeeming')) {
       theme.toggle(e.for, 'selected')
       const edition = e.for.getAttribute('data-edition')

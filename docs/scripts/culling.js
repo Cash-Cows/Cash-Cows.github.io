@@ -71,7 +71,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {
-    window.location.href = '/members.html'
+    window.location.href = './members.html'
   })
 
   window.addEventListener('burn-click', async e => {

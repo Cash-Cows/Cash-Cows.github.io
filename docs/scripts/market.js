@@ -10,7 +10,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   const connected = async _ => {}
 
   const disconnected = async _ => {
-    window.location.href = '/members.html'
+    window.location.href = './members.html'
   }
 
   //------------------------------------------------------------------//

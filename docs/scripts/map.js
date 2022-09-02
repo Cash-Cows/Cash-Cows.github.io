@@ -10,19 +10,7 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
-  const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
-
-  const treasuryTokens = {
-    weth: network.contract('weth'),
-    usdc: network.contract('usdc'),
-    link: network.contract('link'),
-    uni: network.contract('uni'),
-    ape: network.contract('ape'),
-    sand: network.contract('sand'),
-    mana: network.contract('mana'),
-    gala: network.contract('gala')
-  }
 
   //------------------------------------------------------------------//
   // Functions 
@@ -200,7 +188,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {
-    window.location.href = '/members.html'
+    window.location.href = './members.html'
   })
 
   //------------------------------------------------------------------//
