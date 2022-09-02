@@ -115,6 +115,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Events
 
   window.addEventListener('web3sdk-connected', async _ => {
+    console.log('connected')
     Web3SDK.state.tokens = await index.read().ownerTokens(
       nft.address, 
       Web3SDK.state.account,
@@ -299,6 +300,10 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Initialize
 
+  console.log('loaded')
+
   //count occurances
   rarity()
 })
+
+console.log('moo')
