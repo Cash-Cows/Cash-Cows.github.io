@@ -24,7 +24,10 @@
           "address": "0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7"
         },
         "barn": {
-          "address": ""
+          "address": "0xbf18100819715323edB76bFafBdCe3caC11E31F5"
+        },
+        "market": {
+          "address": "0x1Ae6eEc3bdd7BB7444456cBC4dE519FFa59fA344"
         },
         "milk": {
           "address": "0x981E826E1238213b6848EFD54015BA83F48406Ba",
@@ -34,7 +37,7 @@
           "image": "https://www.wearecashcows.com/images/crypto/milk.png"
         },
         "dolla": {
-          "address": "",
+          "address": "0xa61a3d600db91942E0BD36EA7f1a8f9cc7F99086",
           "type": "ERC20", 
           "symbol": "DOLLA", 
           "decimals": 18, 
@@ -2219,6 +2222,146 @@
           }
         ],
         "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "market": [
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "milk",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "dolla",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "InvalidCall",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "DOLLA",
+        "outputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "MILK",
+        "outputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "rate",
+            "type": "uint256"
+          }
+        ],
+        "name": "setExchangeRate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "milk",
+            "type": "uint256"
+          }
+        ],
+        "name": "toDolla",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "dolla",
+            "type": "uint256"
+          }
+        ],
+        "name": "toMilk",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       }
     ],

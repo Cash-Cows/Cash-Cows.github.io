@@ -26,6 +26,9 @@
         "barn": {
           "address": "0xF6E1d179ee7f6bcd08960Da477b8CF1Bff99C250"
         },
+        "market": {
+          "address": "0xB1D6eC59eEdf79b4DBF2ff4DCA014A6155178DfE"
+        },
         "milk": {
           "address": "0x4bFDb8fa13BD9f9E946a6BDDa00907ed77b1C76a",
           "type": "ERC20", 
@@ -34,7 +37,7 @@
           "image": "https://www.wearecashcows.com/images/crypto/milk.png"
         },
         "dolla": {
-          "address": "",
+          "address": "0xacC82e87E4751F100FbC2B22A0984a158D5fE5Cb",
           "type": "ERC20", 
           "symbol": "DOLLA", 
           "decimals": 18, 
@@ -2219,6 +2222,146 @@
           }
         ],
         "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "market": [
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "milk",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "dolla",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "InvalidCall",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "DOLLA",
+        "outputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "MILK",
+        "outputs": [
+          {
+            "internalType": "contract IERC20MintableBurnable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "rate",
+            "type": "uint256"
+          }
+        ],
+        "name": "setExchangeRate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "milk",
+            "type": "uint256"
+          }
+        ],
+        "name": "toDolla",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "dolla",
+            "type": "uint256"
+          }
+        ],
+        "name": "toMilk",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       }
     ],

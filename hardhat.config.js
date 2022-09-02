@@ -65,9 +65,9 @@ module.exports = {
         milk: '0x981E826E1238213b6848EFD54015BA83F48406Ba',
         index: '0x8d75c9d0F3AF4A0eC3440a00d997b59C99814cFf',
         culling: '0xAC5C4C50B01C2e161c7c4486A9a60bE6FA312bF7',
-        barn: '',
-        dolla: '',
-        market: ''
+        barn: '0xbf18100819715323edB76bFafBdCe3caC11E31F5',
+        dolla: '0xa61a3d600db91942E0BD36EA7f1a8f9cc7F99086',
+        market: '0x1Ae6eEc3bdd7BB7444456cBC4dE519FFa59fA344'
       }
     },
   },

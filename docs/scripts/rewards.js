@@ -7,7 +7,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   const index = network.contract('index')
   const royalty = network.contract('royalty')
   const milk = network.contract('milk')
-  const dolla = network.contract('milk')
+  const dolla = network.contract('dolla')
   const culling = network.contract('culling')
 
   const treasuryTokens = {
@@ -81,7 +81,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       )
     )
 
-    document.querySelector('span.value-dolla').innerHTML = 0;toFixedNumber(
+    document.querySelector('span.value-dolla').innerHTML = toFixedNumber(
       Web3SDK.toEther(
         await dolla.read().balanceOf(Web3SDK.state.account), 'number'
       )
