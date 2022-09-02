@@ -79,6 +79,19 @@ window.addEventListener('web3sdk-ready', async _ => {
     })
   }
 
+  const toFixedNumber = function(number, length = 6) {
+    const parts = number.toString().split('.')
+    const size = length >= parts[0].length ? length - parts[0].length: 0
+    if (parts[0].length > 9) {
+      return (parseInt(parts[0]) / 1000000000).toFixed(2) + 'B'
+    } else if (parts[0].length > 6) {
+      return (parseInt(parts[0]) / 1000000).toFixed(2) + 'M'
+    } else if (parts[0].length > 3) {
+      return (parseInt(parts[0]) / 1000).toFixed(2) + 'K'
+    }
+    return number.toFixed(size)
+  }
+
   //------------------------------------------------------------------//
   // Events
 
@@ -121,19 +134,23 @@ window.addEventListener('web3sdk-ready', async _ => {
     const row = await getRow()
     if (!row) window.location.href = '/cows.html'
     //get total rewards
-    document.querySelector('span.value-eth').innerHTML = Web3SDK.toEther(
-      await royalty.read()['releaseable(uint256)'](row.edition),
-      'number'
-    ).toFixed(6)
+    document.querySelector('span.value-eth').innerHTML = toFixedNumber(
+      Web3SDK.toEther(
+        await royalty.read()['releaseable(uint256)'](row.edition),
+        'number'
+      )
+    )
 
     for (const crypto in treasuryTokens) {
-      document.querySelector(`span.value-${crypto}`).innerHTML = Web3SDK.toEther(
-        await royalty.read()['releaseable(address,uint256)'](
-          treasuryTokens[crypto].address,
-          row.edition
-        ),
-        'number'
-      ).toFixed(6)
+      document.querySelector(`span.value-${crypto}`).innerHTML = toFixedNumber(
+        Web3SDK.toEther(
+          await royalty.read()['releaseable(address,uint256)'](
+            treasuryTokens[crypto].address,
+            row.edition
+          ),
+          'number'
+        )
+      )
     }
   })
 

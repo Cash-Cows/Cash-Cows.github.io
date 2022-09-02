@@ -20,6 +20,7 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   let crypto = ''
   const selectedCows = {}
+  let all = false
 
   //------------------------------------------------------------------//
   // Functions 
@@ -118,9 +119,16 @@ window.addEventListener('web3sdk-ready', async _ => {
       nft.address, 
       Web3SDK.state.account,
       4030
-    )  
+    )
+
     if (!Web3SDK.state.tokens.length) {
-      results.innerHTML = '<div class="alert alert-error alert-outline">You don\'t have a cow.</div>'
+      document.querySelector('section.section-2 div.container').prepend(theme.toElement(
+        '<div class="alert alert-outline alert-secondary">Don\'t have a '
+        + 'cow? Get some <a href="https://opensea.io/collection/cash-cows-crew" '
+        + 'target="_blank">@OpenSea</a>!</div>'
+      ))
+
+      theme.hide('footer.redeem-bar', true)
     }
 
     results.innerHTML = ""; 
@@ -199,6 +207,17 @@ window.addEventListener('web3sdk-ready', async _ => {
     }
 
     redeemText()
+  })
+
+  window.addEventListener('toggle-all-click', async e => {
+    all = !all
+    Array.from(document.querySelectorAll('div.cows div.item')).forEach(item => {
+      if (item.classList.contains('selected') && !all) {
+        item.click()
+      } else if (!item.classList.contains('selected') && all) {
+        item.click()
+      }
+    })
   })
 
   window.addEventListener('redeem-selected-click', async () => {

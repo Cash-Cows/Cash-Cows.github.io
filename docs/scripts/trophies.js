@@ -54,43 +54,90 @@ window.addEventListener('web3sdk-ready', async _ => {
       nft.address, 
       Web3SDK.state.account,
       4030
-    )  
+    )
 
-    holderGoals.forEach(badge => {
-      const badgeElement = theme.toElement(template.individual, {
-        '{IMAGE}': badge.image,
-        '{CONTENT}': `${badge.count} x Cow Holder`,
-        '{NAME}': badge.name,
-        '{STATUS}': tokens.length >= badge.count ? ' active' : ''
-      })
-      trophies.appendChild(badgeElement)
-    })
+    if (!tokens.length) {
+      document.querySelector('section.section-2 div.container').prepend(theme.toElement(
+        '<div class="alert alert-outline alert-secondary">Don\'t have a '
+        + 'cow? Get some <a href="https://opensea.io/collection/cash-cows-crew" '
+        + 'target="_blank">@OpenSea</a>!</div>'
+      ))
+    }
 
     const redeemable = Web3SDK.toEther(
       await royalty.read()['releaseableBatch(uint256[])'](tokens),
       'number'
     ).toFixed(6)
-    wealthGoals.forEach(badge => {
-      const badgeElement = theme.toElement(template.individual, {
-        '{IMAGE}': badge.image,
-        '{CONTENT}': `${badge.value.toFixed(2)} Redeemable`,
-        '{NAME}': badge.name,
-        '{STATUS}': redeemable >= badge.value ? ' active' : ''
-      })
-
-      trophies.appendChild(badgeElement)
-    })
 
     const culled = parseFloat(
       await culling.read().balanceOf(Web3SDK.state.account)
     ).toFixed(0)
 
+    holderGoals.forEach(badge => {
+      if (tokens.length < badge.count) return
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.count} x Cow Holder`,
+        '{NAME}': badge.name,
+        '{STATUS}': ' active'
+      })
+      trophies.appendChild(badgeElement)
+    })
+
+    wealthGoals.forEach(badge => {
+      if (redeemable < badge.value) return
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.value.toFixed(2)} Redeemable`,
+        '{NAME}': badge.name,
+        '{STATUS}': ' active'
+      })
+
+      trophies.appendChild(badgeElement)
+    })
+
     burnedGoals.forEach(badge => {
+      if(culled < badge.count) return
       const badgeElement = theme.toElement(template.individual, {
         '{IMAGE}': badge.image,
         '{CONTENT}': `${badge.count} Cows Burned`,
         '{NAME}': badge.name,
-        '{STATUS}': culled >= badge.count ? ' active' : ''
+        '{STATUS}': ' active'
+      })
+
+      trophies.appendChild(badgeElement)
+    })
+
+    holderGoals.forEach(badge => {
+      if (tokens.length >= badge.count) return
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.count} x Cow Holder`,
+        '{NAME}': badge.name,
+        '{STATUS}': ''
+      })
+      trophies.appendChild(badgeElement)
+    })
+
+    wealthGoals.forEach(badge => {
+      if (redeemable >= badge.value) return
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.value.toFixed(2)} Redeemable`,
+        '{NAME}': badge.name,
+        '{STATUS}': ''
+      })
+
+      trophies.appendChild(badgeElement)
+    })
+
+    burnedGoals.forEach(badge => {
+      if(culled >= badge.count) return
+      const badgeElement = theme.toElement(template.individual, {
+        '{IMAGE}': badge.image,
+        '{CONTENT}': `${badge.count} Cows Burned`,
+        '{NAME}': badge.name,
+        '{STATUS}': ' '
       })
 
       trophies.appendChild(badgeElement)

@@ -334,9 +334,17 @@ a, a:hover, a:active, a:visited {
   color: #FFFFFF;
 }
 
+.alert-solid a {
+  color: #FFFFFF;
+}
+
 .alert-outline {
   border-style: solid;
   border-width: 1px;
+}
+
+.alert-outline a {
+  color: #FFFFFF;
 }
 
 .alert-primary::before {
@@ -477,6 +485,85 @@ a, a:hover, a:active, a:visited {
   text-transform: uppercase;
 }
 
+.reward .btn-pixel {
+  line-height: 20px;
+  padding: 0;
+}
+
+.reward .btn-pixel.btn-pixel-lg {
+  font-size: 15px;
+  padding: 12px;
+}
+
+.reward .crypto-prefix {
+  background-image: url(/images/crypto-sprite.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 20px;
+  position: relative;
+  top: 3px;
+  width: 20px;
+}
+
+.reward .value {
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 12px 0 0;
+}
+
+.reward .crypto-prefix.crypto-weth {
+  background-position: -20px 0;
+}
+
+.reward .crypto-prefix.crypto-usdc {
+  background-position: -40px 0;
+}
+
+.reward .crypto-prefix.crypto-dolla {
+  background-position: -60px 0;
+}
+
+.reward .crypto-prefix.crypto-link {
+  background-position: 0 -20px;
+}
+
+.reward .crypto-prefix.crypto-uni {
+  background-position: -20px -20px;
+}
+
+.reward .crypto-prefix.crypto-ape {
+  background-position: -40px -20px;
+}
+
+.reward .crypto-prefix.crypto-sand {
+  background-position: -60px -20px;
+}
+
+.reward .crypto-prefix.crypto-milk {
+  background-position: 0 -40px;
+}
+
+.reward .crypto-prefix.crypto-steak {
+  background-position: -20px -40px;
+}
+
+.reward .crypto-prefix.crypto-gala {
+  background-position: -40px -40px;
+}
+
+.reward .crypto-prefix.crypto-mana {
+  background-position: -60px -40px;
+}
+
+.reward .cta-redeem {
+  color: #FFFFFF;
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
 .head {
   border-bottom: 1px solid #333333;
 }
@@ -528,6 +615,7 @@ a, a:hover, a:active, a:visited {
   margin: 0;
   padding: 20px 0;
 }
+
 
 @media(max-width: 767px) {
   .head .container {

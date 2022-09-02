@@ -25,6 +25,19 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   //------------------------------------------------------------------//
   // Functions 
+  const toFixedNumber = function(number, length = 6) {
+    const parts = number.toString().split('.')
+    const size = length >= parts[0].length ? length - parts[0].length: 0
+    if (parts[0].length > 9) {
+      return (parseInt(parts[0]) / 1000000000).toFixed(2) + 'B'
+    } else if (parts[0].length > 6) {
+      return (parseInt(parts[0]) / 1000000).toFixed(2) + 'M'
+    } else if (parts[0].length > 3) {
+      return (parseInt(parts[0]) / 1000).toFixed(2) + 'K'
+    }
+    return number.toFixed(size)
+  }
+
   //------------------------------------------------------------------//
   // Events
 
@@ -34,29 +47,45 @@ window.addEventListener('web3sdk-ready', async _ => {
       Web3SDK.state.account,
       4030
     )
+
+    if (!Web3SDK.state.tokens.length) {
+      document.querySelector('section.section-2 div.container').prepend(theme.toElement(
+        '<div class="alert alert-outline alert-secondary">Don\'t have a '
+        + 'cow? Get some <a href="https://opensea.io/collection/cash-cows-crew" '
+        + 'target="_blank">@OpenSea</a>!</div>'
+      ))
+    }
     //get total rewards
-    document.querySelector('span.value-eth').innerHTML = Web3SDK.toEther(
-      await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
-      'number'
-    ).toFixed(6)
+    document.querySelector('span.value-eth').innerHTML = toFixedNumber(
+      Web3SDK.toEther(
+        await royalty.read()['releaseableBatch(uint256[])'](Web3SDK.state.tokens),
+        'number'
+      )
+    )
 
     for (const crypto in treasuryTokens) {
-      document.querySelector(`span.value-${crypto}`).innerHTML = Web3SDK.toEther(
-        await royalty.read()['releaseableBatch(address,uint256[])'](
-          treasuryTokens[crypto].address,
-          Web3SDK.state.tokens
-        ),
-        'number'
-      ).toFixed(6)
+      document.querySelector(`span.value-${crypto}`).innerHTML = toFixedNumber(
+        Web3SDK.toEther(
+          await royalty.read()['releaseableBatch(address,uint256[])'](
+            treasuryTokens[crypto].address,
+            Web3SDK.state.tokens
+          ),
+          'number'
+        )
+      )
     }
 
-    document.querySelector('span.value-milk').innerHTML = Web3SDK.toEther(
-      await milk.read().balanceOf(Web3SDK.state.account), 'number'
-    ).toFixed(6)
+    document.querySelector('span.value-milk').innerHTML = toFixedNumber(
+      Web3SDK.toEther(
+        await milk.read().balanceOf(Web3SDK.state.account), 'number'
+      )
+    )
 
-    document.querySelector('span.value-dolla').innerHTML = Web3SDK.toEther(
-      await dolla.read().balanceOf(Web3SDK.state.account), 'number'
-    ).toFixed(6)
+    document.querySelector('span.value-dolla').innerHTML = 0;toFixedNumber(
+      Web3SDK.toEther(
+        await dolla.read().balanceOf(Web3SDK.state.account), 'number'
+      )
+    )
 
     document.querySelector('span.value-steak').innerHTML = parseFloat(
       await culling.read().balanceOf(Web3SDK.state.account)

@@ -73,6 +73,11 @@
   max-width: none;
 }
 
+.section-2 .alert {
+  margin: auto;
+  max-width: 900px;
+}
+
 .section-2 .cows {
   display: flex;
   flex-wrap: wrap;

@@ -24,8 +24,8 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v2" />
-    <link rel="stylesheet" type="text/css" href="/styles/cows.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
+    <link rel="stylesheet" type="text/css" href="/styles/cows.css?v5" />
   </head>
   <body class="selecting">
     <div class="stars"></div>
@@ -79,7 +79,9 @@
         </div>
       </section>
       <section class="section section-2">
-        <div class="container cows"></div>
+        <div class="container">
+          <div class="cows"></div>
+        </div>
       </section>
     </main>
     <footer class="redeem-bar">
@@ -105,7 +107,7 @@
           <option value="gala">Redeem $GALA</option>
           <option value="cancel">Cancel</option>
         </select>
-        <div class="center"></div>
+        <div class="center" data-do="toggle-all" data-on="click"></div>
         <div class="right">
           <a 
             class="cta-redeem btn-pixel btn-pixel-lg btn-pixel-success"
@@ -146,7 +148,7 @@
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/connect.js?v4"></script>
-    <script type="text/javascript" src="/scripts/cows.js"></script>
+    <script type="text/javascript" src="/scripts/connect.js?v5"></script>
+    <script type="text/javascript" src="/scripts/cows.js?v5"></script>
   </body>
 </html>
