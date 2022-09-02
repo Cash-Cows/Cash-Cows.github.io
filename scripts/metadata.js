@@ -62,7 +62,9 @@ async function main() {
   //reset()
   const runner = new TaskRunner(25, 0)
   runner.queue = database.rows.map(row => async _ => {
-    if (row.attributes.Level > 0) return
+    if (typeof row.attributes.Level === 'number' 
+      && row.attributes.Level > 0
+    ) return
     //if (typeof row.attributes.Level !== 'undefined') return
     let stage = -1
     try {
@@ -88,6 +90,7 @@ async function main() {
   while (true) {
     additions = 0
     burned = []
+    runner.queue.reverse()
     await runner.run(error => { console.log(error) })
     if (!additions) break
   }
