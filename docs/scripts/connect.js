@@ -55,7 +55,6 @@
     })
 
     setTimeout(_ => {
-      console.log('connecting...')
       window.dispatchEvent(new Event('web3sdk-connected'))
     }, 100)
   }

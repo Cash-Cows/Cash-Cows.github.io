@@ -2,8 +2,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
 
-  const response = await fetch('/data/metadata.json')
-  const database = await response.json()
+  let database = []
   const occurances = {}
 
   const results = document.querySelector('div.cows')
@@ -115,7 +114,10 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Events
 
   window.addEventListener('web3sdk-connected', async _ => {
-    console.log('connected')
+    database = await (await fetch('/data/metadata.json')).json()
+    //count occurances
+    rarity()
+    
     Web3SDK.state.tokens = await index.read().ownerTokens(
       nft.address, 
       Web3SDK.state.account,
@@ -299,11 +301,4 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   //------------------------------------------------------------------//
   // Initialize
-
-  console.log('loaded')
-
-  //count occurances
-  rarity()
 })
-
-console.log('moo')
