@@ -1,0 +1,32 @@
+<section class="section section-1">
+  <div class="container">
+    <div class="wallet">
+      Member
+      <span class="btn-address"></span>
+      <a
+        data-do="disconnect"
+        data-on="click"
+        href="javascript:void(0)"
+      >
+        <i class="fas fa-arrow-right-from-bracket"></i>
+      </a>
+    </div>
+    <nav>
+      {{#when top '==' 'trophies'}}
+        <a class="active" href="./trophies.html">My Trophies</a>
+      {{else}}
+        <a href="./trophies.html">My Trophies</a>
+      {{/when}}
+      {{#when top '==' 'rewards'}}
+        <a class="active" href="./rewards.html">My Rewards</a>
+      {{else}}
+        <a href="./rewards.html">My Rewards</a>
+      {{/when}}
+      {{#when top '==' 'cows'}}
+        <a class="active" href="./cows.html">My Cows</a>
+      {{else}}
+        <a href="./cows.html">My Cows</a>
+      {{/when}}
+    </nav>
+  </div>
+</section>

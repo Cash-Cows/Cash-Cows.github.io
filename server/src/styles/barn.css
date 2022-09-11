@@ -1,0 +1,118 @@
+html, body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-barn.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.head {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.head .right .link {
+  border-radius: 50%;
+  margin-right: 0;
+  overflow: hidden;
+}
+
+.head .right img {
+  height: 53px;
+}
+
+.section-1 {
+  margin-top: 100px;
+}
+
+.section-1 .form {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+}
+
+.section-1 .form .preview img {
+  display: block;
+}
+
+.section-1 .form .label {
+  color: #000000;
+}
+
+.section-1 .info {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.section-1 .info h1 {
+  color: #000000;
+  font-size: 20px;
+  margin: 0;
+}
+
+.section-1 .info .rewards {
+  display: flex;
+  margin-bottom: 40px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.section-1 .releaseable {
+  margin-left: 40px;
+}
+
+.section-1 .cta-watch {
+  display: block;
+  margin-top: 10px;
+}
+
+@media(max-width: 767px) {
+  .head .container {
+    display: flex;
+  }
+
+  .head .left {
+    text-align: left;
+  }
+
+  .head .right {
+    display: flex;
+    text-align: right;
+  }
+
+  .head .right .link {
+    margin: 0;
+  }
+
+  .section-1 {
+    margin-top: 40px;
+  }
+
+  .section-1 .form {
+    display: block;
+    padding: 20px 20px 40px;
+  }
+
+  .section-1 .form .preview {
+    text-align: center;
+  }
+
+  .section-1 .form .preview img {
+    display: inline;
+  }
+}
+
+@media(max-width: 500px) {
+  .section-1 .info .rewards {
+    display: block;
+  }
+
+  .section-1 .info .reward.releaseable {
+    margin-top: 20px;
+  }
+
+  .section-1 .releaseable {
+    margin-left: 0;
+  }
+}

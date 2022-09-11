@@ -1,0 +1,369 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.gallery {
+  display: flex;
+  padding: 0 20px;
+}
+
+.gallery .filters {
+  min-width: 230px;
+  padding-bottom: 20px;
+}
+
+.gallery .filters .attributes {
+  margin-top: 70px;
+}
+
+.gallery .toggleable {
+  border-bottom: 1px solid #EDEDED;
+  font-size: 11px;
+  margin: 0;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.gallery .toggleable::after {
+  content: "\f053";
+  display: block;
+  font-family: "Font Awesome 6 Free";
+  font-size: 14px;
+  float: right;
+  margin-top: 3px;
+}
+
+.gallery .toggleable.open::after {
+  content: "\f078";
+}
+
+.gallery .series .options {
+  display: none;
+}
+
+.gallery .attributes .fields {
+  display: none;
+}
+
+.gallery .form-row {
+  font-size: 13px;
+  padding: 10px 0;
+}
+
+.gallery .form-row label {
+  clear: both;
+  display: block;
+}
+
+.gallery .form-row label .badge {
+  background-color: #F9AF00;
+  border-width: 0;
+  float: right;
+  font-size: 11px;
+  margin-top: -2px;
+  padding: 5px 10px;
+}
+
+.gallery h1 {
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 25px;
+}
+
+.gallery .sort {
+  padding: 5px 10px;
+  position: relative;
+  top: -5px;
+}
+
+.gallery .results {
+  padding: 0 20px;
+}
+
+.gallery .results::after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 1px;
+  width: 1px;
+}
+
+.gallery .results .item {
+  cursor: pointer;
+  float: left;
+  margin: 5px;
+  width: 200px;
+}
+
+.gallery .results .item .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+}
+
+.gallery .results .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.gallery .results .item .preview img {
+  width: 100%;
+}
+
+.gallery .results .item h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.gallery .results .item h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gallery .results .item .label {
+  color: #AAAAAA;
+}
+
+.gallery .results .item .level {
+  color: #F9AF00;
+  height: 35px;
+}
+
+.gallery .dated {
+  font-size: 10px;
+}
+
+.modal .overlay {
+  display: flex;
+}
+
+.modal .preview {
+  flex: 0 0 300px;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+}
+
+.modal .preview img {
+  bottom: 40px;
+  position: fixed;
+}
+
+.modal .info {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.modal .info h2 {
+  color: #000000;
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.modal .info h3 {
+  margin: 0;
+  text-align: left;
+}
+
+.modal .info .box {
+  align-items: center;
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #222222;
+  display: flex;
+  padding: 10px 20px;
+}
+
+.modal .info .box-name .fa-hashtag {
+  font-size: 30px;
+}
+
+.modal .info .box-name .name {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.modal .info .box-name .label {
+  display: block;
+  text-transform: uppercase;
+}
+
+.modal .info .box-name h3 {
+  display: inline-block;
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.modal .info .box-name .markets {
+  display: inline-block;
+}
+
+.modal .info .box-name .markets a {
+  text-decoration: none;
+}
+
+.modal .info .box-name .markets img {
+  height: 30px;
+}
+
+.modal .info .box-rewards {
+  flex-wrap: wrap;
+}
+
+.modal .info .box-rewards .fa-eth {
+  font-family: "Press Start 2P", Courier, monospace;
+  font-size: 30px;
+}
+
+.modal .info .box-rewards .rewards-value {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.modal .attributes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.modal .attribute-box {
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #000000;
+  flex-basis: calc(33.33% - 30px);
+  margin: 5px 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.modal .attribute-box h6 {
+  font-size: 11px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.modal .attribute-box span {
+  display: block;
+  font-size: 13px;
+  padding: 0 0 10px;
+}
+
+.modal .attribute-box p {
+  font-size: 11px;
+  color: #666666;
+  margin: 0;
+}
+
+@media(max-width: 1000px) {
+  .modal .overlay {
+    display: block;
+    width: 100%;
+  }
+  .modal .preview {
+    margin: 0 auto -24px;
+  }
+  .modal .preview img {
+    position: static;
+    width: 100%;
+  }
+}
+
+@media(max-width: 830px) {
+  .gallery {
+    display: block;
+  }
+
+  .gallery .results .item {
+    height: auto;
+    width: calc(33% - 10px);
+  }
+
+  .gallery .results .item .preview {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media(max-width: 650px) {
+  .modal .attribute-box {
+    flex-basis: calc(50% - 30px);
+  }
+}
+
+@media(max-width: 560px) {
+  .section-1 .stats {
+    display: block;
+  }
+
+  .gallery .results .item {
+    width: calc(50% - 10px);
+  }
+
+  .gallery .results .item .preview {
+    height: auto;
+    overflow: visible;
+    width: 100%;
+  }
+}
+
+@media(max-width: 475px) {
+  .modal .attribute-box {
+    flex-basis: calc(100% - 30px);
+  }
+}

@@ -1,0 +1,231 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.section-1 {
+  padding: 100px 0 50px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section .wallet {
+  color: #F9AF00;
+  font-size: 24px;
+}
+
+.section-1 .wallet a {
+  color: #F9AF00;
+}
+
+.section-1 nav {
+  margin-top: 20px;
+}
+
+.section-1 nav a {
+  color: #CCCCCC;
+  margin: 0 20px;
+  text-decoration: none;
+}
+
+.section-1 nav a.active {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.section-2 .container {
+  max-width: none;
+}
+
+.section-2 .alert {
+  margin: auto;
+  max-width: 900px;
+}
+
+.section-2 .cows {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px 100px;
+}
+
+.section-2 .cows .item {
+  cursor: pointer;
+  margin: 5px;
+  width: 250px;
+  position: relative;
+}
+
+.section-2 .cows .item .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+  width: 250px;
+}
+
+.redeeming .section-2 .cows .item.selected .preview {
+  box-shadow: 0 0 40px 10px #E7BA10;
+}
+
+.section-2 .cows .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.section-2 .cows .item .preview img {
+  width: 100%;
+}
+
+.section-2 .cows .item h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.section-2 .cows .item h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section-2 .cows .item .label {
+  color: #AAAAAA;
+}
+
+.section-2 .cows .item .level {
+  color: #F9AF00;
+}
+
+.redeem-bar {
+  background-color: #E1C18A;
+  bottom: 0;
+  left: 0;
+  opacity: 0.85;
+  padding: 20px;
+  position: fixed;
+  text-align: center;
+  right: 0;
+  z-index: 20;
+}
+
+.redeem-bar.active {
+  opacity: 1;
+}
+
+.redeem-bar .redeem-toggle {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.redeem-bar .form {
+  align-items: center;
+  display: flex;
+}
+
+.redeem-bar .form .crypto {
+  padding: 10px;
+}
+
+.redeem-bar .form .center {
+  color: #000000;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.redeem-bar .form .right {
+  text-align: right;
+}
+
+@media(max-width: 830px) {
+  .section-2 .cows .item {
+    height: auto;
+    width: calc(33% - 10px);
+  }
+
+  .section-2 .cows .item .preview {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media(max-width: 767px) {
+  .redeem-bar .form {
+    display: block;
+  }
+
+  .redeem-bar .form .center {
+    padding: 10px 0;
+  }
+
+  .redeem-bar .form .right {
+    text-align: center;
+  }
+}
+
+@media(max-width: 560px) {
+  .section-2 .cows .item {
+    width: calc(50% - 10px);
+  }
+
+  .section-2 .cows .item .preview {
+    height: auto;
+    overflow: visible;
+    width: 100%;
+  }
+}
+
+@media(max-width: 430px) {
+  .section-1 nav a {
+    margin: 0 10px;
+  }
+}

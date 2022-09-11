@@ -1,0 +1,369 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="testnet/deets" 
+  script="deets" 
+  style="deets" 
+  network="testnet" 
+  title="The Deets | Cash Cows" 
+  stars="1"
+}}
+  {{#layout "_player.html" top="cows" left="deets"}}
+    <div class="box box-name">
+      <i class="fas fa-hashtag"></i>
+      <div class="name">
+        <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+        <h3>{EDITION}</h3>
+        <div class="markets">
+          <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{EDITION}" target="_blank">
+            <img src="/images/logo-opensea.png" />
+          </a>
+          <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{EDITION}" target="_blank">
+            <img src="/images/logo-looksrare.webp" />
+          </a>
+          <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{EDITION}" target="_blank">
+            <img src="/images/logo-x2y2.webp" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <h2>Rewards</h2>
+    <div class="rewards" data-do="rewards">
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-eth"></span>
+          <span class="value value-eth">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="eth"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem ETH
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-weth"></span>
+          <span class="value value-weth">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="weth"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $WETH
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-usdc"></span>
+          <span class="value value-usdc">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="usdc"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $USDC
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-link"></span>
+          <span class="value value-link">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="link"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $LINK
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-uni"></span>
+          <span class="value value-uni">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="uni"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $UNI
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-ape"></span>
+          <span class="value value-ape">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="ape"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $APE
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-sand"></span>
+          <span class="value value-sand">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="sand"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $SAND
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-mana"></span>
+          <span class="value value-mana">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="mana"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $MANA
+        </a>
+      </div>
+      <div class="reward">
+        <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+          <span class="crypto-prefix crypto-gala"></span>
+          <span class="value value-gala">???</span>
+        </span>
+        <a 
+          class="cta-redeem"
+          data-crypto="gala"
+          data-edition="{EDITION}"
+          data-do="redeem" 
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $GALA
+        </a>
+      </div>
+    </div>
+    <h2>Rank #{RANK} - Rating {SCORE}</h2>
+    <div class="attributes">{ATTRIBUTES}</div>
+  {{/layout}}
+  <template id="template-attribute-box">
+    <div class="attribute-box">
+      <h6>{NAME}</h6>
+      <span>{VALUE}</span>
+      <p>{PERCENT}% have this trait</p>
+    </div>
+  </template>
+  <template id="template-game">
+    <div class="game pfp-{COLOR}">
+      <div class="menu">
+        <div class="preview">
+          <img src="{IMAGE}" loading="lazy" />
+        </div>
+        <nav>
+          <a class="active" href="./deets.html?edition={EDITION}">The Deets</a>
+          <a href="./map.html?edition={EDITION}">The Map</a>
+          <a class="text-danger" href="./culling.html?edition={EDITION}">The Culling</a>
+        </nav>
+      </div>
+      <div class="info">
+        <div class="box box-name">
+          <i class="fas fa-hashtag"></i>
+          <div class="name">
+            <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+            <h3>{EDITION}</h3>
+            <div class="markets">
+              <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{EDITION}" target="_blank">
+                <img src="/images/logo-opensea.png" />
+              </a>
+              <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{EDITION}" target="_blank">
+                <img src="/images/logo-looksrare.webp" />
+              </a>
+              <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{EDITION}" target="_blank">
+                <img src="/images/logo-x2y2.webp" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <h2>Rewards</h2>
+        <div class="rewards" data-do="rewards">
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-eth"></span>
+              <span class="value value-eth">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="eth"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem ETH
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-weth"></span>
+              <span class="value value-weth">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="weth"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $WETH
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-usdc"></span>
+              <span class="value value-usdc">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="usdc"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $USDC
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-link"></span>
+              <span class="value value-link">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="link"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $LINK
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-uni"></span>
+              <span class="value value-uni">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="uni"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $UNI
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-ape"></span>
+              <span class="value value-ape">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="ape"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $APE
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-sand"></span>
+              <span class="value value-sand">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="sand"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $SAND
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-mana"></span>
+              <span class="value value-mana">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="mana"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $MANA
+            </a>
+          </div>
+          <div class="reward">
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-gala"></span>
+              <span class="value value-gala">???</span>
+            </span>
+            <a 
+              class="cta-redeem"
+              data-crypto="gala"
+              data-edition="{EDITION}"
+              data-do="redeem" 
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Redeem $GALA
+            </a>
+          </div>
+        </div>
+        <h2>Rank #{RANK} - Rating {SCORE}</h2>
+        <div class="attributes">{ATTRIBUTES}</div>
+      </div>
+    </div>
+  </template>
+{{/layout}}

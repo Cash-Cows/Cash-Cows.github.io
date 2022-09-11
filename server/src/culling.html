@@ -1,0 +1,26 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="culling" 
+  script="culling" 
+  style="culling" 
+  network="mainnet" 
+  title="The Culling | Cash Cows" 
+  stars="1"
+}}
+  {{#layout "_player.html" top="cows" left="culling"}}
+    <div class="message">
+      <h3>Burning #{EDITION}</h3>
+      <blockquote>"{MESSAGE}"</blockquote>
+      <p>You will receive 1 steak.</p>
+      <a 
+        class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+        data-edition="{EDITION}" 
+        data-do="burn"
+        data-on="click"
+        href="javascript:void(0)"
+      >
+        Burn. Moo!
+      </a>
+    </div>
+  {{/layout}}
+{{/layout}}

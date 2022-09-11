@@ -1,0 +1,113 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="testnet/gallery" 
+  script="gallery" 
+  style="gallery" 
+  network="testnet" 
+  title="Cow Gallery | Cash Cows" 
+  description="Don't have a cow? Find one now on the #1 Cow Search Engine!"
+  stars="1"
+}}
+  <div class="gallery">
+    <aside class="filters">
+      <div class="attributes">
+        <div class="options"></div>
+      </div>
+    </aside>
+    <main class="list">
+      <h1>Gallery</h1>
+      <select class="sort" data-do="sort" data-on="change">
+        <option value="random">Random</option>
+        <option value="lowest">Lowest ID</option>
+        <option value="highest">Highest ID</option>
+        <option value="rare">Rare</option>
+        <option value="common">Common</option>
+      </select>
+      <span class="dated"></span>
+      <main class="results"></main>
+      <div class="pagination hide alert alert-outline">Loading &hellip;</div>
+    </main>
+  </div>
+  <template id="template-form-fieldset">
+    <div class="form-fieldset">
+      <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
+      <div class="fields"></div>
+    </div>
+  </template>
+  <template id="template-form-row">
+    <div class="form-row">
+      <label>
+        <input data-do="filter" data-on="click" type="checkbox" name="{NAME}" value="{VALUE}" />
+        <span class="label">
+          {LABEL}
+          <span class="badge">{COUNT}</span>
+        </span>
+      </label>
+    </div>
+  </template>
+  <template id="template-result-item">
+    <div 
+      class="item" 
+      data-do="modal-open" 
+      data-on="click" 
+      data-level="{LEVEL}" 
+      data-index="{INDEX}"
+    >
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+        <span class="badge badge-{BADGE}">#{RANK}</span>
+      </div>
+      <div class="info">
+        <h6 class="label">Cash Cows - Level {LEVEL}</h6>
+        <h4 class="token">#{ID}</h4>
+        <h6 class="level">{PRICE}</h6>
+      </div>
+    </div>
+  </template>
+  <template id="template-modal">
+    <div class="modal">
+      <div class="overlay pfp-{COLOR}">
+        <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+          <i class="fas fa-times"></i>
+        </a>
+        <div class="preview">
+          <img src="{IMAGE}" loading="lazy" />
+        </div>
+        <div class="info">
+          <div class="box box-name">
+            <i class="fas fa-hashtag"></i>
+            <div class="name">
+              <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+              <h3>{ID}</h3>
+              <div class="markets">
+                <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-opensea.png" />
+                </a>
+                <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-looksrare.webp" />
+                </a>
+                <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-x2y2.webp" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <h2>Rewards</h2>
+          <div class="box box-rewards">
+            <span class="fa-eth">Ξ</span>
+            <h3 class="rewards-value">{REWARDS}</h3>
+          </div>
+          <h2>Rank #{RANK} - Rating {SCORE}</h2>
+          <div class="attributes">{ATTRIBUTES}</div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template-attribute-box">
+    <div class="attribute-box">
+      <h6>{NAME}</h6>
+      <span>{VALUE}</span>
+      <p>{PERCENT}% have this trait</p>
+    </div>
+  </template>
+{{/layout}}

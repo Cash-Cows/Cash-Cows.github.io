@@ -83,6 +83,10 @@ async function main() {
       path.resolve(__dirname, '../docs/data/metadata.json'),
       JSON.stringify(database, null, 2)
     )
+    fs.writeFileSync(
+      path.resolve(__dirname, '../server/src/data/metadata.json'),
+      JSON.stringify(database, null, 2)
+    )
   })
 
   console.log('burned', burned.length)
@@ -99,6 +103,10 @@ async function main() {
   database.supply = database.rows.length - burned.length
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/metadata.json'),
+    JSON.stringify(database, null, 2)
+  )
+  fs.writeFileSync(
+    path.resolve(__dirname, '../server/src/data/metadata.json'),
     JSON.stringify(database, null, 2)
   )
 }

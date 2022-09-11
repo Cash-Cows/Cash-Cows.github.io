@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>{{title}}</title>
+    {{#if description}}<meta name="description" content="{{description}}" />{{/if}}
+    <meta property="og:title" content="{{title}}" />
+    {{#if description}}<meta property="og:description" content="{{description}}" />{{/if}}
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    <meta property="og:url" content="https://www.wearecashcows.com/{{path}}.html" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="{{title}}" />
+    {{#if description}}<meta name="twitter:description" content="{{description}}" />{{/if}}
+    <meta name="twitter:image" content="{{banner}}" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    {{#if style}}<link rel="stylesheet" type="text/css" href="/styles/{{style}}.css?v{{version}}" />{{/if}}
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v{{version}}" />
+  </head>
+  <body>
+    {{#if stars}}<div class="stars"></div>{{/if}}
+    <header class="head">
+      <div class="container">
+        <nav class="left">
+          <a class="logo" href="/">
+            <img src="/images/logo-cashcows-long.gif" />
+          </a>
+        </nav>
+        <nav class="right">
+          <a class="link cow"></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="body">
+
+      {{{content}}}
+
+    </main>
+
+    <footer class="foot"></footer>
+    <script id="network" data-value="{{network}}"></script>
+    <script type="text/javascript" src="/scripts/lib/doon.js"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/lib/notify.js"></script>
+    {{#if script}}<script type="text/javascript" src="/scripts/{{script}}.js?v{{version}}"></script>{{/if}}
+    <script type="text/javascript" src="/scripts/connect.js?v{{version}}"></script>
+  </body>
+</html>

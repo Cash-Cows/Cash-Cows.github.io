@@ -1,0 +1,24 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="testnet/trophies" 
+  script="trophies" 
+  style="trophies" 
+  network="testnet" 
+  title="My Trophies | Cash Cows" 
+  stars="1"
+}}
+  {{> _member top="trophies"}}
+
+  <section class="section section-2">
+    <div class="container">
+      <div class="trophies"></div>
+    </div>
+  </section>
+  <template id="template-individual">
+    <div class="badge-section{STATUS}">
+      <img src="{IMAGE}" alt="{NAME} Badge"/>
+      <h6>{NAME}</h6>
+      <p>{CONTENT}</p>
+    </div>
+  </template>
+{{/layout}}

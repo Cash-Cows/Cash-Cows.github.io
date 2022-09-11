@@ -1,0 +1,286 @@
+@keyframes twinkle {
+  from {
+    background-position:0 0;
+  }
+  to {
+    background-position:-10000px 5000px;
+  }
+}
+
+.stars, .stars::after {
+  bottom: 0;
+  display: block;
+  height: 200vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.stars {
+  background-image: url(/images/stars.png);
+  background-repeat: repeat;
+  background-position: top center;
+  z-index: 0;
+}
+
+.stars::after {
+  animation: twinkle 200s linear infinite;
+  background-image: url(/images/twinkling.png);
+  background-repeat: repeat;
+  background-position: top center;
+  content: " ";
+  z-index: 1;
+}
+
+.head, .body {
+  position: relative;
+  z-index: 2;
+}
+
+.section-1 {
+  padding: 100px 0 50px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section .wallet {
+  color: #F9AF00;
+  font-size: 24px;
+}
+
+.section-1 .wallet a {
+  color: #F9AF00;
+}
+
+.section-1 nav {
+  margin-top: 20px;
+}
+
+.section-1 nav a {
+  color: #CCCCCC;
+  margin: 0 20px;
+  text-decoration: none;
+}
+
+.section-1 nav a.active {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.section-2 .game {
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.section-2 .menu {
+  flex-basis: 25%;
+}
+
+.section-2 .menu .preview img {
+  border-bottom: 5px solid #000000;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.section-2 .menu nav {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-2 .menu nav a {
+  color: #000000;
+  display: block;
+  margin-top: 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.section-2 .menu nav a.active {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.section-2 .info {
+  flex-basis: 75%;
+  padding: 0 20px;
+}
+
+.section-2 .info h2 {
+  color: #000000;
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.section-2 .info h3 {
+  margin: 0;
+  text-align: left;
+}
+
+.section-2 .info .box {
+  align-items: center;
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 10px;
+  color: #222222;
+  display: flex;
+  padding: 10px 20px;
+}
+
+.section-2 .info .box-name .fa-hashtag {
+  font-size: 30px;
+}
+
+.section-2 .info .box-name .name {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.section-2 .info .box-name .label {
+  display: block;
+  text-transform: uppercase;
+}
+
+.section-2 .info .box-name h3 {
+  display: inline-block;
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.section-2 .info .box-name .markets {
+  display: inline-block;
+}
+
+.section-2 .info .box-name .markets a {
+  text-decoration: none;
+}
+
+.section-2 .info .box-name .markets img {
+  height: 30px;
+}
+
+.section-2 .rewards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-2 .info .reward {
+  flex-basis: 50%;
+  text-align: center;
+}
+
+.section-2 .info .reward .btn-pixel {
+  width: 80%;
+}
+
+.section-2 .info .reward .cta-redeem {
+  color: #000000;
+  display: block;
+  font-size: 12px;
+  margin: 5px 0 10px;
+}
+
+.section-2 .info .reward .value {
+  color: #000000;
+}
+
+.section-2 .attributes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-2 .attribute-box {
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 10px;
+  color: #000000;
+  flex-basis: calc(33.33% - 30px);
+  margin: 5px 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.section-2 .attribute-box h6 {
+  font-size: 11px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.section-2 .attribute-box span {
+  display: block;
+  font-size: 13px;
+  padding: 0 0 10px;
+}
+
+.section-2 .attribute-box p {
+  font-size: 11px;
+  color: #666666;
+  padding: 0;
+}
+
+@media(max-width: 1000px) {
+  .section-2 .game {
+    display: block;
+  }
+
+  .section-2 .menu {
+    align-items: center;
+    display: flex;
+    margin: 0 auto 40px;
+    width: 300px;
+  }
+
+  .section-2 .menu .preview {
+    max-width: 150px;
+  }
+
+  .section-2 .menu nav {
+    margin-bottom: 0;
+    padding-left: 20px;
+  }
+
+  .section-2 .menu nav a {
+    margin: 20px 0;
+  }
+
+  .section-2 .info {
+    padding: 0;
+  }
+
+  .section-2 .info .reward .btn-pixel {
+    width: 85%;
+  }
+}
+
+@media(max-width: 767px) {
+  .section-2 .info .reward {
+    flex-basis: 100%;
+  }
+
+  .section-2 .info .reward .btn-pixel {
+    width: 90%;
+  }
+}
+
+@media(max-width: 650px) {
+  .section-2 .attribute-box {
+    flex-basis: calc(50% - 30px);
+  }
+}
+
+@media(max-width: 475px) {
+  .section-2 .attribute-box {
+    flex-basis: calc(100% - 30px);
+  }
+}
+
+@media(max-width: 430px) {
+  .section-1 nav a {
+    margin: 0 10px;
+  }
+}

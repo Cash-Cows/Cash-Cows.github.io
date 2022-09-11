@@ -1,0 +1,56 @@
+{{#layout "_game.html" 
+  version="5" 
+  path="barn" 
+  script="barn" 
+  style="barn" 
+  network="mainnet" 
+  title="The Barn | Cash Cows" 
+  stars="1"
+}}
+  <section class="section section-1">
+    <div class="container"></div>
+  </section>
+  <template id="template-form">
+    <div class="form pfp-{COLOR}">
+      <div class="preview">
+        <img src="{IMAGE}" />
+      </div>
+      <div class="info">
+        <h1>Welcome to the Barn</h1>
+        <div class="rewards">
+          <div class="reward rate">
+            <div class="label">Rate</div>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <i class="fas fa-clock"></i>
+              <span class="value value-milk">{RATE} / day</span>
+            </span>
+          </div>
+          <div class="reward releaseable">
+            <div class="label">Redeemable</div>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-milk"></span>
+              <span class="value value-milk">{RELEASEABLE}</span>
+            </span>
+          </div>
+        </div>
+        <a 
+          class="btn-pixel btn-pixel-lg btn-pixel-success"
+          data-do="redeem"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $MILK
+        </a>
+        <a 
+          class="cta-watch"
+          data-crypto="milk"
+          data-do="watch"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Watch $MILK
+        </a>
+      </div>
+    </div>
+  </template>
+{{/layout}}

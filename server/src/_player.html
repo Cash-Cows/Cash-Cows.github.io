@@ -1,0 +1,34 @@
+{{> _member}}
+
+<section class="section section-2">
+  <div class="container"></div>
+</section>
+<template id="template-game">
+  <div class="game pfp-{COLOR}">
+    <div class="menu">
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+      </div>
+      <nav>
+        {{#when left '==' 'deets'}}
+          <a class="active" href="./deets.html?edition={EDITION}">The Deets</a>
+        {{else}}
+          <a href="./deets.html?edition={EDITION}">The Deets</a>
+        {{/when}}
+        {{#when left '==' 'map'}}
+          <a class="active" href="./map.html?edition={EDITION}">The Map</a>
+        {{else}}
+          <a href="./map.html?edition={EDITION}">The Map</a>
+        {{/when}}
+        {{#when left '==' 'culling'}}
+          <a class="active text-danger" href="./culling.html?edition={EDITION}">The Culling</a>
+        {{else}}
+          <a class="text-danger" href="./culling.html?edition={EDITION}">The Culling</a>
+        {{/when}}
+      </nav>
+    </div>
+    <div class="info">
+      {{{content}}}
+    </div>
+  </div>
+</template>

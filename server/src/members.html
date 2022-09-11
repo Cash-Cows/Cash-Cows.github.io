@@ -1,0 +1,39 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="members" 
+  script="members" 
+  style="members" 
+  network="mainnet" 
+  title="Members | Cash Cows" 
+  description="Access your cows. Play the game. Earn Rewards."
+  stars="1"
+}}
+  <section class="section section-1">
+    <h2>Members</h2>
+    <a 
+      class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+      data-do="connect" 
+      data-on="click" 
+      href="javascript:void(0)"
+    >
+      Connect Wallet
+    </a>
+  </section>
+  <template id="template-leader-board">
+    <div class="leaderboard">
+      <h3>$MILK Leader Boards</h3>
+      <table cellspace="0" cellpadding="10">
+        <tbody></tbody>
+      </table>
+    </div>
+  </template>
+  <template id="template-leader-row">
+    <tr>
+      <td><strong>{INDEX}</strong></td>
+      <td><strong>{ADDRESS}</strong></td>
+      <td>{BALANCE}</td>
+      <td>{PERCENT}</td>
+    </tr>
+  </template>
+  <script src="https://unpkg.com/js-big-decimal@1.3.1/dist/web/js-big-decimal.min.js"></script>
+{{/layout}}

@@ -1,0 +1,89 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="testnet/cows" 
+  script="cows" 
+  style="cows" 
+  network="testnet" 
+  title="My Cows | Cash Cows" 
+  stars="1"
+}}
+  <section class="section section-1">
+    <div class="container">
+      <div class="wallet">
+        Member
+        <span class="btn-address"></span>
+        <a
+          data-do="disconnect"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-arrow-right-from-bracket"></i>
+        </a>
+      </div>
+      <nav>
+        <a href="./trophies.html">My Trophies</a>
+        <a href="./rewards.html">My Rewards</a>
+        <a class="active" href="./cows.html">My Cows</a>
+      </nav>
+    </div>
+  </section>
+  <section class="section section-2">
+    <div class="container">
+      <div class="cows"></div>
+    </div>
+  </section>
+  <footer class="redeem-bar">
+    <a 
+      class="redeem-toggle"
+      data-do="redeem-toggle"
+      data-on="click"
+      href="javascript:void(0)"
+    >
+      Redeem
+    </a>
+    <div class="form hide">
+      <select class="crypto" data-do="crypto-select" data-on="change">
+        <option value="">Choose Crypto</option>
+        <option value="eth">Redeem ETH</option>
+        <option value="weth">Redeem $WETH</option>
+        <option value="usdc">Redeem $USDC</option>
+        <option value="uni">Redeem $UNI</option>
+        <option value="link">Redeem $LINK</option>
+        <option value="ape">Redeem $APE</option>
+        <option value="sand">Redeem $SAND</option>
+        <option value="mana">Redeem $MANA</option>
+        <option value="gala">Redeem $GALA</option>
+        <option value="cancel">Cancel</option>
+      </select>
+      <div class="center" data-do="toggle-all" data-on="click"></div>
+      <div class="right">
+        <a 
+          class="cta-redeem btn-pixel btn-pixel-lg btn-pixel-success"
+          data-do="redeem-selected"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem
+        </a>
+      </div>
+    </div>
+  </footer>
+  <template id="template-result-item">
+    <div 
+      class="item"
+      data-do="cow-select" 
+      data-on="click" 
+      data-edition="{EDITION}"
+    >
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+        <span class="badge badge-{BADGE}">#{RANK}</span>
+      </div>
+      <div class="info">
+        <h6 class="label">Cash Cows</h6>
+        <h4 class="token">#{ID}</h4>
+        <h6 class="level">Level {LEVEL}</h6>
+      </div>
+    </div>
+  </template>
+{{/layout}}
