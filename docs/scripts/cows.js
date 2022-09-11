@@ -301,4 +301,6 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   //------------------------------------------------------------------//
   // Initialize
+
+  document.body.classList.add('selecting')
 })

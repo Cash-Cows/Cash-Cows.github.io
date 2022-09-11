@@ -5,19 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Members - Cash Cows</title>
+    <title>Members | Cash Cows</title>
     <meta name="description" content="Access your cows. Play the game. Earn Rewards." />
-    <meta property="og:title" content="Cash Cows" />
+    <meta property="og:title" content="Members | Cash Cows" />
     <meta property="og:description" content="Access your cows. Play the game. Earn Rewards." />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/members" />
+    <meta property="og:url" content="https://www.wearecashcows.com/members.html" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
-    <meta name="twitter:title" content="Cash Cows" />
+    <meta name="twitter:title" content="Members | Cash Cows" />
     <meta name="twitter:description" content="Access your cows. Play the game. Earn Rewards." />
-    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+    <meta name="twitter:image" content="" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
@@ -26,11 +26,12 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
     <link rel="stylesheet" type="text/css" href="/styles/members.css?v5" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
   </head>
   <body>
+    <div class="stars"></div>
+    
     <header class="head">
       <div class="container">
         <nav class="left">
@@ -59,41 +60,45 @@
         </nav>
       </div>
     </header>
-    <main class="body">
-      <section class="section section-1">
-        <h2>Members</h2>
-        <a 
-          class="btn-pixel btn-pixel-lg btn-pixel-warning" 
-          data-do="connect" 
-          data-on="click" 
-          href="javascript:void(0)"
-        >
-          Connect Wallet
-        </a>
-      </section>
-    </main>
-    <footer class="foot"></footer>
-    <template id="template-leader-board">
-      <div class="leaderboard">
-        <h3>$MILK Leader Boards</h3>
-        <table cellspace="0" cellpadding="10">
-          <tbody></tbody>
-        </table>
-      </div>
-    </template>
 
-    <template id="template-leader-row">
-      <tr>
-        <td><strong>{INDEX}</strong></td>
-        <td><strong>{ADDRESS}</strong></td>
-        <td>{BALANCE}</td>
-        <td>{PERCENT}</td>
-      </tr>
-    </template>
+    <main class="body">
+
+        <section class="section section-1">
+    <h2>Members</h2>
+    <a 
+      class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+      data-do="connect" 
+      data-on="click" 
+      href="javascript:void(0)"
+    >
+      Connect Wallet
+    </a>
+  </section>
+  <template id="template-leader-board">
+    <div class="leaderboard">
+      <h3>$MILK Leader Boards</h3>
+      <table cellspace="0" cellpadding="10">
+        <tbody></tbody>
+      </table>
+    </div>
+  </template>
+  <template id="template-leader-row">
+    <tr>
+      <td><strong>{INDEX}</strong></td>
+      <td><strong>{ADDRESS}</strong></td>
+      <td>{BALANCE}</td>
+      <td>{PERCENT}</td>
+    </tr>
+  </template>
+  <script src="https://unpkg.com/js-big-decimal@1.3.1/dist/web/js-big-decimal.min.js"></script>
+
+
+    </main>
+
+    <footer class="foot"></footer>
     <script id="network" data-value="mainnet"></script>
-    <script src="https://unpkg.com/js-big-decimal@1.3.1/dist/web/js-big-decimal.min.js"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
-    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>

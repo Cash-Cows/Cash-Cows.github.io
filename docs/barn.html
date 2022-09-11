@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>The Barn | Cash Cows</title> 
+    <title>The Barn | Cash Cows</title>
+    
     <meta property="og:title" content="The Barn | Cash Cows" />
+    
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/barn" />
+    <meta property="og:url" content="https://www.wearecashcows.com/barn.html" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
     <meta name="twitter:title" content="The Barn | Cash Cows" />
-    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+    
+    <meta name="twitter:image" content="" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
@@ -23,9 +26,8 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
     <link rel="stylesheet" type="text/css" href="/styles/barn.css?v5" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
   </head>
   <body>
     <div class="stars"></div>
@@ -41,58 +43,63 @@
         </nav>
       </div>
     </header>
+
     <main class="body">
-      <section class="section section-1">
-        <div class="container"></div>
-      </section>
-    </main>
-    <footer class="foot"></footer>
-    <template id="template-form">
-      <div class="form pfp-{COLOR}">
-        <div class="preview">
-          <img src="{IMAGE}" />
-        </div>
-        <div class="info">
-          <h1>Welcome to the Barn</h1>
-          <div class="rewards">
-            <div class="reward rate">
-              <div class="label">Rate</div>
-              <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
-                <i class="fas fa-clock"></i>
-                <span class="value value-milk">{RATE} / day</span>
-              </span>
-            </div>
-            <div class="reward releaseable">
-              <div class="label">Redeemable</div>
-              <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
-                <span class="crypto-prefix crypto-milk"></span>
-                <span class="value value-milk">{RELEASEABLE}</span>
-              </span>
-            </div>
-          </div>
-          <a 
-            class="btn-pixel btn-pixel-lg btn-pixel-success"
-            data-do="redeem"
-            data-on="click"
-            href="javascript:void(0)"
-          >
-            Redeem $MILK
-          </a>
-          <a 
-            class="cta-watch"
-            data-crypto="milk"
-            data-do="watch"
-            data-on="click"
-            href="javascript:void(0)"
-          >
-            Watch $MILK
-          </a>
-        </div>
+
+        <section class="section section-1">
+    <div class="container"></div>
+  </section>
+  <template id="template-form">
+    <div class="form pfp-{COLOR}">
+      <div class="preview">
+        <img src="{IMAGE}" />
       </div>
-    </template>
+      <div class="info">
+        <h1>Welcome to the Barn</h1>
+        <div class="rewards">
+          <div class="reward rate">
+            <div class="label">Rate</div>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <i class="fas fa-clock"></i>
+              <span class="value value-milk">{RATE} / day</span>
+            </span>
+          </div>
+          <div class="reward releaseable">
+            <div class="label">Redeemable</div>
+            <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+              <span class="crypto-prefix crypto-milk"></span>
+              <span class="value value-milk">{RELEASEABLE}</span>
+            </span>
+          </div>
+        </div>
+        <a 
+          class="btn-pixel btn-pixel-lg btn-pixel-success"
+          data-do="redeem"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Redeem $MILK
+        </a>
+        <a 
+          class="cta-watch"
+          data-crypto="milk"
+          data-do="watch"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          Watch $MILK
+        </a>
+      </div>
+    </div>
+  </template>
+
+
+    </main>
+
+    <footer class="foot"></footer>
     <script id="network" data-value="mainnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
-    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>

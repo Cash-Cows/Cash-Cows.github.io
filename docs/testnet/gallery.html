@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <title>Cow Gallery | Cash Cows</title>
-    <meta name="description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
-    <meta property="og:title" content="Cow Gallery" />
-    <meta property="og:description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
+    <meta name="description" content="Don&#x27;t have a cow? Find one now on the #1 Cow Search Engine!" />
+    <meta property="og:title" content="Cow Gallery | Cash Cows" />
+    <meta property="og:description" content="Don&#x27;t have a cow? Find one now on the #1 Cow Search Engine!" />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/gallery" />
+    <meta property="og:url" content="https://www.wearecashcows.com/testnet/gallery.html" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
-    <meta name="twitter:title" content="Cow Gallery" />
-    <meta name="twitter:description" content="Don't have a cow? Find one now on the #1 Cow Search Engine!" />
-    <meta name="twitter:image" content="https://www.wearecashcows.io/images/banner.png" />
+    <meta name="twitter:title" content="Cow Gallery | Cash Cows" />
+    <meta name="twitter:description" content="Don&#x27;t have a cow? Find one now on the #1 Cow Search Engine!" />
+    <meta name="twitter:image" content="" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
@@ -26,12 +26,12 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
     <link rel="stylesheet" type="text/css" href="/styles/gallery.css?v5" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v5" />
   </head>
   <body>
     <div class="stars"></div>
+    
     <header class="head">
       <div class="container">
         <nav class="left">
@@ -60,114 +60,119 @@
         </nav>
       </div>
     </header>
+
     <main class="body">
-      <div class="gallery">
-        <aside class="filters">
-          <div class="attributes">
-            <div class="options"></div>
-          </div>
-        </aside>
-        <main class="list">
-          <h1>Gallery</h1>
-          <select class="sort" data-do="sort" data-on="change">
-            <option value="random">Random</option>
-            <option value="lowest">Lowest ID</option>
-            <option value="highest">Highest ID</option>
-            <option value="rare">Rare</option>
-            <option value="common">Common</option>
-          </select>
-          <span class="dated"></span>
-          <main class="results"></main>
-          <div class="pagination hide alert alert-outline">Loading &hellip;</div>
-        </main>
+
+        <div class="gallery">
+    <aside class="filters">
+      <div class="attributes">
+        <div class="options"></div>
       </div>
+    </aside>
+    <main class="list">
+      <h1>Gallery</h1>
+      <select class="sort" data-do="sort" data-on="change">
+        <option value="random">Random</option>
+        <option value="lowest">Lowest ID</option>
+        <option value="highest">Highest ID</option>
+        <option value="rare">Rare</option>
+        <option value="common">Common</option>
+      </select>
+      <span class="dated"></span>
+      <main class="results"></main>
+      <div class="pagination hide alert alert-outline">Loading &hellip;</div>
     </main>
-    <footer class="foot"></footer>
-    <template id="template-form-fieldset">
-      <div class="form-fieldset">
-        <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
-        <div class="fields"></div>
+  </div>
+  <template id="template-form-fieldset">
+    <div class="form-fieldset">
+      <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
+      <div class="fields"></div>
+    </div>
+  </template>
+  <template id="template-form-row">
+    <div class="form-row">
+      <label>
+        <input data-do="filter" data-on="click" type="checkbox" name="{NAME}" value="{VALUE}" />
+        <span class="label">
+          {LABEL}
+          <span class="badge">{COUNT}</span>
+        </span>
+      </label>
+    </div>
+  </template>
+  <template id="template-result-item">
+    <div 
+      class="item" 
+      data-do="modal-open" 
+      data-on="click" 
+      data-level="{LEVEL}" 
+      data-index="{INDEX}"
+    >
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+        <span class="badge badge-{BADGE}">#{RANK}</span>
       </div>
-    </template>
-    <template id="template-form-row">
-      <div class="form-row">
-        <label>
-          <input data-do="filter" data-on="click" type="checkbox" name="{NAME}" value="{VALUE}" />
-          <span class="label">
-            {LABEL}
-            <span class="badge">{COUNT}</span>
-          </span>
-        </label>
+      <div class="info">
+        <h6 class="label">Cash Cows - Level {LEVEL}</h6>
+        <h4 class="token">#{ID}</h4>
+        <h6 class="level">{PRICE}</h6>
       </div>
-    </template>
-    <template id="template-result-item">
-      <div 
-        class="item" 
-        data-do="modal-open" 
-        data-on="click" 
-        data-level="{LEVEL}" 
-        data-index="{INDEX}"
-      >
+    </div>
+  </template>
+  <template id="template-modal">
+    <div class="modal">
+      <div class="overlay pfp-{COLOR}">
+        <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+          <i class="fas fa-times"></i>
+        </a>
         <div class="preview">
           <img src="{IMAGE}" loading="lazy" />
-          <span class="badge badge-{BADGE}">#{RANK}</span>
         </div>
         <div class="info">
-          <h6 class="label">Cash Cows - Level {LEVEL}</h6>
-          <h4 class="token">#{ID}</h4>
-          <h6 class="level">{PRICE}</h6>
-        </div>
-      </div>
-    </template>
-    <template id="template-modal">
-      <div class="modal">
-        <div class="overlay pfp-{COLOR}">
-          <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
-            <i class="fas fa-times"></i>
-          </a>
-          <div class="preview">
-            <img src="{IMAGE}" loading="lazy" />
-          </div>
-          <div class="info">
-            <div class="box box-name">
-              <i class="fas fa-hashtag"></i>
-              <div class="name">
-                <span class="label">Cash Cows - LEVEL {LEVEL}</span>
-                <h3>{ID}</h3>
-                <div class="markets">
-                  <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{ID}" target="_blank">
-                    <img src="/images/logo-opensea.png" />
-                  </a>
-                  <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{ID}" target="_blank">
-                    <img src="/images/logo-looksrare.webp" />
-                  </a>
-                  <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{ID}" target="_blank">
-                    <img src="/images/logo-x2y2.webp" />
-                  </a>
-                </div>
+          <div class="box box-name">
+            <i class="fas fa-hashtag"></i>
+            <div class="name">
+              <span class="label">Cash Cows - LEVEL {LEVEL}</span>
+              <h3>{ID}</h3>
+              <div class="markets">
+                <a class="opensea" href="https://opensea.io/assets/ethereum/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-opensea.png" />
+                </a>
+                <a class="looksrare" href="https://looksrare.org/collections/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-looksrare.webp" />
+                </a>
+                <a class="x2y2" href="https://x2y2.io/eth/{CONTRACT}/{ID}" target="_blank">
+                  <img src="/images/logo-x2y2.webp" />
+                </a>
               </div>
             </div>
-            <h2>Rewards</h2>
-            <div class="box box-rewards">
-              <span class="fa-eth">Ξ</span>
-              <h3 class="rewards-value">{REWARDS}</h3>
-            </div>
-            <h2>Rank #{RANK} - Rating {SCORE}</h2>
-            <div class="attributes">{ATTRIBUTES}</div>
           </div>
+          <h2>Rewards</h2>
+          <div class="box box-rewards">
+            <span class="fa-eth">Ξ</span>
+            <h3 class="rewards-value">{REWARDS}</h3>
+          </div>
+          <h2>Rank #{RANK} - Rating {SCORE}</h2>
+          <div class="attributes">{ATTRIBUTES}</div>
         </div>
       </div>
-    </template>
-    <template id="template-attribute-box">
-      <div class="attribute-box">
-        <h6>{NAME}</h6>
-        <span>{VALUE}</span>
-        <p>{PERCENT}% have this trait</p>
-      </div>
-    </template>
+    </div>
+  </template>
+  <template id="template-attribute-box">
+    <div class="attribute-box">
+      <h6>{NAME}</h6>
+      <span>{VALUE}</span>
+      <p>{PERCENT}% have this trait</p>
+    </div>
+  </template>
+
+
+    </main>
+
+    <footer class="foot"></footer>
     <script id="network" data-value="testnet"></script>
     <script type="text/javascript" src="/scripts/lib/doon.js"></script>
-    <script type="text/javascript" src="/scripts/lib/theme.js?v1"></script>
+    <script type="text/javascript" src="/scripts/lib/theme.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3modal.js"></script>
     <script type="text/javascript" src="/scripts/lib/web3sdk.js"></script>
