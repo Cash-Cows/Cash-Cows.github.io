@@ -18,6 +18,7 @@ async function main() {
   console.log('ROLES:')
   console.log('DAO_ROLE', getRole('DAO_ROLE'))
   console.log('MINTER_ROLE', getRole('MINTER_ROLE'))
+  console.log('BURNER_ROLE', getRole('BURNER_ROLE'))
   console.log('CURATOR_ROLE', getRole('CURATOR_ROLE'))
   console.log('APPROVED_ROLE', getRole('APPROVED_ROLE'))
   console.log('DEFAULT_ADMIN_ROLE', getRole('DEFAULT_ADMIN_ROLE'))

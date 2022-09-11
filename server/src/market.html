@@ -1,0 +1,80 @@
+{{#layout "_game.html" 
+  version="5" 
+  path="market" 
+  script="market" 
+  style="market" 
+  network="mainnet" 
+  title="Farmers Market | Cash Cows" 
+}}
+  <section class="section section-1">
+    <div class="container"></div>
+  </section>
+  <template id="template-form">
+    <div class="form pfp-{COLOR}">
+      <div class="preview">
+        <img src="{IMAGE}" />
+      </div>
+      <div class="info">
+        <h1>The Farmers Market</h1>
+        <div class="form-exchange">
+          <div class="form-row">
+            <label>
+              <img src="/images/crypto/milk.png" />
+              <span>MILK</span>
+              <a 
+                class="cta-watch"
+                data-crypto="milk"
+                data-do="watch"
+                data-on="click"
+                href="javascript:void(0)"
+              >
+                Watch
+              </a>
+            </label>
+            <div class="form-field">
+              <input 
+                class="form-control" 
+                data-do="convert"
+                data-on="keyup"
+                id="milk" 
+                type="number" 
+                min="0" 
+                step="0.000001" 
+                max="{MILK}" 
+                placeholder="0.00" 
+              />
+              <div class="balance balance-milk">Balance: {MILK}</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>
+              <img src="/images/crypto/dolla.png" />
+              <span>DOLLA</span>
+              <a 
+                class="cta-watch"
+                data-crypto="dolla"
+                data-do="watch"
+                data-on="click"
+                href="javascript:void(0)"
+              >
+                Watch
+              </a>
+            </label>
+            <div class="form-field">
+              <input disabled="disabled" class="form-control" id="dolla" type="number" placeholder="0.00" />
+              <div class="balance balance-dolla">Balance: {DOLLA}</div>
+            </div>
+          </div>
+          <a 
+            class="btn-pixel btn-pixel-lg btn-pixel-success"
+            data-do="exchange"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Sell $MILK
+          </a>
+        </div>
+      </div>
+    </div>
+  </template>
+{{/layout}}

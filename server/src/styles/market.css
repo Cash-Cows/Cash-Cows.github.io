@@ -1,76 +1,143 @@
-@keyframes twinkle {
-  from {
-    background-position:0 0;
-  }
-  to {
-    background-position:-10000px 5000px;
-  }
+html, body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-market.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
-.stars, .stars::after {
-  bottom: 0;
-  display: block;
-  height: 200vh;
-  left: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+.head {
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
-.stars {
-  background-image: url(/images/stars.png);
-  background-repeat: repeat;
-  background-position: top center;
-  z-index: 0;
+.head .right .link {
+  border-radius: 50%;
+  margin-right: 0;
+  overflow: hidden;
 }
 
-.stars::after {
-  animation: twinkle 200s linear infinite;
-  background-image: url(/images/twinkling.png);
-  background-repeat: repeat;
-  background-position: top center;
-  content: " ";
-  z-index: 1;
-}
-
-.head, .body {
-  position: relative;
-  z-index: 2;
+.head .right img {
+  height: 53px;
 }
 
 .section-1 {
-  padding: 100px 0 50px;
+  margin-top: 100px;
+}
+
+.section-1 .form {
+  align-items: flex-end;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+}
+
+.section-1 .form .preview img {
+  display: block;
+}
+
+.section-1 .form .label {
+  color: #000000;
+}
+
+.section-1 .info {
+  flex-grow: 1;
+  padding: 20px 20px 20px 0;
   text-align: center;
+}
+
+.section-1 .info h1 {
+  color: #000000;
+  font-size: 20px;
+  margin: 0;
+}
+
+.section-1 .form-exchange .form-row {
+  background-color: #161522;
+  border: 1px solid #2A2F42;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+  max-width: 400px;
+  padding: 10px;
+  text-align: left;
+}
+
+.section-1 .form-exchange .form-row label {
+  align-items: center;
+  display: flex;
+}
+
+.section-1 .form-exchange .form-row label span {
+  flex-grow: 1;
+}
+
+.section-1 .form-exchange .form-row label .cta-watch {
+  color: #FFFFFF;
+  font-size: 12px;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
-.section .wallet {
-  color: #F9AF00;
-  font-size: 24px;
+.section-1 .form-exchange .form-row label img {
+  margin-right: 10px;
+  width: 20px;
 }
 
-.section-1 .wallet a {
-  color: #F9AF00;
+.section-1 .form-exchange .form-row .form-field {
+  align-items: center;
+  display: flex;
 }
 
-.section-1 nav {
-  margin-top: 20px;
-}
-
-.section-1 nav a {
+.section-1 .form-exchange .form-row .form-field input {
+  background-color: transparent;
+  border: 0;
   color: #CCCCCC;
-  margin: 0 20px;
-  text-decoration: none;
+  flex-grow: 1;
+  font-size: 20px;
+  outline: none;
 }
 
-.section-1 nav a.active {
-  color: #FFFFFF;
-  font-weight: bold;
+.section-1 .form-exchange .form-row .form-field .balance {
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-@media(max-width: 430px) {
-  .section-1 nav a {
-    margin: 0 10px;
+@media(max-width: 767px) {
+  .head .container {
+    display: flex;
+  }
+
+  .head .left {
+    text-align: left;
+  }
+
+  .head .right {
+    display: flex;
+    text-align: right;
+  }
+
+  .head .right .link {
+    margin: 0;
+  }
+
+  .section-1 {
+    margin-top: 40px;
+  }
+
+  .section-1 .info {
+    padding-right: 0;
+  }
+
+  .section-1 .form {
+    display: block;
+    padding: 20px 20px 40px;
+  }
+
+  .section-1 .form .preview {
+    text-align: center;
+  }
+
+  .section-1 .form .preview img {
+    display: inline;
   }
 }
