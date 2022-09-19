@@ -1,0 +1,40 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="meme" 
+  script="meme" 
+  style="meme" 
+  network="mainnet" 
+  title="Meme Generator | Cash Cows" 
+  description="Library of Cash Cow Memes" 
+}}
+  <section class="section section-1">
+    <div class="container">
+      <h1>Meme Generator</h1>
+      <form data-do="meme-search" data-on="submit">
+        <input 
+          class="form-control" 
+          id="meme-search" 
+          placeholder="Search for Memes"
+          type="text" 
+        />
+        <button class="btn btn-solid btn-primary">
+          Generate
+        </button>
+      </form>
+    </div>
+  </section>
+  <section class="section section-2">
+    <div class="container">
+      <div class="meme-results"></div>
+      <a 
+        class="btn btn-outline btn-secondary btn-block next hide" 
+        data-do="meme-next" 
+        data-on="click"
+        href="javascript:void(0)"
+      >More</a>
+    </div>
+  </section>
+  <script type="text/javascript" src="/scripts/lib/gifparser.js"></script>
+  <script type="text/javascript" src="/scripts/lib/gifmaker.js"></script>
+  <script type="text/javascript" src="/scripts/lib/face.js"></script>
+{{/layout}}

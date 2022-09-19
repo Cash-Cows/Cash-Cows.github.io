@@ -1,0 +1,27 @@
+.section-1 {
+  padding: 100px 0 20px;
+}
+
+.section-1 form {
+  align-items: center;
+  display: flex;
+}
+
+.section-1 form .btn {
+  padding: 10px 16px;
+}
+
+.section-2 {
+  padding: 0 0 100px;
+}
+
+.section-2 .meme-results img {
+  display: inline-block;
+  height: 200px;
+  margin: 5px;
+}
+
+.section-2 .btn-block {
+  display: block;
+  text-align: center;
+}
