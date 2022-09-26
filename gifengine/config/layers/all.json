@@ -1,0 +1,2490 @@
+[
+  {
+    "name": "Background",
+    "visible": true,
+    "order": 0,
+    "attributes": {
+      "Bells": {
+        "id": 1,
+        "visible": true,
+        "path": "/layers/0-Background/Bells#10",
+        "weight": 10
+      },
+      "Blue": {
+        "id": 2,
+        "visible": true,
+        "path": "/layers/0-Background/Blue#20",
+        "weight": 20
+      },
+      "Casino": {
+        "id": 3,
+        "visible": true,
+        "path": "/layers/0-Background/Casino#5",
+        "weight": 5
+      },
+      "Castle": {
+        "id": 4,
+        "visible": true,
+        "path": "/layers/0-Background/Castle#5",
+        "weight": 5
+      },
+      "Coffee": {
+        "id": 5,
+        "visible": true,
+        "path": "/layers/0-Background/Coffee#20",
+        "weight": 20
+      },
+      "Cyan": {
+        "id": 6,
+        "visible": true,
+        "path": "/layers/0-Background/Cyan#20",
+        "weight": 20
+      },
+      "Diamonds": {
+        "id": 7,
+        "visible": true,
+        "path": "/layers/0-Background/Diamonds#10",
+        "weight": 10
+      },
+      "Dollar": {
+        "id": 8,
+        "visible": true,
+        "path": "/layers/0-Background/Dollar#10",
+        "weight": 10
+      },
+      "Farm": {
+        "id": 9,
+        "visible": true,
+        "path": "/layers/0-Background/Farm#5",
+        "weight": 5
+      },
+      "Graffiti": {
+        "id": 10,
+        "visible": true,
+        "path": "/layers/0-Background/Graffiti#10",
+        "weight": 10
+      },
+      "Gray": {
+        "id": 11,
+        "visible": true,
+        "path": "/layers/0-Background/Gray#20",
+        "weight": 20
+      },
+      "Indigo": {
+        "id": 12,
+        "visible": true,
+        "path": "/layers/0-Background/Indigo#20",
+        "weight": 20
+      },
+      "Island": {
+        "id": 13,
+        "visible": true,
+        "path": "/layers/0-Background/Island#5",
+        "weight": 5
+      },
+      "Mint": {
+        "id": 14,
+        "visible": true,
+        "path": "/layers/0-Background/Mint#20",
+        "weight": 20
+      },
+      "Money": {
+        "id": 15,
+        "visible": true,
+        "path": "/layers/0-Background/Money#10",
+        "weight": 10
+      },
+      "Moon": {
+        "id": 16,
+        "visible": true,
+        "path": "/layers/0-Background/Moon#5",
+        "weight": 5
+      },
+      "Office": {
+        "id": 17,
+        "visible": true,
+        "path": "/layers/0-Background/Office#5",
+        "weight": 5
+      },
+      "Orange": {
+        "id": 18,
+        "visible": true,
+        "path": "/layers/0-Background/Orange#20",
+        "weight": 20
+      },
+      "Peach": {
+        "id": 19,
+        "visible": true,
+        "path": "/layers/0-Background/Peach#20",
+        "weight": 20
+      },
+      "Skyblue": {
+        "id": 20,
+        "visible": true,
+        "path": "/layers/0-Background/Skyblue#20",
+        "weight": 20
+      },
+      "Treasures": {
+        "id": 21,
+        "visible": true,
+        "path": "/layers/0-Background/Treasures#5",
+        "weight": 5
+      },
+      "Vault": {
+        "id": 22,
+        "visible": true,
+        "path": "/layers/0-Background/Vault#5",
+        "weight": 5
+      },
+      "Violet": {
+        "id": 23,
+        "visible": true,
+        "path": "/layers/0-Background/Violet#20",
+        "weight": 20
+      },
+      "Yellow": {
+        "id": 24,
+        "visible": true,
+        "path": "/layers/0-Background/Yellow#20",
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Skins",
+    "visible": true,
+    "order": 1,
+    "attributes": {
+      "Alien": {
+        "id": 25,
+        "visible": true,
+        "path": "/layers/1-Skins/Alien#10",
+        "weight": 10
+      },
+      "Avatar": {
+        "id": 26,
+        "visible": true,
+        "path": "/layers/1-Skins/Avatar#10",
+        "weight": 10
+      },
+      "Black White": {
+        "id": 27,
+        "visible": true,
+        "path": "/layers/1-Skins/Black White#20",
+        "weight": 20
+      },
+      "Black": {
+        "id": 28,
+        "visible": true,
+        "path": "/layers/1-Skins/Black#20",
+        "weight": 20
+      },
+      "Brown White": {
+        "id": 29,
+        "visible": true,
+        "path": "/layers/1-Skins/Brown White#20",
+        "weight": 20
+      },
+      "Brown": {
+        "id": 30,
+        "visible": true,
+        "path": "/layers/1-Skins/Brown#20",
+        "weight": 20
+      },
+      "Cybernetic": {
+        "id": 31,
+        "visible": true,
+        "path": "/layers/1-Skins/Cybernetic#10",
+        "weight": 10
+      },
+      "Cyborg": {
+        "id": 32,
+        "visible": true,
+        "path": "/layers/1-Skins/Cyborg#2",
+        "weight": 2
+      },
+      "Dark Brown White": {
+        "id": 33,
+        "visible": true,
+        "path": "/layers/1-Skins/Dark Brown White#20",
+        "weight": 20
+      },
+      "Dark Brown": {
+        "id": 34,
+        "visible": true,
+        "path": "/layers/1-Skins/Dark Brown#20",
+        "weight": 20
+      },
+      "Fire Golem": {
+        "id": 35,
+        "visible": true,
+        "path": "/layers/1-Skins/Fire Golem#5",
+        "weight": 5
+      },
+      "Golden": {
+        "id": 36,
+        "visible": true,
+        "path": "/layers/1-Skins/Golden#2",
+        "weight": 2
+      },
+      "Green": {
+        "id": 37,
+        "visible": true,
+        "path": "/layers/1-Skins/Green#20",
+        "weight": 20
+      },
+      "Ice Golem": {
+        "id": 38,
+        "visible": true,
+        "path": "/layers/1-Skins/Ice Golem#5",
+        "weight": 5
+      },
+      "Invisible": {
+        "id": 39,
+        "visible": true,
+        "path": "/layers/1-Skins/Invisible#2",
+        "weight": 2
+      },
+      "Orange": {
+        "id": 40,
+        "visible": true,
+        "path": "/layers/1-Skins/Orange#20",
+        "weight": 20
+      },
+      "Stone Golem": {
+        "id": 41,
+        "visible": true,
+        "path": "/layers/1-Skins/Stone Golem#5",
+        "weight": 5
+      },
+      "Violet": {
+        "id": 42,
+        "visible": true,
+        "path": "/layers/1-Skins/Violet#20",
+        "weight": 20
+      },
+      "White": {
+        "id": 43,
+        "visible": true,
+        "path": "/layers/1-Skins/White#20",
+        "weight": 20
+      },
+      "Yakuza": {
+        "id": 44,
+        "visible": true,
+        "path": "/layers/1-Skins/Yakuza#10",
+        "weight": 10
+      },
+      "Zombie": {
+        "id": 45,
+        "visible": true,
+        "path": "/layers/1-Skins/Zombie#10",
+        "weight": 10
+      }
+    }
+  },
+  {
+    "name": "Belly",
+    "visible": true,
+    "order": 2,
+    "attributes": {
+      "Black": {
+        "id": 46,
+        "visible": true,
+        "path": "/layers/2-Belly/Black#20",
+        "weight": 20
+      },
+      "Brown": {
+        "id": 47,
+        "visible": true,
+        "path": "/layers/2-Belly/Brown#20",
+        "weight": 20
+      },
+      "Pink": {
+        "id": 48,
+        "visible": true,
+        "path": "/layers/2-Belly/Pink#20",
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Outwear",
+    "visible": true,
+    "order": 3,
+    "attributes": {
+      "Black Baseball Jersey": {
+        "id": 49,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Baseball Jersey#20",
+        "weight": 20
+      },
+      "Black Brand Shirt": {
+        "id": 50,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Brand Shirt#30",
+        "weight": 30
+      },
+      "Black Cow Shirt": {
+        "id": 51,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Cow Shirt#30",
+        "weight": 30
+      },
+      "Black Cowboy Jacket": {
+        "id": 52,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Cowboy Jacket#20",
+        "weight": 20
+      },
+      "Black Football Jersey": {
+        "id": 53,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Football Jersey#20",
+        "weight": 20
+      },
+      "Black Fur Coat": {
+        "id": 54,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Fur Coat#10",
+        "weight": 10
+      },
+      "Black Moo Hoodie": {
+        "id": 55,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Moo Hoodie#30",
+        "weight": 30
+      },
+      "Black Moo Shirt": {
+        "id": 56,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Moo Shirt#30",
+        "weight": 30
+      },
+      "Black Robe": {
+        "id": 57,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Robe#20",
+        "weight": 20
+      },
+      "Black Soccer Jersey": {
+        "id": 58,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Soccer Jersey#20",
+        "weight": 20
+      },
+      "Black Suit Black Bowtie": {
+        "id": 59,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Black Bowtie#10",
+        "weight": 10
+      },
+      "Black Suit Black Tie Suit": {
+        "id": 60,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Black Tie Suit#10",
+        "weight": 10
+      },
+      "Black Suit Blue Bowtie": {
+        "id": 61,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Blue Bowtie#10",
+        "weight": 10
+      },
+      "Black Suit Blue Tie Suit": {
+        "id": 62,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Blue Tie Suit#10",
+        "weight": 10
+      },
+      "Black Suit Red Bowtie": {
+        "id": 63,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Red Bowtie#10",
+        "weight": 10
+      },
+      "Black Suit Red Tie Suit": {
+        "id": 64,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Suit Red Tie Suit#10",
+        "weight": 10
+      },
+      "Black Tang Suit": {
+        "id": 65,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Tang Suit#20",
+        "weight": 20
+      },
+      "Black Tank Top": {
+        "id": 66,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Tank Top#30",
+        "weight": 30
+      },
+      "Black Track Suit": {
+        "id": 67,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Track Suit#30",
+        "weight": 30
+      },
+      "Black Ugly Sweatshirt": {
+        "id": 68,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Ugly Sweatshirt#30",
+        "weight": 30
+      },
+      "Black Vest": {
+        "id": 69,
+        "visible": true,
+        "path": "/layers/3-Outwear/Black Vest#20",
+        "weight": 20
+      },
+      "Blue Football Jersey": {
+        "id": 70,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Football Jersey#20",
+        "weight": 20
+      },
+      "Blue Moo Hoodie": {
+        "id": 71,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Moo Hoodie#30",
+        "weight": 30
+      },
+      "Blue Moo Shirt": {
+        "id": 72,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Moo Shirt#30",
+        "weight": 30
+      },
+      "Blue Soccer Jersey": {
+        "id": 73,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Soccer Jersey#20",
+        "weight": 20
+      },
+      "Blue Suit Black Bowtie": {
+        "id": 74,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Suit Black Bowtie#10",
+        "weight": 10
+      },
+      "Blue Suit Red Bowtie": {
+        "id": 75,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Suit Red Bowtie#10",
+        "weight": 10
+      },
+      "Blue Suit Yellow Bowtie": {
+        "id": 76,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Suit Yellow Bowtie#10",
+        "weight": 10
+      },
+      "Blue Track Suit": {
+        "id": 77,
+        "visible": true,
+        "path": "/layers/3-Outwear/Blue Track Suit#30",
+        "weight": 30
+      },
+      "Brown Cowboy Jacket": {
+        "id": 78,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Cowboy Jacket#20",
+        "weight": 20
+      },
+      "Brown Fur Coat": {
+        "id": 79,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Fur Coat#10",
+        "weight": 10
+      },
+      "Brown Gray Vest": {
+        "id": 80,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Gray Vest#20",
+        "weight": 20
+      },
+      "Brown Suit Blue Lavilliere Tie": {
+        "id": 81,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Suit Blue Lavilliere Tie#10",
+        "weight": 10
+      },
+      "Brown Suit Red Lavilliere Tie": {
+        "id": 82,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Suit Red Lavilliere Tie#10",
+        "weight": 10
+      },
+      "Brown Suit Yellow Lavilliere Tie": {
+        "id": 83,
+        "visible": true,
+        "path": "/layers/3-Outwear/Brown Suit Yellow Lavilliere Tie#10",
+        "weight": 10
+      },
+      "Camo Tank Top": {
+        "id": 84,
+        "visible": true,
+        "path": "/layers/3-Outwear/Camo Tank Top#30",
+        "weight": 30
+      },
+      "Comando": {
+        "id": 85,
+        "visible": true,
+        "path": "/layers/3-Outwear/Comando#30",
+        "weight": 30
+      },
+      "Dark Brown Cowboy Jacket": {
+        "id": 86,
+        "visible": true,
+        "path": "/layers/3-Outwear/Dark Brown Cowboy Jacket#20",
+        "weight": 20
+      },
+      "Golden Suit": {
+        "id": 87,
+        "visible": true,
+        "path": "/layers/3-Outwear/Golden Suit#5",
+        "weight": 5
+      },
+      "Gray Suit Black Tie": {
+        "id": 88,
+        "visible": true,
+        "path": "/layers/3-Outwear/Gray Suit Black Tie#10",
+        "weight": 10
+      },
+      "Gray Suit Blue Tie": {
+        "id": 89,
+        "visible": true,
+        "path": "/layers/3-Outwear/Gray Suit Blue Tie#10",
+        "weight": 10
+      },
+      "Gray Suit Red Tie": {
+        "id": 90,
+        "visible": true,
+        "path": "/layers/3-Outwear/Gray Suit Red Tie#10",
+        "weight": 10
+      },
+      "Gray Vest": {
+        "id": 91,
+        "visible": true,
+        "path": "/layers/3-Outwear/Gray Vest#20",
+        "weight": 20
+      },
+      "Green Basketball Jersey": {
+        "id": 92,
+        "visible": true,
+        "path": "/layers/3-Outwear/Green Basketball Jersey#10",
+        "weight": 10
+      },
+      "Green Brand Shirt": {
+        "id": 93,
+        "visible": true,
+        "path": "/layers/3-Outwear/Green Brand Shirt#30",
+        "weight": 30
+      },
+      "Green Floral Polo": {
+        "id": 94,
+        "visible": true,
+        "path": "/layers/3-Outwear/Green Floral Polo#30",
+        "weight": 30
+      },
+      "Green Jump Suit": {
+        "id": 95,
+        "visible": true,
+        "path": "/layers/3-Outwear/Green Jump Suit#20",
+        "weight": 20
+      },
+      "Green Ugly Sweatshirt": {
+        "id": 96,
+        "visible": true,
+        "path": "/layers/3-Outwear/Green Ugly Sweatshirt#30",
+        "weight": 30
+      },
+      "Indigo Baseball Jersey": {
+        "id": 97,
+        "visible": true,
+        "path": "/layers/3-Outwear/Indigo Baseball Jersey#20",
+        "weight": 20
+      },
+      "Iron Heart": {
+        "id": 98,
+        "visible": true,
+        "path": "/layers/3-Outwear/Iron Heart#10",
+        "weight": 10
+      },
+      "Jedi Robe": {
+        "id": 99,
+        "visible": true,
+        "path": "/layers/3-Outwear/Jedi Robe#5",
+        "weight": 5
+      },
+      "King Uniform": {
+        "id": 100,
+        "visible": true,
+        "path": "/layers/3-Outwear/King Uniform#5",
+        "weight": 5
+      },
+      "Long Sleeve": {
+        "id": 101,
+        "visible": true,
+        "path": "/layers/3-Outwear/Long Sleeve#20",
+        "weight": 20
+      },
+      "Navy Blue Suit Black Tie": {
+        "id": 102,
+        "visible": true,
+        "path": "/layers/3-Outwear/Navy Blue Suit Black Tie#10",
+        "weight": 10
+      },
+      "Navy Blue Suit Blue Tie": {
+        "id": 103,
+        "visible": true,
+        "path": "/layers/3-Outwear/Navy Blue Suit Blue Tie#10",
+        "weight": 10
+      },
+      "Navy Blue Suit Red Tie": {
+        "id": 104,
+        "visible": true,
+        "path": "/layers/3-Outwear/Navy Blue Suit Red Tie#10",
+        "weight": 10
+      },
+      "Ocean Green Floral Polo": {
+        "id": 105,
+        "visible": true,
+        "path": "/layers/3-Outwear/Ocean Green Floral Polo#20",
+        "weight": 20
+      },
+      "Old Vest": {
+        "id": 106,
+        "visible": true,
+        "path": "/layers/3-Outwear/Old Vest#10",
+        "weight": 10
+      },
+      "Orange Space Suit": {
+        "id": 107,
+        "visible": true,
+        "path": "/layers/3-Outwear/Orange Space Suit#10",
+        "weight": 10
+      },
+      "Pink Cow Shirt": {
+        "id": 108,
+        "visible": true,
+        "path": "/layers/3-Outwear/Pink Cow Shirt#30",
+        "weight": 30
+      },
+      "Priest": {
+        "id": 109,
+        "visible": true,
+        "path": "/layers/3-Outwear/Priest#5",
+        "weight": 5
+      },
+      "Red Basketball Jersey": {
+        "id": 110,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Basketball Jersey#10",
+        "weight": 10
+      },
+      "Red Brand Shirt": {
+        "id": 111,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Brand Shirt#30",
+        "weight": 30
+      },
+      "Red Floral Polo": {
+        "id": 112,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Floral Polo#30",
+        "weight": 30
+      },
+      "Red Football Jersey": {
+        "id": 113,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Football Jersey#20",
+        "weight": 20
+      },
+      "Red Jaguar Pimp Suit": {
+        "id": 114,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Jaguar Pimp Suit#10",
+        "weight": 10
+      },
+      "Red Jump Suit": {
+        "id": 115,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Jump Suit#20",
+        "weight": 20
+      },
+      "Red Leather Jacket": {
+        "id": 116,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Leather Jacket#10",
+        "weight": 10
+      },
+      "Red Moo Hoodie": {
+        "id": 117,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Moo Hoodie#30",
+        "weight": 30
+      },
+      "Red Moo Shirt": {
+        "id": 118,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Moo Shirt#30",
+        "weight": 30
+      },
+      "Red Suit Bowtie": {
+        "id": 119,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Suit Bowtie#10",
+        "weight": 10
+      },
+      "Red Tang Suit": {
+        "id": 120,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Tang Suit#20",
+        "weight": 20
+      },
+      "Red Tank Top": {
+        "id": 121,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Tank Top#30",
+        "weight": 30
+      },
+      "Red Ugly Sweatshirt": {
+        "id": 122,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Ugly Sweatshirt#30",
+        "weight": 30
+      },
+      "Red Zebra Pimp Suit": {
+        "id": 123,
+        "visible": true,
+        "path": "/layers/3-Outwear/Red Zebra Pimp Suit#10",
+        "weight": 10
+      },
+      "School Uniform": {
+        "id": 124,
+        "visible": true,
+        "path": "/layers/3-Outwear/School Uniform#20",
+        "weight": 20
+      },
+      "Spidey": {
+        "id": 125,
+        "visible": true,
+        "path": "/layers/3-Outwear/Spidey#10",
+        "weight": 10
+      },
+      "Superman": {
+        "id": 126,
+        "visible": true,
+        "path": "/layers/3-Outwear/Superman#10",
+        "weight": 10
+      },
+      "Violet Jaguar Pimp Suit": {
+        "id": 127,
+        "visible": true,
+        "path": "/layers/3-Outwear/Violet Jaguar Pimp Suit#10",
+        "weight": 10
+      },
+      "Violet Zebra Pimp Suit": {
+        "id": 128,
+        "visible": true,
+        "path": "/layers/3-Outwear/Violet Zebra Pimp Suit#10",
+        "weight": 10
+      },
+      "White Baseball Jersey": {
+        "id": 129,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Baseball Jersey#20",
+        "weight": 20
+      },
+      "White Fur Coat": {
+        "id": 130,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Fur Coat#10",
+        "weight": 10
+      },
+      "White Jaguar Pimp Suit": {
+        "id": 131,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Jaguar Pimp Suit#10",
+        "weight": 10
+      },
+      "White Robe": {
+        "id": 132,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Robe#20",
+        "weight": 20
+      },
+      "White Space Suit": {
+        "id": 133,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Space Suit#10",
+        "weight": 10
+      },
+      "White Suit Black Bowtie": {
+        "id": 134,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Black Bowtie#10",
+        "weight": 10
+      },
+      "White Suit Blue Ascot Tie": {
+        "id": 135,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Blue Ascot Tie#10",
+        "weight": 10
+      },
+      "White Suit Blue Bowtie": {
+        "id": 136,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Blue Bowtie#10",
+        "weight": 10
+      },
+      "White Suit Gold Ascot Tie": {
+        "id": 137,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Gold Ascot Tie#10",
+        "weight": 10
+      },
+      "White Suit Red Ascot Tie": {
+        "id": 138,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Red Ascot Tie#10",
+        "weight": 10
+      },
+      "White Suit Red Bowtie": {
+        "id": 139,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Suit Red Bowtie#10",
+        "weight": 10
+      },
+      "White Tang Suit": {
+        "id": 140,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Tang Suit#20",
+        "weight": 20
+      },
+      "White Zebra Pimp Suit": {
+        "id": 141,
+        "visible": true,
+        "path": "/layers/3-Outwear/White Zebra Pimp Suit#10",
+        "weight": 10
+      },
+      "Yellow Basketball Jersey": {
+        "id": 142,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Basketball Jersey#10",
+        "weight": 10
+      },
+      "Yellow Cow Shirt": {
+        "id": 143,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Cow Shirt#30",
+        "weight": 30
+      },
+      "Yellow Football Jersey": {
+        "id": 144,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Football Jersey#20",
+        "weight": 20
+      },
+      "Yellow Jump Suit": {
+        "id": 145,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Jump Suit#20",
+        "weight": 20
+      },
+      "Yellow Leather Jacket": {
+        "id": 146,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Leather Jacket#10",
+        "weight": 10
+      },
+      "Yellow Space Suit": {
+        "id": 147,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Space Suit#10",
+        "weight": 10
+      },
+      "Yellow Track Suit": {
+        "id": 148,
+        "visible": true,
+        "path": "/layers/3-Outwear/Yellow Track Suit#20",
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Neck",
+    "visible": true,
+    "order": 4,
+    "attributes": {
+      "Bare": {
+        "id": 149,
+        "visible": true,
+        "path": "/layers/4-Neck/Bare#35",
+        "weight": 35
+      },
+      "Bitcoin Chain": {
+        "id": 150,
+        "visible": true,
+        "path": "/layers/4-Neck/Bitcoin Chain#15",
+        "weight": 15
+      },
+      "Blue Cow Bell": {
+        "id": 151,
+        "visible": true,
+        "path": "/layers/4-Neck/Blue Cow Bell#20",
+        "weight": 20
+      },
+      "Blue Kicks": {
+        "id": 152,
+        "visible": true,
+        "path": "/layers/4-Neck/Blue Kicks#25",
+        "weight": 25
+      },
+      "C Chain": {
+        "id": 153,
+        "visible": true,
+        "path": "/layers/4-Neck/C Chain#15",
+        "weight": 15
+      },
+      "Clock Chain": {
+        "id": 154,
+        "visible": true,
+        "path": "/layers/4-Neck/Clock Chain#10",
+        "weight": 10
+      },
+      "Diamond Necklace": {
+        "id": 155,
+        "visible": true,
+        "path": "/layers/4-Neck/Diamond Necklace#20",
+        "weight": 20
+      },
+      "Dolla Chain": {
+        "id": 156,
+        "visible": true,
+        "path": "/layers/4-Neck/Dolla Chain#15",
+        "weight": 15
+      },
+      "Green Cow Bell": {
+        "id": 157,
+        "visible": true,
+        "path": "/layers/4-Neck/Green Cow Bell#20",
+        "weight": 20
+      },
+      "Key Chain": {
+        "id": 158,
+        "visible": true,
+        "path": "/layers/4-Neck/Key Chain#15",
+        "weight": 15
+      },
+      "Orange Kicks": {
+        "id": 159,
+        "visible": true,
+        "path": "/layers/4-Neck/Orange Kicks#25",
+        "weight": 25
+      },
+      "Pyramid Chain": {
+        "id": 160,
+        "visible": true,
+        "path": "/layers/4-Neck/Pyramid Chain#10",
+        "weight": 10
+      },
+      "Red Cow Bell": {
+        "id": 161,
+        "visible": true,
+        "path": "/layers/4-Neck/Red Cow Bell#20",
+        "weight": 20
+      },
+      "Red Kicks": {
+        "id": 162,
+        "visible": true,
+        "path": "/layers/4-Neck/Red Kicks#25",
+        "weight": 25
+      },
+      "Siver Necklace": {
+        "id": 163,
+        "visible": true,
+        "path": "/layers/4-Neck/Siver Necklace#20",
+        "weight": 20
+      },
+      "Wings Chain": {
+        "id": 164,
+        "visible": true,
+        "path": "/layers/4-Neck/Wings Chain#10",
+        "weight": 10
+      }
+    }
+  },
+  {
+    "name": "Mouth",
+    "visible": true,
+    "order": 5,
+    "attributes": {
+      "Big Teeth": {
+        "id": 165,
+        "visible": true,
+        "path": "/layers/5-Mouth/Big Teeth#20",
+        "weight": 20
+      },
+      "Black Beard": {
+        "id": 166,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Beard#10",
+        "weight": 10
+      },
+      "Black Chevronl Mustache": {
+        "id": 167,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Chevronl Mustache#10",
+        "weight": 10
+      },
+      "Black English Mustache": {
+        "id": 168,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black English Mustache#10",
+        "weight": 10
+      },
+      "Black Full Beard": {
+        "id": 169,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Full Beard#10",
+        "weight": 10
+      },
+      "Black Hypnotist Mustache": {
+        "id": 170,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Hypnotist Mustache#10",
+        "weight": 10
+      },
+      "Black Imperial Mustache": {
+        "id": 171,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Imperial Mustache#10",
+        "weight": 10
+      },
+      "Black Trucker Mustache": {
+        "id": 172,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Trucker Mustache#10",
+        "weight": 10
+      },
+      "Black Warlus Mustache": {
+        "id": 173,
+        "visible": true,
+        "path": "/layers/5-Mouth/Black Warlus Mustache#10",
+        "weight": 10
+      },
+      "Brown Beard": {
+        "id": 174,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Beard#10",
+        "weight": 10
+      },
+      "Brown English Mustache": {
+        "id": 175,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown English Mustache#10",
+        "weight": 10
+      },
+      "Brown Full Beard": {
+        "id": 176,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Full Beard#10",
+        "weight": 10
+      },
+      "Brown Hypnotist Mustache": {
+        "id": 177,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Hypnotist Mustache#10",
+        "weight": 10
+      },
+      "Brown Imperial Mustache": {
+        "id": 178,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Imperial Mustache#10",
+        "weight": 10
+      },
+      "Brown Pipe": {
+        "id": 179,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Pipe#10",
+        "weight": 10
+      },
+      "Brown Trucker Mustache": {
+        "id": 180,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Trucker Mustache#10",
+        "weight": 10
+      },
+      "Brown Warlus Mustache": {
+        "id": 181,
+        "visible": true,
+        "path": "/layers/5-Mouth/Brown Warlus Mustache#10",
+        "weight": 10
+      },
+      "Churchill Cigar": {
+        "id": 182,
+        "visible": true,
+        "path": "/layers/5-Mouth/Churchill Cigar#10",
+        "weight": 10
+      },
+      "Dark Brown Pipe": {
+        "id": 183,
+        "visible": true,
+        "path": "/layers/5-Mouth/Dark Brown Pipe#10",
+        "weight": 10
+      },
+      "Eating Carrot": {
+        "id": 184,
+        "visible": true,
+        "path": "/layers/5-Mouth/Eating Carrot#20",
+        "weight": 20
+      },
+      "Eating Grass": {
+        "id": 185,
+        "visible": true,
+        "path": "/layers/5-Mouth/Eating Grass#20",
+        "weight": 20
+      },
+      "Eating Lollipop": {
+        "id": 186,
+        "visible": true,
+        "path": "/layers/5-Mouth/Eating Lollipop#20",
+        "weight": 20
+      },
+      "Gold Pipe": {
+        "id": 187,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gold Pipe#10",
+        "weight": 10
+      },
+      "Gold Smile": {
+        "id": 188,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gold Smile#20",
+        "weight": 20
+      },
+      "Gray Chevron Mustache": {
+        "id": 189,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray Chevron Mustache#10",
+        "weight": 10
+      },
+      "Gray English Mustache": {
+        "id": 190,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray English Mustache#10",
+        "weight": 10
+      },
+      "Gray Hypnotist Mustache": {
+        "id": 191,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray Hypnotist Mustache#10",
+        "weight": 10
+      },
+      "Gray Imperial Mustache": {
+        "id": 192,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray Imperial Mustache#10",
+        "weight": 10
+      },
+      "Gray Trucker Mustache": {
+        "id": 193,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray Trucker Mustache#10",
+        "weight": 10
+      },
+      "Gray Warlus Mustache": {
+        "id": 194,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gray Warlus Mustache#10",
+        "weight": 10
+      },
+      "Gum": {
+        "id": 195,
+        "visible": true,
+        "path": "/layers/5-Mouth/Gum#20",
+        "weight": 20
+      },
+      "Mad Gold": {
+        "id": 196,
+        "visible": true,
+        "path": "/layers/5-Mouth/Mad Gold#20",
+        "weight": 20
+      },
+      "Mad": {
+        "id": 197,
+        "visible": true,
+        "path": "/layers/5-Mouth/Mad#20",
+        "weight": 20
+      },
+      "Money": {
+        "id": 198,
+        "visible": true,
+        "path": "/layers/5-Mouth/Money#10",
+        "weight": 10
+      },
+      "Normal": {
+        "id": 199,
+        "visible": true,
+        "path": "/layers/5-Mouth/Normal#20",
+        "weight": 20
+      },
+      "Rainbow": {
+        "id": 200,
+        "visible": true,
+        "path": "/layers/5-Mouth/Rainbow#5",
+        "weight": 5
+      },
+      "Smile": {
+        "id": 201,
+        "visible": true,
+        "path": "/layers/5-Mouth/Smile#20",
+        "weight": 20
+      },
+      "Tongue Out": {
+        "id": 202,
+        "visible": true,
+        "path": "/layers/5-Mouth/Tongue Out#20",
+        "weight": 20
+      },
+      "Toro Cigar": {
+        "id": 203,
+        "visible": true,
+        "path": "/layers/5-Mouth/Toro Cigar#10",
+        "weight": 10
+      },
+      "Torpedo Cigar": {
+        "id": 204,
+        "visible": true,
+        "path": "/layers/5-Mouth/Torpedo Cigar#10",
+        "weight": 10
+      },
+      "White Beard": {
+        "id": 205,
+        "visible": true,
+        "path": "/layers/5-Mouth/White Beard#10",
+        "weight": 10
+      },
+      "White Full Beard": {
+        "id": 206,
+        "visible": true,
+        "path": "/layers/5-Mouth/White Full Beard#10",
+        "weight": 10
+      },
+      "Wow Gold": {
+        "id": 207,
+        "visible": true,
+        "path": "/layers/5-Mouth/Wow Gold#20",
+        "weight": 20
+      },
+      "Wow": {
+        "id": 208,
+        "visible": true,
+        "path": "/layers/5-Mouth/Wow#20",
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Eye",
+    "visible": true,
+    "order": 6,
+    "attributes": {
+      "3D Shades": {
+        "id": 209,
+        "visible": true,
+        "path": "/layers/6-Eye/3D Shades#20",
+        "weight": 20
+      },
+      "Angry": {
+        "id": 210,
+        "visible": true,
+        "path": "/layers/6-Eye/Angry#20",
+        "weight": 20
+      },
+      "Black Aviators": {
+        "id": 211,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Aviators#20",
+        "weight": 20
+      },
+      "Black Circle Glasses": {
+        "id": 212,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Circle Glasses#20",
+        "weight": 20
+      },
+      "Black Ninja Band": {
+        "id": 213,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Ninja Band#20",
+        "weight": 20
+      },
+      "Black Patch": {
+        "id": 214,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Patch#20",
+        "weight": 20
+      },
+      "Black Reading Glasses": {
+        "id": 215,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Reading Glasses#20",
+        "weight": 20
+      },
+      "Black Sleeping Mask": {
+        "id": 216,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Sleeping Mask#20",
+        "weight": 20
+      },
+      "Black Square Shades": {
+        "id": 217,
+        "visible": true,
+        "path": "/layers/6-Eye/Black Square Shades#20",
+        "weight": 20
+      },
+      "Brown Patch": {
+        "id": 218,
+        "visible": true,
+        "path": "/layers/6-Eye/Brown Patch#20",
+        "weight": 20
+      },
+      "Crying": {
+        "id": 219,
+        "visible": true,
+        "path": "/layers/6-Eye/Crying#20",
+        "weight": 20
+      },
+      "Cybernetic Implant": {
+        "id": 220,
+        "visible": true,
+        "path": "/layers/6-Eye/Cybernetic Implant#10",
+        "weight": 10
+      },
+      "Golden Aviators": {
+        "id": 221,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Aviators#5",
+        "weight": 5
+      },
+      "Golden Blue Shades": {
+        "id": 222,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Blue Shades#5",
+        "weight": 5
+      },
+      "Golden Golden Shades": {
+        "id": 223,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Golden Shades#5",
+        "weight": 5
+      },
+      "Golden Heart Shades": {
+        "id": 224,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Heart Shades#5",
+        "weight": 5
+      },
+      "Golden Monocle": {
+        "id": 225,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Monocle#5",
+        "weight": 5
+      },
+      "Golden Party Shades": {
+        "id": 226,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Party Shades#5",
+        "weight": 5
+      },
+      "Golden Reading Glasses": {
+        "id": 227,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Reading Glasses#5",
+        "weight": 5
+      },
+      "Golden Red Shades": {
+        "id": 228,
+        "visible": true,
+        "path": "/layers/6-Eye/Golden Red Shades#5",
+        "weight": 5
+      },
+      "Green Ninja Band": {
+        "id": 229,
+        "visible": true,
+        "path": "/layers/6-Eye/Green Ninja Band#20",
+        "weight": 20
+      },
+      "High": {
+        "id": 230,
+        "visible": true,
+        "path": "/layers/6-Eye/High#20",
+        "weight": 20
+      },
+      "Hitech Scanner": {
+        "id": 231,
+        "visible": true,
+        "path": "/layers/6-Eye/Hitech Scanner#10",
+        "weight": 10
+      },
+      "Lavendar Sleeping Mask": {
+        "id": 232,
+        "visible": true,
+        "path": "/layers/6-Eye/Lavendar Sleeping Mask#20",
+        "weight": 20
+      },
+      "Leopard Cateyes": {
+        "id": 233,
+        "visible": true,
+        "path": "/layers/6-Eye/Leopard Cateyes#20",
+        "weight": 20
+      },
+      "Oh Yea": {
+        "id": 234,
+        "visible": true,
+        "path": "/layers/6-Eye/Oh Yea#20",
+        "weight": 20
+      },
+      "Pink Cateyes": {
+        "id": 235,
+        "visible": true,
+        "path": "/layers/6-Eye/Pink Cateyes#20",
+        "weight": 20
+      },
+      "Pink Heart Shades": {
+        "id": 236,
+        "visible": true,
+        "path": "/layers/6-Eye/Pink Heart Shades#20",
+        "weight": 20
+      },
+      "Red Aviators": {
+        "id": 237,
+        "visible": true,
+        "path": "/layers/6-Eye/Red Aviators#20",
+        "weight": 20
+      },
+      "Red Ninja Band": {
+        "id": 238,
+        "visible": true,
+        "path": "/layers/6-Eye/Red Ninja Band#20",
+        "weight": 20
+      },
+      "Red Sleeping Mask": {
+        "id": 239,
+        "visible": true,
+        "path": "/layers/6-Eye/Red Sleeping Mask#20",
+        "weight": 20
+      },
+      "Rustic Party Shades": {
+        "id": 240,
+        "visible": true,
+        "path": "/layers/6-Eye/Rustic Party Shades#20",
+        "weight": 20
+      },
+      "Rustic Reading Glasses": {
+        "id": 241,
+        "visible": true,
+        "path": "/layers/6-Eye/Rustic Reading Glasses#20",
+        "weight": 20
+      },
+      "Silver Heart Shades": {
+        "id": 242,
+        "visible": true,
+        "path": "/layers/6-Eye/Silver Heart Shades#10",
+        "weight": 10
+      },
+      "Silver Party Shades": {
+        "id": 243,
+        "visible": true,
+        "path": "/layers/6-Eye/Silver Party Shades#10",
+        "weight": 10
+      },
+      "Stare": {
+        "id": 244,
+        "visible": true,
+        "path": "/layers/6-Eye/Stare#20",
+        "weight": 20
+      },
+      "White Patch": {
+        "id": 245,
+        "visible": true,
+        "path": "/layers/6-Eye/White Patch#20",
+        "weight": 20
+      },
+      "Zebra Cateyes": {
+        "id": 246,
+        "visible": true,
+        "path": "/layers/6-Eye/Zebra Cateyes#20",
+        "weight": 20
+      }
+    }
+  },
+  {
+    "name": "Head",
+    "visible": true,
+    "order": 7,
+    "attributes": {
+      "70s Cut": {
+        "id": 247,
+        "visible": true,
+        "path": "/layers/7-Head/70s Cut#20",
+        "weight": 20
+      },
+      "Anchor Cut": {
+        "id": 248,
+        "visible": true,
+        "path": "/layers/7-Head/Anchor Cut#20",
+        "weight": 20
+      },
+      "Army Beret": {
+        "id": 249,
+        "visible": true,
+        "path": "/layers/7-Head/Army Beret#20",
+        "weight": 20
+      },
+      "Black Baseball Cap": {
+        "id": 250,
+        "visible": true,
+        "path": "/layers/7-Head/Black Baseball Cap#20",
+        "weight": 20
+      },
+      "Black Beanie": {
+        "id": 251,
+        "visible": true,
+        "path": "/layers/7-Head/Black Beanie#20",
+        "weight": 20
+      },
+      "Black Beret": {
+        "id": 252,
+        "visible": true,
+        "path": "/layers/7-Head/Black Beret#20",
+        "weight": 20
+      },
+      "Black Bowler": {
+        "id": 253,
+        "visible": true,
+        "path": "/layers/7-Head/Black Bowler#20",
+        "weight": 20
+      },
+      "Black Brixton Cap": {
+        "id": 254,
+        "visible": true,
+        "path": "/layers/7-Head/Black Brixton Cap#20",
+        "weight": 20
+      },
+      "Black Bucket Hat": {
+        "id": 255,
+        "visible": true,
+        "path": "/layers/7-Head/Black Bucket Hat#20",
+        "weight": 20
+      },
+      "Black Cowboy Hat": {
+        "id": 256,
+        "visible": true,
+        "path": "/layers/7-Head/Black Cowboy Hat#20",
+        "weight": 20
+      },
+      "Black Flat Cap": {
+        "id": 257,
+        "visible": true,
+        "path": "/layers/7-Head/Black Flat Cap#20",
+        "weight": 20
+      },
+      "Black Horns": {
+        "id": 258,
+        "visible": true,
+        "path": "/layers/7-Head/Black Horns#20",
+        "weight": 20
+      },
+      "Black Moo Cap": {
+        "id": 259,
+        "visible": true,
+        "path": "/layers/7-Head/Black Moo Cap#20",
+        "weight": 20
+      },
+      "Black Panama Hat": {
+        "id": 260,
+        "visible": true,
+        "path": "/layers/7-Head/Black Panama Hat#20",
+        "weight": 20
+      },
+      "Black Pork Pie": {
+        "id": 261,
+        "visible": true,
+        "path": "/layers/7-Head/Black Pork Pie#20",
+        "weight": 20
+      },
+      "Black Red Sumbrero": {
+        "id": 262,
+        "visible": true,
+        "path": "/layers/7-Head/Black Red Sumbrero#20",
+        "weight": 20
+      },
+      "Black Stove Pipe": {
+        "id": 263,
+        "visible": true,
+        "path": "/layers/7-Head/Black Stove Pipe#20",
+        "weight": 20
+      },
+      "Blacksmith Helmet": {
+        "id": 264,
+        "visible": true,
+        "path": "/layers/7-Head/Blacksmith Helmet#10",
+        "weight": 10
+      },
+      "Blonde Barrister Wig": {
+        "id": 265,
+        "visible": true,
+        "path": "/layers/7-Head/Blonde Barrister Wig#20",
+        "weight": 20
+      },
+      "Blue Beanie": {
+        "id": 266,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Beanie#20",
+        "weight": 20
+      },
+      "Blue Brixton Cap": {
+        "id": 267,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Brixton Cap#20",
+        "weight": 20
+      },
+      "Blue ETH Cap": {
+        "id": 268,
+        "visible": true,
+        "path": "/layers/7-Head/Blue ETH Cap#10",
+        "weight": 10
+      },
+      "Blue Fur Hat": {
+        "id": 269,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Fur Hat#20",
+        "weight": 20
+      },
+      "Blue Headband": {
+        "id": 270,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Headband#20",
+        "weight": 20
+      },
+      "Blue Headset": {
+        "id": 271,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Headset#20",
+        "weight": 20
+      },
+      "Blue Visor": {
+        "id": 272,
+        "visible": true,
+        "path": "/layers/7-Head/Blue Visor#20",
+        "weight": 20
+      },
+      "Brown Aviator": {
+        "id": 273,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Aviator#10",
+        "weight": 10
+      },
+      "Brown Barrister Wig": {
+        "id": 274,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Barrister Wig#20",
+        "weight": 20
+      },
+      "Brown Bowler": {
+        "id": 275,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Bowler#20",
+        "weight": 20
+      },
+      "Brown Brixton Cap": {
+        "id": 276,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Brixton Cap#20",
+        "weight": 20
+      },
+      "Brown Cowboy Hat": {
+        "id": 277,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Cowboy Hat#20",
+        "weight": 20
+      },
+      "Brown Flat Cap": {
+        "id": 278,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Flat Cap#20",
+        "weight": 20
+      },
+      "Brown Horns": {
+        "id": 279,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Horns#20",
+        "weight": 20
+      },
+      "Brown Panama Hat": {
+        "id": 280,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Panama Hat#20",
+        "weight": 20
+      },
+      "Brown Pork Pie": {
+        "id": 281,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Pork Pie#20",
+        "weight": 20
+      },
+      "Brown Red Sumbrero": {
+        "id": 282,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Red Sumbrero#20",
+        "weight": 20
+      },
+      "Brown Stove Pipe": {
+        "id": 283,
+        "visible": true,
+        "path": "/layers/7-Head/Brown Stove Pipe#20",
+        "weight": 20
+      },
+      "Crown": {
+        "id": 284,
+        "visible": true,
+        "path": "/layers/7-Head/Crown#5",
+        "weight": 5
+      },
+      "Dark Army Beret": {
+        "id": 285,
+        "visible": true,
+        "path": "/layers/7-Head/Dark Army Beret#20",
+        "weight": 20
+      },
+      "Exposed": {
+        "id": 286,
+        "visible": true,
+        "path": "/layers/7-Head/Exposed#30",
+        "weight": 30
+      },
+      "Fade Cut": {
+        "id": 287,
+        "visible": true,
+        "path": "/layers/7-Head/Fade Cut#10",
+        "weight": 10
+      },
+      "Golden Headset": {
+        "id": 288,
+        "visible": true,
+        "path": "/layers/7-Head/Golden Headset#5",
+        "weight": 5
+      },
+      "Golden Horns": {
+        "id": 289,
+        "visible": true,
+        "path": "/layers/7-Head/Golden Horns#5",
+        "weight": 5
+      },
+      "Golden Plumber Hat": {
+        "id": 290,
+        "visible": true,
+        "path": "/layers/7-Head/Golden Plumber Hat#5",
+        "weight": 5
+      },
+      "Golden Tophat": {
+        "id": 291,
+        "visible": true,
+        "path": "/layers/7-Head/Golden Tophat#5",
+        "weight": 5
+      },
+      "Green Bicycle Helmet": {
+        "id": 292,
+        "visible": true,
+        "path": "/layers/7-Head/Green Bicycle Helmet#20",
+        "weight": 20
+      },
+      "Green Bucket Hat": {
+        "id": 293,
+        "visible": true,
+        "path": "/layers/7-Head/Green Bucket Hat#20",
+        "weight": 20
+      },
+      "Green Derby": {
+        "id": 294,
+        "visible": true,
+        "path": "/layers/7-Head/Green Derby#10",
+        "weight": 10
+      },
+      "Green Fur Hat": {
+        "id": 295,
+        "visible": true,
+        "path": "/layers/7-Head/Green Fur Hat#20",
+        "weight": 20
+      },
+      "Green Mohawk": {
+        "id": 296,
+        "visible": true,
+        "path": "/layers/7-Head/Green Mohawk#20",
+        "weight": 20
+      },
+      "Green Plumber Hat": {
+        "id": 297,
+        "visible": true,
+        "path": "/layers/7-Head/Green Plumber Hat#20",
+        "weight": 20
+      },
+      "Guile Cut": {
+        "id": 298,
+        "visible": true,
+        "path": "/layers/7-Head/Guile Cut#20",
+        "weight": 20
+      },
+      "Lavendar ETH Cap": {
+        "id": 299,
+        "visible": true,
+        "path": "/layers/7-Head/Lavendar ETH Cap#5",
+        "weight": 5
+      },
+      "Moe Cut": {
+        "id": 300,
+        "visible": true,
+        "path": "/layers/7-Head/Moe Cut#20",
+        "weight": 20
+      },
+      "Mozart Cut": {
+        "id": 301,
+        "visible": true,
+        "path": "/layers/7-Head/Mozart Cut#20",
+        "weight": 20
+      },
+      "Navy Hat": {
+        "id": 302,
+        "visible": true,
+        "path": "/layers/7-Head/Navy Hat#10",
+        "weight": 10
+      },
+      "Nubs": {
+        "id": 303,
+        "visible": true,
+        "path": "/layers/7-Head/Nubs#20",
+        "weight": 20
+      },
+      "Pilot Hat": {
+        "id": 304,
+        "visible": true,
+        "path": "/layers/7-Head/Pilot Hat#10",
+        "weight": 10
+      },
+      "Pink Fur Hat": {
+        "id": 305,
+        "visible": true,
+        "path": "/layers/7-Head/Pink Fur Hat#20",
+        "weight": 20
+      },
+      "Police Hat": {
+        "id": 306,
+        "visible": true,
+        "path": "/layers/7-Head/Police Hat#10",
+        "weight": 10
+      },
+      "Purple Leopard Pimp Hat": {
+        "id": 307,
+        "visible": true,
+        "path": "/layers/7-Head/Purple Leopard Pimp Hat#10",
+        "weight": 10
+      },
+      "Purple Mohawk": {
+        "id": 308,
+        "visible": true,
+        "path": "/layers/7-Head/Purple Mohawk#20",
+        "weight": 20
+      },
+      "Purple Red Baseball Cap": {
+        "id": 309,
+        "visible": true,
+        "path": "/layers/7-Head/Purple Red Baseball Cap",
+        "weight": 100
+      },
+      "Purple Zebra Pimp Hat": {
+        "id": 310,
+        "visible": true,
+        "path": "/layers/7-Head/Purple Zebra Pimp Hat",
+        "weight": 100
+      },
+      "Rainbow Horns": {
+        "id": 311,
+        "visible": true,
+        "path": "/layers/7-Head/Rainbow Horns#5",
+        "weight": 5
+      },
+      "Rainbow Spinner Cap": {
+        "id": 312,
+        "visible": true,
+        "path": "/layers/7-Head/Rainbow Spinner Cap#10",
+        "weight": 10
+      },
+      "Red Baseball Cap": {
+        "id": 313,
+        "visible": true,
+        "path": "/layers/7-Head/Red Baseball Cap#20",
+        "weight": 20
+      },
+      "Red Beanie": {
+        "id": 314,
+        "visible": true,
+        "path": "/layers/7-Head/Red Beanie#20",
+        "weight": 20
+      },
+      "Red Brown Sumbrero": {
+        "id": 315,
+        "visible": true,
+        "path": "/layers/7-Head/Red Brown Sumbrero#20",
+        "weight": 20
+      },
+      "Red Bucket Hat": {
+        "id": 316,
+        "visible": true,
+        "path": "/layers/7-Head/Red Bucket Hat#20",
+        "weight": 20
+      },
+      "Red Headband": {
+        "id": 317,
+        "visible": true,
+        "path": "/layers/7-Head/Red Headband#20",
+        "weight": 20
+      },
+      "Red Headset": {
+        "id": 318,
+        "visible": true,
+        "path": "/layers/7-Head/Red Headset#20",
+        "weight": 20
+      },
+      "Red Horns": {
+        "id": 319,
+        "visible": true,
+        "path": "/layers/7-Head/Red Horns#20",
+        "weight": 20
+      },
+      "Red Leopard Pimp Hat": {
+        "id": 320,
+        "visible": true,
+        "path": "/layers/7-Head/Red Leopard Pimp Hat#10",
+        "weight": 10
+      },
+      "Red Mohawk": {
+        "id": 321,
+        "visible": true,
+        "path": "/layers/7-Head/Red Mohawk#20",
+        "weight": 20
+      },
+      "Red Plumber Hat": {
+        "id": 322,
+        "visible": true,
+        "path": "/layers/7-Head/Red Plumber Hat#20",
+        "weight": 20
+      },
+      "Red Visor": {
+        "id": 323,
+        "visible": true,
+        "path": "/layers/7-Head/Red Visor#20",
+        "weight": 20
+      },
+      "Red Zebra Pimp Hat": {
+        "id": 324,
+        "visible": true,
+        "path": "/layers/7-Head/Red Zebra Pimp Hat#10",
+        "weight": 10
+      },
+      "Robin Hood": {
+        "id": 325,
+        "visible": true,
+        "path": "/layers/7-Head/Robin Hood#10",
+        "weight": 10
+      },
+      "Science Top Hat": {
+        "id": 326,
+        "visible": true,
+        "path": "/layers/7-Head/Science Top Hat#10",
+        "weight": 10
+      },
+      "Small Black Cow": {
+        "id": 327,
+        "visible": true,
+        "path": "/layers/7-Head/Small Black Cow#5",
+        "weight": 5
+      },
+      "Small Brown Cow": {
+        "id": 328,
+        "visible": true,
+        "path": "/layers/7-Head/Small Brown Cow#5",
+        "weight": 5
+      },
+      "Small Spotted Cow": {
+        "id": 329,
+        "visible": true,
+        "path": "/layers/7-Head/Small Spotted Cow#5",
+        "weight": 5
+      },
+      "Tiara": {
+        "id": 330,
+        "visible": true,
+        "path": "/layers/7-Head/Tiara#5",
+        "weight": 5
+      },
+      "Uncle Sam": {
+        "id": 331,
+        "visible": true,
+        "path": "/layers/7-Head/Uncle Sam#5",
+        "weight": 5
+      },
+      "Wavey Cut": {
+        "id": 332,
+        "visible": true,
+        "path": "/layers/7-Head/Wavey Cut#20",
+        "weight": 20
+      },
+      "White Barrister Wig": {
+        "id": 333,
+        "visible": true,
+        "path": "/layers/7-Head/White Barrister Wig#20",
+        "weight": 20
+      },
+      "White Bowler": {
+        "id": 334,
+        "visible": true,
+        "path": "/layers/7-Head/White Bowler#20",
+        "weight": 20
+      },
+      "White Cowboy Hat": {
+        "id": 335,
+        "visible": true,
+        "path": "/layers/7-Head/White Cowboy Hat#20",
+        "weight": 20
+      },
+      "White ETH Cap": {
+        "id": 336,
+        "visible": true,
+        "path": "/layers/7-Head/White ETH Cap#10",
+        "weight": 10
+      },
+      "White Flat Cap": {
+        "id": 337,
+        "visible": true,
+        "path": "/layers/7-Head/White Flat Cap#20",
+        "weight": 20
+      },
+      "White Football Helmet": {
+        "id": 338,
+        "visible": true,
+        "path": "/layers/7-Head/White Football Helmet#10",
+        "weight": 10
+      },
+      "White Half Horns": {
+        "id": 339,
+        "visible": true,
+        "path": "/layers/7-Head/White Half Horns#20",
+        "weight": 20
+      },
+      "White Headband": {
+        "id": 340,
+        "visible": true,
+        "path": "/layers/7-Head/White Headband#20",
+        "weight": 20
+      },
+      "White Horns": {
+        "id": 341,
+        "visible": true,
+        "path": "/layers/7-Head/White Horns#20",
+        "weight": 20
+      },
+      "White Leopard Pimp Hat": {
+        "id": 342,
+        "visible": true,
+        "path": "/layers/7-Head/White Leopard Pimp Hat#10",
+        "weight": 10
+      },
+      "White Panama Hat": {
+        "id": 343,
+        "visible": true,
+        "path": "/layers/7-Head/White Panama Hat#20",
+        "weight": 20
+      },
+      "White Pork Pie": {
+        "id": 344,
+        "visible": true,
+        "path": "/layers/7-Head/White Pork Pie#20",
+        "weight": 20
+      },
+      "White Stove Pipe": {
+        "id": 345,
+        "visible": true,
+        "path": "/layers/7-Head/White Stove Pipe#20",
+        "weight": 20
+      },
+      "White Visor": {
+        "id": 346,
+        "visible": true,
+        "path": "/layers/7-Head/White Visor#20",
+        "weight": 20
+      },
+      "White Zebra Pimp Hat": {
+        "id": 347,
+        "visible": true,
+        "path": "/layers/7-Head/White Zebra Pimp Hat#10",
+        "weight": 10
+      }
+    }
+  },
+  {
+    "name": "Nose",
+    "visible": true,
+    "order": 8,
+    "attributes": {
+      "Black Gold": {
+        "id": 348,
+        "visible": true,
+        "path": "/layers/8-Nose/Black Gold#10",
+        "weight": 10
+      },
+      "Black Silver": {
+        "id": 349,
+        "visible": true,
+        "path": "/layers/8-Nose/Black Silver#20",
+        "weight": 20
+      },
+      "Black": {
+        "id": 350,
+        "visible": true,
+        "path": "/layers/8-Nose/Black#30",
+        "weight": 30
+      },
+      "Brown Gold": {
+        "id": 351,
+        "visible": true,
+        "path": "/layers/8-Nose/Brown Gold#10",
+        "weight": 10
+      },
+      "Brown SIlver": {
+        "id": 352,
+        "visible": true,
+        "path": "/layers/8-Nose/Brown SIlver#20",
+        "weight": 20
+      },
+      "Brown": {
+        "id": 353,
+        "visible": true,
+        "path": "/layers/8-Nose/Brown#30",
+        "weight": 30
+      },
+      "Green Gold": {
+        "id": 354,
+        "visible": true,
+        "path": "/layers/8-Nose/Green Gold#10",
+        "weight": 10
+      },
+      "Green Silver": {
+        "id": 355,
+        "visible": true,
+        "path": "/layers/8-Nose/Green Silver#20",
+        "weight": 20
+      },
+      "Green": {
+        "id": 356,
+        "visible": true,
+        "path": "/layers/8-Nose/Green#30",
+        "weight": 30
+      },
+      "Orange Gold": {
+        "id": 357,
+        "visible": true,
+        "path": "/layers/8-Nose/Orange Gold#10",
+        "weight": 10
+      },
+      "Orange Silver": {
+        "id": 358,
+        "visible": true,
+        "path": "/layers/8-Nose/Orange Silver#20",
+        "weight": 20
+      },
+      "Orange": {
+        "id": 359,
+        "visible": true,
+        "path": "/layers/8-Nose/Orange#30",
+        "weight": 30
+      },
+      "Pink Gold": {
+        "id": 360,
+        "visible": true,
+        "path": "/layers/8-Nose/Pink Gold#10",
+        "weight": 10
+      },
+      "Pink SIlver": {
+        "id": 361,
+        "visible": true,
+        "path": "/layers/8-Nose/Pink SIlver#20",
+        "weight": 20
+      },
+      "Pink": {
+        "id": 362,
+        "visible": true,
+        "path": "/layers/8-Nose/Pink#30",
+        "weight": 30
+      },
+      "Purple Gold": {
+        "id": 363,
+        "visible": true,
+        "path": "/layers/8-Nose/Purple Gold#10",
+        "weight": 10
+      },
+      "Purple Silver": {
+        "id": 364,
+        "visible": true,
+        "path": "/layers/8-Nose/Purple Silver#20",
+        "weight": 20
+      },
+      "Purple": {
+        "id": 365,
+        "visible": true,
+        "path": "/layers/8-Nose/Purple#30",
+        "weight": 30
+      },
+      "Yellow Gold": {
+        "id": 366,
+        "visible": true,
+        "path": "/layers/8-Nose/Yellow Gold#10",
+        "weight": 10
+      },
+      "Yellow Silver": {
+        "id": 367,
+        "visible": true,
+        "path": "/layers/8-Nose/Yellow Silver#20",
+        "weight": 20
+      },
+      "Yellow": {
+        "id": 368,
+        "visible": true,
+        "path": "/layers/8-Nose/Yellow#30",
+        "weight": 30
+      }
+    }
+  },
+  {
+    "name": "Accessories",
+    "visible": true,
+    "order": 9,
+    "attributes": {
+      "Balloon": {
+        "id": 369,
+        "visible": true,
+        "path": "/layers/9-Accessories/Balloon#20",
+        "weight": 20
+      },
+      "Basket Ball": {
+        "id": 370,
+        "visible": true,
+        "path": "/layers/9-Accessories/Basket Ball#20",
+        "weight": 20
+      },
+      "Beach Ball": {
+        "id": 371,
+        "visible": true,
+        "path": "/layers/9-Accessories/Beach Ball#20",
+        "weight": 20
+      },
+      "Blue Gift": {
+        "id": 372,
+        "visible": true,
+        "path": "/layers/9-Accessories/Blue Gift#20",
+        "weight": 20
+      },
+      "Bong": {
+        "id": 373,
+        "visible": true,
+        "path": "/layers/9-Accessories/Bong#20",
+        "weight": 20
+      },
+      "Book": {
+        "id": 374,
+        "visible": true,
+        "path": "/layers/9-Accessories/Book#10",
+        "weight": 10
+      },
+      "Briefcase": {
+        "id": 375,
+        "visible": true,
+        "path": "/layers/9-Accessories/Briefcase#10",
+        "weight": 10
+      },
+      "Cash Sack": {
+        "id": 376,
+        "visible": true,
+        "path": "/layers/9-Accessories/Cash Sack#10",
+        "weight": 10
+      },
+      "Chicken Toy": {
+        "id": 377,
+        "visible": true,
+        "path": "/layers/9-Accessories/Chicken Toy#20",
+        "weight": 20
+      },
+      "Chocolate Milkshake": {
+        "id": 378,
+        "visible": true,
+        "path": "/layers/9-Accessories/Chocolate Milkshake#20.",
+        "weight": 20
+      },
+      "Coffee": {
+        "id": 379,
+        "visible": true,
+        "path": "/layers/9-Accessories/Coffee#20",
+        "weight": 20
+      },
+      "Green Ice Cream": {
+        "id": 380,
+        "visible": true,
+        "path": "/layers/9-Accessories/Green Ice Cream#20",
+        "weight": 20
+      },
+      "Green Mushroom": {
+        "id": 381,
+        "visible": true,
+        "path": "/layers/9-Accessories/Green Mushroom#20",
+        "weight": 20
+      },
+      "Hampork": {
+        "id": 382,
+        "visible": true,
+        "path": "/layers/9-Accessories/Hampork#10",
+        "weight": 10
+      },
+      "Magician": {
+        "id": 383,
+        "visible": true,
+        "path": "/layers/9-Accessories/Magician#20",
+        "weight": 20
+      },
+      "Magnifying Glass": {
+        "id": 384,
+        "visible": true,
+        "path": "/layers/9-Accessories/Magnifying Glass#10",
+        "weight": 10
+      },
+      "Microphone": {
+        "id": 385,
+        "visible": true,
+        "path": "/layers/9-Accessories/Microphone#20",
+        "weight": 20
+      },
+      "Milk": {
+        "id": 386,
+        "visible": true,
+        "path": "/layers/9-Accessories/Milk#10",
+        "weight": 10
+      },
+      "None": {
+        "id": 387,
+        "visible": true,
+        "path": "/layers/9-Accessories/None#30",
+        "weight": 30
+      },
+      "Orange Mushroom": {
+        "id": 388,
+        "visible": true,
+        "path": "/layers/9-Accessories/Orange Mushroom#20",
+        "weight": 20
+      },
+      "Pink Ice Cream": {
+        "id": 389,
+        "visible": true,
+        "path": "/layers/9-Accessories/Pink Ice Cream#20",
+        "weight": 20
+      },
+      "Popcorn": {
+        "id": 390,
+        "visible": true,
+        "path": "/layers/9-Accessories/Popcorn#20",
+        "weight": 20
+      },
+      "Red Button": {
+        "id": 391,
+        "visible": true,
+        "path": "/layers/9-Accessories/Red Button#12",
+        "weight": 12
+      },
+      "Red Gift": {
+        "id": 392,
+        "visible": true,
+        "path": "/layers/9-Accessories/Red Gift#20",
+        "weight": 20
+      },
+      "Red Mushroom": {
+        "id": 393,
+        "visible": true,
+        "path": "/layers/9-Accessories/Red Mushroom#20",
+        "weight": 20
+      },
+      "Soccer Ball": {
+        "id": 394,
+        "visible": true,
+        "path": "/layers/9-Accessories/Soccer Ball#20",
+        "weight": 20
+      },
+      "Space Helmet": {
+        "id": 395,
+        "visible": true,
+        "path": "/layers/9-Accessories/Space Helmet#10",
+        "weight": 10
+      },
+      "Strawberry Milkshake": {
+        "id": 396,
+        "visible": true,
+        "path": "/layers/9-Accessories/Strawberry Milkshake#20.",
+        "weight": 20
+      },
+      "Treasure": {
+        "id": 397,
+        "visible": true,
+        "path": "/layers/9-Accessories/Treasure#5",
+        "weight": 5
+      },
+      "Vanilla Ice Cream": {
+        "id": 398,
+        "visible": true,
+        "path": "/layers/9-Accessories/Vanilla Ice Cream#20",
+        "weight": 20
+      },
+      "Vanilla Milkshake": {
+        "id": 399,
+        "visible": true,
+        "path": "/layers/9-Accessories/Vanilla Milkshake#20",
+        "weight": 20
+      },
+      "Walker": {
+        "id": 400,
+        "visible": true,
+        "path": "/layers/9-Accessories/Walker#5",
+        "weight": 5
+      },
+      "Weights": {
+        "id": 401,
+        "visible": true,
+        "path": "/layers/9-Accessories/Weights#20",
+        "weight": 20
+      },
+      "Wine": {
+        "id": 402,
+        "visible": true,
+        "path": "/layers/9-Accessories/Wine#20",
+        "weight": 20
+      },
+      "Yellow Gift": {
+        "id": 403,
+        "visible": true,
+        "path": "/layers/9-Accessories/Yellow Gift#20",
+        "weight": 20
+      }
+    }
+  }
+]

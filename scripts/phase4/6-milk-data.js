@@ -94,8 +94,13 @@ async function main() {
   const signer = new ethers.Wallet(network.accounts[0])
   const nft = { address: network.contracts.nft }
 
+  let totalRate = 0
+
   for (const row of database.rows) {
     const rate = ethers.utils.parseUnits(String(crews[row.attributes.Crew])).div(60 * 60 * 24).toString()
+
+    totalRate += crews[row.attributes.Crew]
+
     row.barn = {
       rate: rate,
       proof: await signer.signMessage(
@@ -108,6 +113,8 @@ async function main() {
     path.resolve(__dirname, '../../docs/data/metadata.json'),
     JSON.stringify(database, null, 2)
   )
+
+  console.log(totalRate)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
