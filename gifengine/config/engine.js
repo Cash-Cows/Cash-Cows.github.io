@@ -31,7 +31,7 @@ module.exports = {
     {
       config: "layers/all",
       series: "Test",
-      limit: 10
+      limit: 5
     }
   ],
   _layers: [

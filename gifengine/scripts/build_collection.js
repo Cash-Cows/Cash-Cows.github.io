@@ -105,11 +105,10 @@ function makeCanvas(dimensions) {
 }
 
 async function animate(canvas, attributes) {
-  const encoder = new GIFEncoder(
-    canvas.dimensions.width, 
-    canvas.dimensions.height,
-    'octree'
-  )
+  const { width, height } = canvas.dimensions
+  const encoder = new GIFEncoder(width, height, 'neuquant', true)
+  //encoder.setThreshold(100)
+  encoder.setQuality(3000)
   encoder.setDelay(100)
   encoder.start()
 
@@ -129,22 +128,12 @@ async function animate(canvas, attributes) {
 }
 
 function drawImage(canvas, frame, attributes) {
-  canvas.ctx.clearRect(
-    0, 
-    0, 
-    canvas.dimensions.width, 
-    canvas.dimensions.height
-  )
+  const { width, height } = canvas.dimensions
+  canvas.ctx.clearRect(0, 0, width, height)
   for (const attribute of attributes) {
     canvas.ctx.globalAlpha = attribute.opacity
     canvas.ctx.globalCompositeOperation = attribute.blend
-    canvas.ctx.drawImage(
-      attribute.resources[frame], 
-      0, 
-      0, 
-      canvas.dimensions.width, 
-      canvas.dimensions.height
-    )
+    canvas.ctx.drawImage(attribute.resources[frame], 0, 0, width, height)
   }
 }
 

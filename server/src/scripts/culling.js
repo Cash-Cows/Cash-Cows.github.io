@@ -11,6 +11,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   const network = Web3SDK.network('ethereum')
   const nft = network.contract('nft')
   const culling = network.contract('culling')
+  const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
 
   const messages = [
@@ -57,13 +58,22 @@ window.addEventListener('web3sdk-ready', async _ => {
     if (!row) window.location.href = '/cows.html'
     const stage = parseInt(await metadata.read().stage(row.edition))
 
+    const conversion = await culling.read().tokenConversion()
+    const releaseable = Web3SDK.toEther(await royalty.read().releaseable(row.edition))
+    const message = releaseable > 0 
+      ? `You will receive 1 steak and your unclaimed Ξ ${
+        parseFloat(releaseable).toFixed(6)
+      } will be exchanged for ${(releaseable * conversion).toFixed(6)} $MILK`
+      : `You will receive 1 steak but, you claimed all your rewards! No milk for you. Are you sure?`
+
     const game = theme.toElement(template.game, {
       '{COLOR}': row.attributes.Background.toLowerCase(),
       '{EDITION}': row.edition,
       '{CONTRACT}': nft.address,
       '{IMAGE}': `/images/collection/${row.edition}_${stage}.png`,
       '{LEVEL}': stage + 1,
-      '{MESSAGE}': messages[row.edition % messages.length] || messages[0]
+      '{BYE}': messages[row.edition % messages.length] || messages[0],
+      '{MESSAGE}': message
     })
 
     document.querySelector('section.section-2 div.container').appendChild(game)
@@ -77,11 +87,9 @@ window.addEventListener('web3sdk-ready', async _ => {
   window.addEventListener('burn-click', async e => {
     const tokenId = parseInt(e.for.getAttribute('data-edition'))
 
-    console.log(tokenId)
-
     //gas check
     try {
-      await culling.gas(Web3SDK.state.account, 0).burn(tokenId)
+      await culling.gas(Web3SDK.state.account, 0).burnRedeem(tokenId)
     } catch(e) {
       const pattern = /have (\d+) want (\d+)/
       const matches = e.message.match(pattern)
@@ -132,7 +140,7 @@ window.addEventListener('web3sdk-ready', async _ => {
            1000000
           )
         }
-      }).burn(tokenId)
+      }).burnRedeem(tokenId)
     } catch(e) {
       notify('error', e.message.replace('err: i', 'I'))
       console.error(e)
