@@ -154,11 +154,11 @@ window.addEventListener('web3sdk-ready', async _ => {
   const randomCows = length => {
     const cows = []
 
+    const cow = new Image()
+    const index = Math.floor(Math.random() * 4) + 1
+    cow.src = `/images/memes/meme-cow-${index}.png`
+
     for(let i = 0; i < length; i++) {
-      const cow = new Image()
-      const index = Math.floor(Math.random() * 4) + 1
-      //todo choose samples
-      cow.src = `/images/memes/meme-cow-${index}.png`
       cows.push(cow)
     }
     
