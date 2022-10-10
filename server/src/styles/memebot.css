@@ -1,0 +1,56 @@
+.body h1, .body h4 {
+  color: #F9AF00;
+  margin-bottom: 0;
+}
+
+.body .connected {
+  border: 1px solid #CCCCCC;
+  margin: 0 auto 100px;
+  max-width: 600px;
+  padding: 20px 20px 40px;
+}
+
+.body .btn-pixel {
+  width: 250px;
+}
+
+.body .section p {
+  padding-top: 0;
+}
+
+.body .section .btn-pixel {
+  margin-left: 15px;
+}
+
+.body .section .form-control {
+  margin-bottom: 20px;
+}
+
+.section-1 {
+  padding: 100px 0 0;
+  text-align: center;
+}
+
+.body .section-1 p {
+  margin: auto;
+  max-width: 600px;
+  padding: 20px 0;
+}
+
+.section-2 {
+  padding: 0 0 40px;
+}
+
+code {
+  background-color: #333333;
+  display: inline-block;
+  padding: 5px;
+  color: #F9AF00;
+}
+
+#proof {
+  border: 1px solid #CCCCCC;
+  margin: 20px 0;
+  padding: 20px;
+  word-wrap: break-word;
+}

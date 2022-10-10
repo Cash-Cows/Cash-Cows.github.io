@@ -1,0 +1,80 @@
+{{#layout "_page.html" 
+  version="6" 
+  path="memebot" 
+  script="memebot" 
+  style="memebot" 
+  network="mainnet" 
+  title="Memebot | Cash Cows" 
+  description="A generator for all your meme needs" 
+}}
+  <section class="section section-1">
+    <div class="container">
+      <h1>Memebot</h1>
+      <p>
+        A discord bot for all your meme needs. If you are a mod for a 
+        discord community, invite memebot to 
+        <a 
+          href="https://discord.com/api/oauth2/authorize?client_id=1028639005891366945&permissions=22528&scope=bot" 
+          target="_blank"
+        >Discord</a>.
+      </p>
+      <div class="disconnected">
+        <a 
+          class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+          data-do="connect" 
+          data-on="click" 
+          href="javascript:void(0)"
+        >
+          Connect Wallet
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="connected hide">
+    <section class="section section-2">
+      <div class="container">
+        <h4>1. Verify Wallet</h4>
+        <p>
+          Before you can start using memebot, you need to first link 
+          your discord to your wallet.
+        </p>
+        <a 
+          class="btn-pixel btn-pixel-lg btn-pixel-success" 
+          data-do="verify" 
+          data-on="click" 
+          href="javascript:void(0)"
+        >
+          Verify Wallet
+        </a>
+        <div class="results hide">
+          <div id="proof"></div>
+          <p>
+            You will also need to pre-upload face images to paste on  
+            these memes. Transparent square faces work the best. On 
+            discord, add the above verification as well as your face 
+            images by talking to memebot with <code>/meme-register</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="section section-3">
+      <div class="container">
+        <h4>2. Load $MILK</h4>
+        <p>
+          In order for you to generate memes you need to load up $MILK 
+          first. Right now it's 10 $MILK per meme. Enter how much milk 
+          you want to load.
+        </p>
+        <input class="form-control" id="milk" type="number" min="10" value="100" />
+        <a 
+          class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+          data-do="load" 
+          data-on="click" 
+          href="javascript:void(0)"
+        >
+          Load $MILK
+        </a>
+      </div>
+    </section>
+  </div>
+{{/layout}}

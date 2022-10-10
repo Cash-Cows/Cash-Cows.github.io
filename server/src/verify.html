@@ -1,0 +1,37 @@
+{{#layout "_page.html" 
+  version="5" 
+  path="verify" 
+  script="verify" 
+  style="verify" 
+  network="mainnet" 
+  title="Verify Wallet | Cash Cows" 
+  description="Verify your wallet" 
+}}
+  <section class="section section-1">
+    <h4>Verify Wallet Tool</h4>
+    <div class="disconnected">
+      <a 
+        class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+        data-do="connect" 
+        data-on="click" 
+        href="javascript:void(0)"
+      >
+        Connect Wallet
+      </a>
+    </div>
+    <div class="connected hide">
+      <a 
+        class="btn-pixel btn-pixel-lg btn-pixel-success" 
+        data-do="verify" 
+        data-on="click" 
+        href="javascript:void(0)"
+      >
+        Verify Wallet
+      </a>
+      <div class="results hide">
+        <p>Copy below:</p>
+        <div id="proof"></div>
+      </div>
+    </div>
+  </section>
+{{/layout}}

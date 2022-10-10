@@ -29,6 +29,9 @@
         "market": {
           "address": "0x1Ae6eEc3bdd7BB7444456cBC4dE519FFa59fA344"
         },
+        "meme": {
+          "address": "0x43F3aF921385969cf4Dc535a31A23CE142092E81"
+        },
         "milk": {
           "address": "0x981E826E1238213b6848EFD54015BA83F48406Ba",
           "type": "ERC20", 
@@ -2360,6 +2363,74 @@
           }
         ],
         "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ],
+    "meme": [
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20Burnable",
+            "name": "milk",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "InvalidCall",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "MILK",
+        "outputs": [
+          {
+            "internalType": "contract IERC20Burnable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "load",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
