@@ -404,7 +404,7 @@ contract CashCowsLoot is
   /**
    * @dev Sets the default URI
    */
-  function setPrice(string memory uri_) external onlyRole(_CURATOR_ROLE) {
+  function setURI(string memory uri_) external onlyRole(_CURATOR_ROLE) {
     _setURI(uri_);
   }
   

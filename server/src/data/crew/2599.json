@@ -1,0 +1,814 @@
+{
+  "edition": 2599,
+  "characterId": "3798592418328016684544366881710324863641776217428319",
+  "images": [
+    "https://ipfs.io/ipfs/QmRJQSckEgAbUBmzyHgnNdwfyPnDNVRJngJAhVFiuBkWx8",
+    "https://ipfs.io/ipfs/QmPcRKTGs8MMNLLJX9eGMYYm1XTv3Vh7iRfaZC6DUvNEGh",
+    "https://ipfs.io/ipfs/QmcAqwmyEimtkZox5U4jTgGxV5JzVs6WB8upM1j29HP9jb"
+  ],
+  "attributes": {
+    "Crew": "Aliens",
+    "Background": "Cyan",
+    "Hide": "Alien",
+    "Mask": "None",
+    "Eyes": "Alien",
+    "Mouth": "Mary Jane",
+    "Nose": "Alien",
+    "Belly": "Alien",
+    "Earrings": "Left",
+    "Head": "Antennas",
+    "Outwear": "Leather Jacket",
+    "Neck": "Circle Necklace",
+    "Level": 1
+  },
+  "milk": {
+    "rate": "277777777777777",
+    "proof": "0x55b7c92893513b9c1336cd27f2ed457ad1d3822db22d7ff3acb47996c8dd7485636eae26249b441b5f5f0871e4fb4fc72654421490983cf6e105946b907f6c421b"
+  },
+  "dolla": {
+    "rate": 20000,
+    "proof": "0x36eb6e80f5f792c2ca380a365a773a00b1d6f5aa875e6d055fd86b31169cb5eb009af54c3efd95992e363307119dc29ef5a7d8e2db262d52bb22f3e92b80db151c"
+  },
+  "loot": {
+    "1001": {
+      "eth": {
+        "price": "0",
+        "proof": "0x863b5b64bdb1870e0954bdba86c57be6e4cb418c89e54ccdc1b1bb0fa8715fda191a1e94e1ebb81cb71db5ce4361ecc344c0bf32c99b5f76e23272a0795cb4771b"
+      },
+      "dolla": {
+        "price": "850000000000000000000",
+        "proof": "0x40a1fc21e98782db33e12b22d5378eb55ac493055832fb49be0ce5d9ab200a195dc6c1817af6a04f041554b93cb7d96ce64c1c116ed1d140263afd9a224dd62d1b"
+      }
+    },
+    "1002": {
+      "eth": {
+        "price": "0",
+        "proof": "0x074f079e31f18eb192c7a1fef44e7cb46cb96c5c489a6b3993dda3247d6449625540a40b7f238d6e2af283e3f33ef15b7e3679ec3f6f4e71b9e19406aae903e11b"
+      },
+      "dolla": {
+        "price": "2125000000000000000000",
+        "proof": "0x98d0a45b64262f5de72084b317bb7d83dc076d854c5a0a03adbcf9371787e30a305c2b1492041b4693e5d1f1341b641a0925ff5e81b1337e01ecf23dae95f6491c"
+      }
+    },
+    "1003": {
+      "eth": {
+        "price": "0",
+        "proof": "0xd57f35bd49c605565ccc7bb20acd2f9366f40e64e6fcf31a9159a41f8e463c2666492b4ec005bfc894b677c762471f2ec80eb8d609ea5308ff4d491dc28b61d11c"
+      },
+      "dolla": {
+        "price": "2550000000000000000000",
+        "proof": "0xb3a91f018f5fe1fc7017a5e2871ac73453d8b5162d503e526d4bf5bbafcb2aee01d0c88537e26abbb857bb792f44cdd671cca9d093c5e3d7ed447b82423675b71c"
+      }
+    },
+    "1004": {
+      "eth": {
+        "price": "0",
+        "proof": "0x9a8a5581160dc7c55c1006c165c30bc1e68d7a3bc2477271a63feb428707fb3a621cb4691e0f5384c01802350dfd4a6c481be8055d77fd2b719be8708feb97ae1c"
+      },
+      "dolla": {
+        "price": "4250000000000000000000",
+        "proof": "0x7015e9e9973945210882f4f40b3a8b83a0a8ec84298ef20450910a4a9e7de6df65599657589d2074461706e910ae2f57cbb0a87f0cd347de72ecdb29a8dfcd721c"
+      }
+    },
+    "1005": {
+      "eth": {
+        "price": "0",
+        "proof": "0xdc2ac87ba48e168c2762d3ed301ec4d456d60fc7d5ee24a5338c21844beaddae6860257396fa4699756af95efe2c98b47b0cef87478b8ae2c4a33a9d8ac2473e1b"
+      },
+      "dolla": {
+        "price": "4250000000000000000000",
+        "proof": "0x948cb9fb9c88d900a730fa5e8c62389f4654e8eadad9afc9b51a2c619e3cdb3f41dcd3e0d63264b7d5c6dcb1b592c505a207bc550e20a590acb326245e0a59461c"
+      }
+    },
+    "1006": {
+      "eth": {
+        "price": "0",
+        "proof": "0x3c7ec11db5f40cda143ef2ef873af0bbc2a656e85dd79a66396c0a4f7c91e6ba01281daf565cf2f628dceb7763602e504e3f5c5c2c96dbd0bd9c08ad0a2321d11c"
+      },
+      "dolla": {
+        "price": "6375000000000000000000",
+        "proof": "0x2fc2525730896a1e4c89fac95ffac1d1dea530aa1e8ea9710a3ce89bb12cd99374b9c2c6f728e467df8addd8b8dcef4113293a0c07ac1de9e0e1f7da07a38e9b1c"
+      }
+    },
+    "1007": {
+      "eth": {
+        "price": "0",
+        "proof": "0xd852666e31a14a4409c9419ab296d93bfa7f5bce617d53e230405d7317c0239b424af9dccee5cc291f9737d04ab5ee26bddf236bb66a95208c9e0ce018ae8a0d1b"
+      },
+      "dolla": {
+        "price": "8500000000000000000000",
+        "proof": "0x95e8f8b2012109e6ac341337fddb34cbed0f3517dcd9c015c8a7d902c1e35e154c2973a90fec66407c29376334cdf9d139da1cd403eac9680d4663c1bb64ed671c"
+      }
+    },
+    "1008": {
+      "eth": {
+        "price": "0",
+        "proof": "0x788d0694665b1446264ccbc49cef57b3612f01447fff86bc27e26ebf85c73abe07520fc7978171d488331edd39898e5526a42714ddde4b3e861dab70308c81f81c"
+      },
+      "dolla": {
+        "price": "8500000000000000000000",
+        "proof": "0x88579fb5ddd3f87416fc6f879629c2c224e2ae2499d62554dde7cdbc1d5629ae74fe896ffed1dbd9e9ec28480d537c73937830026475bc1c8ff9e7265fe5ab451c"
+      }
+    },
+    "1009": {
+      "eth": {
+        "price": "0",
+        "proof": "0x817162a55e80bf61e4a5289a1bfdc9537b980fbed7e0e42fa2780c44daa99a3d5b94cd09105d98b0b1feeafd53bdf3d16383580ca483c2e5722a6f24fde6dc501c"
+      },
+      "dolla": {
+        "price": "12750000000000000000000",
+        "proof": "0x7d4dc3231ce116e89f5bb93fc313dd2fa4981d24cedc9a0a140bf4bc9be10217100e48509717fc48df1355392a68d72840c50806056536105a910104016ffb1f1b"
+      }
+    },
+    "1010": {
+      "eth": {
+        "price": "25500000000000000",
+        "proof": "0x193d4bb4306d57f5a6eb5fede95041891c65bd0ecc53447a18d9c0116ccca2b065f572b1a3ee2d422f3ee1c8964b3cdcf284f6a97b2f340a7951e922b164bc331c"
+      },
+      "dolla": {
+        "price": "0",
+        "proof": "0xd11b2f00f5a914c31d7b5c225a9ba6da8b6dc5c938a017f9f3f625998a0b7c0d63f345b19241931d025116049d7032f897383459fa21f4d028b7b2fa77f065e01c"
+      }
+    },
+    "1011": {
+      "eth": {
+        "price": "0",
+        "proof": "0x77fff9fdf894c694a8e9672e7157c14600bfca17957bbe30c33eb76107eb82a7274bfb54c10952a1776a8a6dd2ed8d196f2e9b4443e7ac047b607994b9cb82d31b"
+      },
+      "dolla": {
+        "price": "42500000000000000000000",
+        "proof": "0x9900f0203162af74b3d8c0d04402b51d28270efac91aa93e89b8e58d4bd559440b78a14c643de5315d1b5f4083722115ec5f6a2218fbaa7ca84f0f92d3f58fc71c"
+      }
+    },
+    "1012": {
+      "eth": {
+        "price": "25500000000000000",
+        "proof": "0x3c1b6d1f67333e8e6e80b7ef1e2e7a30b22e21b666dc98849e7498859c9fbeb323b477d2cdd7122a04ecd9f814a6d4ffffdba7e2c2da179bb5f8f5d0596a03db1b"
+      },
+      "dolla": {
+        "price": "63750000000000000000000",
+        "proof": "0x014de4334edd0c5cb71bcd22fc42c08009e46db8f4ab1a41479ad5dc4d75aa952d8f331e50ffa4d68730909278664dace3decf0eeaf16fcfc6b828aa92e237891b"
+      }
+    },
+    "1013": {
+      "eth": {
+        "price": "0",
+        "proof": "0xa42bd7b943fb613eb820bab1046459a92d62eae0f38f012f774d20f09b43fbe76c9420da1cb625c685fa5f13a5539174abc534473c8759e6ec3489671fd5f2261c"
+      },
+      "dolla": {
+        "price": "212500000000000000000000",
+        "proof": "0x1dd383b240ae14709755e28fb3c45310f479e2461e0ea2567040ca7ad90cadca72a3b777d84f7b615baf87207e6b920574eaf6e91ed6f8be72543e5f80c4db311b"
+      }
+    },
+    "1014": {
+      "eth": {
+        "price": "0",
+        "proof": "0x859633d064a7aa9472d5953b6bfa8d09e6e1112889b50dd7f0e13c86693470107376f9c107cdccdd485fde971aac18ae82b500966a9aa7e1c86bafb97aa31c681b"
+      },
+      "dolla": {
+        "price": "637500000000000000000000",
+        "proof": "0xd4514a2bb387ff3105c09d2882f1d400642e35b3c8faeb01bb9037eda1d8b92851d7c2195de88380d768d4c81fee0a0986acc0d4fc9b28e2b98b24cd0c8e78121b"
+      }
+    },
+    "1015": {
+      "eth": {
+        "price": "0",
+        "proof": "0x284aba363fa2e6f635ac96666d0891e2f1e52b88f65e95c9f06ed9e3a3161b5c2c1b8986e96ca5ae63d43ae5189af74f5c239485114a6cf769d88f33efc175591c"
+      },
+      "dolla": {
+        "price": "2125000000000000000000",
+        "proof": "0x054173d3326cc36d29a973c876c0ba57cbe1bae73cab767c0e25fdf5a448f90d695eb625c74f80aa10d962aefb51c4bd2df357a61bb511b28b4e3524c1c3d11b1c"
+      }
+    },
+    "1016": {
+      "eth": {
+        "price": "0",
+        "proof": "0xbe0019345a22831d20a4412d4ff872a202735b87f2ffbbe96d377ee6bfd093ea58aba757d6901e8046e6f10096e8dbd1cc932afa8d73f861990576b8f0a2e20a1c"
+      },
+      "dolla": {
+        "price": "6375000000000000000000",
+        "proof": "0xefb9c51761729d9612150eab001277b5e0ca626f961d5dabc8b1bc4e5e0d43d03241abd0596851cf1b2de6e62fe042adb8ebc21499a8229758d0ab80486890401b"
+      }
+    },
+    "1017": {
+      "eth": {
+        "price": "0",
+        "proof": "0x6087dd0b727acf1f7b459fc70374cc6dce7b880e939bd38f63a712c99117b60737c0e6e4e118cbb071fd9892c90580048cca45d21d6bea5f9a2fa77b6a321eba1c"
+      },
+      "dolla": {
+        "price": "8500000000000000000000",
+        "proof": "0xdeea9835d453ef7076ff923cf36702eb60bb695ae37c12ea576a9b01f6ff6084556d6c72b97bbe2c1fa195c8ae6a38964b626ec1758759d3f1d23d54964b0e221b"
+      }
+    },
+    "1018": {
+      "eth": {
+        "price": "0",
+        "proof": "0xcb46ef95eaf426f0a883af413067469c188906dd26f6bd3e87ab3060619f3bec0a4f7e0b165081851dff037e9111346b4033a7155560b1dff3c3a449fb0642541b"
+      },
+      "dolla": {
+        "price": "12750000000000000000000",
+        "proof": "0x624138344742fe9178ffe03221adb0c38f8ca3dddcb90527352bcbb1f447a92450f5ef7a0ad5549bbb70993e060692cbae4f62f0bbf96724be9ce7c3371f85251b"
+      }
+    },
+    "1019": {
+      "eth": {
+        "price": "0",
+        "proof": "0x2bed576640a43884c2d646fada385681b9a2b305193322f1bef867ecb3a53ac501baa930061816648c54f28d7d4bf7751263881125b9c2534a85c152f265308f1b"
+      },
+      "dolla": {
+        "price": "21250000000000000000000",
+        "proof": "0x67d8739180599a16af57fde31b3c8a0fb346f79261b7d02d9755e8cbf56fad9205ee4e4b1a9387362635c097e34e6e74b0a29e0010d03a12f3a6b9b2239ee8441b"
+      }
+    },
+    "1020": {
+      "eth": {
+        "price": "0",
+        "proof": "0x59fc1266ff6359c1bd0cfe61835069161f204527c8418c33a102643431bf9d510ed82fdfc618d926ce999661aa719b4353a0f3ee6ab96236fd7ee4158a1553a11c"
+      },
+      "dolla": {
+        "price": "25500000000000000000000",
+        "proof": "0xb31bdd438b26c17f660ce38e9c131acc558dbb78b175d23951b2346f0d17f88f318137ac355654e88a9862251166199ac0b2216069de1ac1b92d78c8ff6aec5b1c"
+      }
+    },
+    "1021": {
+      "eth": {
+        "price": "0",
+        "proof": "0x72cbd7f7fa7908535c9162d3bb35436fed16f37935b5f58e6166fe218052bbe40f779e4f8d591ce6c7ed20418bb9169396d67c10c2e1b02be29da5991f3c75d51b"
+      },
+      "dolla": {
+        "price": "42500000000000000000000",
+        "proof": "0xab88aba1a522a573a7649d9cd1548dd0065506e0b649ee760e761ce5a27d81c263fe2a3eabb32f3a98e1c43bac083f06b8e0d38e010152c63d237a164c031cf91b"
+      }
+    },
+    "1022": {
+      "eth": {
+        "price": "0",
+        "proof": "0x3d13ed8a2eb80de90b1ced015a8908e7ab7ab096bcfa49426dd9661110389946484474c753333b71b40953c2d8f114d74f671d845089b4104a4d6687ae3bd3b41c"
+      },
+      "dolla": {
+        "price": "51000000000000000000000",
+        "proof": "0x47761782fcaf41ae09d24dddf2c519a557407d0ddf108ea7e35755fe72e1822338ad9afddc847eb120c6728e4b426310e1798b97d032870e217359105648e55a1c"
+      }
+    },
+    "1023": {
+      "eth": {
+        "price": "0",
+        "proof": "0x0ff4ff43aa73d4cc71da7a90e2a712d060a1185823cfaa300c9c7bc3903672ca0ae9a9f064475b742cb1da9390fb9a2e667929a68fd483d118902b1210fb01081b"
+      },
+      "dolla": {
+        "price": "63750000000000000000000",
+        "proof": "0x96dd6fb79cdfb2fe6741ef6eb6acc655350a30c9416c7af103b967121963a7cc371e9d1fe38a0fa20ced7f0df6ab407df57d8f87d06273d0662e561dd41baf301c"
+      }
+    },
+    "1024": {
+      "eth": {
+        "price": "0",
+        "proof": "0x587aee3df853e75418c0455d33c26c8b24394061c8628aae6a7c32685d01d5d67796accbca139f318cd3732357ac8d3e56379e2651090a53889da70e3ad3f2a41b"
+      },
+      "dolla": {
+        "price": "85000000000000000000000",
+        "proof": "0x5a367e4b23381aee508cabbbdbe9aaa5dd9db2724a4f4642bf688350e5e3709e564c85e483624f782ceb82a01d01a4ce1191188140eafa38327545723ab84b661c"
+      }
+    },
+    "1025": {
+      "eth": {
+        "price": "0",
+        "proof": "0x3dd356796933312b4e55648dda67a95413a4554de99829734518db513dcb26e574adc0a7d94e72cd16a9ab8a4bda4617e2cc1cbdb198197602ebb850b9e6ce2b1b"
+      },
+      "dolla": {
+        "price": "106250000000000000000000",
+        "proof": "0xe30ed6e724f9c45a10e595c858d245d15992ee518e6243870b9444cbc23f00ae4eb5cbc3779253a6987f17c8cc310e088e5e5ed2c1918c303757a43b5e00c4f61b"
+      }
+    },
+    "1026": {
+      "eth": {
+        "price": "0",
+        "proof": "0x722fe2f92108d2e70034a97ec3848abb6b22de2e98ee58dcaedab5f1b5b686327c4fc92ca13d1ef2a0be1cb72a977de1763a24781d84510cdbeca15c503631741b"
+      },
+      "dolla": {
+        "price": "425000000000000000000000",
+        "proof": "0xe2025ce125e1ac1f4c431bbcb92685b7107859ebece7d5550ee7ec085ac76ea53c5fa13e44544691c5aefb8efffb6e6c00e211c9c4e672dce2ea481131d2b69d1c"
+      }
+    },
+    "1027": {
+      "eth": {
+        "price": "31450000000000000",
+        "proof": "0xbbb7cc00dd18ffe7b54c748a3d7d6fa1160a771e3c857321585787520c0de643140f21bfcc9699c4dd01381168530fb96e259154812b286cec7f3ab9ee7bf45c1c"
+      },
+      "dolla": {
+        "price": "637500000000000000000000",
+        "proof": "0x6e4e0a8895c825cb7d0e28d93603ff24485e5447fdf61333e1cc1ef6b11f92246496b81c6f88ea29e4d8f2dc42016fc11d1402dd9126359077b0259ce51b38821c"
+      }
+    },
+    "1028": {
+      "eth": {
+        "price": "46750000000000000",
+        "proof": "0x6c6e1fd4593dcf10e0f5b3f65af7c48f182523255b2a9074f60b6a51b6565c644ea83d2b499f8b0473590f7d50bf5689878398a338fc65ee20dfe0c5df94c82c1c"
+      },
+      "dolla": {
+        "price": "935000000000000000000000",
+        "proof": "0xb4161dea9d54d2c6adfa89d03fcc534d32ae6149b9a65076f8b4c6ea4d77444956693647c3cab806dc910948547a426404b4195045f9c54fcb6d643f6a8cdbed1c"
+      }
+    },
+    "2001": {
+      "eth": {
+        "price": "0",
+        "proof": "0x6d0ff44d0362acefb0edff585c24a893d949ccace1d3c32579ef1ee3c10c0d4d0c14b453aba87c8a69e4954133c9e19dd0ac08fe24afa0f0af2d9c6f7a1660301b"
+      },
+      "dolla": {
+        "price": "1700000000000000000000",
+        "proof": "0x90585de1a6a18b5998c8c94c9549c220241add3a4e42237bac416836eecbaab600ce08c3679c921604acf704495f65a55e49982f669958e10d9f3bea76b520661c"
+      }
+    },
+    "2002": {
+      "eth": {
+        "price": "0",
+        "proof": "0x2279103745b5d55e0790c344dd54059810acaecbe42be8875464b354e660207d5b37b45313ec867c08e55eaa58a19d484eb4bd6cfb330b3bfec60f1cd69b9bec1b"
+      },
+      "dolla": {
+        "price": "4250000000000000000000",
+        "proof": "0x47e9f989d2d21e7ce56d8b14989bacf839a2403625a2250581f764abc73714bb368f3b55aeb6e649631687353b47d1cd4c2afb76161b6ee7acd01c5321d982061b"
+      }
+    },
+    "2003": {
+      "eth": {
+        "price": "0",
+        "proof": "0x975551ae444a43c2925467c551036ce144faf9edfc3d651e0977ecdcdc1286e5176f99dc4b2233af97eaa2628955818d6d9014930d18fcdd137b98b61fbbac231c"
+      },
+      "dolla": {
+        "price": "5100000000000000000000",
+        "proof": "0xd893ea3b407e23b3a26ffc35b0c7547bbb5673f05d34474cb1e80cb7f8b0c279351dfdb73486b1dd88da0329a574167b923cd774947b46776c0b2a21bf8ba8041b"
+      }
+    },
+    "2004": {
+      "eth": {
+        "price": "0",
+        "proof": "0x24068c15962dc484170d05d625f4f0645f32fba62ee0e80ea3aab4e3933238da0998060ccd3725ca7cf621da73b3a220d90172abb7fd4af20f72c9fd254853781b"
+      },
+      "dolla": {
+        "price": "6375000000000000000000",
+        "proof": "0x4155c78bbcdd1e586c19a998daa214111a58d7017381c2fc57dab791510ab50a7a051e614d5bb245775c42c114dfbb212379a6e8e0427b47fa4b6c3c5022e9721b"
+      }
+    },
+    "2005": {
+      "eth": {
+        "price": "0",
+        "proof": "0xabb6fad3b20b1dc55c64a29f14a4e81de89c59258f1aaf75ac5e44c76cd5f312775d4f58718ff12fddf98e92f9d5b51a492a6a0fc6456b44272a35209772c10c1b"
+      },
+      "dolla": {
+        "price": "21250000000000000000000",
+        "proof": "0x80b8d3d15686730ad911bd3cdd9a2f28b86425cb12b5dff3e10af7a96c75008c0e3f3a92363be736339addbd5670901246d5dfb45291eec73fe4409c241ba7e51c"
+      }
+    },
+    "2006": {
+      "eth": {
+        "price": "0",
+        "proof": "0x81cb4bad98e6b0034fdca76e889cb8b22266a7b22c6fa2850087397f088c811d42fa5a8968da6460bb021bd22a21a0f0656d045ccc2a7738cba3905dccfa942a1b"
+      },
+      "dolla": {
+        "price": "38250000000000000000000",
+        "proof": "0x52763f36ca9e0204e3a0a2761895bc11f33c8012f4cb90e38d7ab649b904dc5a54c7b74a76131385771a353acd78b6da61fd278806a55b6e37cf6784d4cbc2071c"
+      }
+    },
+    "2007": {
+      "eth": {
+        "price": "0",
+        "proof": "0x1868dcf051a85a2b40c76216a813acc8a84b44a5a21977c34a1bceb4f622e7e330d8cc19d439cc024edd2e7ac4100c7497f48e2fffb014b79d99bdbf227c195d1b"
+      },
+      "dolla": {
+        "price": "63750000000000000000000",
+        "proof": "0xdea87a1a9faba69791332cc490dbdc6d166e183d7e834c0ecee44a60147ba2237acbff20074b6137e471eb97eb12770022ba0d2596c6a30489e9ad80fd0a8b5a1b"
+      }
+    },
+    "2008": {
+      "eth": {
+        "price": "25500000000000000",
+        "proof": "0xec42acceab01a19840abcd17570a811ad6019f6fd94e746c8146af18d1c385cb0c8c98be8205431c53829980b0bd5d91502257954c549f5e869dae5d38229efe1b"
+      },
+      "dolla": {
+        "price": "0",
+        "proof": "0x27fd1c5272d37c1e768b0c7c5cee6bca105a9f698df05caada8a169487c5b1224607c5bd97fbe0a18931659a7edb414b161ea0bef7aac4643afa07433ea03b6b1b"
+      }
+    },
+    "2009": {
+      "eth": {
+        "price": "0",
+        "proof": "0x12d82548ca4d168fc224a706fa0ce89363423a83b30d924a41ccb24467788f5e19605b64ed9ce07c8ad96781af3572508d700cdd67a2e1b0412e976d6f404b121c"
+      },
+      "dolla": {
+        "price": "212500000000000000000000",
+        "proof": "0x844c136b05b8b516edd85311bdd4732c0c1ab299c767868590813a120603c16e5ea7bea294aafed7d3e41b318bea80ad8206d1910751ee12f5b3b8322dc68e4a1c"
+      }
+    },
+    "2010": {
+      "eth": {
+        "price": "0",
+        "proof": "0xb679a317b4e54e775f2e5efb5cea1861a4e93193463859de4bebe6a1b13dec997db91b9f21e11acc0abb40201a32b446c1cd3a7cf2adfafe6fb8ad86848cab021b"
+      },
+      "dolla": {
+        "price": "425000000000000000000000",
+        "proof": "0x0af7b7c6ce1b27ad359dcc8d0e8038f09212696cee8aa381347a16a468b903636872b77ffeeb417edacfae7a8d42afa9d46b55a87e523abcdc9a7ae63df058ab1c"
+      }
+    },
+    "2011": {
+      "eth": {
+        "price": "106250000000000000",
+        "proof": "0x479ba60113a817fae3a601ce34f99b15826a6a953bf69b3959669cc1196b74236aa37d67e45880b92da6c0afb6b22c1dff1a702bf49efb4eddb8ff814639e1071b"
+      },
+      "dolla": {
+        "price": "2125000000000000000000000",
+        "proof": "0x299b21bbcc4054896d6603c2476e6d2f96c29f5edce3d8c98b9baf08cafdd33e17c1054a1f38e39c844f65f370e36f3e54ee86f2e85b220f154e3052f9a89e2f1b"
+      }
+    },
+    "2012": {
+      "eth": {
+        "price": "425000000000000000",
+        "proof": "0x25f63429736af9e2301fe99a774986baeddb1e30ab86d5cf295903de3e08319447cc17327c60213163aa7e147078be92dbb2ec1e3fac36b0d7096467c5356f0f1b"
+      },
+      "dolla": {
+        "price": "8500000000000000000000000",
+        "proof": "0xf30c0025b8d062de73437096126f338eeeb675c343efae1cd3cf1f1a65d8775108c9998af2d71e2875b3f9b9ef358fbeeee25e4ab92b408041bf4540d5cc61a61b"
+      }
+    },
+    "2013": {
+      "eth": {
+        "price": "0",
+        "proof": "0xc1e3595899754da0ee2e705cd989fdeca0a03f06ecf75f23255847277922cebc5e427be150eeaf4ad069e867316cf0d65a7586a4a481619ea777623732ba478e1c"
+      },
+      "dolla": {
+        "price": "25500000000000000000000000",
+        "proof": "0x70fea44af0a5c4da0e9e9e044b37161ab2b8e65ac45b2ccf6c9f04af44964541186cd01593117f544a6ad3ceee0b15a800127439307dad66f8a6946ff082cc3b1c"
+      }
+    },
+    "2014": {
+      "eth": {
+        "price": "0",
+        "proof": "0x55b66bc83bf96a8d3fe1f8dbd1a002ff2d9b2ef7bb9ea087eebd04e83399c3c32287c56cf14982877da0e6a2f69ab340835034f05a72959a69eaf6e73f51235e1c"
+      },
+      "dolla": {
+        "price": "85000000000000000000000000",
+        "proof": "0xde51494deef9f5a2063baa82f42a9cb93aa0dbfaf11966995487c14db5d0fa73015e2741c0e84841f418dccea0b387ce98518c5acb0875fee87aec59e01043ef1c"
+      }
+    },
+    "4001": {
+      "eth": {
+        "price": "0",
+        "proof": "0x581e0d5bbc0603cd0eb601114d2a841f1c8ce3594e869816781c4ed747db839b1ebadddf15b14240c267356ae03ad8ed55273ba6629e1e44fb6905ad5ffe4e031b"
+      },
+      "dolla": {
+        "price": "850000000000000000000",
+        "proof": "0xec9c5efba0ab4de2e8f59a90a2ab2a632f07d021fb7f5809ec6256afeda5ede846b804e0350c402f0df6bc7aa56be44d340a79792fdb813d3c22f7abd4f7a3d71b"
+      }
+    },
+    "4002": {
+      "eth": {
+        "price": "0",
+        "proof": "0xaa1692a3775a42a2a66273acf63d91f1d7c7f356c33c2d4c5c2df0781ac7e0d42d64a2646da882864972cce6b5d6c6ea2f4ba5497efcbb2f94105ffdc8b0c7ba1c"
+      },
+      "dolla": {
+        "price": "4250000000000000000000",
+        "proof": "0x868ba454d581759dae1f8be753f32a4f6bec2750c20363cba52c5ef22f0f304243c81e63e883a883d2b654d13112e408eb2bb4a38421e25becec5eb0504383b41c"
+      }
+    },
+    "4003": {
+      "eth": {
+        "price": "0",
+        "proof": "0xe0e6c653838ae3aa493bdd27036a4cb9464f22748b4c83dab7dc4615645431a7196b69332b07024ae4a63fa61db4e8cf7a48f53dbc58d5893575b5b9afcc7f0e1c"
+      },
+      "dolla": {
+        "price": "6375000000000000000000",
+        "proof": "0x6bf6a3bcf03a4d4d4b3b0265134f1007947d5807864dcb779ca14fdb6ffec3ae2daae3359970e68ce130cb3ef398ee9bf038b108a7fd779d1435bd776588c6c91c"
+      }
+    },
+    "4004": {
+      "eth": {
+        "price": "0",
+        "proof": "0x512a8c4d51164d73abd21dd5acd95f880ebd2ce65ee7db4d1be299b3cb3effa17d624e2af1c420c9480831432d6020a70e9ae21eab47cdf7a436f0920078652a1b"
+      },
+      "dolla": {
+        "price": "12750000000000000000000",
+        "proof": "0x5c229ff53729f5fdb6fa605f1c1453cb4c6590120cfca5511f766ab12a7ae61a428c34d71e8d3ce6da6c51fdb327d91d3899bd57bd56c2a7b78d32e96cb458751b"
+      }
+    },
+    "4005": {
+      "eth": {
+        "price": "0",
+        "proof": "0x86dc5def9c5c7c68549180d150b6622f9c74aa9247b6d28f3f4c571ac9de7e9f7de04e09aad0271842c5fafd844e94df95ec1d67f9259427a32d76cead9037de1c"
+      },
+      "dolla": {
+        "price": "21250000000000000000000",
+        "proof": "0xb102f355f3c13c39bfe1eb180928a015bac78447cda3ee07fc5e3591cd880ed011c7d503d667a133f294fc28cbe4708a35d93162bf9b4da69e0458fecfe224551c"
+      }
+    },
+    "4006": {
+      "eth": {
+        "price": "0",
+        "proof": "0xa52dd3e3ce3492295bb28ef956121b761761ed030bf87557a4e7f96183be9f78428cdf6406cc4a536721fa72a719cb7f782838e2c2dd30d9090f0d51086d2f831b"
+      },
+      "dolla": {
+        "price": "63750000000000000000000",
+        "proof": "0xd7f16dd6563024798bca5c713500b147f84fc34809116f9745cbd1c77ed0888207e8fe6b2ece7eab9d1c3979f36d4327c691591bc8c4c2842dcced73d703ea6a1c"
+      }
+    },
+    "4007": {
+      "eth": {
+        "price": "0",
+        "proof": "0x0ad9beba1af85b59a2af75269d23efcdc938ec527a01c4ea0d18a65d8fec422c4a82c9e2f6eaf8bf0435b5fc6403a01d0c7af0674fbcf8bc9e535c85384423231b"
+      },
+      "dolla": {
+        "price": "85000000000000000000000",
+        "proof": "0xc9a3afbe44afc762659565abc52df00d7c4b19881c4e8294ccdb40223e4ed3a9215d7c78435ceaed7d8d0b58f7e9f2692aa6eca0412b2070ad25a29db53d05801c"
+      }
+    },
+    "5001": {
+      "eth": {
+        "price": "0",
+        "proof": "0xc404f94d47adbd288a8427eae6a472bebf23f31033f3ad60c0c7f4e76fc720f40ad67625990ab21aef711209cf9eea7ea939237d6261e0d9e37c51d85b49cede1b"
+      },
+      "dolla": {
+        "price": "50000000000000000000000",
+        "proof": "0x33dc2c146ee0758972595c8eb313340946d6af12b2d8c1b00df7059d1e2ebe251c3513fb4345ec86ee39195bec6862f42c1f546161d5cf3879e4d23bd407044c1b"
+      }
+    },
+    "5002": {
+      "eth": {
+        "price": "0",
+        "proof": "0x3b50490db3e50c1adece983c6ac501a038dd42f24d58a98be19468eba17752067d87678c9a84443250c812127b8463c0187ecc3c9f11599dd34ce20cccae89f91b"
+      },
+      "dolla": {
+        "price": "500000000000000000000000",
+        "proof": "0x364af063d0d631ab35696c406385f048dfa404603c5ad010ed87e64db66f44c96b420aea0b34e57e0e9cd7b4b8c3d89c75c0d6aea9dfea9ae4dff69df99832c01b"
+      }
+    },
+    "5003": {
+      "eth": {
+        "price": "0",
+        "proof": "0x27d69cf859f735f60f1c6196389944c23e997a4cec227bbc1a13c87c7ac1a4ea6fe86d9e595182878f9c36b9388b3a1598193d740434c6a7742fabc2ed1c3c5a1c"
+      },
+      "dolla": {
+        "price": "2000000000000000000000000",
+        "proof": "0x6ea56403da241132dc17a2ce944389bd4c3ae646a9d046f022dc0d9a79c976104ac7886453f5719f89a4eaa37b5e73133a89f066a181402235887b6df4801f451b"
+      }
+    },
+    "5004": {
+      "eth": {
+        "price": "0",
+        "proof": "0x8c07fb9b9aefdb911ba1dbc259a602a9553e1eaa5e4c3694b32f558fb99a2c556f8bded7478c1e8eb02238ebb06df3f3e9080e8937866da9f4ec24abcd11508a1b"
+      },
+      "dolla": {
+        "price": "4500000000000000000000000",
+        "proof": "0x572b442e8c5ae8c44579c89a666727d9ea130f1e289d2e6913169ee88cdee6197837d52efc653c584616ba984b4445eb97013519d53bcf977ed8711c21bfb3161c"
+      }
+    },
+    "5005": {
+      "eth": {
+        "price": "0",
+        "proof": "0x608aa7a8b5d17853d3fae1fae7986268902813fc7337ecd7a7628ac46114be8c5a6f0d93728b5ef3deba5f4ae53bc5219b4eb51445e774f10d090b25a560fb0a1b"
+      },
+      "dolla": {
+        "price": "10000000000000000000000000",
+        "proof": "0x715894f55b546cc133d83ce5a94ec641eceac6e52ea6d30bbd076a97c6b63bab7c0603c712877977f3e9ebb949227b9a3a02b01406de495639c309c99d3383641c"
+      }
+    },
+    "5006": {
+      "eth": {
+        "price": "0",
+        "proof": "0xcb6a29c02448b61fd1896a06cc6409a1b890624cf00aea702113e83e0daef1ee1fbba40edeb5c261c751e10d27ca062ab5d9b03a273fe7afcfbfe567e4ed9c101b"
+      },
+      "dolla": {
+        "price": "15000000000000000000000000",
+        "proof": "0x5955d76d74c80a139e89fd8cb3c17394f24614fefeafc46aafc223264025de1264173056d5b7c800565e8a81fce11f9a7873d4f1e1b7a449f74b364c325383221b"
+      }
+    },
+    "5007": {
+      "eth": {
+        "price": "0",
+        "proof": "0x7bc2a632db17c58b7d2365fcc2ff163db27e9cfdb9fb170386c56f87f8e4dd3e44dea9b21b0e4d6ac86eb4d94e273367d86e30972c448c7d09c716670d391cbb1b"
+      },
+      "dolla": {
+        "price": "20000000000000000000000000",
+        "proof": "0xfc406936c471975d50fcb109fe7d9a4cfe77c2aa923fb1739892e3bee5a787ac1c003064e6d620499c2606f80148e9df67bc9f4ab913c876c0cbadc4395fc90a1b"
+      }
+    },
+    "5008": {
+      "eth": {
+        "price": "0",
+        "proof": "0x1443bac44f7de6f66c58ddb23221f9e37cf34b24bb881c6919b6d4f2a5688195318ba8e7287a04fe44eca4a4596ab7eb02c1a60bb7721bb037a00e3a473e769d1c"
+      },
+      "dolla": {
+        "price": "40000000000000000000000000",
+        "proof": "0x53e83b745117b8ce65f84fea8b63ff28b1af540f842fd524199907d97490978926596d7a3b820d68dcb0b9ceb3e4caecfd3c378f6fbeaec7b3449996625d7be91c"
+      }
+    },
+    "5009": {
+      "eth": {
+        "price": "0",
+        "proof": "0x69f7f292b9c2d217122e4058a4b3e579bb4fb9938217678304d1cac562d0b6953047718c67d53b3a720f16d9ead2972106587335e6a9a72e139a22b7cfd333891b"
+      },
+      "dolla": {
+        "price": "100000000000000000000000000",
+        "proof": "0x016230d38bf0fa7d1dfee58f3b9719cc3a71e5a28baf8954fa797fb0fd0427cd0c2333852e7cf8c2cd231297b1edc0552ac26f6b7e565e34be7daebac55a1e441b"
+      }
+    },
+    "5010": {
+      "eth": {
+        "price": "0",
+        "proof": "0xeca55f96c2e41f0251ed2b9d513333b8620339a8044baa60da5fd6c67b90566e1ccd77bb6082c113deee74c5f944ee13fc335b75f4fa7a97f223bb61b9f3674b1c"
+      },
+      "dolla": {
+        "price": "175000000000000000000000000",
+        "proof": "0x594d8fc402f0935ac309fe9531390b0dbfc2d37d22f4ce57224eb385a70bd24c7a21b94c0bd61146e9558ebe7655dc4cef40ee88493e0a47a7f3113e05231b1e1b"
+      }
+    },
+    "5011": {
+      "eth": {
+        "price": "0",
+        "proof": "0x0bf15b288d288a284b555e53dc07f9e7cec8cec63ece763ff9d920366f555a403b55c9ba5f1dfed7e317ea785a0535496fb6323a5724281fbeeb2dc3ff034f261c"
+      },
+      "dolla": {
+        "price": "250000000000000000000000000",
+        "proof": "0x0d7929f868d3a273130280619008b1fe55f4e2780a1e043c0c3bac5f7139652421cc678b127a122b0f6602fc58126511b16e97ecbd7fe06553a1d9b5bbc920a71c"
+      }
+    },
+    "5012": {
+      "eth": {
+        "price": "0",
+        "proof": "0xbd7aad9e6482dfbfcfbfa159bb0bd1650dfa95f0840bb9760be028ccf11025e775ed6e20bb408869591ba90f44449b5e2fad736e9a89e1df0b0f2071b3bf6bdc1c"
+      },
+      "dolla": {
+        "price": "400000000000000000000000000",
+        "proof": "0x1e991cb3f8238d661e389c607a65b1947e08d189f5826ba47ad1551507d76e0e1cc46c4c1034d36ca85f7e31739d5373fa0f49560e2f69c42af4741dc2b8010e1b"
+      }
+    },
+    "5013": {
+      "eth": {
+        "price": "0",
+        "proof": "0x965576412cdf268f410301ab7dbf83758dfd18941b19b1820ec33dcf7f45f8660aaef82c713fcb1a4fb0446eeb4249458238724bfc50638c7f2a7cb780d5aa131c"
+      },
+      "dolla": {
+        "price": "750000000000000000000000000",
+        "proof": "0x9b0f863231bd23ab7fb5ada220ae7285fa74792814ffee33bea7b73845cad621080d620df5dc8e286f73d9084323b9a46ff4f1915c1e6799358ac10e77c7e95e1b"
+      }
+    },
+    "5014": {
+      "eth": {
+        "price": "0",
+        "proof": "0x03233c0b18854143b21401bf2098cb1c447f61c84dd7479d2e1bb3eb4fb95b7f6b01ba5564e5ffd9995347a525e72b9851eb4230376c3fe451bdd7378c48e6431b"
+      },
+      "dolla": {
+        "price": "1000000000000000000000000000",
+        "proof": "0x4ba0269648bfa4fc3311abfc3ea0ddcbcd236bd1add20762f11a3a26a8d010fd2bb5bf25cca1a191594f5a5ec8159fd0b85300b7160994c2c71625f075d218941c"
+      }
+    },
+    "5015": {
+      "eth": {
+        "price": "0",
+        "proof": "0x4acb56d9482df52afcbade106ac6181e08e38537fb6aa64f7939d54923331ee01af4b0f21063dfb23814320b821fd5e917632268176db04e3d1e679aebc9bfa71b"
+      },
+      "dolla": {
+        "price": "2500000000000000000000000000",
+        "proof": "0x3eae665cd73bc50f94c4a866ee78d6a8067a6f042d3420160fcc68c3605585cf44649d7950b59559c23442ef5b8f9adafd497e7d074abfa6644dcb7e93bcf2f81c"
+      }
+    },
+    "6001": {
+      "eth": {
+        "price": "0",
+        "proof": "0x61c5c8bede50fb5109fcbcf52d43ea2be5677a8bbd06755aca5530752441f41b268313698035a11a6be4c90bfd171accc8fa9e4e4d24fa78c686ce270077a9bf1c"
+      },
+      "dolla": {
+        "price": "5000000000000000000000",
+        "proof": "0x7a7015dcce56e0cee6784eb779e676c2eaa5e3b3acb20713970bee8ce106b36720428ba6fd1aacebf75b57de6d93c76ef772d62dc4be87a753ca909e3259df541c"
+      }
+    },
+    "6002": {
+      "eth": {
+        "price": "0",
+        "proof": "0x6cd68d75a9a62298e8c8604d9b520cee39ad13b78d7979cd7b167aa1334df2072e565ce851047fdb26031b4ed04bb436b5344ed7dc1555dd6d2de707482cd2db1c"
+      },
+      "dolla": {
+        "price": "10000000000000000000000",
+        "proof": "0xac7f7d8497f1eb492ee99c9f345326d84f3c399e01a5f6446d058aff3f95eaa67112a2d81eeb8167c69a21fc3bf8bdbcdbe3583d5a785799444a59bc61c83e191c"
+      }
+    },
+    "6003": {
+      "eth": {
+        "price": "0",
+        "proof": "0x5c407f42dfee4d784a0b2e135e67b792d13f638fe1313bb76c691e5ee7fb697279cf2975d349e3e91d3ee55551b84cd544e5aeed4f91a687c15386610cf63b9c1c"
+      },
+      "dolla": {
+        "price": "75000000000000000000000",
+        "proof": "0x09986c4f8b9763cc73cd272c859d5917ff62c293c56954246340accf8713e8bc7e7fda2b98363d3e62a38c6e2956123909bcab5dc4c432bb7c7703230d02d7061b"
+      }
+    },
+    "6004": {
+      "eth": {
+        "price": "0",
+        "proof": "0xf902d8daf472db19004667649b3c4c2f05f091302dfa223e54ecbaf68ded024568f5032d81f9dd36680cd6d8da2bbe40297c7c367fe1fe6d41de3ef8247c3a841b"
+      },
+      "dolla": {
+        "price": "150000000000000000000000",
+        "proof": "0x00198385ad1bb447f39b3e351e173bc90ff9099be9665b3ef48354bcbbd40ab3095928b9a0f4fffea9d8ac7dba8a9af52f387a7b2365108aacb15d4e3d6e1ac41b"
+      }
+    },
+    "6005": {
+      "eth": {
+        "price": "0",
+        "proof": "0x94c1e7931692d399234edaf62d37bd2439cf39ad394ab1aa16866a3e6ca7006e09f2e376dca1aac1af3126eab0a6433e530efd446a8e042f92bd0279a01c88131c"
+      },
+      "dolla": {
+        "price": "250000000000000000000000",
+        "proof": "0xb3cfebdd270da0282f87246b052aec31f022333e1b2e40b27ea21956b28132963e6067942fd2342c3fffe2eea6100fd2bddefa5c2b528a452d469e2194cf060f1c"
+      }
+    },
+    "6006": {
+      "eth": {
+        "price": "0",
+        "proof": "0xd3f5419f1ea9e6513d71bd5e2c3d24a6845989ae055ddd1d6ad7ddbd3b1d74905ae1ecd773ed6c8ee499fad0104441e710d9e9e6ce859b488c58f9e99f2976041c"
+      },
+      "dolla": {
+        "price": "400000000000000000000000",
+        "proof": "0xcee56bed4e1ef708d777b5390c8bf1616e65b4df062816edf9ca9d59033079420daefb8c416a0d103099c71e30e995ab17fc528ef9c90b1e7ebf13b06d8b6d781c"
+      }
+    },
+    "6007": {
+      "eth": {
+        "price": "60000000000000000",
+        "proof": "0x95e56a737d980795fea416e927a25a66dca646b5eb1470da5ba90503cc1b420f0a7537cd224f2722a5fb43677b3ab90cdc44fe4be7b8fb3ae80ebbae9f5a82341b"
+      },
+      "dolla": {
+        "price": "600000000000000000000000",
+        "proof": "0xbd18688e7f08c5315b2a0edb28242d8cfba71360e054d2159e00bf76adf8182c56b382a8df2b774c2a1ddfd73396c4855d5624f7ab9e1c17bafebfb7764f78841c"
+      }
+    },
+    "6008": {
+      "eth": {
+        "price": "60000000000000000",
+        "proof": "0x05265a8a5a174d82bcd83dae889cf4c07842f015595f6679759239774b59181e5aa5c66d2d21753e1db793bf57339f7a099087332e4de42ec978047f5d4976a91c"
+      },
+      "dolla": {
+        "price": "1200000000000000000000000",
+        "proof": "0x1f6a7f252396e781d1700d03dc08f25b965de407874e31fa1cfea226ba822dc34df57d9620d438be4bb3b73fce0f9cbf841b06851d4fffc3bf931bb4c214b8c11c"
+      }
+    },
+    "6009": {
+      "eth": {
+        "price": "250000000000000000",
+        "proof": "0x5198ed6fd8b7e03f754d19455b4c5f97119af37966b7f0556f55300ec4c5f10f391962b5a06f49978a0ce59af23d9d330caa8369c338e1860156cd8b32c7e3491b"
+      },
+      "dolla": {
+        "price": "5000000000000000000000000",
+        "proof": "0xf2f39ca4da7913c11182c18b6e1f206fd82d4190a1b9cb98b3f85c3ada0ddc7b7e882ccb2945d78112725ea7e95333a61a684d621941bd248d72f06d5d8432e21b"
+      }
+    },
+    "6010": {
+      "eth": {
+        "price": "400000000000000000",
+        "proof": "0xcb2d939f4e99116daa7d4256b2b0c8072f54df07e9885aea3fa9506e39540da430a87522d29fc5b63f7d68b1c32a2011c780ce3dde5e6acad47a136e092439c11b"
+      },
+      "dolla": {
+        "price": "8000000000000000000000000",
+        "proof": "0x6eb775837609e4a997f3ac879f75066cafce85af676ce6dbf7bf792dee5e6383218f58dcc96bf789c8c2360a34e0e2f19d0488a4cefe3c1108a8dcc57a7eaf7b1c"
+      }
+    },
+    "6011": {
+      "eth": {
+        "price": "500000000000000000",
+        "proof": "0x1df142d08f6f1b8ebb4db79d612e34ae871728f4c269cb14eb98e97c3c92860766d54160a65a852d7086366ea180a04c93252efa468f6c3a94f2d56d6e3dba461b"
+      },
+      "dolla": {
+        "price": "0",
+        "proof": "0x8b7f9c4b01732abf646d9e8fbe2c5f2d372a1ebb0657e4d38375350c4c0fa36c60a2170a5c838dd17db2a2c449a77d5bcf393acfe3450f17d66967cd530c34461b"
+      }
+    },
+    "6012": {
+      "eth": {
+        "price": "500000000000000000",
+        "proof": "0xa74919f117107d979706fa3d11f94fc31a656bf82a3ea1cc21dcdb2933feba324c8874f05deb61076f871b8a84ab94ab54c16617d6fd9a5e5d381b7dba3aefbf1b"
+      },
+      "dolla": {
+        "price": "10000000000000000000000000",
+        "proof": "0x81573c46798ee6b3b45b642061b98a3b5a85b85ee28427c4ab84e9f8c3b7a4734d8a95839d4e7ed431f4c4dc89b99bf62925016bf0a3acd9c6886eae5ddd8d4e1c"
+      }
+    },
+    "6013": {
+      "eth": {
+        "price": "750000000000000000",
+        "proof": "0xc5c8b6c76b63bde5ddfc80d3ac1ac590d766a733a17aac77009c1c1c935a334a6438c649c49bc5529fdb7ebd9c3523e1aecdac80d146b4dab3968e1d3699aac91b"
+      },
+      "dolla": {
+        "price": "15000000000000000000000000",
+        "proof": "0x25fb76ff0ba43eff70386f742ece56281816c0f6fa8577a45aa1087aee6e5eff4aa038f7aa364f0788f72a967af7fda4b98c7a7ce1e0410362b325b88d75c6291c"
+      }
+    },
+    "6014": {
+      "eth": {
+        "price": "1000000000000000000",
+        "proof": "0x785bfddcfe0914d74459361bf9031c7f44ba1ef07524c44b294608b1f9cebee11d5386a52458d66aebb9336dd4dc9d91bdf7dea833d90129eb660ac7964c5eac1c"
+      },
+      "dolla": {
+        "price": "20000000000000000000000000",
+        "proof": "0xd3b0c6b449db1237670c9fd7d2180bcc71be165d420571da8cd5f53bb72976d87ef00b45f53979c0f4eea6f03002032f376df7139da072e22c8e15592b99ebb61b"
+      }
+    }
+  }
+}
