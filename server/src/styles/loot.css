@@ -1,76 +1,22 @@
-@keyframes twinkle {
-  from {
-    background-position:0 0;
-  }
-  to {
-    background-position:-10000px 5000px;
-  }
+html, body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-loot.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
-.stars, .stars::after {
-  bottom: 0;
-  display: block;
-  height: 200vh;
-  left: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+.head {
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
-.stars {
-  background-image: url(/images/stars.png);
-  background-repeat: repeat;
-  background-position: top center;
-  z-index: 0;
+.head .right .link {
+  border-radius: 50%;
+  margin-right: 0;
+  overflow: hidden;
 }
 
-.stars::after {
-  animation: twinkle 200s linear infinite;
-  background-image: url(/images/twinkling.png);
-  background-repeat: repeat;
-  background-position: top center;
-  content: " ";
-  z-index: 1;
-}
-
-.head, .body {
-  position: relative;
-  z-index: 2;
-}
-
-.section-1 {
-  padding: 100px 0 50px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.section .wallet {
-  color: #F9AF00;
-  font-size: 24px;
-}
-
-.section-1 .wallet a {
-  color: #F9AF00;
-}
-
-.section-1 nav {
-  margin-top: 20px;
-}
-
-.section-1 nav a {
-  color: #CCCCCC;
-  margin: 0 20px;
-  text-decoration: none;
-}
-
-.section-1 nav a.active {
-  color: #FFFFFF;
-  font-weight: bold;
-}
-
-@media(max-width: 430px) {
-  .section-1 nav a {
-    margin: 0 10px;
-  }
+.head .right img {
+  height: 53px;
 }

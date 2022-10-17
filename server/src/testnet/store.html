@@ -1,0 +1,96 @@
+{{#layout "_game.html" 
+  version="5" 
+  path="testnet/store" 
+  script="store" 
+  style="store" 
+  network="testnet" 
+  title="Loot Store | Cash Cows" 
+}}
+  <div class="container">
+    <div class="box">
+      <section class="section section-1">
+        <nav class="tabs">
+          <a 
+            class="btn-pixel btn-pixel-warning"
+            data-do="tab" 
+            data-on="click" 
+            data-target="#rides" 
+            href="javascript:void(0)"
+          >Rides</a>
+          <a 
+          class="btn-pixel"
+            data-do="tab" 
+            data-on="click" 
+            data-target="#boats" 
+            href="javascript:void(0)"
+          >Boats</a>
+          <a 
+            class="btn-pixel"
+            data-do="tab" 
+            data-on="click" 
+            data-target="#bling" 
+            href="javascript:void(0)"
+          >Bling</a>
+        </nav>
+      </section>
+      <section class="section section-2">
+        <div class="content">
+          <div id="rides" class="category"></div>
+          <div id="boats" class="category hide"></div>
+          <div id="bling" class="category hide"></div>
+          <div id="hustles" class="category hide"></div>
+          <div id="cribs" class="category hide"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <template id="template-item">
+    <div class="item" data-do="modal-open" data-id="{ID}" data-on="click">
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+      </div>
+      <div class="info">
+        <h3>{NAME}</h3>
+      </div>
+    </div>
+  </template>
+  <template id="template-price">
+    <div 
+      class="price" 
+      data-do="mint" 
+      data-on="click" 
+      data-id="{ID}" 
+      data-currency="{CURRENCY}"
+    >
+      <span class="crypto">
+        <img src="/images/crypto/{CURRENCY}.png" />
+      </span>
+      <span class="value">{PRICE}</span>
+    </div>
+  </template>
+  <template id="template-modal">
+    <div class="modal">
+      <div class="overlay">
+        <a class="close" data-do="modal-close" data-on="click" href="javascript:void(0)">
+          <i class="fas fa-times"></i>
+        </a>
+        <div class="loot">
+          <div class="preview">
+            <img src="{IMAGE}" loading="lazy" />
+          </div>
+          <div class="info">
+            <div class="name">{NAME}</div>
+            <div class="attributes">{ATTRIBUTES}</div>
+          </div>
+        </div>
+        <div class="prices">{PRICE}</div>
+      </div>
+    </div>
+  </template>
+  <template id="template-attribute">
+    <div class="attribute-box">
+      <h6>{NAME}</h6>
+      <span>{VALUE}</span>
+    </div>
+  </template>
+{{/layout}}

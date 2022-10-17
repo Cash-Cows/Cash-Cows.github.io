@@ -1,0 +1,260 @@
+html, body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-loot.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.head {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.head .right .link {
+  border-radius: 50%;
+  margin-right: 0;
+  overflow: hidden;
+}
+
+.head .right img {
+  height: 53px;
+}
+
+.body .container {
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+.body .box {
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  padding: 20px;
+}
+
+.category {
+  align-items: top;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tabs {
+  text-align: center;
+}
+
+.body .btn-pixel {
+  margin-left: 7px;
+}
+.body .btn-pixel::before {
+  left: -7px;
+}
+
+.body .category .btn-pixel {
+  margin-bottom: 5px;
+  width: calc(100% - 12px);
+}
+
+.item {
+  cursor: pointer;
+  margin: 10px;
+  width: 220px;
+}
+
+.item h3 {
+  color: #F9AF00;
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+
+.item .preview img {
+  width: 100%;
+}
+
+.modal {
+  align-items: center;
+}
+
+.modal .overlay {
+  background-color: #000000;
+  border: 5px solid #F4E8DA;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #F4E8DA;
+}
+
+.modal .loot {
+  display: flex;
+}
+
+.modal .preview {
+  flex: 0 0 300px;
+  overflow: hidden;
+  width: 300px;
+}
+
+.modal .preview img {
+  display: block;
+  width: 100%;
+}
+
+.modal .info {
+  flex-grow: 1;
+}
+
+.modal .info .name {
+  color: #F9AF00;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.modal .attributes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px 20px;
+}
+
+.modal .attribute-box {
+  background-color: #F4E8DA;
+  border: 1px solid #EDEDED;
+  border-radius: 10px;
+  color: #000000;
+  flex-basis: calc(50% - 30px);
+  margin: 5px 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.modal .attribute-box h6 {
+  font-size: 11px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.modal .attribute-box span {
+  display: block;
+  font-size: 13px;
+  padding: 0 0 10px;
+}
+
+.modal .attribute-box p {
+  font-size: 11px;
+  color: #666666;
+  margin: 0;
+}
+
+.modal .prices {
+  background-color: #F4E8DA;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.modal .price {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  margin-right: 10px;
+}
+
+.modal .price .crypto {
+  background-color: #E1C18A;
+  border: 3px solid #BD9F6D;
+  border-radius: 50%;
+  height: 30px;
+  margin-right: -10px;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+  width: 30px;
+  z-index: 10;
+}
+
+.modal .price .crypto img {
+  width: 100%;
+}
+
+.modal .price .value {
+  background-image: url(/images/btn-secondary-center.png);
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 100%;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+  font-size: 10px;
+  padding: 12px 12px 12px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+}
+
+.modal .price .value:hover,
+.modal .price .value:active,
+.modal .price .value:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+} 
+
+.modal .price .value::after {
+  background-image: url(/images/btn-secondary-right.png);
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-size: auto 100%;
+  content: " ";
+  display: block;
+  height: 100%;
+  position: absolute;
+  right: -13px;
+  top: 0;
+  width: 16px;
+}
+
+@media(max-width: 767px) {
+  .modal {
+    align-items: initial;
+  }
+
+  .modal .overlay .close {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+  }
+
+  .modal .loot {
+    display: block;
+  }
+
+  .modal .preview {
+    max-width: 767px;
+    width: auto;
+  }
+
+  .modal .info {
+    padding-bottom: 10px;
+  }
+
+  .modal .prices {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    width: 100%;
+  }
+}
+
+@media(max-width: 545px) {
+  .item {
+    width: 136px;
+  }
+  
+  .item h3 {
+    font-size: 8px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+}

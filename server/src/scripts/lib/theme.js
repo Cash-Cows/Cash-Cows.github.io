@@ -51,7 +51,7 @@
       return template.content.firstChild;
     }
 
-    static toggle(elements, className) {
+    static toggle(elements, className, on = null) {
       if (typeof elements === 'string') {
         elements = Array.from(document.querySelectorAll(elements))
       }
@@ -59,10 +59,20 @@
       if (!Array.isArray(elements)) {
         elements = [elements]
       }
-  
-      elements.forEach((element) => {
-        element.classList.toggle(className)
-      })
+
+      if (on === true) {
+        elements.forEach((element) => {
+          element.classList.add(className)
+        })
+      } else if (on === false) {
+        elements.forEach((element) => {
+          element.classList.remove(className)
+        })
+      } else {
+        elements.forEach((element) => {
+          element.classList.toggle(className)
+        })
+      }
     }
   }
 

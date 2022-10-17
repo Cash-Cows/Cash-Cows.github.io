@@ -1,5 +1,5 @@
 //to run this on testnet:
-//$ npx hardhat run scripts/phase4/2-deploy-loot.js
+//$ npx hardhat run scripts/phase4/4-deploy-loot.js
 
 const hardhat = require('hardhat')
 

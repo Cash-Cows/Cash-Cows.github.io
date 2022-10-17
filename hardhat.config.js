@@ -31,22 +31,24 @@ module.exports = {
         interval: 5000
       }
     },
-    rinkeby: {
-      url: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-      chainId: 4,
-      scanner: 'https://rinkeby.etherscan.io',
+    goerli: {
+      url: 'https://goerli.infura.io/v3/2a7154bb1cf244d9a412d1925398058c',
+      chainId: 5,
+      scanner: 'https://goerli.etherscan.io',
       opensea: 'https://testnets.opensea.io',
-      accounts: [process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY],
+      accounts: [process.env.BLOCKCHAIN_GOERLI_PRIVATE_KEY],
       contracts: {
-        nft: '0x03C048bFAd8Dd8dfe87AdaaD4463ca5D13861a2e',
-        treasury: '0x5560eCb4d47BaC8744cAecCe23a1B0b20210fD63',
-        metadata: '0x01acB1858aC0536a3CA2eA71fB2483796afb9186',
-        milk: '0x4bFDb8fa13BD9f9E946a6BDDa00907ed77b1C76a',
-        index: '0x2eD2387eE4E9bfB1Ae2Ae985B8F1d793DEbb739C',
-        culling: '0x98E8D05dcfDf30b9938A15861fC6eC0a48b643e4',
-        barn: '0xF6E1d179ee7f6bcd08960Da477b8CF1Bff99C250',
-        dolla: '0xacC82e87E4751F100FbC2B22A0984a158D5fE5Cb',
-        market: '0xB1D6eC59eEdf79b4DBF2ff4DCA014A6155178DfE'
+        nft: '0x94EDC644f44D7ad7B85520af6895146d56856Da8',
+        treasury: '0xC821c79Ca56F0E8264accE343b6c78F5DbE77D82',
+        metadata: '0x99758E4E9A1c7B5cf2D3712Be988d24C334e82f3',
+        milk: '0x8Ec8Cc5A9a027Cb1e9B77B7db16534b1Da0513AD',
+        index: '0xC1BD278934f830Ccab69E9B708f079703AFa924d',
+        culling: '0x043F962F873312c57aBb6EAdfdF221A86EbE2A13',
+        barn: '0x7De91a512De2Ab5065cED54853A2f5AF68E8E077',
+        dolla: '0x5E7c36f3508de82505f417395dE49a68187d1FD2',
+        market: '0xf01436C55B53AFAfEf04E97508ea7b9B346D7a33',
+        loot: '0x33772655da31dFFB17218b8e3A5851E9E3cc3F5e',
+        game: '0x3086c31CD25070C0b7b4FeE81dAB0DD6A9BedC34'
       }
     },
     ethereum: {
@@ -56,7 +58,7 @@ module.exports = {
       opensea: 'https://opensea.io',
       accounts: [
         process.env.BLOCKCHAIN_ETHEREUM_PRIVATE_KEY, 
-        process.env.BLOCKCHAIN_RINKEBY_PRIVATE_KEY
+        process.env.BLOCKCHAIN_GOERLI_PRIVATE_KEY
       ],
       contracts: {
         nft: '0x1A371de4634c3DEBf7196A1EFc59e620aff0915F',

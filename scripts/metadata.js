@@ -1,113 +1,139 @@
 //to run this on testnet:
 // $ npx hardhat run scripts/metadata.js
 
+const hardhat = require('hardhat')
+
 const fs = require('fs')
 const path = require('path')
-const hardhat = require('hardhat')
-const database = require('../docs/data/metadata.json')
 
-class TaskRunner {
-  constructor(maxThreads = 1, sleep = 300) {
-    this.maxThreads = maxThreads
-    this.sleep = sleep
-  }
+const database = require('../data/metadata.json')
+const milkRates = require('../data/milk.json')
+const dollaRates = require('../data/dolla.json')
+const loots = require('../data/loots.json')
+const discounts = require('../data/discounts.json')
 
-  thread(resolve, error) {
-    //if queue is empty
-    if (!this.queue.length) return resolve()
-    //run task
-    const task = this.queue.shift()
-    task().then(_ => {
-      setTimeout(() => {
-        //otherwise, move on to the next one
-        this.thread(resolve, error)
-      }, this.sleep)
-      
-    }).catch(e => { error(e) })
-  }
-
-  run(error) {
-    return new Promise(resolve => {
-      for (let i = 0; i < this.maxThreads; i++) {
-        this.thread(resolve, error)
-      }
-    })
-  }
+function authorizeMilkRate(collection, tokenId, rate) {
+  return Buffer.from(
+    ethers.utils.solidityKeccak256(
+      ['string', 'address', 'uint256', 'uint256'],
+      ['release', collection, tokenId, rate]
+    ).slice(2),
+    'hex'
+  )
 }
 
-async function bindContract(key, name, contract, signers) {
-  //attach contracts
-  for (let i = 0; i < signers.length; i++) {
-    const Contract = await ethers.getContractFactory(name, signers[i]);
-    signers[i][key] = await Contract.attach(contract);
-  }
-
-  return signers;
+function authorizeDollaRate(characterId, rate) {
+  return Buffer.from(
+    ethers.utils.solidityKeccak256(
+      ['string', 'uint256', 'uint256'],
+      ['exchange', characterId, rate]
+    ).slice(2),
+    'hex'
+  )
 }
 
-function reset() {
-  database.rows.forEach(row => (delete row.attributes.Level))
+function authorizeEthPrice(characterId, itemId, price) {
+  return Buffer.from(
+    ethers.utils.solidityKeccak256(
+      ['string', 'uint256', 'uint256', 'uint256'],
+      ['mint', characterId, itemId, price]
+    ).slice(2),
+    'hex'
+  )
+}
+
+function authorizeDollaPrice(token, characterId, itemId, price) {
+  return Buffer.from(
+    ethers.utils.solidityKeccak256(
+      ['string', 'address', 'uint256', 'uint256', 'uint256'],
+      ['mint', token, characterId, itemId, price]
+    ).slice(2),
+    'hex'
+  )
 }
 
 async function main() {
-  const network = hardhat.config.defaultNetwork
-  const config = hardhat.config.networks[network]
-  const signers = await hardhat.ethers.getSigners();
-  await bindContract('withNFT', 'CashCows', config.contracts.nft, signers)
-  await bindContract('withData', 'CashCowsMetadata', config.contracts.metadata, signers)
+  const network = hardhat.config.networks[hardhat.config.defaultNetwork]
+  const signer = new ethers.Wallet(network.accounts[0])
+  const nft = { address: network.contracts.nft }
+  const dolla = { address: network.contracts.dolla }
 
-  let burned = []
-  let additions = 0
+  for (let i = 0; i < database.length; i++) {
+    const row = Object.assign({}, database[i])
+    const crew = row.attributes.Crew
 
-  //reset()
-  const runner = new TaskRunner(25, 0)
-  runner.queue = database.rows.map(row => async _ => {
-    if (typeof row.attributes.Level === 'number' 
-      && row.attributes.Level > 0
-    ) return
-    //if (typeof row.attributes.Level !== 'undefined') return
-    let stage = -1
-    try {
-      await signers[1].withNFT.ownerOf(row.edition)
-      stage = await signers[1].withData.stage(row.edition)
-    } catch(e) {
-      burned.push(row.edition)
+    row.milk = {
+      rate: milkRates[crew],
+      proof: await signer.signMessage(
+        authorizeMilkRate(nft.address, row.edition, milkRates[crew])
+      )
     }
-    
-    row.attributes.Level = parseInt(stage) + 1
-    console.log(row.edition, row.attributes.Level)
 
-    if (row.attributes.Level > 0) additions ++
+    row.dolla = {
+      rate: dollaRates[crew],
+      proof: await signer.signMessage(
+        authorizeDollaRate(row.characterId, dollaRates[crew])
+      )
+    }
+
+    row.loot = {}
+    for (const item of loots) {
+      const type = item.attributes.Type
+      const discount = discounts[crew][type] / 100
+      const ethPrice = ethers.utils
+        .parseEther(String(item.eth * discount))
+        .toString()
+      const dollaPrice = ethers.utils
+        .parseEther(String(item.dolla * discount))
+        .toString()
+
+      row.loot[item.id] = {
+        eth: {
+          price: ethPrice,
+          proof: await signer.signMessage(
+            authorizeEthPrice(row.characterId, item.id, ethPrice)
+          )
+        },
+        dolla: {
+          price: dollaPrice,
+          proof: await signer.signMessage(
+            authorizeDollaPrice(dolla.address, row.characterId, item.id, dollaPrice)
+          )
+        }
+      }
+    }
 
     fs.writeFileSync(
-      path.resolve(__dirname, '../docs/data/metadata.json'),
-      JSON.stringify(database, null, 2)
+      path.resolve(__dirname, `../docs/data/crew/${row.edition}.json`),
+      JSON.stringify(row, null, 2)
     )
     fs.writeFileSync(
-      path.resolve(__dirname, '../server/src/data/metadata.json'),
-      JSON.stringify(database, null, 2)
+      path.resolve(__dirname, `../server/src/data/crew/${row.edition}.json`),
+      JSON.stringify(row, null, 2)
     )
-  })
-
-  console.log('burned', burned.length)
-
-  while (true) {
-    additions = 0
-    burned = []
-    runner.queue.reverse()
-    await runner.run(error => { console.log(error) })
-    if (!additions) break
+    database[i] = {
+      edition: row.edition,
+      characterId: row.characterId,
+      images: row.images,
+      attributes: row.attributes
+    }
   }
 
-  database.updated = Date.now()
-  database.supply = database.rows.length - burned.length
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/metadata.json'),
-    JSON.stringify(database, null, 2)
+    JSON.stringify({
+      updated: Date.now(),
+      supply: database.length,
+      rows: database
+    }, null, 2)
   )
   fs.writeFileSync(
     path.resolve(__dirname, '../server/src/data/metadata.json'),
-    JSON.stringify(database, null, 2)
+    JSON.stringify({
+      updated: Date.now(),
+      supply: database.length,
+      rows: database
+    }, null, 2)
   )
 }
 
@@ -116,4 +142,4 @@ async function main() {
 main().then(() => process.exit(0)).catch(error => {
   console.error(error)
   process.exit(1)
-})
+});
