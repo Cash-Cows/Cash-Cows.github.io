@@ -56,6 +56,13 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
 
   error InvalidCall();
 
+  // ============ Struct ============
+
+  struct Collection {
+    address collectionAddress;
+    uint256 collectionTokenId;
+  }
+
   // ============ Events ============
 
   //emitted when item is linked to character
@@ -80,6 +87,12 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
   mapping(address => bool) private _burnable;
   //mapping of item id -> whether if it can be unlinked
   mapping(uint256 => bool) _unlinkable;
+  //all used items (this is so we can iterate)
+  uint256[] private _registry;
+  //mapping of an item and whether if it's in the registry
+  mapping(uint256 => bool) private _registered;
+  //balances per character id
+  mapping(uint256 => uint256) private _balances;
   
   // ============ Deploy ============
 
@@ -144,6 +157,28 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     return _start[itemId][characterId] > _redeemed[itemId][characterId][token]
       ? _start[itemId][characterId]
       : _redeemed[itemId][characterId][token];
+  }
+
+  /**
+   * @dev Returns a list of items a character holds. This is an 
+   * incredibly inefficient method to call from another contract
+   */
+  function items(
+    uint256 characterId
+  ) external view returns(Collection[] memory) {
+    Collection[] memory characterItems = new Collection[](_balances[characterId]);
+    uint256 index;
+    for (uint256 i; i < _registry.length; i++) {
+      if (_start[_registry[i]][characterId] > 0) {
+        ( //get the item address and item token id
+          address itemAddress, 
+          uint256 itemTokenId
+        ) = _unpackCollection(_registry[i]);
+        characterItems[index++] = Collection(itemAddress, itemTokenId);
+      }
+    }
+
+    return characterItems;
   }
 
   // ============ Handler Methods ============
@@ -486,6 +521,14 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     if (_start[itemId][characterId] > 0) revert InvalidCall();
     //add to character item balance
     _start[itemId][characterId] = block.timestamp;
+    //add to balance
+    _balances[characterId]++;
+    //if it's not registered
+    if (!_registered[itemId]) {
+      //register it
+      _registered[itemId] = true;
+      _registry.push(itemId);
+    }
     //emit deposited
     emit Linked(characterId, itemId);
   }
@@ -516,6 +559,8 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
     );
     //remove start time
     delete _start[itemId][characterId];
+    //less from balance
+    _balances[characterId]--;
     //emit unlinked
     emit Unlinked(characterId, itemId);
   }

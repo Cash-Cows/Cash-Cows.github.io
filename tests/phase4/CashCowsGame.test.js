@@ -75,6 +75,7 @@ describe('CashCowsGame Tests', function() {
   before(async function() {
     const signers = await ethers.getSigners()
     this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
+    this.zero = '0x0000000000000000000000000000000000000000'
 
     const nft = await deploy('CashCows', this.preview, signers[0].address)
     await bindContract('withNFT', 'CashCows', nft, signers)
@@ -112,15 +113,10 @@ describe('CashCowsGame Tests', function() {
     await admin.withNFT['mint(address,uint256)'](holder1.address, 10)
     await admin.withNFT['mint(address,uint256)'](holder2.address, 10)
     //add items to loot store
-    await admin.withLoot.addItem('ipfs://item1', 6)
-    await admin.withLoot.addItem('ipfs://item2', 3)
-    await admin.withLoot['setPrice(uint256,uint256)'](1, 10)
-    await admin.withLoot['setPrice(uint256,uint256)'](2, 20)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](1, dolla.address, 10)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](2, dolla.address, 20)
+    await admin.withLoot.addItem(6, [ this.zero, dolla.address ], [ 10, 10 ])
+    await admin.withLoot.addItem(3, [ this.zero, dolla.address ], [ 20, 20 ])
     
     this.signers = { admin, holder1, holder2 }
-    this.zero = '0x0000000000000000000000000000000000000000'
   })
 
   it('Should link', async function () {
@@ -218,7 +214,7 @@ describe('CashCowsGame Tests', function() {
 
     await admin.withWETH.mint(holder1.address, 100)
     await holder1.withWETH.approve(admin.withGame.address, 100)
-    await admin.withLoot.addItem('ipfs://item3', 3)
+    await admin.withLoot.addItem(3, [], [])
     
     const characterId = getCollectionId(admin.withNFT.address, 3)
     const itemId = getCollectionId(admin.withLoot.address, 3)
@@ -235,6 +231,11 @@ describe('CashCowsGame Tests', function() {
       Math.floor(Date.now() / 1000)
     )
     expect(await admin.withWETH.balanceOf(holder1.withGame.address)).to.equal(30)
+
+    const items = await admin.withGame.items(characterId)
+    expect(items[0].collectionAddress).to.equal(admin.withLoot.address)
+    expect(items[0].collectionTokenId).to.equal(3)
+    expect(items.length).to.equal(1)
   })
 
   it('Should not unlink', async function () {

@@ -50,63 +50,66 @@ describe('CashCowsLoot Tests', function() {
 
   it('Should add item', async function () {
     const { admin } = this.signers
+    const dolla = admin.withDolla.address
 
-    await admin.withLoot.addItem('ipfs://item5', 1)
-    await admin.withLoot.addItem('ipfs://item2', 3)
-    await admin.withLoot.addItem('ipfs://item3', 0)
-    await admin.withLoot.addItem('ipfs://item4', 3)
-    await admin.withLoot.addItem('ipfs://item5', 0)
+    await admin.withLoot.addItem(1, [ this.zero, dolla ], [ 10, 10 ])
+    await admin.withLoot.addItem(3, [ this.zero, dolla ], [ 20, 20 ])
+    await admin.withLoot.addItem(0, [ this.zero, dolla ], [ 30, 30 ])
+    await admin.withLoot.addItem(3, [], [])
+    await admin.withLoot.addItem(0, [ this.zero, dolla ], [ 50, 50 ])
 
-    expect(await admin.withLoot.lastItemId()).to.equal(5)
+    expect(await admin.withLoot['priceOf(uint256)'](1)).to.equal(10)
+    expect(await admin.withLoot['priceOf(uint256)'](2)).to.equal(20)
+    expect(await admin.withLoot['priceOf(uint256)'](3)).to.equal(30)
+    expect(await admin.withLoot['priceOf(uint256)'](4)).to.equal(0)
+    expect(await admin.withLoot['priceOf(uint256,address)'](5, this.zero)).to.equal(50)
+
+    expect(await admin.withLoot['priceOf(uint256,address)'](1, dolla)).to.equal(10)
+    expect(await admin.withLoot['priceOf(uint256,address)'](2, dolla)).to.equal(20)
+    expect(await admin.withLoot['priceOf(uint256,address)'](3, dolla)).to.equal(30)
+    expect(await admin.withLoot['priceOf(uint256,address)'](4, dolla)).to.equal(0)
+    expect(await admin.withLoot['priceOf(uint256,address)'](5, dolla)).to.equal(50)
+
     expect(await admin.withLoot.maxSupply(1)).to.equal(1)
     expect(await admin.withLoot.maxSupply(2)).to.equal(3)
     expect(await admin.withLoot.maxSupply(3)).to.equal(0)
     expect(await admin.withLoot.maxSupply(4)).to.equal(3)
     expect(await admin.withLoot.maxSupply(5)).to.equal(0)
 
-    expect(await admin.withLoot.uri(1)).to.equal('ipfs://item5')
-    expect(await admin.withLoot.uri(2)).to.equal('ipfs://item2')
-    expect(await admin.withLoot.uri(3)).to.equal('ipfs://item3')
-    expect(await admin.withLoot.uri(4)).to.equal('ipfs://item4')
-    expect(await admin.withLoot.uri(5)).to.equal('ipfs://item5')
-
     expect(await admin.withLoot.totalSupply(1)).to.equal(0)
     expect(await admin.withLoot.totalSupply(2)).to.equal(0)
     expect(await admin.withLoot.totalSupply(3)).to.equal(0)
     expect(await admin.withLoot.totalSupply(4)).to.equal(0)
     expect(await admin.withLoot.totalSupply(5)).to.equal(0)
+
+    const info = await admin.withLoot.infoOf(1, [this.zero, dolla])
+    expect(info.supply).to.equal(0)
+    expect(info.max).to.equal(1)
+    expect(info.prices[0]).to.equal(10)
+    expect(info.prices[1]).to.equal(10)
   })
 
-  it('Should update item', async function () {
+  it('Should update max supply', async function () {
     const { admin } = this.signers
-
-    await admin.withLoot.updateMaxSupply(1, 3)
-    await admin.withLoot.updateURI(1, 'ipfs://item1')
-
+    await admin.withLoot.updateMaxSupplies([ 1 ], [ 3 ])
     expect(await admin.withLoot.maxSupply(1)).to.equal(3)
-
-    expect(await admin.withLoot.uri(1)).to.equal('ipfs://item1')
   })
 
   it('Should set price', async function () {
     const { admin } = this.signers
+    const dolla = admin.withDolla.address
 
-    await admin.withLoot['setPrice(uint256,uint256)'](1, 10)
-    await admin.withLoot['setPrice(uint256,uint256)'](2, 20)
-    await admin.withLoot['setPrice(uint256,uint256)'](3, 30)
-    await admin.withLoot['setPrice(uint256,uint256)'](5, 50)
+    //item id, tokens, prices
+    await admin.withLoot['updatePrices(uint256,address[],uint256[])'](3, [ this.zero, dolla ], [ 30, 30 ])
+    //item ids, token, prices
+    await admin.withLoot['updatePrices(uint256[],address,uint256[])']([ 5 ], this.zero, [ 50 ])
+    await admin.withLoot['updatePrices(uint256[],address,uint256[])']([ 1, 2, 5 ], dolla, [ 10, 20, 50 ])
 
     expect(await admin.withLoot['priceOf(uint256)'](1)).to.equal(10)
     expect(await admin.withLoot['priceOf(uint256)'](2)).to.equal(20)
     expect(await admin.withLoot['priceOf(uint256)'](3)).to.equal(30)
     expect(await admin.withLoot['priceOf(uint256)'](4)).to.equal(0)
     expect(await admin.withLoot['priceOf(uint256)'](5)).to.equal(50)
-
-    const dolla = admin.withDolla.address
-    await admin.withLoot['setPrice(uint256,address,uint256)'](1, dolla, 10)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](2, dolla, 20)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](3, dolla, 30)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](5, dolla, 50)
 
     expect(await admin.withLoot['priceOf(uint256,address)'](1, dolla)).to.equal(10)
     expect(await admin.withLoot['priceOf(uint256,address)'](2, dolla)).to.equal(20)
@@ -117,38 +120,47 @@ describe('CashCowsLoot Tests', function() {
 
   it('Should mint (eth)', async function () {
     const { admin, holder1, holder2 } = this.signers
+    const mint = 'mint(address,address,uint256,uint256)'
 
-    await holder1.withLoot['mint(address,uint256,uint256)'](holder1.address, 1, 1, { value: 10 })
-    await holder2.withLoot['mint(address,uint256,uint256)'](holder2.address, 1, 2, { value: 20 })
+    //token, recipient, itemid, amount
+    await holder1.withLoot[mint](this.zero, holder1.address, 1, 1, { value: 10 })
+    await holder2.withLoot[mint](this.zero, holder2.address, 1, 2, { value: 20 })
 
     expect(await admin.withLoot.balanceOf(holder1.address, 1)).to.equal(1)
     expect(await admin.withLoot.balanceOf(holder2.address, 1)).to.equal(2)
     expect(await admin.withLoot.totalSupply(1)).to.equal(3)
 
     expect(await ethers.provider.getBalance(admin.withLoot.address)).to.equal(30)
+
+    const info = await admin.withLoot.infoOf(1, [this.zero])
+    expect(info.supply).to.equal(3)
+    expect(info.max).to.equal(3)
+    expect(info.prices[0]).to.equal(10)
   })
 
   it('Should not mint (eth)', async function () {
     const { admin } = this.signers
+    const mint = 'mint(address,address,uint256,uint256)'
     await expect(//no more supply
-      admin.withLoot['mint(address,uint256,uint256)'](admin.address, 1, 20, { value: 200 })
+      admin.withLoot[mint](this.zero, admin.address, 1, 20, { value: 200 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//not enough supply
-      admin.withLoot['mint(address,uint256,uint256)'](admin.address, 2, 20, { value: 400 })
+      admin.withLoot[mint](this.zero, admin.address, 2, 20, { value: 400 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//incorrect amount
-      admin.withLoot['mint(address,uint256,uint256)'](admin.address, 2, 1, { value: 10 })
+      admin.withLoot[mint](this.zero, admin.address, 2, 1, { value: 10 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//no price
-      admin.withLoot['mint(address,uint256,uint256)'](admin.address, 4, 1, { value: 1000 })
+      admin.withLoot[mint](this.zero, admin.address, 4, 1, { value: 1000 })
     ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should mint batch (eth)', async function () {
     const { admin, holder1, holder2 } = this.signers
+    const mint = 'mint(address,address,uint256[],uint256[])'
 
-    await holder1.withLoot['mint(address,uint256[],uint256[])'](holder1.address, [3, 5], [1, 1], { value: 80 })
-    await holder2.withLoot['mint(address,uint256[],uint256[])'](holder2.address, [3, 5], [2, 2], { value: 160 })
+    await holder1.withLoot[mint](this.zero, holder1.address, [3, 5], [1, 1], { value: 80 })
+    await holder2.withLoot[mint](this.zero, holder2.address, [3, 5], [2, 2], { value: 160 })
 
     expect(await admin.withLoot.balanceOf(holder1.address, 3)).to.equal(1)
     expect(await admin.withLoot.balanceOf(holder2.address, 3)).to.equal(2)
@@ -163,26 +175,28 @@ describe('CashCowsLoot Tests', function() {
 
   it('Should not mint batch (eth)', async function () {
     const { admin } = this.signers
+    const mint = 'mint(address,address,uint256[],uint256[])'
     await expect(//no more supply
-      admin.withLoot['mint(address,uint256[],uint256[])'](admin.address, [1], [20], { value: 200 })
+      admin.withLoot[mint](this.zero, admin.address, [1], [20], { value: 200 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//not enough supply
-      admin.withLoot['mint(address,uint256[],uint256[])'](admin.address, [2], [20], { value: 400 })
+      admin.withLoot[mint](this.zero, admin.address, [2], [20], { value: 400 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//incorrect amount
-      admin.withLoot['mint(address,uint256[],uint256[])'](admin.address, [2], [1], { value: 10 })
+      admin.withLoot[mint](this.zero, admin.address, [2], [1], { value: 10 })
     ).to.be.revertedWith('InvalidCall()')
     await expect(//no price
-      admin.withLoot['mint(address,uint256[],uint256[])'](admin.address, [4], [1], { value: 1000 })
+      admin.withLoot[mint](this.zero, admin.address, [4], [1], { value: 1000 })
     ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should mint (dolla)', async function () {
     const { admin, holder1, holder2 } = this.signers
 
+    const mint = 'mint(address,address,uint256,uint256)'
     const dolla = admin.withDolla.address
-    await holder1.withLoot['mint(address,uint256,address,uint256)'](holder1.address, 2, dolla, 1)
-    await holder2.withLoot['mint(address,uint256,address,uint256)'](holder2.address, 2, dolla, 2)
+    await holder1.withLoot[mint](dolla, holder1.address, 2, 1)
+    await holder2.withLoot[mint](dolla, holder2.address, 2, 2)
 
     expect(await admin.withLoot.balanceOf(holder1.address, 2)).to.equal(1)
     expect(await admin.withLoot.balanceOf(holder2.address, 2)).to.equal(2)
@@ -193,24 +207,25 @@ describe('CashCowsLoot Tests', function() {
 
   it('Should not mint (dolla)', async function () {
     const { admin } = this.signers
+    const mint = 'mint(address,address,uint256,uint256)'
     const dolla = admin.withDolla.address
     await expect(//no more supply
-      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 2, dolla, 20)
-    ).to.be.revertedWith('ERC20: burn amount exceeds balance')
+      admin.withLoot[mint](dolla, admin.address, 2, 20)
+    ).to.be.revertedWith('InvalidCall()')
     await expect(//incorrect amount
-      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 3, dolla, 100)
+      admin.withLoot[mint](dolla, admin.address, 3, 100)
     ).to.be.revertedWith('ERC20: burn amount exceeds balance')
     await expect(//no price
-      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 4, dolla, 1)
+      admin.withLoot[mint](dolla, admin.address, 4, 1)
     ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should mint batch (dolla)', async function () {
     const { admin, holder1, holder2 } = this.signers
-
+    const mint = 'mint(address,address,uint256[],uint256[])'
     const dolla = admin.withDolla.address
-    await holder1.withLoot['mint(address,uint256[],address,uint256[])'](holder1.address, [3, 5], dolla, [1, 1])
-    await holder2.withLoot['mint(address,uint256[],address,uint256[])'](holder2.address, [3, 5], dolla, [2, 2])
+    await holder1.withLoot[mint](dolla, holder1.address, [3, 5], [1, 1])
+    await holder2.withLoot[mint](dolla, holder2.address, [3, 5], [2, 2])
 
     expect(await admin.withLoot.balanceOf(holder1.address, 3)).to.equal(2)
     expect(await admin.withLoot.balanceOf(holder2.address, 3)).to.equal(4)
@@ -225,30 +240,30 @@ describe('CashCowsLoot Tests', function() {
 
   it('Should not mint batch (dolla)', async function () {
     const { admin } = this.signers
+    const mint = 'mint(address,address,uint256[],uint256[])'
     const dolla = admin.withDolla.address
     await expect(//no more supply
-      admin.withLoot['mint(address,uint256[],address,uint256[])'](admin.address, [2], dolla, [20])
-    ).to.be.revertedWith('ERC20: burn amount exceeds balance')
+      admin.withLoot[mint](dolla, admin.address, [2], [20])
+    ).to.be.revertedWith('InvalidCall()')
     await expect(//incorrect amount
-      admin.withLoot['mint(address,uint256[],address,uint256[])'](admin.address, [3], dolla, [100])
+      admin.withLoot[mint](dolla, admin.address, [3], [100])
     ).to.be.revertedWith('ERC20: burn amount exceeds balance')
     await expect(//no price
-      admin.withLoot['mint(address,uint256[],address,uint256[])'](admin.address, [4], dolla, [1])
+      admin.withLoot[mint](dolla, admin.address, [4], [1])
     ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should mint (weth)', async function () {
     const { admin, holder1, holder2 } = this.signers
-
+    const mint = 'mint(address,address,uint256,uint256)'
     const weth = admin.withWETH.address
-    await admin.withLoot.addItem('ipfs://item6', 3)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](6, weth, 50)
+    await admin.withLoot.addItem(3, [ weth ], [ 50 ])
 
     await holder1.withWETH.approve(admin.withLoot.address, 100)
     await holder2.withWETH.approve(admin.withLoot.address, 200)
 
-    await holder1.withLoot['mint(address,uint256,address,uint256)'](holder1.address, 6, weth, 1)
-    await holder2.withLoot['mint(address,uint256,address,uint256)'](holder2.address, 6, weth, 2)
+    await holder1.withLoot[mint](weth, holder1.address, 6, 1)
+    await holder2.withLoot[mint](weth, holder2.address, 6, 2)
 
     expect(await admin.withLoot.balanceOf(holder1.address, 6)).to.equal(1)
     expect(await admin.withLoot.balanceOf(holder2.address, 6)).to.equal(2)
@@ -262,23 +277,23 @@ describe('CashCowsLoot Tests', function() {
   it('Should not mint (weth)', async function () {
     const { admin } = this.signers
     const weth = admin.withWETH.address
+    const mint = 'mint(address,address,uint256,uint256)'
     await expect(//no more supply
-      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 6, weth, 20)
-    ).to.be.revertedWith('ERC20: transfer amount exceeds balance')
+      admin.withLoot[mint](weth, admin.address, 6, 20)
+    ).to.be.revertedWith('InvalidCall()')
     await expect(//no price
-      admin.withLoot['mint(address,uint256,address,uint256)'](admin.address, 4, weth, 1)
+      admin.withLoot[mint](weth, admin.address, 4, 1)
     ).to.be.revertedWith('InvalidCall()')
   })
 
   it('Should mint batch (weth)', async function () {
     const { admin, holder1, holder2 } = this.signers
-
+    const mint = 'mint(address,address,uint256[],uint256[])'
     const weth = admin.withWETH.address
-    await admin.withLoot['setPrice(uint256,address,uint256)'](3, weth, 10)
-    await admin.withLoot['setPrice(uint256,address,uint256)'](5, weth, 10)
+    await admin.withLoot['updatePrices(uint256[],address,uint256[])']([ 3, 5 ], weth, [ 10, 10 ])
 
-    await holder1.withLoot['mint(address,uint256[],address,uint256[])'](holder1.address, [3, 5], weth, [1, 1])
-    await holder2.withLoot['mint(address,uint256[],address,uint256[])'](holder2.address, [3, 5], weth, [2, 2])
+    await holder1.withLoot[mint](weth, holder1.address, [3, 5], [1, 1])
+    await holder2.withLoot[mint](weth, holder2.address, [3, 5], [2, 2])
 
     expect(await admin.withLoot.balanceOf(holder1.address, 3)).to.equal(3)
     expect(await admin.withLoot.balanceOf(holder2.address, 3)).to.equal(6)

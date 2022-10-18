@@ -57,20 +57,15 @@ contract CashCowsLoot is
   
   // ============ Storage ============
 
-  //mapping of item id to uri
-  mapping(uint256 => string) private _itemURI;
+  //the last registered item
+  uint256 private _lastItemId;
   //mapping of item id to max supply
   mapping(uint256 => uint256) private _itemMax;
   //mapping of item id to current supply
   mapping(uint256 => uint256) private _itemSupply;
-  //mapping of item id to default price
-  mapping(uint256 => uint256) private _itemETHPrice;
-  //mapping of item id to default ERC20 price
-  mapping(uint256 => mapping(IERC20 => uint256)) private _itemERC20Price;
-
-  //the last item id
-  uint256 private _lastItemId;
-  //checks to see if we should burn this or not
+  //mapping of item id to default price, zero add = eth
+  mapping(uint256 => mapping(address => uint256)) private _itemPrice;
+  //mapping of burnable tokens
   mapping(address => bool) private _burnable;
 
   // ============ Deploy ============
@@ -98,7 +93,22 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Returns the last item ID created
+   * @dev Returns a summary info of the `itemId`
+   */
+  function infoOf(
+    uint256 itemId, 
+    address[] memory tokens
+  ) external view returns(uint256 supply, uint256 max, uint256[] memory prices) {
+    supply = _itemSupply[itemId];
+    max = _itemMax[itemId];
+    prices = new uint256[](tokens.length);
+    for (uint256 i; i < tokens.length; i++) {
+      prices[i] = _itemPrice[itemId][tokens[i]];
+    }
+  }
+
+  /**
+   * @dev Returns the last item id made
    */
   function lastItemId() external view returns(uint256) {
     return _lastItemId;
@@ -119,10 +129,12 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Returns the ETH price of `itemId`
+   * @dev Returns the eth price of `itemId`
    */
-  function priceOf(uint256 itemId) external view returns(uint256) {
-    return _itemETHPrice[itemId];
+  function priceOf(
+    uint256 itemId
+  ) external view returns(uint256) {
+    return priceOf(itemId, address(0));
   }
 
   /**
@@ -130,9 +142,9 @@ contract CashCowsLoot is
    */
   function priceOf(
     uint256 itemId, 
-    IERC20 token
-  ) external view returns(uint256) {
-    return _itemERC20Price[itemId][token];
+    address token
+  ) public view returns(uint256) {
+    return _itemPrice[itemId][token];
   }
 
   /**
@@ -159,71 +171,29 @@ contract CashCowsLoot is
     return _itemSupply[itemId];
   }
 
-  /**
-   * @dev Returns the Uniform Resource Identifier (URI) for `itemId`.
-   */
-  function uri(
-    uint256 itemId
-  ) public view override returns(string memory) {
-    string memory itemURI = _itemURI[itemId];
-    return bytes(itemURI).length > 0 ? itemURI : super.uri(itemId);
-  }
-
   // ============ Mint Methods ============
-
-  /**
-   * @dev Allows anyone to mint for anyone with eth
-   */
-  function mint(
-    address to, 
-    uint256 itemId,
-    uint256 amount
-  ) external payable nonReentrant {
-    //revert if no price
-    if (_itemETHPrice[itemId] == 0
-      //or if the eth sent is less than price x amount
-      || msg.value < (_itemETHPrice[itemId] * amount)
-    ) revert InvalidCall();
-    //we can go ahead and mint
-    _mint(to, itemId, amount, "");
-  }
-
-  /**
-   * @dev Allows anyone to batch mint for anyone with eth
-   */
-  function mint(
-    address to, 
-    uint256[] memory itemIds,
-    uint256[] memory amounts
-  ) external payable nonReentrant {
-    //revert if length mismatch
-    if (itemIds.length != amounts.length) revert InvalidCall();
-    uint256 total;
-    for (uint256 i; i < itemIds.length; i++) {
-      //revert if no price
-      if (_itemETHPrice[itemIds[i]] == 0) revert InvalidCall();
-      total += _itemETHPrice[itemIds[i]] * amounts[i];
-    }
-    //if the eth sent is less than the total
-    if (msg.value < total) revert InvalidCall();
-    //we can go ahead and mint
-    _mintBatch(to, itemIds, amounts, "");
-  }
 
   /**
    * @dev Allows anyone to mint for anyone with erc20 token
    */
   function mint(
+    address token,
     address to, 
     uint256 itemId,
-    address token,
     uint256 amount
-  ) external nonReentrant {
-    uint256 price = _itemERC20Price[itemId][IERC20(token)];
+  ) external payable nonReentrant {
+    //revert if we cant mint
+    if (!_canMint(itemId, amount)) revert InvalidCall();
+    //get the price
+    uint256 price = _itemPrice[itemId][token];
     //revert there is no price
     if (price == 0) revert InvalidCall();
+    //if zero add (it's eth)
+    if (token == address(0)) {
+      //revert if the eth sent is less than price x amount
+      if (msg.value < (price * amount)) revert InvalidCall();
     //if burnable
-    if (_burnable[token]) {
+    } else if (_burnable[token]) {
       //burn it. muhahaha
       //(the payer is the caller)
       IERC20Burnable(token).burnFrom(_msgSender(), price * amount);
@@ -240,29 +210,37 @@ contract CashCowsLoot is
 
     //we can go ahead and mint
     _mint(to, itemId, amount, "");
+    _itemSupply[itemId] += amount;
   }
 
   /**
    * @dev Allows anyone to batch mint for anyone with erc20 token
    */
   function mint(
+    address token,
     address to, 
     uint256[] memory itemIds,
-    address token,
     uint256[] memory amounts
-  ) external nonReentrant {
+  ) public payable nonReentrant {
     //revert if length mismatch
     if (itemIds.length != amounts.length) revert InvalidCall();
     uint256 total;
-    IERC20 erc20Token = IERC20(token);
     for (uint256 i; i < itemIds.length; i++) {
       //revert if no price
-      if (_itemERC20Price[itemIds[i]][erc20Token] == 0) revert InvalidCall();
-      total += _itemERC20Price[itemIds[i]][erc20Token] * amounts[i];
+      if (_itemPrice[itemIds[i]][token] == 0
+        //or cant mint
+        || !_canMint(itemIds[i], amounts[i])
+      ) revert InvalidCall();
+      total += _itemPrice[itemIds[i]][token] * amounts[i];
+      _itemSupply[itemIds[i]] += amounts[i];
     }
 
+    //if zero add (it's eth)
+    if (token == address(0)) {
+      //revert if the eth sent is less than total
+      if (msg.value < total) revert InvalidCall();
     //if burnable
-    if (_burnable[token]) {
+    } else if (_burnable[token]) {
       //burn it. muhahaha
       //(the payer is the caller)
       IERC20Burnable(token).burnFrom(_msgSender(), total);
@@ -329,11 +307,15 @@ contract CashCowsLoot is
    * @dev Adds item for minting
    */
   function addItem(
-    string memory itemURI, 
-    uint256 itemMax
+    uint256 itemMax,
+    address[] memory tokens,
+    uint256[] memory prices
   ) external onlyRole(_CURATOR_ROLE) {
-    _itemURI[++_lastItemId] = itemURI;
-    _itemMax[_lastItemId] = itemMax;
+    if (tokens.length != prices.length) revert InvalidCall();
+    _itemMax[++_lastItemId] = itemMax;
+    for (uint256 i; i < tokens.length; i++) {
+      _itemPrice[_lastItemId][tokens[i]] = prices[i];
+    }
   }
 
   /**
@@ -341,7 +323,7 @@ contract CashCowsLoot is
    * minting. This is like MILK or DOLLA
    */
   function burnTokens(
-    IERC20 token, 
+    IERC20Burnable token, 
     bool burnable
   ) external onlyRole(_CURATOR_ROLE) {
     _burnable[address(token)] = burnable;
@@ -356,8 +338,11 @@ contract CashCowsLoot is
     uint256 amount,
     bytes memory data
   ) external onlyRole(_MINTER_ROLE) {
+    //revert if cant mint
+    if (!_canMint(itemId, amount)) revert InvalidCall();
     //we can go ahead and mint
     _mint(to, itemId, amount, data);
+    _itemSupply[itemId] += amount;
   }
 
   /**
@@ -369,6 +354,11 @@ contract CashCowsLoot is
     uint256[] memory amounts,
     bytes memory data
   ) external onlyRole(_MINTER_ROLE) {
+    for (uint256 i; i < itemIds.length; i++) {
+      //revert if cant mint
+      if (!_canMint(itemIds[i], amounts[i])) revert InvalidCall();
+      _itemSupply[itemIds[i]] += amounts[i];
+    }
     //we can go ahead and mint
     _mintBatch(to, itemIds, amounts, data);
   }
@@ -378,27 +368,6 @@ contract CashCowsLoot is
    */
   function pause() public virtual onlyRole(_PAUSER_ROLE) {
     _pause();
-  }
-
-  /**
-   * @dev Sets the retail price
-   */
-  function setPrice(
-    uint256 itemId, 
-    uint256 price
-  ) external onlyRole(_CURATOR_ROLE) {
-    _itemETHPrice[itemId] = price;
-  }
-
-  /**
-   * @dev Sets the retail price
-   */
-  function setPrice(
-    uint256 itemId, 
-    IERC20 token,
-    uint256 price
-  ) external onlyRole(_CURATOR_ROLE) {
-    _itemERC20Price[itemId][token] = price;
   }
 
   /**
@@ -416,23 +385,48 @@ contract CashCowsLoot is
   }
 
   /**
-   * @dev Updates item URI
+   * @dev Updates item max supply
    */
-  function updateURI(
-    uint256 itemId, 
-    string memory itemURI
+  function updateMaxSupplies(
+    uint256[] memory itemIds,
+    uint256[] memory itemMaxs
   ) external onlyRole(_CURATOR_ROLE) {
-    _itemURI[itemId] = itemURI;
+    if (itemIds.length != itemMaxs.length) revert InvalidCall();
+    for (uint256 i; i < itemIds.length; i++) {
+      if (itemIds[i] > _lastItemId) revert InvalidCall();
+      _itemMax[itemIds[i]] = itemMaxs[i];
+    }
   }
 
   /**
-   * @dev Updates item max supply
+   * @dev Sets the retail `token` `prices` of an `itemId`
    */
-  function updateMaxSupply(
+  function updatePrices(
     uint256 itemId, 
-    uint256 itemMax
+    address[] memory tokens,
+    uint256[] memory prices
   ) external onlyRole(_CURATOR_ROLE) {
-    _itemMax[itemId] = itemMax;
+    if (itemId > _lastItemId 
+      || tokens.length != prices.length
+    ) revert InvalidCall();
+    for (uint256 i; i < tokens.length; i++) {
+      _itemPrice[itemId][tokens[i]] = prices[i];
+    }
+  }
+
+  /**
+   * @dev Sets the retail `token` `prices` of multiple `itemIds`
+   */
+  function updatePrices(
+    uint256[] memory itemIds, 
+    address token,
+    uint256[] memory prices
+  ) external onlyRole(_CURATOR_ROLE) {
+    if (itemIds.length != prices.length) revert InvalidCall();
+    for (uint256 i; i < itemIds.length; i++) {
+      if (itemIds[i] > _lastItemId) revert InvalidCall();
+      _itemPrice[itemIds[i]][token] = prices[i];
+    }
   }
 
   /**
@@ -458,6 +452,19 @@ contract CashCowsLoot is
   // ============ Internal Methods ============
 
   /**
+   * @dev Returns true if the amount exceeds the max limit
+   */
+  function _canMint(
+    uint256 itemId, 
+    uint256 amount
+  ) private view returns(bool) {
+    return itemId <= _lastItemId
+      && (_itemMax[itemId] == 0 
+        || (_itemSupply[itemId] + amount) <= _itemMax[itemId]
+      );
+  }
+
+  /**
    * @dev Hook that is called before any token transfer. This includes minting
    * and burning.
    */
@@ -471,27 +478,6 @@ contract CashCowsLoot is
   ) internal override {
     //revert if paused
     if (paused()) revert InvalidCall();
-
-    //if minting
-    if (from == address(0)) {
-      uint256 index;
-      uint256 itemId;
-      uint256 amount;
-      do {
-        itemId = itemIds[index];
-        amount = amounts[index];
-        //revert if no item exists
-        if (itemId > _lastItemId 
-          //or if there is a max 
-          || (_itemMax[itemId] > 0
-            //and the current supply plus the amount exceeds the max 
-            && (_itemSupply[itemId] + amount) > _itemMax[itemId]
-          )
-        ) revert InvalidCall();
-        _itemSupply[itemId] += amount;
-      } while(++index < itemIds.length);
-    }
-
     super._beforeTokenTransfer(operator, from, to, itemIds, amounts, data);
   }
 }
