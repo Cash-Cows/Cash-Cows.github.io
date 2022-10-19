@@ -47,8 +47,8 @@ module.exports = {
         barn: '0x7De91a512De2Ab5065cED54853A2f5AF68E8E077',
         dolla: '0x5E7c36f3508de82505f417395dE49a68187d1FD2',
         market: '0xf01436C55B53AFAfEf04E97508ea7b9B346D7a33',
-        loot: '0x33772655da31dFFB17218b8e3A5851E9E3cc3F5e',
-        game: '0x3086c31CD25070C0b7b4FeE81dAB0DD6A9BedC34'
+        loot: '0xfc4afc5F7F2C62a181B054Fb6ead9AA53788D4F8',
+        game: '0xBbd1cD444595D34bE9e0A39ff33eB4470B364C38'
       }
     },
     ethereum: {

@@ -19,7 +19,7 @@ async function main() {
     const loot = {
       name: loots[i].name,
       image: loots[i].peg,
-      edition: loots[i].id,
+      edition: i + 1,
       category: loots[i].category,
       attributes: attributes
     }
@@ -27,11 +27,11 @@ async function main() {
     metadata.push(loot)
     
     fs.writeFileSync(
-      path.resolve(__dirname, `../docs/data/loot/${loot.edition}.json`),
+      path.resolve(__dirname, `../docs/data/loot/${String(i + 1).padStart(64, '0')}.json`),
       JSON.stringify(loot, null, 2)
     )
     fs.writeFileSync(
-      path.resolve(__dirname, `../server/src/data/loot/${loot.edition}.json`),
+      path.resolve(__dirname, `../server/src/data/loot/${String(i + 1).padStart(64, '0')}.json`),
       JSON.stringify(loot, null, 2)
     )
   }

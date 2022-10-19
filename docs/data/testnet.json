@@ -33,7 +33,7 @@
           "address": "0x33772655da31dFFB17218b8e3A5851E9E3cc3F5e"
         },
         "game": {
-          "address": "0x3086c31CD25070C0b7b4FeE81dAB0DD6A9BedC34"
+          "address": "0xBbd1cD444595D34bE9e0A39ff33eB4470B364C38"
         },
         "milk": {
           "address": "0x8Ec8Cc5A9a027Cb1e9B77B7db16534b1Da0513AD",
@@ -2647,14 +2647,19 @@
       {
         "inputs": [
           {
-            "internalType": "string",
-            "name": "itemURI",
-            "type": "string"
-          },
-          {
             "internalType": "uint256",
             "name": "itemMax",
             "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "tokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "prices",
+            "type": "uint256[]"
           }
         ],
         "name": "addItem",
@@ -2759,7 +2764,7 @@
       {
         "inputs": [
           {
-            "internalType": "contract IERC20",
+            "internalType": "contract IERC20Burnable",
             "name": "token",
             "type": "address"
           },
@@ -2838,6 +2843,40 @@
       {
         "inputs": [
           {
+            "internalType": "uint256",
+            "name": "itemId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "tokens",
+            "type": "address[]"
+          }
+        ],
+        "name": "infoOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "supply",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "max",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "prices",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "owner",
             "type": "address"
@@ -2899,14 +2938,47 @@
             "type": "address"
           },
           {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
+            "internalType": "uint256[]",
+            "name": "itemIds",
+            "type": "uint256[]"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "uint256[]",
+            "name": "amounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "name": "mint",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "itemIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "amounts",
+            "type": "uint256[]"
           }
         ],
         "name": "mint",
@@ -2922,90 +2994,6 @@
             "type": "address"
           },
           {
-            "internalType": "uint256[]",
-            "name": "itemIds",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "address",
-            "name": "token",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "amounts",
-            "type": "uint256[]"
-          }
-        ],
-        "name": "mint",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "token",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "mint",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "itemIds",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "amounts",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "bytes",
-            "name": "data",
-            "type": "bytes"
-          }
-        ],
-        "name": "mint",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
-          },
-          {
             "internalType": "uint256",
             "name": "itemId",
             "type": "uint256"
@@ -3030,18 +3018,23 @@
         "inputs": [
           {
             "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
             "name": "to",
             "type": "address"
           },
           {
-            "internalType": "uint256[]",
-            "name": "itemIds",
-            "type": "uint256[]"
+            "internalType": "uint256",
+            "name": "itemId",
+            "type": "uint256"
           },
           {
-            "internalType": "uint256[]",
-            "name": "amounts",
-            "type": "uint256[]"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           }
         ],
         "name": "mint",
@@ -3103,7 +3096,7 @@
             "type": "uint256"
           },
           {
-            "internalType": "contract IERC20",
+            "internalType": "address",
             "name": "token",
             "type": "address"
           }
@@ -3268,47 +3261,6 @@
       {
         "inputs": [
           {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "contract IERC20",
-            "name": "token",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          }
-        ],
-        "name": "setPrice",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          }
-        ],
-        "name": "setPrice",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
             "internalType": "string",
             "name": "uri_",
             "type": "string"
@@ -3393,17 +3345,40 @@
       {
         "inputs": [
           {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
+            "internalType": "uint256[]",
+            "name": "itemIds",
+            "type": "uint256[]"
           },
           {
-            "internalType": "uint256",
-            "name": "itemMax",
-            "type": "uint256"
+            "internalType": "uint256[]",
+            "name": "itemMaxs",
+            "type": "uint256[]"
           }
         ],
-        "name": "updateMaxSupply",
+        "name": "updateMaxSupplies",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "itemIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "prices",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "updatePrices",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -3416,12 +3391,17 @@
             "type": "uint256"
           },
           {
-            "internalType": "string",
-            "name": "itemURI",
-            "type": "string"
+            "internalType": "address[]",
+            "name": "tokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "prices",
+            "type": "uint256[]"
           }
         ],
-        "name": "updateURI",
+        "name": "updatePrices",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -3430,7 +3410,7 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "itemId",
+            "name": "",
             "type": "uint256"
           }
         ],
@@ -3699,6 +3679,37 @@
             "internalType": "bool",
             "name": "",
             "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "characterId",
+            "type": "uint256"
+          }
+        ],
+        "name": "items",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "collectionAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "collectionTokenId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct CashCowsGame.Collection[]",
+            "name": "",
+            "type": "tuple[]"
           }
         ],
         "stateMutability": "view",
