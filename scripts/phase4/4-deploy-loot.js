@@ -29,8 +29,6 @@ async function main() {
   //get network and admin
   const network = hardhat.config.networks[hardhat.config.defaultNetwork]
   const admin = new ethers.Wallet(network.accounts[0])
-  const milk = { address: network.contracts.milk }
-  const dolla = { address: network.contracts.dolla }
 
   console.log('Deploying CashCowsLoot ...')
   const loot = await deploy('CashCowsLoot', uri, admin.address)
@@ -48,20 +46,11 @@ async function main() {
   console.log('')
   console.log('-----------------------------------')
   console.log('Roles:')
-  console.log(` - FUNDER_ROLE - ${getRole('FUNDER_ROLE')}`)
   console.log(` - BURNER_ROLE - ${getRole('BURNER_ROLE')}`)
   console.log(` - MINTER_ROLE - ${getRole('MINTER_ROLE')}`)
   console.log(` - PAUSER_ROLE - ${getRole('PAUSER_ROLE')}`)
   console.log(` - CURATOR_ROLE - ${getRole('CURATOR_ROLE')}`)
-  console.log('')
-  console.log('-----------------------------------')
-  console.log('Next Steps:')
-  console.log('In CashCowsDolla contract, grant BURNER_ROLE to loot contract')
-  console.log(` - ${network.scanner}/address/${dolla.address}#writeContract`)
-  console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${loot.address} )`)
-  console.log('In CashCowsMilk contract, grant BURNER_ROLE to loot contract')
-  console.log(` - ${network.scanner}/address/${milk.address}#writeContract`)
-  console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${loot.address} )`)
+  console.log(` - APPROVED_ROLE - ${getRole('APPROVED_ROLE')}`)
   console.log('')
 }
 

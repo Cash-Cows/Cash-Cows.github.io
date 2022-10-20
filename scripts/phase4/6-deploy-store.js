@@ -1,5 +1,5 @@
 //to run this on testnet:
-//$ npx hardhat run scripts/phase4/5-deploy-game.js
+//$ npx hardhat run scripts/phase4/6-deploy-store.js
 
 const hardhat = require('hardhat')
 
@@ -30,41 +30,37 @@ async function main() {
   const loot = { address: network.contracts.loot }
   const admin = new ethers.Wallet(network.accounts[0])
 
-  console.log('Deploying CashCowsGame ...')
-  const game = await deploy('CashCowsGame', admin.address)
+  console.log('Deploying CashCowsStore ...')
+  const store = await deploy('CashCowsStore', loot.address, admin.address)
 
   console.log('')
   console.log('-----------------------------------')
-  console.log('CashCowsGame deployed to:', game.address)
+  console.log('CashCowsStore deployed to:', store.address)
   console.log(
     'npx hardhat verify --show-stack-traces --network',
     hardhat.config.defaultNetwork,
-    game.address,
+    store.address,
+    `"${loot.address}"`,
     `"${admin.address}"`
   )
   console.log('')
   console.log('-----------------------------------')
   console.log('Roles:')
   console.log(` - FUNDER_ROLE - ${getRole('FUNDER_ROLE')}`)
-  console.log(` - MINTER_ROLE - ${getRole('MINTER_ROLE')}`)
   console.log(` - CURATOR_ROLE - ${getRole('CURATOR_ROLE')}`)
   console.log('')
   console.log('-----------------------------------')
   console.log('Next Steps:')
-  console.log('In CashCowsGame contract, grant CURATOR_ROLE to admin (choose another wallet)')
-  console.log(` - ${network.scanner}/address/${game.address}#writeContract`)
-  console.log(` - grantRole( ${getRole('CURATOR_ROLE')}, ${admin.address} )`)
-  console.log('In CashCowsGame contract, make DOLLA burnable')
-  console.log(` - ${network.scanner}/address/${game.address}#writeContract`)
-  console.log(` - burnable( ${dolla.address}, true )`)
-  console.log('In CashCowsDolla contract, grant MINTER_ROLE, BURNER_ROLE to game contract')
+  console.log('In CashCowsDolla contract, grant BURNER_ROLE to loot contract')
   console.log(` - ${network.scanner}/address/${dolla.address}#writeContract`)
-  console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${game.address} )`)
-  console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${game.address} )`)
-  console.log('In CashCowsLoot contract, grant MINTER_ROLE, APPROVED_ROLE to game contract')
-  console.log(` - ${network.scanner}/address/${loot.address}#writeContract`)
-  console.log(` - grantRole( ${getRole('MINTER_ROLE')}, ${game.address} )`)
-  console.log(` - grantRole( ${getRole('APPROVED_ROLE')}, ${game.address} )`)
+  console.log(` - grantRole( ${getRole('BURNER_ROLE')}, ${loot.address} )`)
+  console.log('In CashCowsStore contract, grant CURATOR_ROLE, FUNDER_ROLE to admin (choose another wallet)')
+  console.log(` - ${network.scanner}/address/${store.address}#writeContract`)
+  console.log(` - grantRole( ${getRole('FUNDER_ROLE')}, ${admin.address} )`)
+  console.log(` - grantRole( ${getRole('CURATOR_ROLE')}, ${admin.address} )`)
+  console.log('In CashCowsStore contract, make dolla burnable')
+  console.log(` - ${network.scanner}/address/${store.address}#writeContract`)
+  console.log(` - burnable( ${dolla.address}, true )`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -44,7 +44,7 @@ contract CashCowsStore is AccessControl, ReentrancyGuard {
   bytes32 private constant _FUNDER_ROLE = keccak256("FUNDER_ROLE");
   bytes32 private constant _CURATOR_ROLE = keccak256("CURATOR_ROLE");
 
-  IERC1155MintableSupply public LOOT;
+  IERC1155MintableSupply public immutable LOOT;
   
   // ============ Storage ============
 
@@ -186,11 +186,11 @@ contract CashCowsStore is AccessControl, ReentrancyGuard {
    * @dev Sets a token address that we will be burning when used on 
    * minting. This is like MILK or DOLLA
    */
-  function burnTokens(
-    IERC20Burnable token, 
-    bool burnable
+  function burnable(
+    IERC20 token, 
+    bool yes
   ) external onlyRole(_CURATOR_ROLE) {
-    _burnable[address(token)] = burnable;
+    _burnable[address(token)] = yes;
   }
 
   /**

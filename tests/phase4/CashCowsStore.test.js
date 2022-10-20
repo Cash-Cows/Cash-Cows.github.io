@@ -35,7 +35,7 @@ describe('CashCowsStore Tests', function() {
     
     //grant store CURATOR_ROLE to admin to mark dolla as burnable
     await admin.withStore.grantRole(getRole('CURATOR_ROLE'), admin.address)
-    await admin.withStore.burnTokens(admin.withDolla.address, true)
+    await admin.withStore.burnable(admin.withDolla.address, true)
   
     //grant loot CURATOR_ROLE to admin (for testing)
     await admin.withLoot.grantRole(getRole('CURATOR_ROLE'), admin.address)
