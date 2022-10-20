@@ -113,8 +113,7 @@ describe('CashCowsGame Tests', function() {
     await admin.withNFT['mint(address,uint256)'](holder1.address, 10)
     await admin.withNFT['mint(address,uint256)'](holder2.address, 10)
     //add items to loot store
-    await admin.withLoot.addItem(6, [ this.zero, dolla.address ], [ 10, 10 ])
-    await admin.withLoot.addItem(3, [ this.zero, dolla.address ], [ 20, 20 ])
+    await admin.withLoot['setMaxSupply(uint256[],uint256[])']([1, 2], [6, 3])
     
     this.signers = { admin, holder1, holder2 }
   })
@@ -214,7 +213,7 @@ describe('CashCowsGame Tests', function() {
 
     await admin.withWETH.mint(holder1.address, 100)
     await holder1.withWETH.approve(admin.withGame.address, 100)
-    await admin.withLoot.addItem(3, [], [])
+    await admin.withLoot['setMaxSupply(uint256[],uint256[])']([3], [3])
     
     const characterId = getCollectionId(admin.withNFT.address, 3)
     const itemId = getCollectionId(admin.withLoot.address, 3)
