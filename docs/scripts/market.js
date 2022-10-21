@@ -1,9 +1,8 @@
 window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
-  let database = []
-
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const milk = network.contract('milk')
   const dolla = network.contract('dolla')
   const market = network.contract('market')
@@ -22,7 +21,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const query = new URLSearchParams(window.location.search)
     for (const params of query) {
       if (params[0] === 'edition') {
-        return database.rows.filter(row => row.edition == parseInt(params[1]))[0]
+        return await (await fetch(`/data/${networkName}/crew/${params[1]}.json`)).json()
       }
     }
   }
@@ -107,7 +106,6 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Events
 
   window.addEventListener('web3sdk-connected', async _ => {
-    database = await (await fetch('/data/metadata.json')).json()
     const row = await getRow()
     if (!row) window.location.href = './cows.html'
 

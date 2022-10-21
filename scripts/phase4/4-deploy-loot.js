@@ -52,6 +52,12 @@ async function main() {
   console.log(` - CURATOR_ROLE - ${getRole('CURATOR_ROLE')}`)
   console.log(` - APPROVED_ROLE - ${getRole('APPROVED_ROLE')}`)
   console.log('')
+  console.log('-----------------------------------')
+  console.log('Next Steps:')
+  console.log('In CashCowsLoot contract, grant CURATOR_ROLE to admin (choose another wallet)')
+  console.log(` - ${network.scanner}/address/${loot.address}#writeContract`)
+  console.log(` - grantRole( ${getRole('CURATOR_ROLE')}, ${admin.address} )`)
+  console.log('')
 }
 
 // We recommend this pattern to be able to use async/await everywhere

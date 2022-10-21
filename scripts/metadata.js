@@ -9,8 +9,10 @@ const path = require('path')
 const database = require('../data/metadata.json')
 const milkRates = require('../data/milk.json')
 const dollaRates = require('../data/dolla.json')
-const loots = require('../data/loots.json')
+const loots = require('../data/loot.json')
 const discounts = require('../data/discounts.json')
+
+const zero = '0x0000000000000000000000000000000000000000'
 
 function authorizeMilkRate(collection, tokenId, rate) {
   return Buffer.from(
@@ -53,62 +55,80 @@ function authorizeDollaPrice(token, characterId, itemId, price) {
 }
 
 async function main() {
-  const network = hardhat.config.networks[hardhat.config.defaultNetwork]
-  const signer = new ethers.Wallet(network.accounts[0])
-  const nft = { address: network.contracts.nft }
-  const dolla = { address: network.contracts.dolla }
+  const network = hardhat.config.defaultNetwork
+  const config = hardhat.config.networks[network]
+  const signer = new ethers.Wallet(config.accounts[0])
+  const nft = { address: config.contracts.nft }
+  const milk = { address: config.contracts.milk }
+  const dolla = { address: config.contracts.dolla }
+
+  if (fs.existsSync(path.resolve(__dirname, `../docs/data/${network}/crew`))) {
+    fs.rmSync(path.resolve(__dirname, `../docs/data/${network}/crew`), { recursive: true })
+  }
+  fs.mkdirSync(path.resolve(__dirname, `../docs/data/${network}/crew`))
+  if (fs.existsSync(path.resolve(__dirname, `../server/src/data/${network}/crew`))) {
+    fs.rmSync(path.resolve(__dirname, `../server/src/data/${network}/crew`), { recursive: true })
+  }
+  fs.mkdirSync(path.resolve(__dirname, `../server/src/data/${network}/crew`))
 
   for (let i = 0; i < database.length; i++) {
     const row = Object.assign({}, database[i])
     const crew = row.attributes.Crew
 
-    row.milk = {
-      rate: milkRates[crew],
+    row.rates = {}
+
+    const milkRate = ethers.utils
+      .parseUnits(String(milkRates[crew]))
+      .div(60 * 60 * 24)
+      .toString()
+
+    row.rates[milk.address] = {
+      rate: milkRate,
       proof: await signer.signMessage(
-        authorizeMilkRate(nft.address, row.edition, milkRates[crew])
+        authorizeMilkRate(nft.address, row.edition, milkRate)
       )
     }
 
-    row.dolla = {
-      rate: dollaRates[crew],
+    const dollaRate = ethers.utils
+      .parseUnits(String(dollaRates[crew]))
+      .toString()
+
+    row.rates[dolla.address] = {
+      rate: dollaRate,
       proof: await signer.signMessage(
-        authorizeDollaRate(row.characterId, dollaRates[crew])
+        authorizeDollaRate(row.characterId, dollaRate)
       )
     }
 
     row.loot = {}
     for (const item of loots) {
+      continue
       const type = item.attributes.Type
-      const discount = discounts[crew][type] / 100
-      const ethPrice = ethers.utils
-        .parseEther(String(item.eth * discount))
-        .toString()
-      const dollaPrice = ethers.utils
-        .parseEther(String(item.dolla * discount))
-        .toString()
 
-      row.loot[item.id] = {
-        eth: {
-          price: ethPrice,
-          proof: await signer.signMessage(
-            authorizeEthPrice(row.characterId, item.id, ethPrice)
+      row.loot[item.edition] = {}
+      for (const token in item[network].pricing) {
+        const price = ethers.BigNumber
+          .from(item[network].pricing[token])
+          .mul(ethers.BigNumber.from(String(discounts[crew][type])))
+          .div(ethers.BigNumber.from('100'))
+          .toString()
+
+        const proof = token === zero
+          ? await signer.signMessage(
+            authorizeEthPrice(row.characterId, item.edition, price)
+          ): await signer.signMessage(
+            authorizeDollaPrice(token, row.characterId, item.edition, price)
           )
-        },
-        dolla: {
-          price: dollaPrice,
-          proof: await signer.signMessage(
-            authorizeDollaPrice(dolla.address, row.characterId, item.id, dollaPrice)
-          )
-        }
+        row.loot[item.edition][token] = { price, proof }
       }
     }
 
     fs.writeFileSync(
-      path.resolve(__dirname, `../docs/data/crew/${row.edition}.json`),
+      path.resolve(__dirname, `../docs/data/${network}/crew/${row.edition}.json`),
       JSON.stringify(row, null, 2)
     )
     fs.writeFileSync(
-      path.resolve(__dirname, `../server/src/data/crew/${row.edition}.json`),
+      path.resolve(__dirname, `../server/src/data/${network}/crew/${row.edition}.json`),
       JSON.stringify(row, null, 2)
     )
     database[i] = {

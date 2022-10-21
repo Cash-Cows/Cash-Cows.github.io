@@ -1,0 +1,34 @@
+{
+  "edition": 2012,
+  "name": "Titan Duo",
+  "image": "https://www.wearecashcows.com/images/loot/2012.png",
+  "category": "Boats",
+  "rarity": "Elite",
+  "limit": 75,
+  "attributes": [
+    {
+      "trait_name": "Type",
+      "value": "Catamaran"
+    },
+    {
+      "trait_name": "Speed",
+      "value": "24 Knots"
+    },
+    {
+      "trait_name": "Length",
+      "value": "36M"
+    },
+    {
+      "trait_name": "Passengers",
+      "value": "32"
+    },
+    {
+      "trait_name": "Origin",
+      "value": "United Kingdom"
+    }
+  ],
+  "pricing": {
+    "0x0000000000000000000000000000000000000000": "500000000000000000",
+    "0xa61a3d600db91942E0BD36EA7f1a8f9cc7F99086": "10000000000000000000000000"
+  }
+}

@@ -1,7 +1,8 @@
 window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const nft = network.contract('nft')
   const barn = network.contract('barn')
   const milk = network.contract('milk')
@@ -18,7 +19,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const query = new URLSearchParams(window.location.search)
     for (const params of query) {
       if (params[0] === 'edition') {
-        return await (await fetch(`/data/crew/${params[1]}.json`)).json()
+        return await (await fetch(`/data/${networkName}/crew/${params[1]}.json`)).json()
       }
     }
   }
@@ -40,12 +41,16 @@ window.addEventListener('web3sdk-ready', async _ => {
     let releaseable = await (barn.read().releaseable(
       nft.address, 
       row.edition,
-      row.milk.rate
+      row.rates[milk.address].rate
     ))
+
     const body = theme.toElement(template.form, {
       '{COLOR}': row.attributes.Background.toLowerCase(),
       '{IMAGE}': `/images/collection/${row.edition}_${stage}.png`,
-      '{RATE}': Math.ceil(Web3SDK.toEther(row.milk.rate, 'number') * (60 * 60 * 24)),
+      '{RATE}': Math.ceil(
+        Web3SDK.toEther(row.rates[milk.address].rate, 'number') 
+        * 60 * 60 * 24
+      ),
       '{RELEASEABLE}': Web3SDK.toEther(releaseable, 'number').toFixed(6)
     })
     document.querySelector('section.section-1 div.container').appendChild(body) 
@@ -54,7 +59,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const ticker = document.querySelector('div.releaseable span.value')
     setInterval(() => {
       releaseable = Web3SDK.toBigNumber(releaseable).add(
-        Web3SDK.toBigNumber(row.milk.rate)
+        Web3SDK.toBigNumber(row.rates[milk.address].rate)
       ).toString()
       ticker.innerHTML = Web3SDK.toEther(releaseable, 'number').toFixed(6)
     }, 1000)
@@ -72,8 +77,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     const args = [
       nft.address, 
       row.edition,
-      row.milk.rate,
-      row.milk.proof
+      row.rates[milk.address].rate,
+      row.rates[milk.address].proof
     ]
 
     //gas check

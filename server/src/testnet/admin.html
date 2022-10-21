@@ -1,0 +1,23 @@
+{{#layout "_page.html" 
+  version="7" 
+  path="testnet/admin" 
+  script="admin"
+  network="goerli" 
+  title="Admin | Cash Cows" 
+  description="When etherescan fails..." 
+}}
+  <section class="section section-1">
+    <div class="container">
+      <h2>CashCowsStore</h2>
+      <h6>setPrice(uint256[],address[][],uint256[][])</h6>
+      <form class="form">
+        <input type="text" name="arg" class="form-control" placeholder="uint256[]" />
+        <input type="text" name="arg" class="form-control" placeholder="address[][]" />
+        <input type="text" name="arg" class="form-control" placeholder="uint256[][]" />
+        <input type="hidden" name="contract" value="store" />
+        <input type="hidden" name="method" value="setPrice(uint256[],address[][],uint256[][])" />
+        <button class="btn btn-solid btn-primary">Write</button>
+      </form>
+    </div>
+  </section>
+{{/layout}}

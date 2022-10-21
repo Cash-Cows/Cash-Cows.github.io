@@ -1,0 +1,34 @@
+{
+  "edition": 2011,
+  "name": "Contessa",
+  "image": "https://www.wearecashcows.com/images/loot/2011.png",
+  "category": "Boats",
+  "rarity": "Rare",
+  "limit": 0,
+  "attributes": [
+    {
+      "trait_name": "Type",
+      "value": "Yacht"
+    },
+    {
+      "trait_name": "Speed",
+      "value": "19 Knots"
+    },
+    {
+      "trait_name": "Length",
+      "value": "40M"
+    },
+    {
+      "trait_name": "Passengers",
+      "value": "36"
+    },
+    {
+      "trait_name": "Origin",
+      "value": "Turkey"
+    }
+  ],
+  "pricing": {
+    "0x0000000000000000000000000000000000000000": "125000000000000000",
+    "0xa61a3d600db91942E0BD36EA7f1a8f9cc7F99086": "2500000000000000000000000"
+  }
+}

@@ -19,6 +19,7 @@
       //  chain_id, 
       //  chain_symbol, 
       //  chain_name, 
+      //  chain_label, 
       //  chain_uri, 
       //  chain_scanner, 
       //  chain_marketplace
@@ -101,54 +102,53 @@
      * @param {Object} config 
      */
     static setup(config) {
-      const {network: networks, abi: abis} = config;
-      for (const networkName in networks) {
-        const {
-          chain_id,
-          chain_symbol,
-          chain_name,
-          chain_uri,
-          chain_scanner,
-          chain_marketplace
-        } = networks[networkName];
- 
-        this.addNetwork(networkName, {
-          chain_id,
-          chain_symbol,
-          chain_name,
-          chain_uri,
-          chain_scanner,
-          chain_marketplace
-        });
- 
-        const network = this.network(networkName);
-        for(const contractName in networks[networkName].contracts) {
-          //if there's no abi
-          if (!Array.isArray(abis[contractName])) {
-            //we need to skip this
-            continue;
-          }
- 
-          const { 
+      const {
+        chain_id,
+        chain_symbol,
+        chain_name,
+        chain_label,
+        chain_uri,
+        chain_scanner,
+        chain_marketplace,
+        contracts
+      } = config
+
+      this.addNetwork(chain_name, {
+        chain_id,
+        chain_symbol,
+        chain_name,
+        chain_label,
+        chain_uri,
+        chain_scanner,
+        chain_marketplace
+      });
+
+      const network = this.network(chain_name);
+      for(const name in contracts) {
+        //if there's no abi
+        if (!Array.isArray(contracts[name].abi)) {
+          //we need to skip this
+          continue;
+        }
+
+        const { 
+          type, 
+          symbol, 
+          decimals, 
+          image 
+        } = contracts[name];
+
+        network.addContract(
+          name, 
+          contracts[name].address,
+          contracts[name].abi,
+          { 
             type, 
             symbol, 
             decimals, 
             image 
-          } = networks[networkName].contracts[contractName];
- 
-          network.addContract(
-            contractName, 
-            networks[networkName].contracts[contractName].address,
-            abis[contractName],
-            { 
-             type, 
-             symbol, 
-             decimals, 
-             image 
-            }
-          );
-        }
- 
+          }
+        );
       }
     }
 
@@ -238,6 +238,7 @@
       //  chain_id, 
       //  chain_symbol, 
       //  chain_name, 
+      //  chain_label,
       //  chain_uri, 
       //  chain_scanner, 
       //  chain_marketplace
@@ -269,7 +270,7 @@
       //get settings from config
       const { 
        chain_id, 
-       chain_name, 
+       chain_label, 
        chain_symbol, 
        chain_uri, 
        chain_scanner
@@ -279,7 +280,7 @@
        method: 'wallet_addEthereumChain',
        params: [{ 
          chainId: `0x${chain_id.toString(16)}`, 
-         chainName: chain_name,
+         chainName: chain_label,
          rpcUrls:[ chain_uri ],                 
          blockExplorerUrls:[ chain_scanner ],  
          nativeCurrency: { 

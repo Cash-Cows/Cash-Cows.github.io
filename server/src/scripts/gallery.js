@@ -26,7 +26,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     attribute: document.getElementById('template-attribute-box').innerHTML
   }
 
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const nft = network.contract('nft')
   const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')

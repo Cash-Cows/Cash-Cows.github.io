@@ -14,7 +14,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     community: document.getElementById('template-community-goal').innerHTML,
   }
 
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const royalty = network.contract('royalty')
 
   //------------------------------------------------------------------//

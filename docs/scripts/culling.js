@@ -8,7 +8,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     game: document.getElementById('template-game').innerHTML
   }
 
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const nft = network.contract('nft')
   const culling = network.contract('culling')
   const royalty = network.contract('royalty')

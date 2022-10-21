@@ -2,7 +2,8 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Variables
 
-  const network = Web3SDK.network('ethereum')
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  const network = Web3SDK.network(networkName)
   const metadata = network.contract('metadata')
   const loot = network.contract('loot')
   const game = network.contract('game')
@@ -14,6 +15,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     modal: document.getElementById('template-modal').innerHTML,
     attribute: document.getElementById('template-attribute').innerHTML
   }
+
+  const zero = '0x0000000000000000000000000000000000000000'
 
   //------------------------------------------------------------------//
   // Functions 
@@ -29,7 +32,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const query = new URLSearchParams(window.location.search)
     for (const params of query) {
       if (params[0] === 'edition') {
-        return await (await fetch(`/data/crew/${params[1]}.json`)).json()
+        return await (await fetch(`/data/${networkName}/crew/${params[1]}.json`)).json()
       }
     }
   }
@@ -41,12 +44,12 @@ window.addEventListener('web3sdk-ready', async _ => {
   }
 
   const loadLoot = async () => {
-    const loots = await (await fetch(`/data/loot.json`)).json()
+    const loots = await (await fetch(`/data/${networkName}/loot.json`)).json()
     
     for (let i = 0; i < loots.length; i++) {
       const loot = loots[i]
-      const price = Web3SDK.state.character.loot[loot.edition]
-      if (price.eth.price == '0' && price.dolla.price == '0') {
+      const pricing = Web3SDK.state.character.loot[loot.edition]
+      if (!Object.keys(pricing).length) {
         continue
       }
       
@@ -144,11 +147,13 @@ window.addEventListener('web3sdk-ready', async _ => {
   window.addEventListener('modal-open-click', async (e) => {
     const id = parseInt(e.for.getAttribute('data-id'))
 
-    const loot = await (await fetch(`/data/loot/${id}.json`)).json()
-    const price = Web3SDK.state.character.loot[loot.edition]
+    const loot = await (await fetch(
+      `/data/${networkName}/loot/${String(id).padStart(64, '0')}.json`
+    )).json()
+    const pricing = Web3SDK.state.character.loot[loot.edition]
     const prices = [ 
-      ['dolla', price.dolla.price], 
-      ['eth', price.eth.price] 
+      ['dolla', pricing[dolla.address]?.price || '0'], 
+      ['eth', pricing[zero]?.price || '0'] 
     ]
     .filter(amount => amount[1] != 0)
     .map(amount => template.price
@@ -187,8 +192,9 @@ window.addEventListener('web3sdk-ready', async _ => {
   window.addEventListener('mint-click', async e => {
     const id = e.for.getAttribute('data-id')
     const currency = e.for.getAttribute('data-currency')
-
-    const offer = Web3SDK.state.character.loot[id][currency]
+    const address = currency === 'eth' ? zero : dolla.address
+    const offer = Web3SDK.state.character.loot[id][address]
+    console.log(offer)
 
     const method = currency == 'eth'
       //characterId, itemId, price, proof
@@ -209,6 +215,8 @@ window.addEventListener('web3sdk-ready', async _ => {
         offer.price,
         offer.proof
       ]
+
+    console.log(method, args)
 
     await write(game, method, args, () => {
       window.location.reload()

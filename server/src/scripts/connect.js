@@ -1,8 +1,7 @@
 (async (window) => {
   //sets up the Web3 SDK
-  await Web3SDK.setupJSON(`/data/${
-    document.getElementById('network').getAttribute('data-value')
-  }.json`)
+  const networkName = document.getElementById('network').getAttribute('data-value')
+  await Web3SDK.setupJSON(`/data/${networkName}.json`)
 
   //------------------------------------------------------------------//
   // Variables
@@ -28,7 +27,7 @@
 
   Web3SDK.state = { connected: false }
 
-  const network = Web3SDK.network('ethereum')
+  const network = Web3SDK.network(networkName)
 
   let listening = false
 
