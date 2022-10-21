@@ -115,7 +115,7 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 20px 20px;
+  padding: 0 20px 50px;
 }
 
 .modal .attribute-box {
@@ -150,8 +150,17 @@ html, body {
 .modal .prices {
   background-color: #F4E8DA;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 10px 0;
+}
+
+.modal .prices .quantity {
+  color: #222222;
+  font-size: 12px;
+  flex-basis: 100%;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
 .modal .price {
@@ -191,6 +200,15 @@ html, body {
   position: relative;
   text-align: center;
   text-decoration: none;
+}
+
+.modal .price .value strike {
+  color: #DF0000;
+  display: inline-block;
+  font-size: 8px;
+  font-style: italic;
+  margin-right: 10px;
+  text-decoration: line-through;
 }
 
 .modal .price .value:hover,

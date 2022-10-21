@@ -24,6 +24,14 @@ window.addEventListener('web3sdk-ready', async _ => {
   const toFixedNumber = function(number, length = 4) {
     const parts = number.toString().split('.')
 
+    if (parts[0].length > 9) {
+      return (parseInt(parts[0]) / 1000000000).toFixed(2) + 'B'
+    } else if (parts[0].length > 6) {
+      return (parseInt(parts[0]) / 1000000).toFixed(2) + 'M'
+    } else if (parts[0].length > 3) {
+      return (parseInt(parts[0]) / 1000).toFixed(2) + 'K'
+    }
+
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.')
   }
@@ -147,43 +155,66 @@ window.addEventListener('web3sdk-ready', async _ => {
   window.addEventListener('modal-open-click', async (e) => {
     const id = parseInt(e.for.getAttribute('data-id'))
 
-    const loot = await (await fetch(
+    const item = await (await fetch(
       `/data/${networkName}/loot/${String(id).padStart(64, '0')}.json`
     )).json()
-    const pricing = Web3SDK.state.character.loot[loot.edition]
+
+    const supply = await loot.read().totalSupply(item.edition)
+    const pricing = Web3SDK.state.character.loot[item.edition]
     const prices = [ 
-      ['dolla', pricing[dolla.address]?.price || '0'], 
-      ['eth', pricing[zero]?.price || '0'] 
+      ['dolla', dolla.address, pricing[dolla.address]?.price || '0'], 
+      ['eth', zero, pricing[zero]?.price || '0'] 
     ]
-    .filter(amount => amount[1] != 0)
-    .map(amount => template.price
-      .replace('{ID}', id)
-      .replace('{ITEM}', loot.itemId)
-      .replace('{CURRENCY}', amount[0])
-      .replace('{CURRENCY}', amount[0])
-      .replace('{PRICE}', toFixedNumber(Web3SDK.toEther(
-        amount[1], 
+    .filter(amount => amount[2] != 0)
+    .map(amount => {
+      const srp = `<strike>${toFixedNumber(Web3SDK.toEther(
+        item.pricing[amount[1]], 
         'string'
-      )))
-    )
+      ))}</strike>`
+      
+      const offer = `<span>${toFixedNumber(Web3SDK.toEther(
+        amount[2], 
+        'string'
+      ))}</span>`
+      
+      const price = item.pricing[amount[1]] == amount[2]? offer: srp + offer
+
+      return template.price
+        .replace('{ID}', id)
+        .replace('{ITEM}', item.itemId)
+        .replace('{CURRENCY}', amount[0])
+        .replace('{CURRENCY}', amount[0])
+        .replace('{PRICE}', price)
+    })
 
     const boxes = []
-    for (const trait of loot.attributes) {
+    for (const trait of item.attributes) {
       boxes.push(template.attribute
         .replace('{NAME}', trait.trait_name)
         .replace('{VALUE}', trait.value)
       )
     }
 
-    const item = theme.toElement(template.modal, {
-      '{ID}': loot.edition,
-      '{IMAGE}': `/images/loot/${loot.edition}.png`,
-      '{NAME}': loot.name,
+    let quantity = ''
+    if (item.limit > 0) { 
+      const available = item.limit - supply
+      if (supply > 0 && (supply / item.limit) > 0.5) {
+        quantity = `<div class=quantity>${available} of ${item.limit} remaining</div>`
+      } else {
+        quantity = `<div class=quantity>only ${available} available</div>`
+      }
+    }
+
+    const modal = theme.toElement(template.modal, {
+      '{ID}': item.edition,
+      '{IMAGE}': `/images/loot/${item.edition}.png`,
+      '{NAME}': item.name,
+      '{QUANTITY}': quantity,
       '{PRICE}': prices.join(''),
       '{ATTRIBUTES}': boxes.join('')
     })
-    document.body.appendChild(item)
-    window.doon(item)
+    document.body.appendChild(modal)
+    window.doon(modal)
   })
 
   window.addEventListener('modal-close-click', () => {
