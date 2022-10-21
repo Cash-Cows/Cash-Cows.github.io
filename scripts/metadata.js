@@ -14,6 +14,47 @@ const discounts = require('../data/discounts.json')
 
 const zero = '0x0000000000000000000000000000000000000000'
 
+function parseBigInt(str, base = 10) {
+  base = BigInt(base)
+  var bigint = BigInt(0)
+  for (var i = 0; i < str.length; i++) {
+    var code = str[str.length - 1 - i].charCodeAt(0) - 48; if(code >= 10) code -= 39
+    bigint += base**BigInt(i) * BigInt(code)
+  }
+  return bigint
+}
+
+function getCollectionId(address, id, base = 10) {
+  address = address.replace('0x', '').toLowerCase();
+  const addressBin = [];
+  for(var c of address) {
+    switch(c) {
+      case '0': addressBin.push('0000'); break;
+      case '1': addressBin.push('0001'); break;
+      case '2': addressBin.push('0010'); break;
+      case '3': addressBin.push('0011'); break;
+      case '4': addressBin.push('0100'); break;
+      case '5': addressBin.push('0101'); break;
+      case '6': addressBin.push('0110'); break;
+      case '7': addressBin.push('0111'); break;
+      case '8': addressBin.push('1000'); break;
+      case '9': addressBin.push('1001'); break;
+      case 'a': addressBin.push('1010'); break;
+      case 'b': addressBin.push('1011'); break;
+      case 'c': addressBin.push('1100'); break;
+      case 'd': addressBin.push('1101'); break;
+      case 'e': addressBin.push('1110'); break;
+      case 'f': addressBin.push('1111'); break;
+      default: return '';
+    }
+  }
+
+  return parseBigInt([
+    id.toString(2).padStart(192, '0'),
+    addressBin.join('').padStart(160, '0')
+  ].join(''), 2).toString(base)
+}
+
 function authorizeMilkRate(collection, tokenId, rate) {
   return Buffer.from(
     ethers.utils.solidityKeccak256(
@@ -66,13 +107,10 @@ async function main() {
     fs.rmSync(path.resolve(__dirname, `../docs/data/${network}/crew`), { recursive: true })
   }
   fs.mkdirSync(path.resolve(__dirname, `../docs/data/${network}/crew`))
-  if (fs.existsSync(path.resolve(__dirname, `../server/src/data/${network}/crew`))) {
-    fs.rmSync(path.resolve(__dirname, `../server/src/data/${network}/crew`), { recursive: true })
-  }
-  fs.mkdirSync(path.resolve(__dirname, `../server/src/data/${network}/crew`))
 
   for (let i = 0; i < database.length; i++) {
     const row = Object.assign({}, database[i])
+    row.characterId = getCollectionId(nft.address, row.edition)
     const crew = row.attributes.Crew
 
     row.rates = {}
@@ -102,7 +140,7 @@ async function main() {
 
     row.loot = {}
     for (const item of loots) {
-      continue
+      //continue
       const type = item.attributes.Type
 
       row.loot[item.edition] = {}
@@ -115,9 +153,9 @@ async function main() {
 
         const proof = token === zero
           ? await signer.signMessage(
-            authorizeEthPrice(row.characterId, item.edition, price)
+            authorizeEthPrice(row.characterId, item.itemId, price)
           ): await signer.signMessage(
-            authorizeDollaPrice(token, row.characterId, item.edition, price)
+            authorizeDollaPrice(token, row.characterId, item.itemId, price)
           )
         row.loot[item.edition][token] = { price, proof }
       }
@@ -125,10 +163,6 @@ async function main() {
 
     fs.writeFileSync(
       path.resolve(__dirname, `../docs/data/${network}/crew/${row.edition}.json`),
-      JSON.stringify(row, null, 2)
-    )
-    fs.writeFileSync(
-      path.resolve(__dirname, `../server/src/data/${network}/crew/${row.edition}.json`),
       JSON.stringify(row, null, 2)
     )
     database[i] = {
@@ -141,14 +175,6 @@ async function main() {
 
   fs.writeFileSync(
     path.resolve(__dirname, '../docs/data/metadata.json'),
-    JSON.stringify({
-      updated: Date.now(),
-      supply: database.length,
-      rows: database
-    }, null, 2)
-  )
-  fs.writeFileSync(
-    path.resolve(__dirname, '../server/src/data/metadata.json'),
     JSON.stringify({
       updated: Date.now(),
       supply: database.length,

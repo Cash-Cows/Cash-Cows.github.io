@@ -32,6 +32,8 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import "../IERC20Burnable.sol";
 import "../IERC20Mintable.sol";
 
+import "hardhat/console.sol";
+
 // ============ Interface ============
 
 interface IERC1155Mintable is IERC1155, IERC1155Receiver {
@@ -308,11 +310,7 @@ contract CashCowsGame is Context, ReentrancyGuard, AccessControl {
       //transfer it here
       //(the payer is the caller)
       //this will only pass if we have the allowance...
-      IERC20(token).transferFrom(
-        _msgSender(), 
-        address(this), 
-        price
-      );
+      IERC20(token).transferFrom(_msgSender(), address(this), price);
     }
     
     _mint(characterId, itemId);

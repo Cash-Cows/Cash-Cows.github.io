@@ -158,6 +158,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     .filter(amount => amount[1] != 0)
     .map(amount => template.price
       .replace('{ID}', id)
+      .replace('{ITEM}', loot.itemId)
       .replace('{CURRENCY}', amount[0])
       .replace('{CURRENCY}', amount[0])
       .replace('{PRICE}', toFixedNumber(Web3SDK.toEther(
@@ -191,10 +192,10 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   window.addEventListener('mint-click', async e => {
     const id = e.for.getAttribute('data-id')
+    const itemId = e.for.getAttribute('data-item')
     const currency = e.for.getAttribute('data-currency')
     const address = currency === 'eth' ? zero : dolla.address
     const offer = Web3SDK.state.character.loot[id][address]
-    console.log(offer)
 
     const method = currency == 'eth'
       //characterId, itemId, price, proof
@@ -205,18 +206,16 @@ window.addEventListener('web3sdk-ready', async _ => {
     const args = currency == 'eth' 
       ? [
         Web3SDK.state.character.characterId,
-        id,
+        itemId,
         offer.price,
         offer.proof
       ]: [
         dolla.address,
         Web3SDK.state.character.characterId,
-        id,
+        itemId,
         offer.price,
         offer.proof
       ]
-
-    console.log(method, args)
 
     await write(game, method, args, () => {
       window.location.reload()

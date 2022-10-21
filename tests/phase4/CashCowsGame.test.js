@@ -326,3 +326,70 @@ describe('CashCowsGame Tests', function() {
     ).to.equal(110)
   })
 })
+
+describe.only('Game Simulation', function() {
+  before(async function() {
+    const signers = await ethers.getSigners()
+    this.preview = 'https://ipfs.io/ipfs/Qm123abc/preview.json'
+    this.zero = '0x0000000000000000000000000000000000000000'
+
+    const nft = await deploy('CashCows', this.preview, signers[0].address)
+    await bindContract('withNFT', 'CashCows', nft, signers)
+    const dolla = await deploy('CashCowsDolla', signers[0].address)
+    await bindContract('withDolla', 'CashCowsDolla', dolla, signers)
+    const loot = await deploy('CashCowsLoot', this.preview, signers[0].address)
+    await bindContract('withLoot', 'CashCowsLoot', loot, signers)
+    const game = await deploy('CashCowsGame', signers[0].address)
+    await bindContract('withGame', 'CashCowsGame', game, signers)
+    const weth = await deploy('MockERC20WETH')
+    await bindContract('withWETH', 'MockERC20WETH', weth, signers)
+
+    const [ admin, holder ] = signers
+
+    //grant admin to all roles
+    await admin.withNFT.grantRole(getRole('MINTER_ROLE'), admin.address)
+    await admin.withNFT.grantRole(getRole('CURATOR_ROLE'), admin.address)
+    await admin.withDolla.grantRole(getRole('MINTER_ROLE'), admin.address)
+    await admin.withLoot.grantRole(getRole('CURATOR_ROLE'), admin.address)
+    await admin.withLoot.grantRole(getRole('MINTER_ROLE'), admin.address)
+    await admin.withGame.grantRole(getRole('MINTER_ROLE'), admin.address)
+    await admin.withGame.grantRole(getRole('CURATOR_ROLE'), admin.address)
+    await admin.withGame.grantRole(getRole('FUNDER_ROLE'), admin.address)
+    //allow game to mint and burn dolla
+    await admin.withGame.burnable(dolla.address, true)
+    await admin.withDolla.grantRole(getRole('MINTER_ROLE'), game.address)
+    await admin.withDolla.grantRole(getRole('BURNER_ROLE'), game.address)
+    //allow game to mint and transfer loot
+    await admin.withLoot.grantRole(getRole('MINTER_ROLE'), game.address)
+    await admin.withLoot.grantRole(getRole('APPROVED_ROLE'), game.address)
+    //mint dolla for holder
+    await admin.withDolla.mint(holder.address, '1000000000000000000000')
+    //mint cows to holders
+    await admin.withNFT['mint(address,uint256)'](holder.address, 10)
+    //add items to loot store
+    //await admin.withLoot['setMaxSupply(uint256[],uint256[])']([1001], [6, 3])
+    
+    this.signers = { admin, holder }
+  })
+
+  it('Should mint (dolla)', async function () {
+    const { admin, holder } = this.signers
+
+    const characterId = getCollectionId(admin.withNFT.address, 5)
+    const itemId = getCollectionId(admin.withLoot.address, 1001)
+    const price = '1000000000000000000000'
+    
+    const token = admin.withDolla.address
+    //mint character 2 item 1 for price
+    await holder.withGame['mint(address,uint256,uint256,uint256,bytes)'](
+      token, characterId, itemId, price, await admin.signMessage(
+        mintERC20(token, characterId, itemId, price)
+      )
+    )
+
+    expect(await admin.withGame.linkedSince(characterId, itemId)).to.be.above(
+      Math.floor(Date.now() / 1000)
+    )
+    expect(await admin.withDolla.balanceOf(holder.withGame.address)).to.equal(0)
+  })
+})

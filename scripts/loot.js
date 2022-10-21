@@ -9,6 +9,47 @@ const hardhat = require('hardhat')
 const host = `https://opensheet.elk.sh/1C0TWcgj8qQwBgfR-TQe5KcyA0XZQnIFRTdSclh_J_Ks/{TAB}`
 const zero = '0x0000000000000000000000000000000000000000'
 
+function parseBigInt(str, base = 10) {
+  base = BigInt(base)
+  var bigint = BigInt(0)
+  for (var i = 0; i < str.length; i++) {
+    var code = str[str.length - 1 - i].charCodeAt(0) - 48; if(code >= 10) code -= 39
+    bigint += base**BigInt(i) * BigInt(code)
+  }
+  return bigint
+}
+
+function getCollectionId(address, id, base = 10) {
+  address = address.replace('0x', '').toLowerCase();
+  const addressBin = [];
+  for(var c of address) {
+    switch(c) {
+      case '0': addressBin.push('0000'); break;
+      case '1': addressBin.push('0001'); break;
+      case '2': addressBin.push('0010'); break;
+      case '3': addressBin.push('0011'); break;
+      case '4': addressBin.push('0100'); break;
+      case '5': addressBin.push('0101'); break;
+      case '6': addressBin.push('0110'); break;
+      case '7': addressBin.push('0111'); break;
+      case '8': addressBin.push('1000'); break;
+      case '9': addressBin.push('1001'); break;
+      case 'a': addressBin.push('1010'); break;
+      case 'b': addressBin.push('1011'); break;
+      case 'c': addressBin.push('1100'); break;
+      case 'd': addressBin.push('1101'); break;
+      case 'e': addressBin.push('1110'); break;
+      case 'f': addressBin.push('1111'); break;
+      default: return '';
+    }
+  }
+
+  return parseBigInt([
+    id.toString(2).padStart(192, '0'),
+    addressBin.join('').padStart(160, '0')
+  ].join(''), 2).toString(base)
+}
+
 function toAttributeList(attributes) {
   const list = []
   for (const attribute in attributes) {
@@ -39,8 +80,11 @@ function api(url) {
 }
 
 function parseItem(category, row, attributes) {
+  const config = hardhat.config.networks[hardhat.config.defaultNetwork]
+  const collectionId = getCollectionId(config.contracts.loot, parseInt(row.ID))
   const item = {
     edition: parseInt(row.ID),
+    itemId: collectionId,
     name: row.Name,
     image: `https://www.wearecashcows.com/images/loot/${row.ID}.png`,
     category,
@@ -55,7 +99,6 @@ function parseItem(category, row, attributes) {
     item.pricing[zero] = ethers.utils.parseEther(eth).toString()
   }
   
-  const config = hardhat.config.networks[hardhat.config.defaultNetwork]
   const dolla = row.DOLLA.replace('$', '').replace(/,/g, '').trim()
   if (dolla.length) {
     item.pricing[config.contracts.dolla] = ethers.utils.parseEther(dolla).toString()
@@ -202,6 +245,7 @@ async function main() {
     JSON.stringify(items.map(item => {
       const data = {
         edition: item.edition,
+        itemId: item.itemId,
         name: item.name,
         image: item.image,
         category: item.category,
@@ -220,29 +264,16 @@ async function main() {
     JSON.stringify(items, null, 2)
   )
 
-  fs.writeFileSync(
-    `${paths.server}.json`, 
-    JSON.stringify(items, null, 2)
-  )
-
   if (fs.existsSync(paths.docs)) {
     fs.rmSync(paths.docs, { recursive: true })
   }
   fs.mkdirSync(paths.docs)
-  if (fs.existsSync(paths.server)) {
-    fs.rmSync(paths.server, { recursive: true })
-  }
-  fs.mkdirSync(paths.server)
 
   for (const item of items) {
     const loot = Object.assign({}, item)
     loot.attributes = toAttributeList(loot.attributes)
     fs.writeFileSync(
       path.join(paths.docs, `${String(item.edition).padStart(64, '0')}.json`),
-      JSON.stringify(loot, null, 2)
-    )
-    fs.writeFileSync(
-      path.join(paths.server, `${String(item.edition).padStart(64, '0')}.json`),
       JSON.stringify(loot, null, 2)
     )
   }
@@ -272,14 +303,14 @@ async function main() {
   if (instructions.supply.length) {
     console.log('-----------------------------------')
     console.log('In CashCowsLoot contract, set supply')
-    //console.log(` - ${config.scanner}/address/${loot.address}#writeContract`)
+    console.log(` - ${config.scanner}/address/${loot.address}#writeContract`)
     instructions.supply.forEach(instruction => console.log(instruction))
   }
 
   if (instructions.prices.length) {
     console.log('-----------------------------------')
     console.log('In CashCowsStore contract, set prices')
-    //console.log(` - ${config.scanner}/address/${store.address}#writeContract`)
+    console.log(` - ${config.scanner}/address/${store.address}#writeContract`)
     instructions.prices.forEach(instruction => console.log(instruction))
   }
 }

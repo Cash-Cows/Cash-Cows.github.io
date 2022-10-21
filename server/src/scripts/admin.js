@@ -3,6 +3,15 @@ window.addEventListener('web3sdk-ready', async _ => {
   // Variables
   const networkName = document.getElementById('network').getAttribute('data-value')
   const network = Web3SDK.network(networkName)
+  const loot = network.contract('loot')
+  const game = network.contract('game')
+  const store = network.contract('store')
+  const dolla = network.contract('dolla')
+
+  const role = {
+    MINTER_ROLE: '0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6',
+    BURNER_ROLE: '0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848'
+  }
 
   //------------------------------------------------------------------//
   // Functions 
@@ -67,7 +76,27 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Events
   
-  window.addEventListener('web3sdk-connected', async _ => {})
+  window.addEventListener('web3sdk-connected', async _ => {
+    console.log(
+      'Can game mint loot?',
+      await loot.read().hasRole(role.MINTER_ROLE, game.address)
+    )
+    console.log(
+      'Can game mint dolla?',
+      await dolla.read().hasRole(role.MINTER_ROLE, game.address)
+    )
+    console.log(
+      'Can game burn dolla?',
+      await dolla.read().hasRole(role.BURNER_ROLE, game.address)
+    )
+    console.log(
+      'Can admin mint from game?',
+      await game.read().hasRole(
+        role.MINTER_ROLE, 
+        '0x65Ee9a95C5B91B84B7040fAc264e782448e38a46'
+      )
+    )
+  })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {})
 
