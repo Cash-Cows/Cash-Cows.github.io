@@ -52,12 +52,13 @@ window.addEventListener('web3sdk-ready', async _ => {
   }
 
   const loadLoot = async () => {
+    const now = Date.now()
     const loots = await (await fetch(`/data/${networkName}/loot.json`)).json()
     
     for (let i = 0; i < loots.length; i++) {
       const loot = loots[i]
       const pricing = Web3SDK.state.character.loot[loot.edition]
-      if (!Object.keys(pricing).length) {
+      if (now < loot.available || !Object.keys(pricing).length) {
         continue
       }
       

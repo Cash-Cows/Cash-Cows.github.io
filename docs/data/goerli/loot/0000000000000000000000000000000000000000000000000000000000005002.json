@@ -1,34 +1,27 @@
 {
   "edition": 5002,
   "itemId": "7310527225274833013932920450019533714040632260993216",
-  "name": "Trailer Plot",
+  "name": "Winery",
   "image": "https://www.wearecashcows.com/images/loot/5002.png",
-  "category": "Cribs",
+  "category": "Hustles",
   "rarity": "Common",
+  "available": 1668733200000,
   "limit": 0,
   "attributes": [
     {
       "trait_name": "Type",
-      "value": "Plot"
+      "value": "Business"
     },
     {
-      "trait_name": "Stories",
-      "value": "1"
+      "trait_name": "Monthly Profit",
+      "value": "$90,000"
     },
     {
-      "trait_name": "Bedrooms",
-      "value": "1"
-    },
-    {
-      "trait_name": "Size",
-      "value": "12 SQM"
-    },
-    {
-      "trait_name": "Origin",
-      "value": "United States"
+      "trait_name": "Employees",
+      "value": "30"
     }
   ],
   "pricing": {
-    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "10000000000000000000000"
+    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "500000000000000000000000"
   }
 }

@@ -1,35 +1,27 @@
 {
   "edition": 5010,
   "itemId": "7322219238373480237278549928681263978197879721337024",
-  "name": "Country Manor",
+  "name": "Five Star Hotel",
   "image": "https://www.wearecashcows.com/images/loot/5010.png",
-  "category": "Cribs",
-  "rarity": "Rare",
+  "category": "Hustles",
+  "rarity": "Elite",
+  "available": 1668733200000,
   "limit": 0,
   "attributes": [
     {
       "trait_name": "Type",
-      "value": "Estate"
+      "value": "Business"
     },
     {
-      "trait_name": "Stories",
-      "value": "3"
+      "trait_name": "Monthly Profit",
+      "value": "$18,500,000"
     },
     {
-      "trait_name": "Bedrooms",
-      "value": "3"
-    },
-    {
-      "trait_name": "Size",
-      "value": "2500 SQM"
-    },
-    {
-      "trait_name": "Origin",
-      "value": "Italy"
+      "trait_name": "Employees",
+      "value": "400"
     }
   ],
   "pricing": {
-    "0x0000000000000000000000000000000000000000": "400000000000000000",
-    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "8000000000000000000000000"
+    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "175000000000000000000000000"
   }
 }

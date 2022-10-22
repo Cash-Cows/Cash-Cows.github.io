@@ -1,34 +1,27 @@
 {
   "edition": 5014,
   "itemId": "7328065244922803848951364668012129110276503451508928",
-  "name": "Ancient Castle",
+  "name": "Hydro Power Station",
   "image": "https://www.wearecashcows.com/images/loot/5014.png",
-  "category": "Cribs",
+  "category": "Hustles",
   "rarity": "Elite",
-  "limit": 20,
+  "available": 1668733200000,
+  "limit": 0,
   "attributes": [
     {
       "trait_name": "Type",
-      "value": "Castle"
+      "value": "Business"
     },
     {
-      "trait_name": "Stories",
-      "value": "6"
+      "trait_name": "Monthly Profit",
+      "value": "$87,000,000"
     },
     {
-      "trait_name": "Bedrooms",
-      "value": "13"
-    },
-    {
-      "trait_name": "Size",
-      "value": "7500 SQM"
-    },
-    {
-      "trait_name": "Origin",
-      "value": "Czech Republic"
+      "trait_name": "Employees",
+      "value": "175"
     }
   ],
   "pricing": {
-    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "20000000000000000000000000"
+    "0x5E7c36f3508de82505f417395dE49a68187d1FD2": "1000000000000000000000000000"
   }
 }

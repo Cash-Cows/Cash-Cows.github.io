@@ -89,6 +89,7 @@ function parseItem(category, row, attributes) {
     image: `https://www.wearecashcows.com/images/loot/${row.ID}.png`,
     category,
     rarity: row.Rarity,
+    available: (new Date(`${row.Available} +800`)).getTime(),
     limit: row.Quantity.length? parseInt(row.Quantity): 0,
     attributes,
     pricing: {}
@@ -109,7 +110,7 @@ function parseItem(category, row, attributes) {
 
 function parseRides(rows, items = []) {
   for (const row of rows) {
-    if (!row.ID.length) continue
+    if (!row.ID.length || !row.Available.length) continue
     items.push(parseItem('Rides', row, {
       Type: row.Type,
       Speed: row.Speed,
@@ -124,7 +125,7 @@ function parseRides(rows, items = []) {
 
 function parseBoats(rows, items = []) {
   for (const row of rows) {
-    if (!row.ID.length) continue
+    if (!row.ID.length || !row.Available.length) continue
     items.push(parseItem('Boats', row, {
       Type: row.Type,
       Speed: row.Speed,
@@ -139,7 +140,7 @@ function parseBoats(rows, items = []) {
 
 function parseBling(rows, items = []) {
   for (const row of rows) {
-    if (!row.ID.length) continue
+    if (!row.ID.length || !row.Available.length) continue
     items.push(parseItem('Bling', row, {
       Type: row.Type,
       Material: row.Material,
@@ -155,7 +156,7 @@ function parseBling(rows, items = []) {
 
 function parseHustles(rows, items = []) {
   for (const row of rows) {
-    if (!row.ID.length) continue
+    if (!row.ID.length || !row.Available.length) continue
     items.push(parseItem('Hustles', row, {
       Type: row.Type,
       'Monthly Profit': row['Monthly Profit'],
@@ -168,7 +169,7 @@ function parseHustles(rows, items = []) {
 
 function parseCribs(rows, items = []) {
   for (const row of rows) {
-    if (!row.ID.length) continue
+    if (!row.ID.length || !row.Available.length) continue
     items.push(parseItem('Cribs', row, {
       Type: row.Type,
       Stories: row.Stories,
@@ -197,9 +198,9 @@ async function main() {
   const json = {}
   json.rides = await api(host.replace('{TAB}', '1-Rides'))
   json.boats = await api(host.replace('{TAB}', '2-Boats'))
-  json.bling = await api(host.replace('{TAB}', '3-Bling'))
-  json.hustles = await api(host.replace('{TAB}', '4-Hustles'))
-  json.cribs = await api(host.replace('{TAB}', '5-Cribs'))
+  json.bling = await api(host.replace('{TAB}', '4-Bling'))
+  json.hustles = await api(host.replace('{TAB}', '5-Hustles'))
+  json.cribs = await api(host.replace('{TAB}', '6-Cribs'))
 
   const items = []
   parseRides(json.rides, items)
