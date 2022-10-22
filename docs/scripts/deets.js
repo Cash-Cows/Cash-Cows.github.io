@@ -7,7 +7,12 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   const template = {
     game: document.getElementById('template-game').innerHTML,
-    attribute: document.getElementById('template-attribute-box').innerHTML
+    attribute: document.getElementById('template-attribute-box').innerHTML,
+    loot: {
+      item: document.getElementById('template-loot').innerHTML,
+      modal: document.getElementById('template-loot-modal').innerHTML,
+      attribute: document.getElementById('template-loot-attribute').innerHTML
+    }
   }
 
   const networkName = document.getElementById('network').getAttribute('data-value')
@@ -15,6 +20,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   const nft = network.contract('nft')
   const royalty = network.contract('royalty')
   const metadata = network.contract('metadata')
+  const game = network.contract('game')
 
   const treasuryTokens = {
     weth: network.contract('weth'),
@@ -92,6 +98,26 @@ window.addEventListener('web3sdk-ready', async _ => {
     return number.toFixed(size)
   }
 
+  const loadLoot = async (owned) => {
+    const loots = await (await fetch(`/data/${networkName}/loot.json`)).json()
+    
+    for (let i = 0; i < loots.length; i++) {
+      const loot = loots[i]
+      if (owned.indexOf(loot.edition) < 0) {
+        continue
+      }
+      
+      const item = theme.toElement(template.loot.item, {
+        '{ID}': loot.edition,
+        '{IMAGE}': `/images/loot/${loot.edition}.png`
+      })
+      document.querySelector('div.loot div.content').appendChild(item)
+      window.doon(item)
+    }
+
+    theme.hide('div.loot', false)
+  }
+
   //------------------------------------------------------------------//
   // Events
 
@@ -100,6 +126,8 @@ window.addEventListener('web3sdk-ready', async _ => {
     rarity()
 
     const row = await getRow()
+    const loots = (await game.read().items(row.characterId))
+      .map(item => parseInt(item.collectionTokenId))
     if (!row) window.location.href = '/cows.html'
     const stage = parseInt(await metadata.read().stage(row.edition))
 
@@ -118,7 +146,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       )
     })
 
-    const game = theme.toElement(template.game, {
+    const panel = theme.toElement(template.game, {
       '{COLOR}': row.attributes.Background.value.toLowerCase(),
       '{EDITION}': row.edition,
       '{RANK}': row.rank,
@@ -129,8 +157,10 @@ window.addEventListener('web3sdk-ready', async _ => {
       '{ATTRIBUTES}': boxes.join('')
     })
 
-    document.querySelector('section.section-2 div.container').appendChild(game)
-    window.doon(game)
+    document.querySelector('section.section-2 div.container').appendChild(panel)
+    window.doon(panel)
+
+    if (loots.length) loadLoot(loots)
   })
 
   window.addEventListener('rewards-init', async _ => {
@@ -229,6 +259,35 @@ window.addEventListener('web3sdk-ready', async _ => {
       console.error(e)
       return
     }
+  })
+
+  window.addEventListener('loot-modal-open-click', async (e) => {
+    const id = parseInt(e.for.getAttribute('data-id'))
+
+    const item = await (await fetch(
+      `/data/${networkName}/loot/${String(id).padStart(64, '0')}.json`
+    )).json()
+
+    const boxes = []
+    for (const trait of item.attributes) {
+      boxes.push(template.loot.attribute
+        .replace('{NAME}', trait.trait_name)
+        .replace('{VALUE}', trait.value)
+      )
+    }
+
+    const modal = theme.toElement(template.loot.modal, {
+      '{ID}': item.edition,
+      '{IMAGE}': `/images/loot/${item.edition}.png`,
+      '{NAME}': item.name,
+      '{ATTRIBUTES}': boxes.join('')
+    })
+    document.body.appendChild(modal)
+    window.doon(modal)
+  })
+
+  window.addEventListener('modal-close-click', () => {
+    document.body.removeChild(document.querySelector('div.modal'))
   })
 
   //------------------------------------------------------------------//

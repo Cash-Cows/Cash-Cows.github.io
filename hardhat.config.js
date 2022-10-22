@@ -71,7 +71,9 @@ module.exports = {
         barn: '0xbf18100819715323edB76bFafBdCe3caC11E31F5',
         dolla: '0xa61a3d600db91942E0BD36EA7f1a8f9cc7F99086',
         market: '0x1Ae6eEc3bdd7BB7444456cBC4dE519FFa59fA344',
-        loot: '0xab8939081498301E35685EbA998ba8120844A6bD'
+        loot: '0xab8939081498301E35685EbA998ba8120844A6bD',
+        game: '0x6b51C4e83353e2Fcfb30d4D751c13316F834413c',
+        store: '0x8ba61cbD74Ba12583c70999A0336DD951D2d5dE6'
       }
     },
   },

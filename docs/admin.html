@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Treasure Map | Cash Cows</title>
-    
-    <meta property="og:title" content="Treasure Map | Cash Cows" />
-    
+    <title>Admin | Cash Cows</title>
+    <meta name="description" content="When etherescan fails..." />
+    <meta property="og:title" content="Admin | Cash Cows" />
+    <meta property="og:description" content="When etherescan fails..." />
     <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
-    <meta property="og:url" content="https://www.wearecashcows.com/map.html" />
+    <meta property="og:url" content="https://www.wearecashcows.com/admin.html" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@wearecashcows" />
-    <meta name="twitter:title" content="Treasure Map | Cash Cows" />
-    
+    <meta name="twitter:title" content="Admin | Cash Cows" />
+    <meta name="twitter:description" content="When etherescan fails..." />
     <meta name="twitter:image" content="" />
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
@@ -26,11 +26,11 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="/styles/map.css?v7" />
+    
     <link rel="stylesheet" type="text/css" href="/styles/theme.css?v7" />
   </head>
   <body>
-    <div class="stars"></div>
+    
     
     <header class="head">
       <div class="container">
@@ -63,54 +63,21 @@
 
     <main class="body">
 
-      <section class="section section-1">
-  <div class="container">
-    <div class="wallet">
-      Member
-      <span class="btn-address"></span>
-      <a
-        data-do="disconnect"
-        data-on="click"
-        href="javascript:void(0)"
-      >
-        <i class="fas fa-arrow-right-from-bracket"></i>
-      </a>
+        <section class="section section-1">
+    <div class="container">
+      <h2>CashCowsStore</h2>
+      <h6>setPrice(uint256[],address[][],uint256[][])</h6>
+      <form class="form">
+        <input type="text" name="arg" class="form-control" placeholder="uint256[]" />
+        <input type="text" name="arg" class="form-control" placeholder="address[][]" />
+        <input type="text" name="arg" class="form-control" placeholder="uint256[][]" />
+        <input type="hidden" name="contract" value="store" />
+        <input type="hidden" name="method" value="setPrice(uint256[],address[][],uint256[][])" />
+        <button class="btn btn-solid btn-primary">Write</button>
+      </form>
     </div>
-    <nav>
-        <a href="./trophies.html">My Trophies</a>
-        <a href="./rewards.html">My Rewards</a>
-        <a class="active" href="./cows.html">My Cows</a>
-    </nav>
-  </div>
-</section>
-<section class="section section-2">
-  <div class="container"></div>
-</section>
-<template id="template-game">
-  <div class="game pfp-{COLOR}">
-    <div class="menu">
-      <div class="preview">
-        <img src="{IMAGE}" loading="lazy" />
-      </div>
-      <nav>
-          <a href="./deets.html?edition={EDITION}">The Deets</a>
-          <a class="active" href="./map.html?edition={EDITION}">The Map</a>
-          <a class="text-danger" href="./culling.html?edition={EDITION}">The Culling</a>
-      </nav>
-    </div>
-    <div class="info">
-          <img usemap="#game-map" src="/images/map.png" />
-    <map name="game-map">
-      <area alt="The Barn" title="The Barn" href="./barn.html?edition={EDITION}" coords="431,1635,220" shape="circle">
-      <area alt="Farmers Market" title="Farmers Market" href="./market.html?edition={EDITION}" coords="1226,1230,171" shape="circle">
-      <area alt="Loot Store" title="Loot Store" href="./store.html?edition={EDITION}" coords="861,902,164" shape="circle">
-      <area data-do="soon" data-on="click" alt="The Hustle" title="The Hustle" href="javascript:void(0)" coords="1193,459,225" shape="circle">
-      <area data-do="soon" data-on="click" alt="Cribs" title="Cribs" href="javascript:void(0)" coords="659,220,228" shape="circle">
-    </map>
+  </section>
 
-    </div>
-  </div>
-</template>
 
     </main>
 
@@ -124,7 +91,7 @@
     <script type="text/javascript" src="/scripts/lib/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/lib/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/lib/notify.js"></script>
-    <script type="text/javascript" src="/scripts/map.js?v7"></script>
+    <script type="text/javascript" src="/scripts/admin.js?v7"></script>
     <script type="text/javascript" src="/scripts/connect.js?v7"></script>
   </body>
 </html>

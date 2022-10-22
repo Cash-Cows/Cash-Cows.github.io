@@ -64,6 +64,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       
       const item = theme.toElement(template.item, {
         '{ID}': loot.edition,
+        '{OWNED}': Web3SDK.state.items.indexOf(loot.edition) >= 0 ? ' owned': '',
         '{IMAGE}': `/images/loot/${loot.edition}.png`,
         '{NAME}': loot.name
       })
@@ -136,12 +137,15 @@ window.addEventListener('web3sdk-ready', async _ => {
     const row = await getRow()
     if (!row) window.location.href = './cows.html'
     Web3SDK.state.character = row
+    Web3SDK.state.items = (await game.read().items(row.characterId))
+      .map(item => parseInt(item.collectionTokenId))
     const stage = parseInt(await metadata.read().stage(row.edition))
     await loadHead(row, stage)
     await loadLoot()
   })
 
   window.addEventListener('web3sdk-disconnected',  async _ => {
+    delete Web3SDK.state.items
     window.location.href = './members.html'
   })
 
@@ -228,6 +232,10 @@ window.addEventListener('web3sdk-ready', async _ => {
     const currency = e.for.getAttribute('data-currency')
     const address = currency === 'eth' ? zero : dolla.address
     const offer = Web3SDK.state.character.loot[id][address]
+
+    if (Web3SDK.state.items.indexOf(parseInt(id)) >= 0) {
+      return notify('error', 'This cow already owns this item.')
+    }
 
     const method = currency == 'eth'
       //characterId, itemId, price, proof
