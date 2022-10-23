@@ -184,15 +184,10 @@ function parseCribs(rows, items = []) {
 
 async function main() {
   const network = hardhat.config.defaultNetwork
-  const config = hardhat.config.networks[network]
-  const loot = { address: config.contracts.loot }
-  const store = { address: config.contracts.store }
-  const dolla = { address: config.contracts.dolla }
 
   const paths = {
     data: path.resolve(__dirname, `../data`),
-    docs: path.resolve(__dirname, `../docs/data/${network}/loot`),
-    server: path.resolve(__dirname, `../server/src/data/${network}/loot`)
+    docs: path.resolve(__dirname, `../docs/data/${network}/loot`)
   }
 
   const json = {}
@@ -209,38 +204,6 @@ async function main() {
   parseHustles(json.hustles, items)
   parseCribs(json.cribs, items)
 
-  const supply = {}
-  const prices = {}
-  for (const item of items) {
-    if (item.limit) {
-      if (!supply[item.category]) {
-        supply[item.category] = [[],[]]
-      }
-
-      supply[item.category][0].push(item.edition)
-      supply[item.category][1].push(item.limit)
-    }
-    
-    
-    if (Object.keys(item.pricing).length) {
-      if (!prices[item.category]) {
-        prices[item.category] = [[],[],[]]
-      }
-
-      const token = []
-      const price = []
-
-      for (const address in item.pricing) {
-        token.push(address)
-        price.push(item.pricing[address])
-      }
-
-      prices[item.category][0].push(item.edition)
-      prices[item.category][1].push(token)
-      prices[item.category][2].push(price)
-    }
-  }
-
   fs.writeFileSync(
     `${paths.data}/loot.json`, 
     JSON.stringify(items.map(item => {
@@ -254,8 +217,6 @@ async function main() {
         limit: item.limit,
         attributes: item.attributes
       }
-  
-      data[network] = { pricing: item.pricing }
       return data
     }), null, 2)
   )
@@ -274,45 +235,9 @@ async function main() {
     const loot = Object.assign({}, item)
     loot.attributes = toAttributeList(loot.attributes)
     fs.writeFileSync(
-      path.join(paths.docs, `${String(item.edition).padStart(64, '0')}.json`),
+      path.join(paths.docs, `${item.edition.toString(16).padStart(64, '0')}.json`),
       JSON.stringify(loot, null, 2)
     )
-  }
-
-
-  const instructions = { supply: [], prices: [] }
-  
-  for (const category in supply) {
-    instructions.supply.push(
-      ` - setMaxSupply(${"\n\n     "}${[
-        JSON.stringify(supply[category][0]).replace(/"/g, ''),
-        JSON.stringify(supply[category][1]).replace(/"/g, '')
-      ].join("\n\n     ")}${"\n\n   "})${"\n\n"}`
-    )
-  }
-
-  for (const category in prices) {
-    instructions.prices.push(
-      ` - setPrice(${"\n\n     "}${[
-        JSON.stringify(prices[category][0]).replace(/"/g, ''),
-        JSON.stringify(prices[category][1]).replace(/"/g, ''),
-        JSON.stringify(prices[category][2]).replace(/"/g, '')
-      ].join("\n\n     ")}${"\n\n   "})${"\n\n"}`
-    )
-  }
-
-  if (instructions.supply.length) {
-    console.log('-----------------------------------')
-    console.log('In CashCowsLoot contract, set supply')
-    console.log(` - ${config.scanner}/address/${loot.address}#writeContract`)
-    instructions.supply.forEach(instruction => console.log(instruction))
-  }
-
-  if (instructions.prices.length) {
-    console.log('-----------------------------------')
-    console.log('In CashCowsStore contract, set prices')
-    console.log(` - ${config.scanner}/address/${store.address}#writeContract`)
-    instructions.prices.forEach(instruction => console.log(instruction))
   }
 }
 
