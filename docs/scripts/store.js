@@ -161,7 +161,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const id = parseInt(e.for.getAttribute('data-id'))
 
     const item = await (await fetch(
-      `/data/${networkName}/loot/${String(id).padStart(64, '0')}.json`
+      `/data/${networkName}/loot/${id.toString(16).padStart(64, '0')}.json`
     )).json()
 
     const supply = await loot.read().totalSupply(item.edition)
