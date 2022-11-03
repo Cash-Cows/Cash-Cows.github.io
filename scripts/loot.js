@@ -8,6 +8,7 @@ const hardhat = require('hardhat')
 
 const host = `https://opensheet.elk.sh/1C0TWcgj8qQwBgfR-TQe5KcyA0XZQnIFRTdSclh_J_Ks/{TAB}`
 const zero = '0x0000000000000000000000000000000000000000'
+const networks = [ 'goerli', 'ethereum' ]
 
 function parseBigInt(str, base = 10) {
   base = BigInt(base)
@@ -80,11 +81,8 @@ function api(url) {
 }
 
 function parseItem(category, row, attributes) {
-  const config = hardhat.config.networks[hardhat.config.defaultNetwork]
-  const collectionId = getCollectionId(config.contracts.loot, parseInt(row.ID))
   const item = {
     edition: parseInt(row.ID),
-    itemId: collectionId,
     name: row.Name,
     image: `https://www.wearecashcows.com/images/loot/${row.ID}.png`,
     category,
@@ -92,18 +90,26 @@ function parseItem(category, row, attributes) {
     available: (new Date(`${row.Available} +800`)).getTime(),
     limit: row.Quantity.length? parseInt(row.Quantity): 0,
     attributes,
-    pricing: {}
+    networks: {}
   }
 
-  const eth = row.ETH.replace('Ξ', '').trim()
-  if (eth.length) {
-    item.pricing[zero] = ethers.utils.parseEther(eth).toString()
-  }
-  
-  const dolla = row.DOLLA.replace('$', '').replace(/,/g, '').trim()
-  if (dolla.length) {
-    item.pricing[config.contracts.dolla] = ethers.utils.parseEther(dolla).toString()
-  }
+  networks.forEach(network => {
+    const config = hardhat.config.networks[network]
+    item.networks[network] = {
+      itemId: getCollectionId(config.contracts.loot, parseInt(row.ID)),
+      pricing: {}
+    }
+
+    const eth = row.ETH.replace('Ξ', '').trim()
+    if (eth.length) {
+      item.networks[network].pricing[zero] = ethers.utils.parseEther(eth).toString()
+    }
+    
+    const dolla = row.DOLLA.replace('$', '').replace(/,/g, '').trim()
+    if (dolla.length) {
+      item.networks[network].pricing[config.contracts.dolla] = ethers.utils.parseEther(dolla).toString()
+    }
+  })
 
   return item
 }
@@ -183,11 +189,9 @@ function parseCribs(rows, items = []) {
 }
 
 async function main() {
-  const network = hardhat.config.defaultNetwork
-
   const paths = {
     data: path.resolve(__dirname, `../data`),
-    docs: path.resolve(__dirname, `../docs/data/${network}/loot`)
+    docs: path.resolve(__dirname, `../docs/{NETWORK}/data/loot`)
   }
 
   const json = {}
@@ -209,36 +213,62 @@ async function main() {
     JSON.stringify(items.map(item => {
       const data = {
         edition: item.edition,
-        itemId: item.itemId,
         name: item.name,
         image: item.image,
         category: item.category,
         rarity: item.rarity,
+        available: item.available,
         limit: item.limit,
-        attributes: item.attributes
+        attributes: item.attributes,
+        networks: item.networks
       }
       return data
     }), null, 2)
   )
 
-  fs.writeFileSync(
-    `${paths.docs}.json`, 
-    JSON.stringify(items, null, 2)
-  )
-
-  if (fs.existsSync(paths.docs)) {
-    fs.rmSync(paths.docs, { recursive: true })
-  }
-  fs.mkdirSync(paths.docs)
-
-  for (const item of items) {
-    const loot = Object.assign({}, item)
-    loot.attributes = toAttributeList(loot.attributes)
+  networks.forEach(network => {
+    const docs = paths.docs.replace('{NETWORK}', network)
     fs.writeFileSync(
-      path.join(paths.docs, `${item.edition.toString(16).padStart(64, '0')}.json`),
-      JSON.stringify(loot, null, 2)
+      `${docs}.json`, 
+      JSON.stringify(items.map(item => ({
+        edition: item.edition,
+        itemId: item.networks[network].itemId,
+        name: item.name,
+        image: item.image,
+        category: item.category,
+        rarity: item.rarity,
+        available: item.available,
+        limit: item.limit,
+        attributes: item.attributes,
+        pricing: item.networks[network].pricing
+      })), null, 2)
     )
-  }
+  
+    if (fs.existsSync(docs)) {
+      fs.rmSync(docs, { recursive: true })
+    }
+    fs.mkdirSync(docs)
+  
+    for (const item of items) {
+      const loot = {
+        edition: item.edition,
+        itemId: item.networks[network].itemId,
+        name: item.name,
+        image: item.image,
+        category: item.category,
+        rarity: item.rarity,
+        available: item.available,
+        limit: item.limit,
+        attributes: item.attributes,
+        pricing: item.networks[network].pricing
+      }
+      loot.attributes = toAttributeList(loot.attributes)
+      fs.writeFileSync(
+        path.join(docs, `${item.edition.toString(16).padStart(64, '0')}.json`),
+        JSON.stringify(loot, null, 2)
+      )
+    }
+  })
 }
 
 // We recommend this pattern to be able to use async/await everywhere
