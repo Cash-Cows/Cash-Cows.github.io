@@ -1,5 +1,43 @@
+.box {
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 10px;
+  color: #222222;
+  display: block;
+  padding: 10px 20px;
+}
+
+.modal {
+  align-items: center;
+}
+
+.modal .overlay {
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(24px);
+  border: 5px solid #F9AF00;
+  border-radius: 5px;
+  color: #FFFFFF;
+  display: block;
+  max-width: 600px;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.modal img {
+  width: 100%;
+}
+
+.modal h3 {
+  color: #F9AF00;
+}
+
 .section-1 {
   align-items: center;
+  background-color: #DEB273;
+  background-image: url(/images/about/about-bg-treasure.gif);
+  background-position: bottom center;
+  background-repeat: repeat-x;
+  background-size: 1000px auto;
   display: flex;
   justify-content: center;
   padding: 100px 0;
@@ -11,13 +49,13 @@
 }
 
 .section-1 .info {
-  color: #FFFFFF;
+  color: #232323;
   padding-left: 40px;
   max-width: 400px;
 }
 
 .section-1 .info h1 {
-  color: #F9AF00;
+  color: #232323;
 }
 
 .section-1 .info p {
@@ -34,9 +72,21 @@
   padding-left: 10px;
 }
 
+.section-2::before {
+  background-image: url(/images/about/dirt-2.png);
+  background-repeat: repeat-x;
+  background-position: center top;
+  background-size: 70px;
+  border-top: 10px solid #251205;
+  content: ' ';
+  display: block;
+  height: 70px;
+  width: 100%;
+}
+
 .section-2 {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #140737 90%, #1A084D 90%);
-  padding: 50px 0;
+  padding: 0 0 50px;
   position: relative;
   text-align: center;
 }
@@ -115,6 +165,23 @@
 }
 
 .section-4 {
+  padding: 40px 0;
+}
+
+.section-4 h2 {
+  color: #F9AF00;
+  text-align: center;
+}
+
+.section-4 p {
+  text-align: center;
+}
+
+.section-4 img {
+  width: 100%;
+}
+
+.section-5 {
   background-color: #3D2C21;
   background-image: url(/images/about/dirt-1.png);
   background-repeat: repeat-x;
@@ -125,112 +192,42 @@
   padding: 100px 0;
 }
 
-.section-4 a {
+.section-5 a {
   color: #FFFFFF;
 }
 
-.section-4 h2 {
+.section-5 h2 {
   display: none;
   margin-top: 0;
 }
 
-.section-4 .left,
-.section-4 .right {
+.section-5 .left,
+.section-5 .right {
   flex-grow: 1;
   margin: 0 10px;
   width: 50%;
 }
 
-.section-4 .faq {
+.section-5 .faq {
   display: flex;
   justify-content: center;
 }
 
-.section-4 .faq h3 {
+.section-5 .faq h3 {
   color: #F9AF00;
   font-size: 12px;
   margin: 0;
   padding-bottom: 10px;
 }
 
-.section-4 .faq p {
+.section-5 .faq p {
   padding: 0 0 40px;
-}
-
-.audio {
-  background-color: #43A459;
-  border: 1px solid #000000;
-  border-radius: 10px;
-  bottom: 20px;
-  display: flex;
-  height: 50px;
-  left: 20px;
-  padding: 10px 10px 0 0;
-  position: fixed;
-  z-index: 1000;
-}
-
-.audio .preview {
-  float: left;
-  margin-left: -15px;
-  margin-top: -50px;
-}
-
-.audio .preview img {
-  width: 100px
-}
-
-.audio .levels {
-  display: flex;
-  left: -24px;
-  position: relative;
-}
-
-@keyframes bounce{
-  10% { transform:scaleY(.25) }
-  30% { transform:scaleY(.83) }
-  60% { transform:scaleY(.42) }
-  80% { transform:scaleY(.625) }
-  to { transform:scaleY(.5) }
-}
-
-.audio .levels .bar {
-  animation: bounce 2.2s ease infinite alternate;
-  background-color: #FFFFFF;
-  border-radius: 1px;
-  height: 100%;
-  margin: 0 1px;
-  transform: scaleY(1);
-  transform-origin: bottom;
-  transition: all 1s ease;
-  width: 10px;
-}
-
-.audio .levels .bar:nth-of-type(2) {
-  animation-delay: -2.2s;
-}
-
-.audio .levels .bar:nth-of-type(3) {
-  animation-delay: -3.7s;
-}
-
-.audio .play {
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 26px;
-  height: 40px;
-  line-height: 43px;
-  margin-left: -20px;
-  overflow: hidden;
-  text-align: center;
-  width: 40px;
 }
 
 @media(max-width: 960px) {
   .section-1 {
     display: block;
-    padding: 100px 20px;
+    padding: 20px 20px 100px;
     text-align: center;
   }
 
@@ -251,18 +248,26 @@
     padding-left: 0;
   }
 
-  .section-4 .faq {
+  .section-5 .faq {
     display: block;
     text-align: center;
   }
 
-  .section-4 .left,
-  .section-4 .right {
+  .section-5 .left,
+  .section-5 .right {
     width: auto;
   }
 
-  .section-4 .faq h3 {
+  .section-5 .faq h3 {
     white-space: normal;
+  }
+}
+
+@media(max-width: 792px) {
+  .modal .overlay .close {
+    position: fixed;
+    right: 10px;
+    top: 10px;
   }
 }
 
@@ -294,5 +299,17 @@
 @media(max-width: 560px) {
   .section-2 .stats {
     display: block;
+  }
+
+  .section-2 .community h6 {
+    font-size: 6px;
+  }
+
+  .section-2 .community img {
+    width: 50px;
+  }
+  
+  .section-2 .community .completed img {
+    width: 50px;
   }
 }
