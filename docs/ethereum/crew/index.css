@@ -1,0 +1,180 @@
+.gallery {
+  display: flex;
+  padding: 0 20px;
+}
+
+.gallery .filters {
+  min-width: 230px;
+  padding-bottom: 20px;
+}
+
+.gallery .filters .attributes {
+  margin-top: 70px;
+}
+
+.gallery .toggleable {
+  border-bottom: 1px solid #EDEDED;
+  font-size: 11px;
+  margin: 0;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.gallery .toggleable::after {
+  content: "\f053";
+  display: block;
+  font-family: "Font Awesome 6 Free";
+  font-size: 14px;
+  float: right;
+  margin-top: 3px;
+}
+
+.gallery .toggleable.open::after {
+  content: "\f078";
+}
+
+.gallery .series .options {
+  display: none;
+}
+
+.gallery .attributes .fields {
+  display: none;
+}
+
+.gallery .form-row {
+  font-size: 13px;
+  padding: 10px 0;
+}
+
+.gallery .form-row label {
+  clear: both;
+  display: block;
+}
+
+.gallery .form-row label .badge {
+  background-color: #F9AF00;
+  border-width: 0;
+  float: right;
+  font-size: 11px;
+  margin-top: -2px;
+  padding: 5px 10px;
+}
+
+.gallery h1 {
+  color: #F9AF00;
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 25px;
+}
+
+.gallery .sort {
+  padding: 5px 10px;
+  position: relative;
+  top: -5px;
+}
+
+.gallery .results {
+  padding: 0 20px;
+}
+
+.gallery .results::after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 1px;
+  width: 1px;
+}
+
+.gallery .results .item {
+  cursor: pointer;
+  float: left;
+  margin: 5px;
+  width: 200px;
+}
+
+.gallery .results .item .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  display: block;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+}
+
+.gallery .results .item .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.gallery .results .item .preview img {
+  width: 100%;
+}
+
+.gallery .results .item h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.gallery .results .item h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gallery .results .item .label {
+  color: #AAAAAA;
+}
+
+.gallery .results .item .level {
+  color: #F9AF00;
+  height: 35px;
+}
+
+.gallery .dated {
+  font-size: 10px;
+}
+
+@media(max-width: 830px) {
+  .gallery {
+    display: block;
+  }
+
+  .gallery .results .item {
+    height: auto;
+    width: calc(33% - 10px);
+  }
+
+  .gallery .results .item .preview {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media(max-width: 560px) {
+  .section-1 .stats {
+    display: block;
+  }
+
+  .gallery .results .item {
+    width: calc(50% - 10px);
+  }
+
+  .gallery .results .item .preview {
+    height: auto;
+    overflow: visible;
+    width: 100%;
+  }
+}

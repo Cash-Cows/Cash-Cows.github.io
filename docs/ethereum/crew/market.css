@@ -1,0 +1,121 @@
+.body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-market.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.section-market {
+  height: 100%;
+}
+
+.section-market .container {
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.section-market .form {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+}
+
+.section-market .form .preview img {
+  display: block;
+}
+
+.section-market .form .label {
+  color: #000000;
+}
+
+.section-market .info {
+  flex-grow: 1;
+  padding: 20px 20px 20px 0;
+  text-align: center;
+}
+
+.section-market .info h1 {
+  color: #000000;
+  font-size: 20px;
+  margin: 0;
+}
+
+.section-market .form-exchange .form-row {
+  background-color: #161522;
+  border: 1px solid #2A2F42;
+  border-radius: 10px;
+  margin: 0 auto 2px;
+  max-width: 400px;
+  padding: 10px;
+  text-align: left;
+}
+
+.section-market .form-exchange .form-row label {
+  align-items: center;
+  display: flex;
+}
+
+.section-market .form-exchange .form-row label span {
+  flex-grow: 1;
+}
+
+.section-market .form-exchange .form-row label .cta-watch {
+  color: #FFFFFF;
+  font-size: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.section-market .form-exchange .form-row label img {
+  margin-right: 10px;
+  width: 20px;
+}
+
+.section-market .form-exchange .form-row .form-field {
+  align-items: center;
+  display: flex;
+}
+
+.section-market .form-exchange .form-row .form-field input {
+  background-color: transparent;
+  border: 0;
+  color: #CCCCCC;
+  flex-grow: 1;
+  font-size: 20px;
+  outline: none;
+}
+
+.section-market .form-exchange .form-row .form-field .balance {
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media(max-width: 767px) {
+  .section-market .container {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .section-market .info {
+    padding-right: 0;
+  }
+
+  .section-market .form {
+    display: block;
+    padding: 20px 20px 40px;
+  }
+
+  .section-market .form .preview {
+    text-align: center;
+  }
+
+  .section-market .form .preview img {
+    display: inline;
+  }
+
+  .section-market .form-exchange .form-row {
+    margin: 0 auto 20px;
+  }
+}

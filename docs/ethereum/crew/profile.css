@@ -1,0 +1,407 @@
+.box {
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 10px;
+  color: #222222;
+  display: block;
+  padding: 10px 20px;
+}
+
+.box h6 {
+  font-size: 11px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.box span {
+  display: block;
+  font-size: 13px;
+  padding: 0 0 10px;
+}
+
+.attributes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.attributes .box {
+  flex-basis: calc(33.33% - 30px);
+  margin: 5px 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.attributes .box p {
+  font-size: 11px;
+  color: #666666;
+  padding: 0;
+}
+
+.profile {
+  height: 100%;
+  overflow: auto;
+}
+
+.body .profile.burnt {
+  background-color: #333333 !important;
+}
+
+.profile h2 {
+  color: #000000;
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.profile.burnt h2 {
+  color: #CCCCCC;
+}
+
+.section-menu .menu {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.section-menu .menu .gap {
+  flex-grow: 1;
+}
+
+.section-menu .menu a {
+  display: block;
+  color: #444444;
+  padding: 10px 20px 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.section-menu .menu a.active {
+  color: #000000;
+}
+
+.section-menu .menu a img {
+  filter: brightness(0.235);
+  display: block;
+}
+
+.section-menu .menu a.active img {
+  filter: brightness(0);
+}
+
+.section-menu .menu a i {
+  display: block;
+  font-size: 40px;
+}
+
+.section-menu .menu a span {
+  display: block;
+  margin-top: 10px;
+}
+
+.section-info .preview {
+  margin: auto;
+  width: 300px;
+}
+
+.section-info .preview img {
+  display: block;
+  width: 100%;
+}
+
+.profile.burnt .section-info .preview img {
+  filter: grayscale(1);
+}
+
+.section-info .owner {
+  color: #232323;
+  margin-top: 5px;
+  padding-right: 10px;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.section-info .owner a {
+  color: #000000;
+}
+
+.section-info .box {
+  align-items: center;
+  display: flex;
+}
+
+.section-info .box .fa-hashtag {
+  font-size: 30px;
+}
+
+.section-info .box .name {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.section-info .box .name .label {
+  display: block;
+  text-transform: uppercase;
+}
+
+.section-info .box .name h3 {
+  display: inline-block;
+  font-size: 30px;
+  margin: 0 20px 0 0;
+  text-align: left;
+}
+
+.section-info .box .name .markets {
+  display: inline-block;
+}
+
+.section-info .box .name .markets a {
+  text-decoration: none;
+}
+
+.section-info .box .name .markets img {
+  height: 30px;
+}
+
+.section-traits {
+  padding-bottom: 40px;
+}
+
+.section-rewards {
+  padding: 20px 0 40px;
+}
+
+.section-rewards .rewards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-rewards .rewards .reward {
+  flex-basis: calc(50% - 5px);
+  text-align: center;
+}
+
+.section-rewards .rewards .reward .box {
+  margin: 10px 0;
+}
+
+.section-rewards .rewards .reward .box .crypto-prefix {
+  padding: 0
+}
+
+.section-rewards .rewards .reward .btn-pixel {
+  width: 80%;
+}
+
+.section-rewards .rewards .reward .cta-redeem {
+  color: #000000;
+  display: block;
+  font-size: 12px;
+  margin: 5px 0 10px;
+  text-decoration: underline;
+}
+
+.section-rewards .rewards .reward .value {
+  color: #000000;
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+}
+
+.section-loot {
+  padding: 20px 0 40px;
+}
+
+.section-loot .alert {
+  border-radius: 10px;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+}
+
+.section-loot .loots {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+}
+
+.section-loot .loots .loot-item {
+  cursor: pointer;
+  margin: 10px;
+  width: 136px;
+}
+
+.section-loot .loots .loot-item h3 {
+  color: #F9AF00;
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+
+.section-loot .loots .loot-item .preview {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.section-loot .loots .loot-item .preview img {
+  display: block;
+  width: 100%;
+}
+
+.section-map {
+  padding: 20px 0 40px;
+}
+
+.section-map .box {
+  padding: 20px;
+}
+
+.section-map img {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.section-culling {
+  padding: 20px 0 40px;
+}
+
+.section-culling .box {
+  padding: 20px;
+}
+
+.section-culling .box h3 {
+  margin: 0px;
+}
+
+.section-culling .box blockquote {
+  background-color: #BD9F6D;
+  border-left: 6px solid #000000;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 0;
+  padding: 20px;
+}
+
+.section-culling .box p {
+  font-size: 15px;
+}
+
+.section-culling .box .btn-pixel {
+  margin-left: 15px;
+}
+
+.modal.loot-modal {
+  align-items: center;
+}
+
+.modal.loot-modal .overlay {
+  background-color: #000000;
+  border: 5px solid #F4E8DA;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #F4E8DA;
+}
+
+.modal.loot-modal .loot {
+  display: flex;
+}
+
+.modal.loot-modal .preview {
+  max-width: 260px;
+  overflow: hidden;
+}
+
+.modal.loot-modal .preview img {
+  display: block;
+  width: 100%;
+}
+
+.modal.loot-modal .info .name {
+  color: #F9AF00;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.modal.loot-modal .attributes {
+  justify-content: flex-start;
+  padding: 0 20px;
+}
+
+.modal.loot-modal .attributes .box {
+  flex-basis: calc(33.33% - 30px);
+  margin: 5px 5px 0 0;
+  padding: 10px;
+}
+
+@media(max-width: 900px) {
+  .attributes .box,
+  .modal.loot-modal .attributes .box {
+    flex-basis: calc(50% - 30px);
+  }
+
+  .modal.loot-modal {
+    align-items: initial;
+  }
+
+  .modal.loot-modal .overlay {
+    max-width: 400px;
+  }
+
+  .modal.loot-modal .overlay .close {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+  }
+
+  .modal.loot-modal .loot {
+    display: block;
+  }
+
+  .modal.loot-modal .preview {
+    max-width: 767px;
+    width: auto;
+  }
+
+  .modal.loot-modal .info {
+    padding-bottom: 10px;
+  }
+
+  .modal.loot-modal .box h6 {
+    font-size: 8px;
+  }
+}
+
+@media(max-width: 545px) {
+  .section-loot .loots .loot-item {
+    width: 136px;
+  }
+  
+  .section-loot .loots .loot-item h3 {
+    font-size: 8px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+@media(max-width: 500px) {
+  .section-menu .menu a {
+    padding: 10px;
+  }
+  .section-menu .menu a img {
+    height: 30px; 
+  }
+  .section-menu .menu a i {
+    font-size: 30px;
+  }
+  .section-menu .menu a span {
+    display: none;
+  }
+}
+
+@media(max-width: 475px) {
+  .attributes .box,
+  .modal.loot-modal .attributes .box {
+    flex-basis: calc(100% - 30px);
+  }
+}

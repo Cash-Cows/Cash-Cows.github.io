@@ -1,0 +1,93 @@
+.body {
+  background-attachment: fixed;
+  background-image: url(/images/bg-barn.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.section-barn {
+  height: 100%;
+}
+
+.section-barn .container {
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.section-barn .form {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+}
+
+.section-barn .form .preview img {
+  display: block;
+}
+
+.section-barn .form .label {
+  color: #000000;
+}
+
+.section-barn .info {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.section-barn .info h1 {
+  color: #000000;
+  font-size: 20px;
+  margin: 0;
+}
+
+.section-barn .info .rewards {
+  display: flex;
+  margin-bottom: 40px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.section-barn .releaseable {
+  margin-left: 40px;
+}
+
+.section-barn .cta-watch {
+  color: #000000;
+  display: block;
+  margin-top: 10px;
+}
+
+@media(max-width: 767px) {
+  .section-barn .container {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .section-barn .form {
+    display: block;
+    padding: 20px 20px 40px;
+  }
+
+  .section-barn .form .preview {
+    text-align: center;
+  }
+
+  .section-barn .form .preview img {
+    display: inline;
+  }
+}
+
+@media(max-width: 500px) {
+  .section-barn .info .rewards {
+    display: block;
+  }
+
+  .section-barn .info .reward.releaseable {
+    margin-top: 20px;
+  }
+
+  .section-barn .releaseable {
+    margin-left: 0;
+  }
+}

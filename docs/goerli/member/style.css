@@ -1,0 +1,282 @@
+@keyframes glow {
+  from {
+    box-shadow: 0 0 0px 0px #E7BA10;
+  }
+  to {
+    box-shadow: 0 0 40px 10px #E7BA10;
+  }
+}
+
+h3 {
+  margin: 0;
+}
+
+.box {
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 10px;
+  color: #222222;
+  display: block;
+  padding: 10px 20px;
+}
+
+.body {
+  background: linear-gradient( rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) ), url(/images/bg-member.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.body .nonmember {
+  padding: 100px 0;
+}
+
+.body .member {
+  height: calc(100% - 200px);
+  overflow: auto;
+  padding: 100px 0;
+}
+
+.tab-content {
+  margin-top: 40px;
+}
+
+.section-address .box {
+  align-items: center;
+  display: flex;
+}
+
+.section-address .box .fa-fingerprint {
+  font-size: 30px;
+}
+
+.section-address .box .address {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.section-address .box .address .label {
+  display: block;
+  text-transform: uppercase;
+}
+
+.section-address .box .address h4 {
+  display: inline-block;
+  font-size: 20px;
+  margin: 0 20px 0 0;
+  text-align: left;
+}
+
+.section-address .box .address .markets {
+  display: inline-block;
+}
+
+.section-address .box .address .markets a {
+  text-decoration: none;
+}
+
+.section-address .box .address .markets img {
+  height: 30px;
+}
+
+.section-stats {
+  margin-top: 10px;
+}
+
+.section-stats .container .stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-stats .container .stats .stat {
+  flex-basis: calc(33.33% - 5px);
+  margin-top: 10px;
+}
+
+.section-stats .container .stats .stat .box {
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+  font-size: 15px;
+  padding: 10px;
+  position: relative;
+}
+
+.section-stats .container .stats .stat .box img {
+  height: 40px;
+}
+
+.section-stats .container .stats .stat .box .value {
+  position: relative;
+  top: -11px
+}
+
+.section-stats .container .stats .stat a {
+  display: block;
+  font-size: 12px;
+  padding: 5px 10px 0 0;
+  text-align: right;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.section-rewards {
+  padding: 20px 0 40px;
+}
+
+.section-rewards .rewards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-rewards .rewards .reward {
+  flex-basis: calc(33.33% - 5px);
+  text-align: center;
+}
+
+.section-rewards .rewards .reward .box {
+  margin: 10px 0;
+}
+
+.section-rewards .rewards .reward .box .crypto-prefix {
+  padding: 0
+}
+
+.section-rewards .rewards .reward .value {
+  color: #000000;
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+}
+
+.section-trophies .trophies {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 10px;
+  row-gap: 50px;
+}
+
+.section-trophies .trophies .trophy {
+  text-align: center;
+}
+
+.section-trophies .trophies .trophy img {
+  border-radius: 14px;
+  width: 100px;
+  opacity: 0.3;
+}
+
+.section-trophies .trophies .trophy.active img {
+  opacity: 1;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.section-trophies .trophies .trophy h6 {
+  margin: 5px 0 0 0;
+  line-height: 15px;
+}
+
+.section-trophies .trophies .trophy p {
+  padding: 0;
+}
+
+.section-crews .crews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-crews .crews .crew {
+  cursor: pointer;
+  display: block;
+  flex-basis: calc(25% - 10px);
+  margin: 5px;
+  position: relative;
+}
+
+.section-crews .crews .crew .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section-crews .crews .crew .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.section-crews .crews .crew .preview img {
+  display: block;
+  width: 100%;
+}
+
+.section-crews .crews .crew h4 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.section-crews .crews .crew h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media(max-width: 767px) {
+  .section-trophies .trophies {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .section-stats .container .stats .stat {
+    flex-basis: calc(50% - 5px);
+  }
+}
+
+@media(max-width: 650px) {
+  .section-crews .crews .crew {
+    flex-basis: calc(33.33% - 10px);
+  }
+}
+
+@media(max-width: 610px) {
+  .section-trophies .trophies {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .section-rewards .rewards .reward {
+    flex-basis: calc(50% - 5px);
+  }
+}
+
+@media(max-width: 500px) {
+  .section-stats .container .stats .stat .box {
+    font-size: 12px;
+  }
+  
+  .section-stats .container .stats .stat .box img {
+    height: 20px;
+  }
+
+  .section-stats .container .stats .stat .box .value {
+    top: -4px
+  }
+
+  .section-crews .crews .crew {
+    flex-basis: calc(50% - 10px);
+  }
+}
+
+@media(max-width: 415px) {
+  .section-trophies .trophies {
+    grid-template-columns: 1fr 1fr;
+  }
+}
