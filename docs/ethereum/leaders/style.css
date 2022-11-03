@@ -1,26 +1,61 @@
 .body {
-  background-image: url(/images/bg-soon.png);
-  background-position: bottom center;
+  background-attachment: fixed;
+  background-image: url(/images/bg-leader.gif);
+  background-position: top center;
   background-size: cover;
 }
 
-.box {
-  background-color: #E1C18A;
-  border: 1px solid #BD9F6D;
-  border-radius: 10px;
-  color: #222222;
-  display: block;
-  font-size: 20px;
-  font-weight: bold;
+.section {
   padding: 40px 0;
-  text-align: center;
-  width: 365px;
 }
 
-.section-soon {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
+.box {
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(24px);
+  border: 5px solid #F9AF00;
+  border-radius: 5px;
+  color: #FFFFFF;
+  display: block;
+  margin: auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+.box h3 {
+  color: #F9AF00;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+.box table {
+  width: 100%;
+}
+
+.box td {
+  border-bottom: 1px solid #000000;
+}
+
+.box td .winner {
+  width: 30px;
+}
+
+.box td .avatar {
+  border-radius: 50%;
+  width: 50px;
+}
+
+.section-menu .box h3 {
+  text-align: center;
+}
+
+.section-menu .box .tabs {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.section-menu .box .btn-pixel {
+  margin-left: 7px;
+}
+.section-menu .box .btn-pixel::before {
+  left: -7px;
 }
