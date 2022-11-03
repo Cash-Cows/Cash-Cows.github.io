@@ -1,0 +1,34 @@
+.video {
+  height: 100%;
+  overflow: hidden;
+}
+
+.video video {
+  width: 100%;
+}
+
+.banner {
+  align-items: bottom;
+  background-color: #FF975F;
+  display: none;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.banner img {
+  min-width: 1200px;
+  width: 100%;
+}
+
+
+@media(max-width: 1260px) {
+  .video {
+    display: none;
+  }
+
+  .banner {
+    display: flex;
+  }
+}

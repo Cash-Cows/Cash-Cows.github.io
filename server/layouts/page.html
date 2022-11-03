@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>{{title}}</title>
+    {{#if description}}<meta name="description" content="{{description}}" />{{/if}}
+    <meta property="og:title" content="{{title}}" />
+    {{#if description}}<meta property="og:description" content="{{description}}" />{{/if}}
+    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    {{#if network}}
+      <meta property="og:url" content="https://www.wearecashcows.com/{{network}}/{{path}}" />
+    {{else}}
+      <meta property="og:url" content="https://www.wearecashcows.com/{{path}}" />
+    {{/if}}
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wearecashcows" />
+    <meta name="twitter:title" content="{{title}}" />
+    {{#if description}}<meta name="twitter:description" content="{{description}}" />{{/if}}
+    <meta name="twitter:image" content="{{banner}}" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v{{version}}" />
+    {{#if style}}<link rel="stylesheet" type="text/css" href="{{style}}.css?v{{version}}" />{{/if}}
+  </head>
+  <body>
+    <header class="head">
+      <div class="container">
+        <a 
+          class="cta-panel-left" 
+          data-do="panel-toggle" 
+          data-on="click" 
+          data-panel="left"
+          href="javascript:void(0)"
+        ><i class="fas fa-bars"></i></a>
+        <a class="logo" href="/">
+          <img src="/images/logo-cashcows-long.gif" />
+        </a>
+        <a 
+          class="cta-panel-right" 
+          data-do="panel-toggle"
+          data-on="click" 
+          data-panel="right"
+          href="javascript:void(0)"
+        ><img src="{{avatar}}" /></a>
+      </div>
+    </header>
+
+    <main class="body">
+
+      {{{content}}}
+
+    </main>
+
+    <aside class="panel panel-left">
+      <section class="panel-frame panel-main-menu" data-do="network-links">
+        <header class="panel-head">
+          {{#if network}}
+            <a href="/{{network}}/crew">
+              <i class="text-primary fas fa-fw fa-users"></i>
+              <span>Crew Collection</span>
+            </a>
+            <a href="/{{network}}/club">
+              <i class="text-primary fas fa-fw fa-ghost"></i>
+              <span>Club Collection</span>
+            </a>
+            <a href="/{{network}}/loot">
+              <i class="text-primary fas fa-fw fa-gem"></i>
+              <span>Loot Store</span>
+            </a>
+            <a href="/{{network}}/memes">
+              <i class="text-primary fas fa-fw fa-face-grin-tongue-wink"></i>
+              <span>Meme Database</span>
+            </a>
+            <a href="/{{network}}/leaders">
+              <i class="text-primary fas fa-medal"></i>
+              <span>Leaderboard</span>
+            </a>
+          {{else}}
+            <a href="/ethereum/crew">
+              <i class="text-primary fas fa-fw fa-users"></i>
+              <span>Crew Collection</span>
+            </a>
+            <a href="/ethereum/club">
+              <i class="text-primary fas fa-fw fa-ghost"></i>
+              <span>Club Collection</span>
+            </a>
+            <a href="/ethereum/loot">
+              <i class="text-primary fas fa-fw fa-gem"></i>
+              <span>Loot Store</span>
+            </a>
+            <a href="/ethereum/memes">
+              <i class="text-primary fas fa-fw fa-face-grin-tongue-wink"></i>
+              <span>Meme Database</span>
+            </a>
+            <a href="/ethereum/leaders">
+              <i class="text-primary fas fa-medal"></i>
+              <span>Leaderboard</span>
+            </a>
+          {{/if}}
+        </header>
+        <main class="panel-body"></main>
+        <footer class="panel-foot">
+          <a href="/about">About</a>
+          <a href="https://opensea.io/collection/cash-cows-crew" target="_blank">Opensea</a>
+          <a href="/updates">Updates</a>
+          <a href="https://twitter.com/wearecashcows" target="_blank">Twitter</a>
+          {{#if network}}
+            <a href="/{{network}}/opensource">Open Source</a>
+          {{else}}
+            <a href="/ethereum/opensource">Open Source</a>
+          {{/if}}
+          <a href="https://github.com/cash-cows" target="_blank">Github</a>
+        </footer>
+      </section>
+    </aside>
+
+    <aside class="panel panel-right">
+      <section class="panel-frame panel-user-menu">
+        <header class="panel-head connected hide">
+          <a class="right" href="/{{network}}/crew/manage.html"><i class="fas fa-cog"></i></a>
+          <h3 class="text-primary">Choose a Cow</h3>
+        </header>
+        <main class="panel-body disconnected">
+          <a 
+            class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+            data-do="connect"
+            data-on="click"
+            href="javascript:void(0)"
+          >Connect Wallet</a>
+          <a 
+            class="note" 
+            href="https://opensea.io/collection/cash-cows-crew" 
+            target="_blank"
+          >Don't Have a Cow?</a>
+        </main>
+        <main class="panel-body cows connected hide"></main>
+        <footer class="panel-foot connected hide">
+          <a class="member" href="/{{network}}/member/">
+            <i class="text-primary fas fa-fingerprint"></i>
+            <span>My Profile</span>
+          </a>
+          <a href="https://dao.wearecashcows.com" target="_blank">
+            <i class="text-primary fas fa-gavel"></i>
+            <span>DAO</span>
+          </a>
+        </footer>
+      </section>
+    </aside>
+
+    <template id="template-cow">
+      <a 
+        class="item"
+        href="/{NETWORK}/crew/{EDITION}/profile.html"
+      >
+        <img src="{IMAGE}" loading="lazy" />
+        <span class="badge badge-{BADGE}">#{RANK}</span>
+    </a>
+    </template>
+
+    <template id="template-loot">
+      <div class="loot-item" data-do="loot-modal-open" data-id="{ID}" data-on="click">
+        <div class="preview">
+          <img src="{IMAGE}" loading="lazy" />
+        </div>
+      </div>
+    </template>
+
+    <template id="template-attribute">
+      <div class="attribute-box">
+        <h6>{NAME}</h6>
+        <span>{VALUE}</span>
+        <p>{PERCENT}% have this trait</p>
+      </div>
+    </template>
+
+    <script type="text/javascript" src="/scripts/doon.js"></script>
+    <script type="text/javascript" src="/scripts/theme.js"></script>
+    <script type="text/javascript" src="/scripts/web3.js"></script>
+    <script type="text/javascript" src="/scripts/web3modal.js"></script>
+    <script type="text/javascript" src="/scripts/web3sdk.js"></script>
+    <script type="text/javascript" src="/scripts/walletconnect.js"></script>
+    <script type="text/javascript" src="/scripts/fortmatic.js"></script>
+    <script type="text/javascript" src="/scripts/notify.js"></script>
+    {{#if script}}<script type="text/javascript" src="{{script}}.js?v{{version}}"></script>{{/if}}
+    <script type="text/javascript" src="/scripts/app.js?v{{version}}"></script>
+  </body>
+</html>

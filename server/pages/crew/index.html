@@ -1,0 +1,61 @@
+{{#layout "page.html" 
+  version="7" 
+  path="member" 
+  network=network
+  script="./index" 
+  style="./index" 
+  avatar="/images/icon-user.png"
+  title="Cash Cows Crew | Cash Cows" 
+  description="Don't have a cow? Find one now on the #1 Cow Search Engine!"
+}}
+  <div class="gallery">
+    <aside class="filters">
+      <div class="attributes">
+        <div class="options"></div>
+      </div>
+    </aside>
+    <main class="list">
+      <h1>Cash Cows Crew</h1>
+      <select class="sort" data-do="sort" data-on="change">
+        <option value="random">Random</option>
+        <option value="lowest">Lowest ID</option>
+        <option value="highest">Highest ID</option>
+        <option value="rare">Rare</option>
+        <option value="common">Common</option>
+      </select>
+      <span class="dated"></span>
+      <main class="results"></main>
+      <div class="pagination hide alert alert-outline">Loading &hellip;</div>
+    </main>
+  </div>
+  <template id="template-form-fieldset">
+    <div class="form-fieldset">
+      <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
+      <div class="fields"></div>
+    </div>
+  </template>
+  <template id="template-form-row">
+    <div class="form-row">
+      <label>
+        <input data-do="filter" data-on="click" type="checkbox" name="{NAME}" value="{VALUE}" />
+        <span class="label">
+          {LABEL}
+          <span class="badge">{COUNT}</span>
+        </span>
+      </label>
+    </div>
+  </template>
+  <template id="template-result-item">
+    <div class="item">
+      <a class="preview" href="{HREF}" target="_blank">
+        <img src="{IMAGE}" loading="lazy" />
+        <span class="badge badge-{BADGE}">#{RANK}</span>
+      </a>
+      <div class="info">
+        <h6 class="label">Cash Cows - Level {LEVEL}</h6>
+        <h4 class="token">#{ID}</h4>
+        <h6 class="level">{PRICE}</h6>
+      </div>
+    </div>
+  </template>
+{{/layout}}

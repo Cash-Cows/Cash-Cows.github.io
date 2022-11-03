@@ -1,0 +1,128 @@
+{{#layout "page.html" 
+  version="7" 
+  path="about"
+  style="./style" 
+  script="./script" 
+  avatar="/images/icon-user.png"
+  title="Cash Cows" 
+  description="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." 
+}}
+  <section class="section section-1">
+    <img src="/images/about/brady-bunch.png" />
+    <div class="info">
+      <h1>More Than Just 4,000 Cows</h1>
+      <p>An experiment about sharing wealth with every Cow holder.</p>
+      <ul>
+        <li>CC0 Personal &amp; Commercial Rights</li>
+        <li>Passive Staking (just hold)</li>
+        <li>Community Treasury</li>
+        <li>Zero Listing Fees</li>
+        <li>33 Crews / 226 Traits</li>
+        <li>100% on-chain</li>
+      </ul>
+    </div>
+  </section>
+  <section class="section section-2" data-do="goals">
+    <div class="stars"></div>
+    <div class="content">
+      <h2>Community Achievements</h2>
+      <p>The Herd Effort. Members earn ETH per marketplace sale. We Win Together.</p>
+      <div class="stats">
+        <div class="stat reward">
+          <h6>Redeemed</h6>
+          <span class="treasury-redeemed btn-pixel btn-pixel-lg btn-pixel-secondary">
+            <span class="crypto-prefix crypto-eth"></span>
+            <span class="value value-eth">???</span>
+          </span>
+        </div>
+        <div class="stat reward">
+          <h6>Unclaimed</h6>
+          <span class="treasury-unclaimed btn-pixel btn-pixel-lg btn-pixel-secondary">
+            <span class="crypto-prefix crypto-eth"></span>
+            <span class="value value-eth">???</span>
+          </span>
+        </div>
+      </div>
+      <div class="community"></div>
+    </div>
+  </section>
+  <section class="section section-3">
+    <img src="/images/about/farm.png" />
+  </section>
+  <section class="section section-4">
+    <div class="container">
+      <h2>FAQ</h2>
+      <div class="faq">
+        <div class="left">
+          <h3>What is CC0?</h3>
+          <p>
+            This means there is no copyright. You can modify, 
+            distribute and perform the work, even for commercial 
+            purposes, all without asking permission.
+          </p>
+        </div>
+        <div class="right">
+          <h3>What is the utility?</h3>
+          <p>
+            Creator fees are given to Cow holders evenly As rewards 
+            for passively staking. The rest of the utility will be 
+            found on the smart contracts. We will be dropping hints 
+            along the way and it is up to you to discover them all.
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="left">
+          <h3>How do I stake and earn rewards?</h3>
+          <p>Rewards are passively earned, meaning you only need to hold the Cows.</p>
+        </div>
+        <div class="right">
+          <h3>How can I redeem my rewards?</h3>
+          <p>
+            Current holders of Cash Cows can redeem their reward in the
+            treasury or directly from the 
+            <a href="https://etherscan.io/address/0x837844a20cFe576057b58bcF6f1556BF6795FB2F" target="_blank">
+              contract</a>.
+          </p> 
+        </div>
+      </div>
+      <div class="faq">
+        <div class="left">
+          <h3>If I sell my Cows can I still redeem?</h3>
+          <p>
+            Once you sell your Cow you no longer have the rights 
+            to redeem its rewards (it passes to the new owner).
+          </p> 
+        </div>
+        <div class="right">
+          <h3>What do I need to know before owning a Cow?</h3>
+          <p>
+            Rewards are driven by sales volume. No volume means no rewards.
+          </p> 
+        </div>
+      </div>
+      <div class="faq">
+        <div class="left">
+          <h3>How do you fund this project?</h3>
+          <p>
+            We fund this project through the rewards earned by 
+            holding Cows like everyone else. The community 
+            milestones measure the funding needed to activate 
+            the other utilities of the project.
+          </p> 
+        </div>
+        <div class="right">
+          <h3>Can I see the contracts?</h3>
+          In the <a href="/ethereum/opensource.html">contracts page</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+  <template id="template-community-goal">
+    <aside class="{STATUS} {POSITION}">
+      <img src="{IMAGE}"/>
+      <h6>{VALUE}ETH</h6>
+      <span class="bar"></span>
+    </aside>
+  </template>
+{{/layout}}

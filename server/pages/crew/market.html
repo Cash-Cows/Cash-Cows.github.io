@@ -1,0 +1,79 @@
+{{#layout "page.html" 
+  version="7" 
+  path=path
+  network=network
+  script=script
+  style=style
+  title=title
+  avatar=metadata.image
+}}
+  <section class="section section-market">
+    <div class="container">
+      <div class="form pfp-{{../metadata.color}}">
+        <div class="preview">
+          <img src="{{../metadata.image}}" />
+        </div>
+        <div class="info">
+          <h1>The Farmers Market</h1>
+          <div class="form-exchange">
+            <div class="form-row">
+              <label>
+                <img src="/images/crypto/milk.png" />
+                <span>MILK</span>
+                <a 
+                  class="cta-watch"
+                  data-crypto="milk"
+                  data-do="watch"
+                  data-on="click"
+                  href="javascript:void(0)"
+                >
+                  Watch
+                </a>
+              </label>
+              <div class="form-field">
+                <input 
+                  class="form-control" 
+                  data-do="convert"
+                  data-on="keyup"
+                  id="milk" 
+                  type="number" 
+                  min="0" 
+                  step="0.000001" 
+                  placeholder="0.00" 
+                />
+                <div class="balance balance-milk"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <label>
+                <img src="/images/crypto/dolla.png" />
+                <span>DOLLA</span>
+                <a 
+                  class="cta-watch"
+                  data-crypto="dolla"
+                  data-do="watch"
+                  data-on="click"
+                  href="javascript:void(0)"
+                >
+                  Watch
+                </a>
+              </label>
+              <div class="form-field">
+                <input disabled="disabled" class="form-control" id="dolla" type="number" placeholder="0.00" />
+                <div class="balance balance-dolla"></div>
+              </div>
+            </div>
+            <a 
+              class="btn-pixel btn-pixel-lg btn-pixel-success"
+              data-do="exchange"
+              data-on="click"
+              href="javascript:void(0)"
+            >
+              Sell $MILK
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/layout}}

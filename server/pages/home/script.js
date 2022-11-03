@@ -1,0 +1,1 @@
+window.addEventListener('web3sdk-ready', async _ => {}) 

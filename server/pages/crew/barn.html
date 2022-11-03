@@ -1,0 +1,55 @@
+{{#layout "page.html" 
+  version="7" 
+  path=path
+  network=network
+  script=script
+  style=style
+  title=title
+  avatar=metadata.image
+}}
+  <section class="section section-barn">
+    <div class="container">
+      <div class="form pfp-{{../metadata.color}}">
+        <div class="preview">
+          <img src="{{../metadata.image}}" />
+        </div>
+        <div class="info">
+          <h1>Welcome to the Barn</h1>
+          <div class="rewards">
+            <div class="reward rate">
+              <div class="label">Rate</div>
+              <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+                <i class="fas fa-clock"></i>
+                <span class="value value-milk"></span>
+              </span>
+            </div>
+            <div class="reward releaseable">
+              <div class="label">Redeemable</div>
+              <span class="btn-pixel btn-pixel-lg btn-pixel-secondary">
+                <span class="crypto-prefix crypto-milk"></span>
+                <span class="value value-milk"></span>
+              </span>
+            </div>
+          </div>
+          <a 
+            class="btn-pixel btn-pixel-lg btn-pixel-success"
+            data-do="redeem"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Redeem $MILK
+          </a>
+          <a 
+            class="cta-watch"
+            data-crypto="milk"
+            data-do="watch"
+            data-on="click"
+            href="javascript:void(0)"
+          >
+            Watch $MILK
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/layout}}

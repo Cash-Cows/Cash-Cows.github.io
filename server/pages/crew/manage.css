@@ -1,0 +1,124 @@
+h3 {
+  color: #F9AF00;
+}
+
+.section-crews .crews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 100px;
+}
+
+.section-crews .crews .crew {
+  cursor: pointer;
+  display: block;
+  flex-basis: calc(25% - 10px);
+  margin: 5px;
+  position: relative;
+}
+
+.section-crews .crews .crew .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section-crews .crews .crew.selected .preview {
+  box-shadow: 0 0 40px 10px #E7BA10;
+}
+
+.section-crews .crews .crew .preview .badge {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+}
+
+.section-crews .crews .crew .preview img {
+  display: block;
+  width: 100%;
+}
+
+.section-crews .crews .crew .token {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.section-crews .crews .crew .label {
+  color: #AAAAAA;
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.redeem-bar {
+  background-color: #E1C18A;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  position: fixed;
+  text-align: center;
+  right: 0;
+}
+
+.redeem-bar .redeem-toggle {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.redeem-bar .form {
+  align-items: center;
+  display: flex;
+}
+
+.redeem-bar .form .crypto {
+  padding: 10px;
+}
+
+.redeem-bar .form .center {
+  color: #000000;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.redeem-bar .form .right {
+  text-align: right;
+}
+
+@media(max-width: 767px) {
+  .redeem-bar .form {
+    display: block;
+  }
+
+  .redeem-bar .form .center {
+    padding: 10px 0;
+  }
+
+  .redeem-bar .form .right {
+    text-align: center;
+  }
+}
+
+@media(max-width: 650px) {
+  .section-crews .crews .crew {
+    flex-basis: calc(33.33% - 10px);
+  }
+}
+
+@media(max-width: 500px) {
+  .section-crews .crews .crew {
+    flex-basis: calc(50% - 10px);
+  }
+}
