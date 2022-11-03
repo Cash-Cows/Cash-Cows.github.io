@@ -9,7 +9,11 @@
     {{#if description}}<meta name="description" content="{{description}}" />{{/if}}
     <meta property="og:title" content="{{title}}" />
     {{#if description}}<meta property="og:description" content="{{description}}" />{{/if}}
-    <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    {{#if banner}}
+    <meta property="og:image" content="https://www.wearecashcows.com{{banner}}" />
+    {{else}}
+      <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+    {{/if}}
     {{#if network}}
       <meta property="og:url" content="https://www.wearecashcows.com/{{network}}/{{path}}" />
     {{else}}

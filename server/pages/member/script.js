@@ -323,6 +323,15 @@ window.addEventListener('web3sdk-ready', async _ => {
     }
   })
 
+  window.addEventListener('share-click', _ => {
+    navigator.clipboard.writeText(window.location.href)
+    notify('success', 'Link copied!')
+  })
+
   //------------------------------------------------------------------//
   // Initialize
+
+  document
+    .querySelector('a.social-twitter')
+    .setAttribute('href', `https://twitter.com/intent/tweet?hashtags=cashcows,sharethewealth&text=Checkout+this+Cash+Cows+member.+Moo!&url=wearecashcows.com/ethereum/member/?address=${getAddress()}`)
 })

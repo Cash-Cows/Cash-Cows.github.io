@@ -165,6 +165,25 @@
   height: 30px;
 }
 
+.section-info .box .name .markets .social {
+  border-radius: 50%;
+  display: inline-block;
+  height: 30px;
+  line-height: 32px;
+  position: relative;
+  text-align: center;
+  top: -10px;
+  width: 30px;
+}
+
+.section-info .box .name .markets .social-twitter {
+  background-color: #1C9BEF;
+}
+
+.section-info .box .name .markets .social-share {
+  background-color: #444444;
+}
+
 .section-traits {
   padding-bottom: 40px;
 }

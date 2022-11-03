@@ -491,6 +491,11 @@ window.addEventListener('web3sdk-ready', async _ => {
       return
     }
   })
+
+  window.addEventListener('share-click', _ => {
+    navigator.clipboard.writeText(window.location.href)
+    notify('success', 'Link copied!')
+  })
   
   //------------------------------------------------------------------//
   // Initialize
