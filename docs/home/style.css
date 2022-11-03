@@ -1,34 +1,76 @@
-.video {
+.section-home {
   height: 100%;
-  overflow: hidden;
+  position: relative;
 }
 
-.video video {
+.section-home .video {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: -70px;
+}
+
+.section-home .video video {
   width: 100%;
 }
 
-.banner {
-  align-items: bottom;
+.section-home .banner {
   background-color: #FF975F;
   display: none;
-  height: 100%;
+  left: 0;
   justify-content: center;
   overflow: hidden;
+  position: absolute;
+  right: 0;
   text-align: center;
+  top: -110px;
 }
 
-.banner img {
+.section-home .banner img {
   min-width: 1200px;
   width: 100%;
 }
 
+.section-home .stage {
+  bottom: 0;
+  display: flex;
+  left: 0;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
+
+.section-home .stage img {
+  min-height: 720px;
+  height: 100%;
+}
+
+.section-home .cta {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
 
 @media(max-width: 1260px) {
-  .video {
+  .section-home .video {
     display: none;
   }
 
-  .banner {
+  .section-home .banner {
     display: flex;
   }
 }
