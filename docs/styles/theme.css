@@ -738,6 +738,16 @@ a, a:hover, a:active, a:visited {
   margin-top: 20px;
 }
 
+.panel-user-menu .panel-body.disconnected .btn-pixel-secondary {
+  color: #444444;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.panel-user-menu .panel-body.disconnected .btn-pixel-secondary::before {
+  left: -6px;
+}
+
 .panel-user-menu .panel-body.connected {
   display: flex;
   flex-wrap: wrap;
@@ -774,6 +784,10 @@ a, a:hover, a:active, a:visited {
   padding: 20px;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.web3modal-modal-lightbox {
+  z-index: 10000 !important;
 }
 
 @media(max-width: 450px) {

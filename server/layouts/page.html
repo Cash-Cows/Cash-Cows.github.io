@@ -146,6 +146,19 @@
             data-on="click"
             href="javascript:void(0)"
           >Connect Wallet</a>
+          {{#if network}}
+            <a 
+              class="btn-pixel btn-pixel-secondary" 
+              href="https://metamask.app.link/dapp/wearecashcows.com/{{network}}/{{path}}" 
+              target="_blank"
+            >MetaMask Browser</a>
+          {{else}}
+            <a 
+              class="btn-pixel btn-pixel-secondary" 
+              href="https://metamask.app.link/dapp/wearecashcows.com/{{path}}" 
+              target="_blank"
+            >MetaMask Browser</a>
+          {{/if}}
           <a 
             class="note" 
             href="https://opensea.io/collection/cash-cows-crew" 
