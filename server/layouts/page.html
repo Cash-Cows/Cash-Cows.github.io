@@ -132,7 +132,11 @@
     <aside class="panel panel-right">
       <section class="panel-frame panel-user-menu">
         <header class="panel-head connected hide">
-          <a class="right" href="/{{network}}/crew/manage.html"><i class="fas fa-cog"></i></a>
+          {{#if network}}
+            <a class="right" href="/{{network}}/crew/manage.html"><i class="fas fa-cog"></i></a>
+          {{else}}
+            <a class="right" href="/ethereum/crew/manage.html"><i class="fas fa-cog"></i></a>
+          {{/if}}
           <h3 class="text-primary">Choose a Cow</h3>
         </header>
         <main class="panel-body disconnected">
@@ -150,10 +154,17 @@
         </main>
         <main class="panel-body cows connected hide"></main>
         <footer class="panel-foot connected hide">
-          <a class="member" href="/{{network}}/member/">
-            <i class="text-primary fas fa-fingerprint"></i>
-            <span>My Profile</span>
-          </a>
+          {{#if network}}
+            <a class="member" href="/{{network}}/member/">
+              <i class="text-primary fas fa-fingerprint"></i>
+              <span>My Profile</span>
+            </a>
+          {{else}}
+            <a class="member" href="/ethereum/member/">
+              <i class="text-primary fas fa-fingerprint"></i>
+              <span>My Profile</span>
+            </a>
+          {{/if}}
           <a href="https://dao.wearecashcows.com" target="_blank">
             <i class="text-primary fas fa-gavel"></i>
             <span>DAO</span>
