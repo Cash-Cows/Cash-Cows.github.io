@@ -75,6 +75,7 @@ window.addEventListener('web3sdk-ready', async _ => {
           row.address.substring(row.address.length - 4)
         }`)
         .replace('{ADDRESS}', row.address)
+        .replace('{ADDRESS}', row.address)
         .replace('{BALANCE}', row.balance)
         .replace('{PERCENT}', `${row.share}%`)
       )
