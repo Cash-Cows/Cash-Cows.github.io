@@ -496,6 +496,10 @@ window.addEventListener('web3sdk-ready', async _ => {
     navigator.clipboard.writeText(window.location.href)
     notify('success', 'Link copied!')
   })
+
+  window.addEventListener('soon-click', _ => {
+    notify('info', 'Coming Soon!')
+  })
   
   //------------------------------------------------------------------//
   // Initialize
