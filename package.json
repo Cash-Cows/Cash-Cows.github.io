@@ -9,6 +9,8 @@
     "art_build": "node artengine/scripts/build_collection.js",
     "art_previews": "node artengine/scripts/build_previews.js",
     "art_metadata": "node artengine/scripts/build_metadata.js",
+    "art_transparent": "node artengine/scripts/build_transparent.js",
+    "art_headshots": "node artengine/scripts/build_headshots.js",
     "art_rarity": "node artengine/scripts/build_rarity.js",
     "art_pinata": "node artengine/scripts/upload_to_pinata.js",
     "art_nft.storage": "node artengine/scripts/upload_to_nft.storage.js",
