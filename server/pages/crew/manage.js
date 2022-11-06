@@ -191,7 +191,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         '{RANK}': row.rank,
         '{BADGE}': badge,
         '{LEVEL}': stage,
-        '{IMAGE}': `/images/crew/${tokenId}_${stage - 1}.png`
+        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage - 1}.png`
       })
 
       element.cows.appendChild(item)

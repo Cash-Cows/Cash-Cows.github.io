@@ -86,7 +86,10 @@ window.addEventListener('web3sdk-ready', async _ => {
         4030
       ).then(tokens => {
         if (tokens.length) {
-          tableRow.querySelector('img.avatar').setAttribute('src', `/images/crew/${tokens[0]}_2.png`)
+          tableRow.querySelector('img.avatar').setAttribute(
+            'src', 
+            `https://assets.wearecashcows.com/cashcows/crew/image/${tokens[0]}_2.png`
+          )
         }
       })
 

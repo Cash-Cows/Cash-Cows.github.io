@@ -93,7 +93,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         '{SCORE}': row.score,
         '{ID}': tokenId,
         '{LEVEL}': stage + 1,
-        '{IMAGE}': `/images/crew/${tokenId}_${stage}.png`,
+        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage}.png`,
         '{HREF}': `/${networkName}/crew/${tokenId}/profile.html`
       })
       results.appendChild(item)

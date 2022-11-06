@@ -24,6 +24,8 @@
 
 .section-market .form .preview img {
   display: block;
+  max-width: 300px;
+  width: 100%;
 }
 
 .section-market .form .label {
