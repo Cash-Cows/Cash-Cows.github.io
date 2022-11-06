@@ -309,6 +309,59 @@
   margin-left: 15px;
 }
 
+.section-brand {
+  padding-top: 20px;
+}
+
+.section-brand .assets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-brand .assets .asset {
+  flex-basis: 33%;
+  padding: 20px 0;
+}
+
+.section-brand .assets .asset.transparent .preview {
+  background-image: url(/images/bg-transparent.jpg);
+  background-repeat: repeat;
+}
+
+.section-brand .assets .asset.headshot .preview {
+  background-image: url(/images/bg-transparent.jpg);
+  background-repeat: repeat;
+  padding: 10px;
+}
+
+.section-brand .assets .asset h4 {
+  color: #444444;
+  font-size: 12px;
+  text-align: center;
+}
+
+.section-brand .assets .asset .preview {
+  border: 1px solid #BD9F6D;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.section-brand .assets .asset .preview img {
+  display: block;
+  width: 100%;
+}
+
+.legal {
+  background-color: #E1C18A;
+  border: 1px solid #BD9F6D;
+  border-radius: 20px;
+  color: #000000;
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: justify;
+}
+
 .modal.loot-modal {
   align-items: center;
 }

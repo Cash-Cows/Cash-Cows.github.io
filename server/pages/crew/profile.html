@@ -75,6 +75,10 @@
           <i class="fas fa-map-location-dot"></i>
           <span>Map</span>
         </a>
+        <a class="tab tab-map hide" data-do="tab" data-on="click" data-target="section.section-brand" href="javascript:void(0)">
+          <i class="fas fa-book-open"></i>
+          <span>Brand</span>
+        </a>
         <span class="gap"></span>
         <a class="tab tab-cull hide" data-do="tab" data-on="click" data-target="section.section-culling" href="javascript:void(0)">
           <i class="fas fa-skull"></i>
@@ -332,6 +336,90 @@
         </map>
       </div>
     </section> 
+    <section class="section tab-content section-brand container hide">
+      <div class="assets">
+        <div class="asset original">
+          <div class="preview">
+            <img src="https://assets.wearecashcows.com/cashcows/crew/image/{{../metadata.edition}}_0.png" loading="lazy" />
+          </div>
+        </div>
+        {{#when ../metadata.attributes.Level.value '>' 1}}
+          <div class="asset original">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/image/{{../../metadata.edition}}_1.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        {{#when ../metadata.attributes.Level.value '>' 2}}
+          <div class="asset original">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/image/{{../../metadata.edition}}_2.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        <div class="asset transparent">
+          <div class="preview">
+            <img src="https://assets.wearecashcows.com/cashcows/crew/transparent/{{../metadata.edition}}_0.png" loading="lazy" />
+          </div>
+        </div>
+        {{#when ../metadata.attributes.Level.value '>' 1}}
+          <div class="asset transparent">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/transparent/{{../../metadata.edition}}_1.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        {{#when ../metadata.attributes.Level.value '>' 2}}
+          <div class="asset transparent">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/transparent/{{../../metadata.edition}}_2.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        <div class="asset headshot">
+          <div class="preview">
+            <img src="https://assets.wearecashcows.com/cashcows/crew/headshots/{{../metadata.edition}}_0.png" loading="lazy" />
+          </div>
+        </div>
+        {{#when ../metadata.attributes.Level.value '>' 1}}
+          <div class="asset headshot">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/headshots/{{../../metadata.edition}}_1.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        {{#when ../metadata.attributes.Level.value '>' 2}}
+          <div class="asset headshot">
+            <div class="preview">
+              <img src="https://assets.wearecashcows.com/cashcows/crew/headshots/{{../../metadata.edition}}_2.png" loading="lazy" />
+            </div>
+          </div>
+        {{/when}}
+        <div class="legal">
+          <h2>Holder Usage Rights</h2>
+          <p>
+            The creators of the art <em>(the "Affirmer")</em> titled as 
+            <strong>Cash Cows Crew #{{../metadata.edition}}</strong> 
+            <em>(the "Work")</em> hereby waives the rights of the Work under 
+            copyright law for the owner of the Ethereum based wallet 
+            <strong class="wallet-address"></strong> <em>(the "Holder")</em>, 
+            including all related rights, to the extend allowed by law.
+          </p>
+          <p>
+            The Holder can copy, modify, distribute and perform the work, 
+            even for commercial purposes, all without asking permission.
+          </p>
+          <p>
+            Unless expressly stated otherwise, the creators who associated 
+            a work with this deed makes no warranties about the work, 
+            and disclaims liability for all uses of the work, to the 
+            fullest extent permitted by applicable law. Usage of the 
+            work by the Holder does not imply endorsement by the 
+            Affirmer.
+          </p>
+        </div>
+      </div>
+    </section>
   </section>
 
   <template id="template-loot">

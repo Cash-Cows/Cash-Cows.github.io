@@ -217,6 +217,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       .setAttribute('href', `/${networkName}/member?address=${Web3SDK.state.owner}`)
 
     const owner = Web3SDK.state.owner !== Web3SDK.state.account
+    document.querySelector('strong.wallet-address').innerHTML = Web3SDK.state.owner
     document.querySelector('div.owner a').innerHTML = owner
       ? `${Web3SDK.state.owner.substring(0, 4)}...${
         Web3SDK.state.owner.substring(Web3SDK.state.owner.length - 4)
