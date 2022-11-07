@@ -17,6 +17,15 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Functions 
 
+  const getEdition = _ => {
+    const query = new URLSearchParams(window.location.search)
+    for (const params of query) {
+      if (params[0] === 'edition') {
+        return params[1]
+      }
+    }
+  }
+
   const search = async init => {
     theme.hide('a.next', true)
     
@@ -141,7 +150,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   const randomCow = async _ => {
     return new Promise(resolve => {
       const cow = new Image()
-      const edition = Math.floor(Math.random() * 4030) + 1
+      const edition = getEdition() || Math.floor(Math.random() * 4030) + 1
       const level = Math.floor(Math.random() * 2)
       cow.onload = _ => resolve(cow)
       cow.setAttribute('crossOrigin', '')
