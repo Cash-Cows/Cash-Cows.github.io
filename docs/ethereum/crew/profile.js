@@ -93,6 +93,8 @@ window.addEventListener('web3sdk-ready', async _ => {
           .join(',')
       }
 
+      console.log('resizing')
+
       var scalingFactor = {
         width: image.width / image.naturalWidth,
         height: image.height / image.naturalHeight,
@@ -250,18 +252,9 @@ window.addEventListener('web3sdk-ready', async _ => {
     theme.hide('.tab-content', true)
     theme.hide(e.for.getAttribute('data-target'), false)
 
-    if (e.for.getAttribute('data-target') === 'section.section-map'
-      && e.for.getAttribute('data-loaded') !== 'loaded'
-    ) {
-      //wait for load 
-      e.for.querySelector('img').onload = _ => {
-        imageMapResize()()
-        e.for.setAttribute('data-loaded', 'loaded')
-      }
-
+    if (e.for.getAttribute('data-target') === 'section.section-map') {
       imageMapResize()()
-      e.for.setAttribute('data-loaded', 'loaded')
-      window.dispatchEvent(new Event('resize'))
+      //window.dispatchEvent(new Event('resize'))
     }
   })
 
