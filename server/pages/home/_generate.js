@@ -11,6 +11,11 @@ module.exports = async ({file, root, config, handlebars }) => {
       fs.readFileSync(file, 'utf8')
     )())
     return
+  } else if (path.basename(file) === 'gallery.html') {
+    fs.writeFileSync(path.join(config.build, 'gallery.html'), handlebars.compile(
+      fs.readFileSync(file, 'utf8')
+    )())
+    return
   }
 
   const destination = path.join(
