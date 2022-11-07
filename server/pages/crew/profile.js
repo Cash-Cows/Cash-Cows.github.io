@@ -253,8 +253,15 @@ window.addEventListener('web3sdk-ready', async _ => {
     if (e.for.getAttribute('data-target') === 'section.section-map'
       && e.for.getAttribute('data-loaded') !== 'loaded'
     ) {
+      //wait for load 
+      e.for.querySelector('img').onload = _ => {
+        imageMapResize()()
+        e.for.setAttribute('data-loaded', 'loaded')
+      }
+
       imageMapResize()()
       e.for.setAttribute('data-loaded', 'loaded')
+      window.dispatchEvent(new Event('resize'))
     }
   })
 
