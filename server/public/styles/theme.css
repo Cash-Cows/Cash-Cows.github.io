@@ -441,6 +441,11 @@ a, a:hover, a:active, a:visited {
   border-color: #00396e;
 }
 
+.badge-error {
+  border-color: #880000;
+  background-color: #880000;
+}
+
 .modal {
   background-color: rgba(0, 0, 0, 0.65);
   bottom: 0;

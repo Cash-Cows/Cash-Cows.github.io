@@ -1,26 +1,51 @@
-.body {
-  background-image: url(/images/bg-soon.png);
-  background-position: bottom center;
-  background-size: cover;
+.section-1 {
+  padding: 100px 0 20px;
 }
 
-.box {
-  background-color: #E1C18A;
-  border: 1px solid #BD9F6D;
-  border-radius: 10px;
-  color: #222222;
-  display: block;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 40px 0;
-  text-align: center;
-  width: 365px;
+.section-1 h1 {
+  color: #F9AF00;
 }
 
-.section-soon {
+.section-1 form {
   align-items: center;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+}
+
+.section-1 form .btn {
+  padding: 10px 16px;
+}
+
+.section-2 {
+  padding: 0 0 100px;
+}
+
+.section-2 .meme-results {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+}
+
+.section-2 .meme-results .meme {
+  margin-bottom: 20px;
+}
+
+.section-2 .meme-results .meme img {
+  display: inline-block;
+  height: 200px;
+  margin: 5px;
+}
+
+.section-2 .meme-results .meme .actions {
+  text-align: center;
+}
+
+.section-2 .meme-results .meme .actions a {
+  display: inline-block;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.section-2 .btn-block {
+  display: block;
+  text-align: center;
 }

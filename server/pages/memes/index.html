@@ -3,15 +3,63 @@
   path="memes" 
   network=network
   style="./style" 
+  script="./script" 
   avatar="/images/icon-user.png"
   title="Meme Database | Cash Cows" 
   description="Over 20K custom cow memes"
 }}
-  <section class="section section-soon">
+  <section class="section section-1">
     <div class="container">
-      <div class="box">
-        Coming Soon!
-      </div>
+      <h1>Meme Database</h1>
+      <form data-do="meme-search" data-on="submit">
+        <input 
+          class="form-control" 
+          id="meme-search" 
+          placeholder="Search for Memes"
+          type="text" 
+        />
+        <button class="btn btn-solid btn-primary">
+          Search
+        </button>
+      </form>
     </div>
   </section>
+  <section class="section section-2">
+    <div class="container">
+      <div class="meme-results">
+        <div class="alert alert-outline">
+          Loading...
+        </div>
+      </div>
+      <a 
+        class="btn btn-outline btn-secondary btn-block next hide" 
+        data-do="meme-next" 
+        data-on="click"
+        href="javascript:void(0)"
+      >More</a>
+    </div>
+  </section>
+  <template id="template-meme">
+    <div class="meme">
+      <div class="preview">
+        <img src="{IMAGE}" />
+      </div>
+      <div class="actions">
+        <a class="text-warning" data-do="vote-up" data-on="click" data-id="{ID}" href="javascript:void(0)">
+          <span class="badge badge-warning">{UP}</span>
+          <i class="fas fa-thumbs-up"></i>
+        </a>
+        <a class="text-danger" data-do="vote-down" data-on="click" data-id="{ID}" href="javascript:void(0)">
+          <span class="badge badge-error">{DOWN}</span>
+          <i class="fas fa-thumbs-down"></i>
+        </a>
+        <a class="text-success" href="{IMAGE}" download="Cash-Cows-{NAME}.gif" target="_blank">
+          <i class="fas fa-download"></i>
+        </a>
+      </div>
+    </div>
+  </template>
+  <script type="text/javascript" src="/scripts/gifparser.js"></script>
+  <script type="text/javascript" src="/scripts/gifmaker.js"></script>
+  <script type="text/javascript" src="/scripts/face.js"></script>
 {{/layout}}
