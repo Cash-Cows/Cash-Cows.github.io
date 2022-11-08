@@ -376,15 +376,27 @@
     </section> 
     <section class="section tab-content section-map container hide">
       <div class="box">
-        <img usemap="#game-map" src="/images/map.png" />
-        <map name="game-map">
-          <area alt="The Barn" title="The Barn" href="./barn.html" coords="298,1442,893,1802" shape="rect">
-          <area alt="Farmers Market" title="Farmers Market" href="./market.html" coords="556,1049,1329,1398" shape="rect">
-          <area alt="Loot Store" title="Loot Store" href="./store.html" coords="302,810,978,1012" shape="rect">
-          <area data-do="soon" data-on="click" alt="The Hustle" title="The Hustle" href="javascript:void(0)" coords="481,356,1453,668" shape="rect">
-          <area data-do="soon" data-on="click" alt="Cribs" title="Cribs" href="javascript:void(0)" coords="507,2,1110,346" shape="rect">
-          <area data-do="soon" data-on="click" alt="???" title="???" href="javascript:void(0)" coords="5,3,320,378" shape="rect">
-        </map>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 1920" preserveAspectRatio="xMinYMin meet">
+          <image width="1500" height="1920" xlink:href="/images/map.png"></image>
+          <a xlink:href="./barn.html" alt="The Barn" title="The Barn">
+            <rect x="300" y="1500" width="600" height="250" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+          <a xlink:href="./market.html" alt="Farmers Market" title="Farmers Market">
+            <rect x="550" y="1120" width="800" height="202" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+          <a xlink:href="./store.html" alt="Loot Store" title="Loot Store">
+            <rect x="302" y="810" width="676" height="202" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+          <a xlink:href="javascript:void(0)" data-do="soon" data-on="click" alt="The Hustle" title="The Hustle">
+            <rect x="470" y="400" width="930" height="202" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+          <a xlink:href="javascript:void(0)" data-do="soon" data-on="click" alt="Cribs" title="Cribs">
+            <rect x="500" y="100" width="620" height="250" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+          <a xlink:href="javascript:void(0)" data-do="soon" data-on="click" alt="???" title="???">
+            <rect x="0" y="0" width="350" height="400" fill="#FFFFFF" opacity="0"></rect>
+          </a>
+        </svg>
       </div>
     </section> 
     <section class="section tab-content section-brand container hide">
