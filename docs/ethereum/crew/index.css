@@ -145,6 +145,11 @@
   font-size: 10px;
 }
 
+.gallery .pagination {
+  display: block;
+  text-align: center;
+}
+
 @media(max-width: 830px) {
   .gallery {
     display: block;
