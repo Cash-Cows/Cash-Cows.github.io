@@ -26,8 +26,8 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v8" />
-    <link rel="stylesheet" type="text/css" href="/goerli/crew/market.css?v8" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v11" />
+    <link rel="stylesheet" type="text/css" href="/goerli/crew/market.css?v11" />
   </head>
   <body>
     <header class="head">
@@ -165,7 +165,10 @@
 
     <aside class="panel panel-right">
       <section class="panel-frame panel-user-menu">
-        <header class="panel-head connected hide">
+        <header class="panel-head hasnocows hide">
+          <h3 class="text-primary">1. Get Some Cows</h3>
+        </header>
+        <header class="panel-head hascows hide">
             <a class="right" href="/goerli/crew/manage.html"><i class="fas fa-cog"></i></a>
           <h3 class="text-primary">Choose a Cow</h3>
         </header>
@@ -177,18 +180,56 @@
             href="javascript:void(0)"
           >Connect Wallet</a>
             <a 
-              class="btn-pixel btn-pixel-secondary" 
+              class="note" 
               href="https://metamask.app.link/dapp/wearecashcows.com/goerli/goerli/crew/277/market" 
               target="_blank"
             >MetaMask Browser</a>
-          <a 
-            class="note" 
-            href="https://opensea.io/collection/cash-cows-crew" 
-            target="_blank"
-          >Don't Have a Cow?</a>
+          
         </main>
-        <main class="panel-body cows connected hide"></main>
-        <footer class="panel-foot connected hide">
+        <main class="panel-body hasnocows hide">
+          <div class="preview">
+            <img src="/images/about/brady-bunch.png" />
+          </div>
+          <h4>How Many Cows?</h4>
+          <div class="form-row">
+            <a 
+              class="btn-pixel btn-pixel-warning btn-sub"
+              data-do="nocows-sub"
+              data-on="click"
+            ><i class="fas fa-minus"></i></a>
+            <input 
+              class="form-control input-newcows"
+              data-do="nocows" 
+              data-on="input" 
+              type="number" 
+              min="1" 
+              max="10" 
+              step="1" 
+              value="1" 
+            />
+            <a 
+              class="btn-pixel btn-pixel-warning btn-add"
+              data-do="nocows-add"
+              data-on="click"
+            ><i class="fas fa-plus"></i></a>
+          </div>
+        </main>
+        <main class="panel-body hascows hide"></main>
+        <footer class="panel-foot hasnocows hide">
+          <div class="total">
+            <div class="label">Total</div>
+            <div class="amount amount-eth"> 0 </div>
+          </div>
+          <div class="actions">
+            <a 
+              class="btn-pixel btn-pixel-lg btn-pixel-success"
+              data-do="nocows-buy" 
+              data-on="click" 
+              href="javascript:void(0)"
+            >Moo!</a>
+          </div>
+        </footer>
+        <footer class="panel-foot hascows hide">
             <a class="member" href="/goerli/member/">
               <i class="text-primary fas fa-fingerprint"></i>
               <span>My Profile</span>
@@ -211,22 +252,6 @@
     </a>
     </template>
 
-    <template id="template-loot">
-      <div class="loot-item" data-do="loot-modal-open" data-id="{ID}" data-on="click">
-        <div class="preview">
-          <img src="{IMAGE}" loading="lazy" />
-        </div>
-      </div>
-    </template>
-
-    <template id="template-attribute">
-      <div class="attribute-box">
-        <h6>{NAME}</h6>
-        <span>{VALUE}</span>
-        <p>{PERCENT}% have this trait</p>
-      </div>
-    </template>
-
     <script type="text/javascript" src="/scripts/doon.js"></script>
     <script type="text/javascript" src="/scripts/theme.js"></script>
     <script type="text/javascript" src="/scripts/web3.js"></script>
@@ -235,7 +260,7 @@
     <script type="text/javascript" src="/scripts/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/notify.js"></script>
-    <script type="text/javascript" src="/goerli/crew/market.js?v8"></script>
-    <script type="text/javascript" src="/scripts/app.js?v8"></script>
+    <script type="text/javascript" src="/goerli/crew/market.js?v11"></script>
+    <script type="text/javascript" src="/scripts/app.js?v11"></script>
   </body>
 </html>
