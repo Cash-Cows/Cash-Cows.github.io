@@ -42,6 +42,22 @@
       return element.disabled || element.hasAttribute('disabled')
     }
 
+    static parent(element, className) {
+      if (element.tagName === 'HTML') return null
+      if (element.parentNode.classList.contains(className)) 
+        return element.parentNode
+      return this.parent(element.parentNode, className)
+    }
+
+    static siblings(element, className, selector, single = false) {
+      const parent = this.parent(element, className)
+      if (!parent) return []
+      if (!single) {
+        return Array.from(parent.querySelectorAll(selector))  
+      }
+      return parent.querySelector(selector)
+    }
+
     static toElement(html, variables = {}) { 
       for (const key in variables) {
         html = html.replace(new RegExp(key, 'g'), variables[key])

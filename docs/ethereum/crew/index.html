@@ -26,8 +26,8 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" /> 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v8" />
-    <link rel="stylesheet" type="text/css" href="./index.css?v8" />
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css?v10" />
+    <link rel="stylesheet" type="text/css" href="./index.css?v10" />
   </head>
   <body>
     <header class="head">
@@ -54,32 +54,127 @@
 
     <main class="body">
 
-        <div class="gallery">
-    <aside class="filters">
-      <div class="attributes">
-        <div class="options"></div>
-      </div>
-    </aside>
-    <main class="list">
+        <section class="section section-gallery">
+    <header class="gallery-head">
       <h1>Cash Cows Crew</h1>
-      <select class="sort" data-do="sort" data-on="change">
-        <option value="floorAskPrice">Floor</option>
-        <option value="rarity">Rarity</option>
-        <option value="tokenId">Token ID</option>
-      </select>
-      <main class="results"></main>
-      <a 
-        class="pagination hide alert alert-outline"
-        data-do="next"
-        data-on="click"
-        href="javascript:void(0)"
-      >Load More</a>
-    </main>
-  </div>
+      <div class="filter">
+        <a 
+          class="btn btn-solid btn-secondary" 
+          data-do="filter-open"
+          data-on="click"
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-filter"></i>
+        </a>
+      </div>
+      <div class="sort">
+        <select data-do="sort" data-on="change">
+          <option value="floorAskPrice">Floor</option>
+          <option value="rarity">Rarity</option>
+          <option value="tokenId">Token ID</option>
+        </select>
+      </div>
+      <div class="cart">
+        <a 
+          class="btn btn-solid btn-secondary" 
+          data-do="toggle" 
+          data-on="click" 
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <div class="card card-cart hide">
+          <header class="card-head cart-head">
+            <h5>My Cart <span class="badge badge-info count">0</span></h5>
+            <a data-do="clear-cart" data-on="click" href="javascript:void(0)">
+              Clear
+            </a>
+          </header>
+          <div class="alert alert-outline">Cart is Empty</div>
+          <main class="card-body cart-body"></main>
+          <footer class="card-foot cart-foot">
+            <div class="total">
+              <div class="label">You Pay</div>
+              <div class="amount amount-eth"> 0 </div>
+            </div>
+            <div class="actions">
+              <a 
+                class="btn-pixel btn-pixel-lg btn-pixel-success"
+                data-do="cart-buy"
+                data-on="click"
+                href="javascript:void(0)"
+              >Purchase</a>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div class="sweep">
+        <a 
+          class="btn btn-solid btn-secondary" 
+          data-do="toggle" 
+          data-on="click" 
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-broom"></i>
+        </a>
+        <div class="card card-sweep hide">
+          <header class="card-head sweep-head">
+            <div class="range">
+              <input 
+                data-do="sweep-range" 
+                data-on="input" 
+                type="range" 
+                min="0" 
+                max="100" 
+                step="1" 
+                value="0" 
+              />
+            </div>
+            <div class="count">0</div>
+          </header>
+          <main class="card-body sweep-body"></main>
+          <footer class="card-foot sweep-foot">
+            <div class="total">
+              <div class="label">You Pay</div>
+              <div class="amount amount-eth"> 0 </div>
+            </div>
+            <div class="actions">
+              <a 
+                class="btn-pixel btn-pixel-lg btn-pixel-success"
+                data-do="sweep-buy"
+                data-on="click"
+                href="javascript:void(0)"
+              >Purchase</a>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </header>
+    <section class="gallery-body">
+      <aside class="gallery-filters">
+        <div class="attributes">
+          <header class="attributes-head" data-do="filter-close" data-on="click">
+            <h2>Filters</h2>
+            <i class="fas fa-times"></i>
+          </header>
+          <main class="attributes-body"></main>
+        </div>
+      </aside>
+      <main class="gallery-results">
+        <main class="results"></main>
+        <a 
+          class="pagination hide alert alert-outline"
+          data-do="next"
+          data-on="click"
+          href="javascript:void(0)"
+        >Load More</a>
+      </main>
+    </section>
+  </section>
   <template id="template-form-fieldset">
     <div class="form-fieldset">
       <h5 class="toggleable" data-do="toggle" data-on="click">{LEGEND}</h5>
-      <div class="fields"></div>
+      <div class="fields hide"></div>
     </div>
   </template>
   <template id="template-form-row">
@@ -93,16 +188,109 @@
       </label>
     </div>
   </template>
+  <template id="template-cart-item">
+    <div class="item" data-edition="{EDITION}" data-amount="{AMOUNT}">
+      <div class="preview">
+        <img src="{IMAGE}" loading="lazy" />
+      </div>
+      <div class="info">
+        <h6>#{EDITION}</h6>
+        <div class="amount amount-{CURRENCY}">
+          {AMOUNT}
+        </div>
+      </div>
+      <div class="actions">
+        <a 
+        class="remove" 
+        data-do="remove-cart" 
+        data-on="click" 
+        data-edition="{EDITION}"
+        href="javascript:void(0)"
+      ><i class="fas fa-trash"></i></a>
+      </div>
+    </div>
+  </template>
+  <template id="template-sweep-item">
+    <div class="item" data-edition="{EDITION}" data-amount="{AMOUNT}">
+      <div class="preview">
+        <img src="{IMAGE}" />
+      </div>
+      <div class="amount amount-{CURRENCY}">
+        {AMOUNT}
+      </div>
+    </div>
+  </template>
   <template id="template-result-item">
-    <div class="item">
+    <div class="item" data-edition="{EDITION}">
       <a class="preview" href="{HREF}" target="_blank">
         <img src="{IMAGE}" loading="lazy" />
-        <span class="badge badge-{BADGE}">#{RANK}</span>
+        <span class="badge badge-muted badge-edition">
+          <i class="fas fa-hashtag"></i>
+          {EDITION}
+        </span>
+        <span class="badge badge-success badge-action">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+        <span class="badge badge-rank badge-{RARITY}">
+          <i class="fas fa-trophy"></i>
+          {RANK}
+        </span>
+        <span class="badge badge-muted badge-level">Level {LEVEL}</span>
       </a>
-      <div class="info">
-        <h6 class="label">Cash Cows - Level {LEVEL}</h6>
-        <h4 class="token">#{ID}</h4>
-        <h6 class="level">{PRICE}</h6>
+    </div>
+  </template>
+  <template id="template-price">
+    <div class="price">
+      <div class="amount amount-{CURRENCY} amount-{SOURCE}">
+        {AMOUNT}
+      </div>
+      <div class="actions">
+        <a 
+          class="action-buy-now active" 
+          data-do="buy-now" 
+          data-on="click" 
+          data-edition="{EDITION}"
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-check-circle"></i>
+          Buy Now
+        </a>
+        <a 
+          class="action-add-cart" 
+          data-do="add-cart" 
+          data-on="click" 
+          data-edition="{EDITION}" 
+          data-currency="{CURRENCY}" 
+          data-amount="{AMOUNT}" 
+          data-source="{SOURCE}" 
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          Add
+        </a>
+        <a 
+          class="text-danger action-remove-cart" 
+          data-do="remove-cart" 
+          data-on="click" 
+          data-edition="{EDITION}" 
+          href="javascript:void(0)"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          Remove
+        </a>
+      </div>
+    </div>
+  </template>
+  <template id="template-info">
+    <div class="info">
+      <div class="owner">
+        Owned By: <a href="{MEMBER}" target="_blank">{OWNER}</a>
+      </div>
+      <div class="actions">
+        <a class="action-view active" href="{HREF}" target="_blank">
+          <i class="fas fa-eyes-open"></i>
+          View
+        </a>
       </div>
     </div>
   </template>
@@ -218,7 +406,7 @@
     <script type="text/javascript" src="/scripts/walletconnect.js"></script>
     <script type="text/javascript" src="/scripts/fortmatic.js"></script>
     <script type="text/javascript" src="/scripts/notify.js"></script>
-    <script type="text/javascript" src="./index.js?v8"></script>
-    <script type="text/javascript" src="/scripts/app.js?v8"></script>
+    <script type="text/javascript" src="./index.js?v10"></script>
+    <script type="text/javascript" src="/scripts/app.js?v10"></script>
   </body>
 </html>

@@ -13,13 +13,31 @@ window.addEventListener('web3sdk-ready', async _ => {
   const template = {
     row: document.getElementById('template-form-row').innerHTML,
     fieldset: document.getElementById('template-form-fieldset').innerHTML,
-    item: document.getElementById('template-result-item').innerHTML
+    item: document.getElementById('template-result-item').innerHTML,
+    price: document.getElementById('template-price').innerHTML,
+    info: document.getElementById('template-info').innerHTML,
+    cart: document.getElementById('template-cart-item').innerHTML,
+    sweep: document.getElementById('template-sweep-item').innerHTML
   }
 
   const element = {
     results: document.querySelector('main.results'),
     pagination: document.querySelector('a.pagination'),
-    options: document.querySelector('aside.filters div.attributes div.options')
+    filters: document.querySelector('aside.gallery-filters'),
+    options: document.querySelector('main.attributes-body'),
+    cart: {
+      container: document.querySelector('div.card-cart'),
+      items: document.querySelector('div.card-cart main.cart-body'),
+      total: document.querySelector('div.card-cart div.total div.amount'),
+      count: document.querySelector('div.card-cart header.cart-head span.count')
+    },
+    sweep: {
+      container: document.querySelector('div.card-sweep'),
+      items: document.querySelector('div.card-sweep main.sweep-body'),
+      input: document.querySelector('div.card-sweep header.sweep-head input'),
+      count: document.querySelector('div.card-sweep header.sweep-head div.count'),
+      total: document.querySelector('div.card-sweep div.total div.amount')
+    }
   }
 
   let database = []
@@ -58,6 +76,12 @@ window.addEventListener('web3sdk-ready', async _ => {
       return
     }
 
+    if (!json.results.tokens.length && !next) {
+      element.results.innerHTML = '<div class="alert alert-solid alert-info">No Results Found.</div>'
+    }
+
+    const items = cartItems()
+  
     for (const row of json.results.tokens) {
       const tokenId = row.token.tokenId
       const data = database.rows.filter(
@@ -66,33 +90,53 @@ window.addEventListener('web3sdk-ready', async _ => {
 
       if (!data) continue
 
-      let badge = 'muted'
+      let color = 'muted'
       if (data.rank < 100) {
-        badge = 'success'
+        color = 'success'
       } else if (data.rank < 500) {
-        badge = 'warning'
+        color = 'warning'
       } else if (data.rank < 1000) {
-        badge = 'info'
-      }
-
-      let price = ' '
-      if (row.market?.floorAsk?.price?.amount?.decimal) {
-        price = `${row.market.floorAsk.price.amount.decimal} ETH`
+        color = 'info'
       }
       
       const level = data.attributes.Level.value
 
       const item = theme.toElement(template.item, {
-        '{PRICE}': price,
         '{NAME}': `#${tokenId}`,
         '{RANK}': data.rank,
-        '{BADGE}': badge,
+        '{RARITY}': color,
         '{SCORE}': data.score,
-        '{ID}': tokenId,
+        '{EDITION}': tokenId,
         '{LEVEL}': level,
         '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${level - 1}.png`,
         '{HREF}': `/${networkName}/crew/${tokenId}/profile.html`
       })
+
+      if (row.market?.floorAsk?.price?.amount?.decimal) {
+        const price = theme.toElement(template.price, {
+          '{EDITION}': tokenId,
+          '{CURRENCY}': row.market.floorAsk.price.currency.symbol.toLowerCase(),
+          '{SOURCE}': row.market.floorAsk.source.name.toLowerCase(),
+          '{AMOUNT}': row.market.floorAsk.price.amount.decimal
+        })
+
+        item.appendChild(price)
+      } else {
+        const info = theme.toElement(template.info, {
+          '{HREF}': `/${networkName}/crew/${tokenId}/profile.html`,
+          '{MEMBER}': `/${networkName}/member/?address=${row.token.owner}`,
+          '{OWNER}': `${row.token.owner.substring(0, 4)}...${
+            row.token.owner.substring(row.token.owner.length - 4)
+          }`
+        })
+
+        item.appendChild(info)
+      }
+
+      if (items.indexOf(parseInt(tokenId)) >= 0) {
+        theme.toggle(item, 'carted', true)
+      }
+
       element.results.appendChild(item)
       window.doon(item)
     }
@@ -129,6 +173,134 @@ window.addEventListener('web3sdk-ready', async _ => {
     }
   }
 
+  const addCart = (edition, source, currency, amount) => {
+    const item = {
+      cart: element.cart.items.querySelector(`div.item[data-edition="${edition}"]`),
+      results: element.results.querySelector(`div.item[data-edition="${edition}"]`)
+    }
+    if (item.cart) return
+    const data = database.rows.filter(row => row.edition == edition)[0]
+    const level = data.attributes.Level.value
+
+    const row = theme.toElement(template.cart, {
+      '{EDITION}': edition,
+      '{SOURCE}': source,
+      '{CURRENCY}': currency,
+      '{AMOUNT}': amount,
+      '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${edition}_${level - 1}.png`,
+    })
+
+    element.cart.items.appendChild(row)
+    window.doon(row)
+
+    theme.hide(element.cart.container.querySelector('div.alert'), true)
+
+    element.cart.total.innerHTML = ` ${cartTotal()}`
+    element.cart.count.innerHTML = element.cart.items.children.length
+
+    theme.toggle(item.results, 'carted', true)
+  }
+
+  const removeCart = edition => {
+    const item = {
+      cart: element.cart.items.querySelector(`div.item[data-edition="${edition}"]`),
+      results: element.results.querySelector(`div.item[data-edition="${edition}"]`)
+    }
+
+    element.cart.items.removeChild(item.cart)
+    element.cart.total.innerHTML = ` ${cartTotal()}`
+    element.cart.count.innerHTML = element.cart.items.children.length
+    if (!element.cart.items.children.length) {
+      theme.hide(element.cart.container.querySelector('div.alert'), false)
+    }
+
+    if (item.results) {
+      theme.toggle(item.results, 'carted', false)
+    }
+  }
+
+  const cartItems = _ => {
+    const items = []
+    element.cart.items.querySelectorAll('div.item').forEach(item => {
+      items.push(parseInt(item.getAttribute('data-edition')))
+    })
+    return items
+  }
+
+  const cartTotal = _ => {
+    let total = 0
+    element.cart.items.querySelectorAll('div.item').forEach(item => {
+      total += parseFloat(item.getAttribute('data-amount') || '0')
+    })
+    return toFixedNumber(total)
+  }
+
+  const sweepItems = _ => {
+    const items = []
+    element.sweep.items.querySelectorAll('div.item').forEach(item => {
+      items.push(parseInt(item.getAttribute('data-edition')))
+    })
+    return items
+  }
+
+  const toFixedNumber = function(number, length = 6) {
+    const parts = number.toString().split('.')
+    const size = length >= parts[0].length ? length - parts[0].length: 0
+    if (parts[0].length > 9) {
+      return (parseInt(parts[0]) / 1000000000).toFixed(2) + 'B'
+    } else if (parts[0].length > 6) {
+      return (parseInt(parts[0]) / 1000000).toFixed(2) + 'M'
+    } else if (parts[0].length > 3) {
+      return (parseInt(parts[0]) / 1000).toFixed(2) + 'K'
+    }
+    return number.toFixed(size)
+  }
+
+  const buy = async tokens => {
+    const response = await fetch('https://www.incept.asia/cashcows/reservoir/execute/buy/v4', {
+      method: 'POST',
+      heaaders: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        onlyPath: false,
+        partial: false,
+        skipErrors: false,
+        skipBalanceCheck: false,
+        taker: Web3SDK.state.account,
+        currency: '0x0000000000000000000000000000000000000000',
+        tokens: tokens
+      })
+    })
+
+    const json = await response.json()
+
+    if (json.error) return notify('error', json.message)
+    if (!Array.isArray(json.results?.steps)) return notify('error', 'No steps provided')
+    for (const step of json.results.steps) {
+      if (!Array.isArray(step.items) || !step.items.length) continue
+      for (const item of step.items) {
+        //according to reservoir-client, it is possible 
+        //for no data in item, we should poll if this is the case
+        if (item.status !== 'incomplete' || !item.data) continue
+        await Web3SDK.sendTransaction(item.data, _ => {
+          window.location.reload()
+        }, e => {
+          const message = e.message || e.toString()
+          const pattern = /have (\d+) want (\d+)/
+          const matches = message.match(pattern)
+          if (matches && matches.length === 3) {
+            message = message.replace(pattern, `have ${
+              Web3SDK.toEther(matches[1], 'int').toFixed(5)
+            } ETH want ${
+              Web3SDK.toEther(matches[2], 'int').toFixed(5)
+            } ETH`)
+          }
+          return notify('error', message.replace('err: i', 'I'))
+        })
+      }
+    }
+  }
 
   //------------------------------------------------------------------//
   // Events
@@ -140,11 +312,19 @@ window.addEventListener('web3sdk-ready', async _ => {
   })
 
   window.addEventListener('toggle-click', async e => {
-    e.for.classList.toggle('open')
     if (e.for.classList.contains('open')) {
-      e.for.nextElementSibling.style.display = 'block'
+      e.for.classList.remove('open')
+      theme.hide(e.for.nextElementSibling, true)
     } else {
-      e.for.nextElementSibling.style.display = 'none'
+      Array.from(
+        e.for.parentNode.parentNode.querySelectorAll('div.card')
+      ).forEach(card => theme.hide(card, true))
+      Array.from(
+        e.for.parentNode.parentNode.querySelectorAll('a.btn')
+      ).forEach(trigger => trigger.classList.remove('open'))
+
+      e.for.classList.add('open')
+      theme.hide(e.for.nextElementSibling, false)
     }
   })
 
@@ -152,7 +332,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const name = e.for.name.replace('attribute[', '').replace(']', '')
     if (attributes[name] == e.for.value) e.for.checked = false
     attributes = {}
-    document.querySelectorAll('aside.filters input[type=radio]').forEach(input => {
+    document.querySelectorAll('main.attributes-body input[type=radio]').forEach(input => {
       if (!input.checked) return
       const name = input.name.replace('attribute[', '').replace(']', '')
       attributes[name] = input.value
@@ -177,239 +357,88 @@ window.addEventListener('web3sdk-ready', async _ => {
     search()
   })
 
-  //------------------------------------------------------------------//
-  // Initialize
-})
+  window.addEventListener('filter-open-click', async e => {
+    theme.toggle(element.filters, 'active', true)
+  })
 
-window.addEventListener('web3sdk2-ready', async _ => {
-  //------------------------------------------------------------------//
-  // Variables
-  const networkName = window.location.pathname.split('/')[1] || 'ethereum'
-  const network = Web3SDK.network(networkName)
-  const range = 24
+  window.addEventListener('filter-close-click', async e => {
+    theme.toggle(element.filters, 'active', false)
+  })
 
-  let page = 0
-  let database = []
-  let loading = false
-  let order = () => Math.random() - 0.5
-  let filters = {}
-  let abort = false
-  let rendering = false
+  window.addEventListener('add-cart-click', async e => {
+    const edition = parseInt(e.for.getAttribute('data-edition'))
+    const currency = e.for.getAttribute('data-currency')
+    const amount = e.for.getAttribute('data-amount')
+    const source = e.for.getAttribute('data-source')
+    addCart(edition, source, currency, amount)
+  })
 
-  const dated = document.querySelector('span.dated')
-  const results = document.querySelector('main.results')
-  const pagination = document.querySelector('div.pagination')
-  const attributesOptions = document.querySelector('aside.filters div.attributes div.options')
+  window.addEventListener('remove-cart-click', async e => {
+    const edition = parseInt(e.for.getAttribute('data-edition'))
+    removeCart(edition)
+  })
 
-  const template = {
-    row: document.getElementById('template-form-row').innerHTML,
-    fieldset: document.getElementById('template-form-fieldset').innerHTML,
-    item: document.getElementById('template-result-item').innerHTML
-  }
+  window.addEventListener('clear-cart-click', async e => {
+    element.cart.items.querySelectorAll('div.item').forEach(item => {
+      removeCart(parseInt(item.getAttribute('data-edition')))
+    })
+  })
 
-  const metadata = network.contract('metadata')
-
-  //------------------------------------------------------------------//
-  // Functions
-
-  const renderResults = async function(start = 0, range = 24) {
-    rendering = true
+  window.addEventListener('sweep-range-input', async e => {
+    const value = parseInt(e.for.value)
+    element.sweep.count.innerHTML = value
     
-    const matches = database.rows.filter(row => {
-      const criteria = {}
-      Object.keys(filters).forEach(traitType => {
-        criteria[traitType] = row.attributes[traitType].value
-          ? criteria[traitType] = filters[traitType].indexOf(
-            row.attributes[traitType].value
-          ) > -1
-          : false
-      })
-
-      for (const name in criteria) {
-        if (!criteria[name]) {
-          return false
-        }
-      }
-
-      return true
-    }).sort(order).slice(start, start + range)
-
-    let listings = {}
-    try {
-      const query = matches.map(row => `token_ids=${row.edition}`)
-      const response = await fetch(`https://www.incept.asia/seaport.php?${query.join('&')}`)
-      const json = await response.json()
-      json.results.orders.forEach(row => {
-        row.maker_asset_bundle.assets.forEach(asset => {
-          listings[parseInt(asset.token_id)] = Web3SDK.toEther(row.current_price, 'number')
-        })
-      })
-    } catch(e) {}
-
-    for (const row of matches) {
-      if (abort) {
-        rendering = false
-        abort = false
-        return
-      }
-      const tokenId = row.edition
-      const stage = parseInt(await metadata.read().stage(tokenId))
-      let badge = 'muted'
-      if (row.rank < 100) {
-        badge = 'success'
-      } else if (row.rank < 500) {
-        badge = 'warning'
-      } else if (row.rank < 1000) {
-        badge = 'info'
-      }
-
-      let price = ' '
-      if (listings[tokenId] > 0) {
-        price = 'Ξ ' + listings[tokenId].toFixed(3)
-      }
-
-      const item = theme.toElement(template.item, {
-        '{PRICE}': price,
-        '{NAME}': `#${tokenId}`,
-        '{RANK}': row.rank,
-        '{BADGE}': badge,
-        '{SCORE}': row.score,
-        '{ID}': tokenId,
-        '{LEVEL}': stage + 1,
-        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage}.png`,
-        '{HREF}': `/${networkName}/crew/${tokenId}/profile.html`
-      })
-      results.appendChild(item)
-      window.doon(item)
-      if (abort) {
-        rendering = false
-        abort = false
-      }
+    let length = element.sweep.items.children.length
+    while (length > value) { 
+      element.sweep.items.removeChild(
+        element.sweep.items.children[--length]
+      )
     }
 
-    rendering = false
-  }
+    const items = sweepItems()
 
-  const populate = function() {
-    dated.innerHTML = (new Date(database.updated)).toString()
-    //populate attribute filters
-    for (const attribute in database.occurances) {
-      const set = theme.toElement(template.fieldset, {'{LEGEND}': attribute})
-      const fields = set.querySelector('div.fields')
-      Object.keys(database.occurances[attribute])
-        .sort((a, b) => database.occurances[attribute][a] - database.occurances[attribute][b])
-        .forEach(trait => {
-          const row = theme.toElement(template.row, {
-            '{NAME}': `attribute[${attribute}]`,
-            '{VALUE}': trait,
-            '{LABEL}': trait,
-            '{COUNT}': database.occurances[attribute][trait]
-          })
-      
-          fields.appendChild(row)
-        })
-  
-      attributesOptions.appendChild(set)
-      window.doon(set)
-    }
-  }
+    let count = 0
+    element.results.querySelectorAll('div.item').forEach(item => {
+      if (count >= value) return
+      const cart = item.querySelector('a.action-add-cart')
+      if (!cart || cart.getAttribute('data-source') !== 'opensea') return
+      const edition = parseInt(cart.getAttribute('data-edition'))
+      if (items.indexOf(edition) >= 0) return
+      count++
+      const currency = cart.getAttribute('data-currency')
+      const amount = cart.getAttribute('data-amount')
+      const data = database.rows.filter(row => row.edition == edition)[0]
+      const level = data.attributes.Level.value
 
-  //------------------------------------------------------------------//
-  // Events
+      const row = theme.toElement(template.sweep, {
+        '{EDITION}': edition,
+        '{CURRENCY}': currency,
+        '{AMOUNT}': amount,
+        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${edition}_${level - 1}.png`,
+      })
 
-  window.addEventListener('db-crew-ready', _ => {
-    database = Web3SDK.state.crew
-    populate()
-    renderResults()
-  })
-
-  window.addEventListener('toggle-click', async(e) => {
-    e.for.classList.toggle('open')
-    if (e.for.classList.contains('open')) {
-      e.for.nextElementSibling.style.display = 'block'
-    } else {
-      e.for.nextElementSibling.style.display = 'none'
-    }
-  })
-
-  window.addEventListener('filter-click', async(e) => {
-    filters = {}
-    document.querySelectorAll('aside.filters input[type=checkbox]').forEach(input => {
-      if (!input.checked) return
-      const name = input.name.replace('attribute[', '').replace(']', '')
-      if (!filters[name]) {
-        filters[name] = []
-      }
-      filters[name].push(input.value)
+      element.sweep.items.appendChild(row)
     })
 
-    if (rendering) {
-      abort = true
-      const interval = setInterval(() => {
-        console.log('aborting to filter')
-        if (!abort) {
-          clearInterval(interval)
-          results.innerHTML = ''
-          renderResults()
-        }
-      }, 10)
-    } else {
-      results.innerHTML = ''
-      renderResults()
-    }
+    let total = 0
+    element.sweep.items.querySelectorAll('div.item').forEach(item => {
+      total += parseFloat(item.getAttribute('data-amount') || '0')
+    })
+    element.sweep.total.innerHTML = ` ${toFixedNumber(total)}`
   })
 
-  window.addEventListener('sort-change', async(e) => {
-    if (e.for.value == 'random') {
-      order = () => Math.random() - 0.5
-    } else if (e.for.value == 'highest') {
-      order = (a, b) => b.edition - a.edition
-    } else if (e.for.value == 'lowest') {
-      order = (a, b) => a.edition - b.edition
-    } else if (e.for.value == 'rare') {
-      order = (a, b) => a.rank - b.rank
-    } else if (e.for.value == 'common') {
-      order = (a, b) => b.rank - a.rank
-    }
-
-    if (rendering) {
-      abort = true
-      const interval = setInterval(() => {
-        if (!abort) {
-          clearInterval(interval)
-          results.innerHTML = ''
-          renderResults()
-        }
-      }, 10)
-    } else {
-      results.innerHTML = ''
-      renderResults()
-    }
+  window.addEventListener('cart-buy-click', async e => {
+    await buy(
+      cartItems().map(tokenId => `${contract.crew.address}:${tokenId}`)
+    )
   })
 
-  document.querySelector('main.body').addEventListener('scroll', async (e) => {
-    const top = window.pageYOffset || document.documentElement.scrollTop
-    const screenHeight = window.innerHeight
-    const totalHeight = window.offsetHeight || document.documentElement.offsetHeight
-    const bottom = totalHeight - screenHeight
-
-    if ((top + 100) >= bottom && !loading) {
-      loading = true
-      theme.hide(pagination, false)
-      await renderResults((++page) * range)
-      loading = false
-      theme.hide(pagination, true)
-    }
+  window.addEventListener('sweep-buy-click', async e => {
+    await buy(
+      sweepItems().map(tokenId => `${contract.crew.address}:${tokenId}`)
+    )
   })
 
   //------------------------------------------------------------------//
   // Initialize
-
-  //check edition
-  const query = new URLSearchParams(window.location.search)
-  for (const params of query) {
-    if (params[0] === 'edition') {
-      window.location.href = `/${networkName}/crew/${params[1]}/profile.html`
-    }
-  }
 })

@@ -95,6 +95,80 @@
       }
       return this.networks[name];
     }
+
+    static async sendTransaction(data, success, error, confirmations = 2) {
+      const rpc = Web3SDK.web3().eth.sendTransaction(data)
+      
+      rpc.on('transactionHash', hash => {
+        notify(
+          'success', 
+          `Transaction started on <a href="${
+            network.config.chain_scanner
+          }/tx/${hash}" target="_blank">${
+            network.config.chain_scanner
+          }</a>. Please stay on this page and wait for ${
+            confirmations
+          } confirmations...`,
+          1000000
+         )
+      });
+  
+      rpc.on('confirmation', (confirmationNumber, receipt) => {
+        if (confirmationNumber > confirmations) return
+        if (confirmationNumber == confirmations) {
+          notify('success', `${
+            confirmationNumber
+          }/${
+            confirmations
+          } confirmed on <a href="${
+            network.config.chain_scanner
+          }/tx/${
+            receipt.transactionHash
+          }" target="_blank">${
+            network.config.chain_scanner
+          }</a>. Please stay on this page and wait for ${
+            confirmations
+          } confirmations...`)
+          success()
+          return
+        }
+        notify('success', `${
+          confirmationNumber
+        }/${
+          confirmations
+        } confirmed on <a href="${
+          network.config.chain_scanner
+        }/tx/${
+          receipt.transactionHash
+        }" target="_blank">${
+          network.config.chain_scanner
+        }</a>. Please stay on this page and wait for ${
+          confirmations
+        } confirmations...`, 1000000)
+      });
+  
+      rpc.on('receipt', receipt => {
+        notify(
+          'success', 
+          `Confirming on <a href="${
+            network.config.chain_scanner
+          }/tx/${
+            receipt.transactionHash
+          }" target="_blank">${
+            network.config.chain_scanner
+          }</a>. Please stay on this page and wait for ${
+            confirmations
+          } confirmations...`,
+          1000000
+        )
+      });
+  
+      try {
+        return await rpc
+      } catch(e) {
+        error(e)
+      }
+    }
  
     /**
      * Sets up the SDK from a massive config file
