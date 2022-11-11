@@ -88,9 +88,9 @@ async function main() {
 
   //remove if transparent folder exists
   if (fs.existsSync(path.join(paths.build, 'transparent'))) {
-    //fs.rmSync(path.join(paths.build, 'transparent'), { recursive: true })
+    fs.rmSync(path.join(paths.build, 'transparent'), { recursive: true })
   }
-  //fs.mkdirSync(path.join(paths.build, 'transparent'))
+  fs.mkdirSync(path.join(paths.build, 'transparent'))
 
   const canvas = makeCanvas(image)
   for (let i = 0; i < images.length; i++) {
