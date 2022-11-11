@@ -36,9 +36,9 @@ window.addEventListener('web3sdk-ready', async _ => {
     }
 
     const response = q.length ? await fetch(
-      `https://www.incept.asia/cashcows/meme.php?q=${q}&start=${start}&range=${range}`
+      `https://api.cashcows.club/meme/search.php?q=${q}&start=${start}&range=${range}`
     ): await fetch(
-      `https://www.incept.asia/cashcows/meme.php?start=${start}&range=${range}`
+      `https://api.cashcows.club/meme/search.php?start=${start}&range=${range}`
     )
     const json = await response.json()
 
@@ -154,7 +154,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       const level = Math.floor(Math.random() * 2)
       cow.onload = _ => resolve(cow)
       cow.setAttribute('crossOrigin', '')
-      cow.src = `https://assets.wearecashcows.com/cashcows/crew/headshots/${edition}_${level}.png`
+      cow.src = `https://cdn.cashcows.club/crew/headshots/${edition}_${level}.png`
     })
   }
 
@@ -182,7 +182,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const id = e.for.getAttribute('data-id')
 
     const response = await fetch(
-      `https://www.incept.asia/cashcows/vote.php?id=${id}&address=${Web3SDK.state.account.substring(2)}&up=1`
+      `https://api.cashcows.club/meme/vote.php?id=${id}&address=${Web3SDK.state.account.substring(2)}&up=1`
     )
     const json = await response.json()
     if (json.error) return notify('error', json.message)
@@ -197,7 +197,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     const id = e.for.getAttribute('data-id')
     
     const response = await fetch(
-      `https://www.incept.asia/cashcows/vote.php?id=${id}&address=${Web3SDK.state.account.substring(2)}&down=1`
+      `https://api.cashcows.club/meme/vote.php?id=${id}&address=${Web3SDK.state.account.substring(2)}&down=1`
     )
     const json = await response.json()
     if (json.error) return notify('error', json.message)

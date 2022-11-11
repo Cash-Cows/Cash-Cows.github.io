@@ -21,7 +21,7 @@ jobs:
         source_file: 'artengine/config/' # Folder to copy
         destination_repo: 'Cash-Cows/artengine' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing config"
         git_server: 'github.com'
@@ -34,7 +34,7 @@ jobs:
         source_file: 'artengine/layers/' # Folder to copy
         destination_repo: 'Cash-Cows/artengine' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing layers"
         git_server: 'github.com'
@@ -47,7 +47,7 @@ jobs:
         source_file: 'artengine/scripts/' # Folder to copy
         destination_repo: 'Cash-Cows/artengine' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing scripts"
         git_server: 'github.com'
@@ -60,7 +60,7 @@ jobs:
         source_file: 'artifacts/' # Folder to copy
         destination_repo: 'Cash-Cows/contracts' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing artifacts"
         git_server: 'github.com'
@@ -73,7 +73,7 @@ jobs:
         source_file: 'contracts/' # Folder to copy
         destination_repo: 'Cash-Cows/contracts' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing contracts"
         git_server: 'github.com'
@@ -86,7 +86,7 @@ jobs:
         source_file: 'tests/' # Folder to copy
         destination_repo: 'Cash-Cows/contracts' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing tests"
         git_server: 'github.com'
@@ -99,7 +99,7 @@ jobs:
         source_file: 'docs/' # Folder to copy
         destination_repo: 'Cash-Cows/website' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing docs"
         git_server: 'github.com'
@@ -112,7 +112,7 @@ jobs:
         source_file: 'server/' # Folder to copy
         destination_repo: 'Cash-Cows/website' # Target repo
         destination_folder: './' # Folder where to copy it
-        user_email: 'moo@wearecashcows.com'
+        user_email: 'moo@cashcows.club'
         user_name: 'Cowveloper'
         commit_message: "Syncing server"
         git_server: 'github.com'

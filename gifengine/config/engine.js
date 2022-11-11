@@ -25,7 +25,7 @@ module.exports = {
     name: 'Cash Cows Club #{EDITION}',
     description: '#{EDITION} of 2,000 Cash Cows. CC0 PFPs that share the wealth.',
     image: 'https://ipfs.io/ipfs/{CID}',
-    external_url: 'https://www.wearecashcows.com/club/gallery?edition={EDITION}'
+    external_url: 'https://www.cashcows.club/club/gallery?edition={EDITION}'
   },
   layers: [
     {

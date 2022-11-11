@@ -84,7 +84,7 @@ function parseItem(category, row, attributes) {
   const item = {
     edition: parseInt(row.ID),
     name: row.Name,
-    image: `https://www.wearecashcows.com/images/loot/${row.ID}.png`,
+    image: `https://www.cashcows.club/images/loot/${row.ID}.png`,
     category,
     rarity: row.Rarity,
     available: (new Date(`${row.Available} +800`)).getTime(),

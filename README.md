@@ -9,7 +9,7 @@ You may want to check out these links.
 
 # Cash Cows Sandbox
 
-By CAO order of [CCIP4: Open Source](https://dao.wearecashcows.com/#/proposal/0xccb5e6d7e9fa1ed02e9429327b14995bdaa78e6ffc55a01b17a10806df4831b7), 
+By CAO order of [CCIP4: Open Source](https://dao.cashcows.club/#/proposal/0xccb5e6d7e9fa1ed02e9429327b14995bdaa78e6ffc55a01b17a10806df4831b7), 
 The Cash Cows project is now open source. Please observe and respect our
 [open source license](https://github.com/Cash-Cows/artengine/blob/main/LICENSE).
 
@@ -23,7 +23,7 @@ Moo.
 
 ## About Cash Cows
 
-[wearecashcows.com](https://www.wearecashcows.com/)
+[cashcows.club](https://www.cashcows.club/)
 
 Cash Cows is an NFT experiment about sharing the creator fees with its
 holders. We aim to lead this space in Web3 with innovations that the 

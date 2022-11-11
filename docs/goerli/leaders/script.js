@@ -44,7 +44,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   //load leaderboards
   const boards = ['crew', 'milk', 'dolla']
   for (const name of boards) {
-    const response = await fetch(`https://www.incept.asia/${name}.php`)
+    const response = await fetch(`https://api.cashcows.club/leaderboard/${name}.php`)
     const leaders = (await response.json()).holders.map(row => {
       if (!/^[0-9]*(\.[0-9]+)*$/.test(row.balance)) {
         row.balance = parseFloat(
@@ -88,7 +88,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         if (tokens.length) {
           tableRow.querySelector('img.avatar').setAttribute(
             'src', 
-            `https://assets.wearecashcows.com/cashcows/crew/image/${tokens[0]}_2.png`
+            `https://cdn.cashcows.club/crew/preview/${tokens[0]}_2.png`
           )
         }
       })

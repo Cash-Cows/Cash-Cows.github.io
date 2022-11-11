@@ -1,0 +1,70 @@
+{{#layout "page.html" 
+  version="8" 
+  path="loot" 
+  network=network
+  script="./bind" 
+  style="./bind" 
+  avatar="/images/icon-user.png"
+  title="Bind Your Loot | Cash Cows" 
+  description="Loot can be bound with any ERC721 NFT"
+}}
+  <section class="disconnected">
+    <a 
+      class="btn-pixel btn-pixel-lg btn-pixel-warning" 
+      data-do="connect"
+      data-on="click"
+      href="javascript:void(0)"
+    >Connect Wallet</a>
+    {{#if network}}
+      <a 
+        class="btn-pixel btn-pixel-secondary" 
+        href="https://metamask.app.link/dapp/wearecashcows.com/{{network}}/{{path}}" 
+        target="_blank"
+      >MetaMask Browser</a>
+    {{else}}
+      <a 
+        class="btn-pixel btn-pixel-secondary" 
+        href="https://metamask.app.link/dapp/wearecashcows.com/{{path}}" 
+        target="_blank"
+      >MetaMask Browser</a>
+    {{/if}}
+    <a 
+      class="note" 
+      href="https://opensea.io/collection/cash-cows-crew" 
+      target="_blank"
+    >Don't Have a Cow?</a>
+  </section>
+  <section class="connected hide">
+    <section class="section section-nfts">
+      <div class="container">
+        <div class="nfts"></div>
+      </div>
+    </section>
+    <section class="section section-loots">
+      <div class="container">
+        <div class="loots"></div>
+      </div>
+    </section>
+  </section>
+  <template id="template-nft">
+    <div class="nft">
+      <a 
+        class="preview" 
+        data-do="select-nft" 
+        data-on="click" 
+        data-address="{ADDRESS}" 
+        data-token="{TOKEN}" 
+        href="javascript:void(0)"
+      >
+        <img src="{IMAGE}" loading="lazy" />
+      </a>
+      <div class="info">
+        <h6 class="label">{NAME}</h6>
+      </div>
+    </div>
+  </template>
+
+  <template id="template-loot">
+
+  </template>
+{{/layout}}

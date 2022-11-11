@@ -204,7 +204,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         '{LEVEL}': row.attributes.Level.value,
         '{RANK}': row.rank,
         '{BADGE}': badge,
-        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage}.png`
+        '{IMAGE}': `https://cdn.cashcows.club/crew/preview/${tokenId}_${stage}.png`
       })
 
       e.for.appendChild(item)
@@ -333,5 +333,5 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   document
     .querySelector('a.social-twitter')
-    .setAttribute('href', `https://twitter.com/intent/tweet?hashtags=cashcows,sharethewealth&text=Checkout+this+Cash+Cows+member.+Moo!&url=wearecashcows.com/ethereum/member/?address=${getAddress()}`)
+    .setAttribute('href', `https://twitter.com/intent/tweet?hashtags=cashcows,sharethewealth&text=Checkout+this+Cash+Cows+member.+Moo!&url=cashcows.club/ethereum/member/?address=${getAddress()}`)
 })

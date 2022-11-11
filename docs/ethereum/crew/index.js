@@ -63,7 +63,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       params.set('continuation', next)
     }
     const response = await fetch(
-      `https://www.incept.asia/cashcows/reservoir/tokens/v5?${
+      `https://api.cashcows.club/reservoir/tokens/v5?${
         decodeURIComponent(params.toString())
       }`
     )
@@ -108,7 +108,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         '{SCORE}': data.score,
         '{EDITION}': tokenId,
         '{LEVEL}': level,
-        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${level - 1}.png`,
+        '{IMAGE}': `https://cdn.cashcows.club/crew/preview/${tokenId}_${level - 1}.png`,
         '{HREF}': `/${networkName}/crew/${tokenId}/profile.html`
       })
 
@@ -187,7 +187,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       '{SOURCE}': source,
       '{CURRENCY}': currency,
       '{AMOUNT}': amount,
-      '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${edition}_${level - 1}.png`,
+      '{IMAGE}': `https://cdn.cashcows.club/crew/preview/${edition}_${level - 1}.png`,
     })
 
     element.cart.items.appendChild(row)
@@ -257,7 +257,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   }
 
   const buy = async tokens => {
-    const response = await fetch('https://www.incept.asia/cashcows/reservoir/execute/buy/v4', {
+    const response = await fetch('https://api.cashcows.club/reservoir/execute/buy/v4', {
       method: 'POST',
       heaaders: {
         'Content-Type': 'application/json'
@@ -414,7 +414,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         '{EDITION}': edition,
         '{CURRENCY}': currency,
         '{AMOUNT}': amount,
-        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${edition}_${level - 1}.png`,
+        '{IMAGE}': `https://cdn.cashcows.club/crew/preview/${edition}_${level - 1}.png`,
       })
 
       element.sweep.items.appendChild(row)

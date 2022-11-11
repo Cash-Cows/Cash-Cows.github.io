@@ -114,7 +114,7 @@ module.exports = async ({file, root, config, handlebars }) => {
         config: require(`../../public/${network}/data/network.json`), 
         metadata: {
           edition: crew[i].edition,
-          image: `https://assets.wearecashcows.com/cashcows/crew/image/${crew[i].edition}_${Math.max(crew[i].attributes.Level.value - 1 , 0)}.png`,
+          image: `https://cdn.cashcows.club/crew/preview/${crew[i].edition}_${Math.max(crew[i].attributes.Level.value - 1 , 0)}.png`,
           color: crew[i].attributes.Background.value.toLowerCase(),
           characterId: crew[i].networks[network].characterId,
           score: (crew[i].score || 0).toFixed(2),

@@ -23,7 +23,7 @@ function getRole(name) {
   ).toString('hex');
 }
 
-const uri = 'https://www.wearecashcows.com/data/ethereum/loot/'
+const uri = 'https://www.cashcows.club/data/ethereum/loot/'
 
 async function main() {
   //get network and admin

@@ -1,0 +1,40 @@
+.section-nfts .nfts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-nfts .nfts .nft {
+  cursor: pointer;
+  display: block;
+  flex-basis: calc(25% - 10px);
+  margin: 5px;
+  position: relative;
+}
+
+.section-nfts .nfts .nft .preview {
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #DDDDDD;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section-nfts .nfts .nft .preview img {
+  display: block;
+  width: 100%;
+}
+
+.section-nfts .nfts .nft h6 {
+  font-family: Courier, monospace;
+  font-size: 12px;
+  font-weight: normal;
+  height: 35px;
+  line-height: 35px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}

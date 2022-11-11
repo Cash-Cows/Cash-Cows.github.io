@@ -112,7 +112,7 @@
     params.set('sortBy', 'floorAskPrice')
 
     const response = await fetch(
-      `https://www.incept.asia/cashcows/reservoir/tokens/v5?${
+      `https://api.cashcows.club/reservoir/tokens/v5?${
         decodeURIComponent(params.toString())
       }`
     )
@@ -158,7 +158,7 @@
         '{EDITION}': row.edition,
         '{RANK}': row.rank,
         '{BADGE}': badge,
-        '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage}.png`
+        '{IMAGE}': `https://cdn.cashcows.club/crew/preview/${tokenId}_${stage}.png`
       })
 
       element.hascows.items.appendChild(item)
@@ -292,7 +292,7 @@
 
     if (!tokens.length) return
 
-    const response = await fetch('https://www.incept.asia/cashcows/reservoir/execute/buy/v4', {
+    const response = await fetch('https://api.cashcows.club/reservoir/execute/buy/v4', {
       method: 'POST',
       heaaders: {
         'Content-Type': 'application/json'
