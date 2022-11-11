@@ -427,6 +427,11 @@ window.addEventListener('web3sdk-ready', async _ => {
     element.sweep.total.innerHTML = ` ${toFixedNumber(total)}`
   })
 
+  window.addEventListener('buy-now-click', async e => {
+    const edition = e.for.getAttribute('data-edition')
+    await buy([`${contract.crew.address}:${edition}`])
+  })
+
   window.addEventListener('cart-buy-click', async e => {
     await buy(
       cartItems().map(tokenId => `${contract.crew.address}:${tokenId}`)
