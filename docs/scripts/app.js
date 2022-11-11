@@ -41,14 +41,19 @@
   }
 
   const template = {
-    cow: document.getElementById('template-cow').innerHTML,
-    loot: document.getElementById('template-loot').innerHTML,
-    attribute: document.getElementById('template-attribute').innerHTML
+    cow: document.getElementById('template-cow').innerHTML
   }
 
   const element = {
     member: document.querySelector('section.panel-user-menu a.member'),
-    cows: document.querySelector('section.panel-user-menu main.cows'),
+    hascows: {
+      items: document.querySelector('section.panel-user-menu main.hascows')
+    },
+    nocows: {
+      container: document.querySelector('section.panel-user-menu main.hasnocows'),
+      input: document.querySelector('main.panel-body.hasnocows input.input-newcows'),
+      total: document.querySelector('footer.panel-foot.hasnocows div.total div.amount')
+    },
     panel: {
       left: document.querySelector('aside.panel-left'),
       right: document.querySelector('aside.panel-right')
@@ -56,6 +61,7 @@
   }
 
   let listening = false
+  let forSale = []
 
   //------------------------------------------------------------------//
   // Functions
@@ -89,12 +95,44 @@
       )
     }
 
-    if (!Web3SDK.state.owned.crew.length) {
-      return disconnected(
-        { connected: false }, 
-        new Error('You dont have a cow')
-      )
-    }
+    !Web3SDK.state.owned.crew.length 
+      ? await loadBuy()
+      : await loadCows()
+
+    setTimeout(_ => {
+      window.dispatchEvent(new Event('web3sdk-connected'))
+    }, 100)
+  }
+
+  const loadBuy = async () => {
+    theme.hide('.hasnocows', false)
+    const params = new URLSearchParams()
+    params.set('collection', `0x.${contract.crew.address.substring(2)}`)
+    params.set('limit', '10')
+    params.set('sortBy', 'floorAskPrice')
+
+    const response = await fetch(
+      `https://www.incept.asia/cashcows/reservoir/tokens/v5?${
+        decodeURIComponent(params.toString())
+      }`
+    )
+
+    const json = await response.json()
+    if (json.error) return
+
+    forSale = json.results.tokens.map(row => ({
+      token: row.token.tokenId,
+      currency: row.market.floorAsk.price.currency.symbol.toLowerCase(),
+      source: row.market.floorAsk.source.name.toLowerCase(),
+      amount: row.market.floorAsk.price.amount.decimal
+    })).filter(row => row.currency === 'eth' && row.source === 'opensea')
+    
+    element.nocows.input.setAttribute('max', forSale.length)
+    element.nocows.total.innerHTML = ` ${toFixedNumber(forSale[0].amount)}`
+  }
+
+  const loadCows = async () => {
+    theme.hide('.hascows', false)
 
     Web3SDK.state.owned.crew.forEach(async tokenId => {
       const stage = parseInt(await contract.metadata.read().stage(tokenId))
@@ -121,13 +159,9 @@
         '{IMAGE}': `https://assets.wearecashcows.com/cashcows/crew/image/${tokenId}_${stage}.png`
       })
 
-      element.cows.appendChild(item)
+      element.hascows.items.appendChild(item)
       window.doon(item)
     })
-
-    setTimeout(_ => {
-      window.dispatchEvent(new Event('web3sdk-connected'))
-    }, 100)
   }
 
   const disconnected = (newstate, error, session) => {
@@ -140,6 +174,8 @@
     //update html state
     theme.hide('.connected', true)
     theme.hide('.disconnected', false)
+    theme.hide('.hascows', true)
+    theme.hide('.hasnocows', true)
 
     setTimeout(_ => {
       window.dispatchEvent(new Event('web3sdk-disconnected'))
@@ -158,6 +194,19 @@
     database.rows.forEach((row, i) => (row.index = i))
     
     return database
+  }
+
+  const toFixedNumber = function(number, length = 6) {
+    const parts = number.toString().split('.')
+    const size = length >= parts[0].length ? length - parts[0].length: 0
+    if (parts[0].length > 9) {
+      return (parseInt(parts[0]) / 1000000000).toFixed(2) + 'B'
+    } else if (parts[0].length > 6) {
+      return (parseInt(parts[0]) / 1000000).toFixed(2) + 'M'
+    } else if (parts[0].length > 3) {
+      return (parseInt(parts[0]) / 1000).toFixed(2) + 'K'
+    }
+    return number.toFixed(size)
   }
 
   //------------------------------------------------------------------//
@@ -188,6 +237,103 @@
       const href = link.getAttribute('href')
       link.setAttribute('href', href.replace('ethereum', networkName))
     })
+  })
+
+  window.addEventListener('nocows-input', _ => {
+    const value = parseInt(element.nocows.input.value)
+
+    let total = 0
+    for (let i = 0; i < value && i < forSale.length; i++) {
+      total += forSale[i].amount
+    }
+
+    element.nocows.total.innerHTML = ` ${toFixedNumber(total)}`
+  })
+
+  window.addEventListener('nocows-sub-click', _ => {
+    const min = parseInt(element.nocows.input.getAttribute('min'))
+    if (parseInt(element.nocows.input.value) <= min) return
+
+    const value = parseInt(element.nocows.input.value) - 1
+    element.nocows.input.value = value
+
+    let total = 0
+    for (let i = 0; i < value && i < forSale.length; i++) {
+      total += forSale[i].amount
+    }
+
+    element.nocows.total.innerHTML = ` ${toFixedNumber(total)}`
+  })
+
+  window.addEventListener('nocows-add-click', _ => {
+    const max = parseInt(element.nocows.input.getAttribute('max'))
+    if (parseInt(element.nocows.input.value) >= max) return
+
+    const value = parseInt(element.nocows.input.value) + 1
+    element.nocows.input.value = value
+
+    let total = 0
+    for (let i = 0; i < value && i < forSale.length; i++) {
+      total += forSale[i].amount
+    }
+
+    element.nocows.total.innerHTML = ` ${toFixedNumber(total)}`
+  })
+
+  window.addEventListener('nocows-buy-click', async _ => {
+    const value = parseInt(element.nocows.input.value)
+
+    const tokens = []
+    for (let i = 0; i < value && i < forSale.length; i++) {
+      tokens.push(`${contract.crew.address}:${forSale[i].token}`)
+    }
+
+    if (!tokens.length) return
+
+    const response = await fetch('https://www.incept.asia/cashcows/reservoir/execute/buy/v4', {
+      method: 'POST',
+      heaaders: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        onlyPath: false,
+        partial: false,
+        skipErrors: false,
+        skipBalanceCheck: false,
+        taker: Web3SDK.state.account,
+        currency: '0x0000000000000000000000000000000000000000',
+        tokens: tokens
+      })
+    })
+
+    const json = await response.json()
+
+    if (json.error) return notify('error', json.message)
+    if (!Array.isArray(json.results?.steps)) 
+      return notify('error', 'No steps provided')
+    for (const step of json.results.steps) {
+      if (!Array.isArray(step.items) || !step.items.length) continue
+      for (const item of step.items) {
+        //according to reservoir-client, it is possible 
+        //for no data in item, we should poll if this is the case
+        if (item.status !== 'incomplete' || !item.data) continue
+        await Web3SDK.sendTransaction(item.data, _ => {
+          window.location.reload()
+        }, e => {
+          const message = e.message || e.toString()
+          const pattern = /have (\d+) want (\d+)/
+          const matches = message.match(pattern)
+          if (matches && matches.length === 3) {
+            message = message.replace(pattern, `have ${
+              Web3SDK.toEther(matches[1], 'int').toFixed(5)
+            } ETH want ${
+              Web3SDK.toEther(matches[2], 'int').toFixed(5)
+            } ETH`)
+          }
+          return notify('error', message.replace('err: i', 'I'))
+        })
+      }
+    }
   })
 
   //------------------------------------------------------------------//

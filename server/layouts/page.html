@@ -131,7 +131,10 @@
 
     <aside class="panel panel-right">
       <section class="panel-frame panel-user-menu">
-        <header class="panel-head connected hide">
+        <header class="panel-head hasnocows hide">
+          <h3 class="text-primary">1. Get Some Cows</h3>
+        </header>
+        <header class="panel-head hascows hide">
           {{#if network}}
             <a class="right" href="/{{network}}/crew/manage.html"><i class="fas fa-cog"></i></a>
           {{else}}
@@ -148,25 +151,63 @@
           >Connect Wallet</a>
           {{#if network}}
             <a 
-              class="btn-pixel btn-pixel-secondary" 
+              class="note" 
               href="https://metamask.app.link/dapp/wearecashcows.com/{{network}}/{{path}}" 
               target="_blank"
             >MetaMask Browser</a>
           {{else}}
             <a 
-              class="btn-pixel btn-pixel-secondary" 
+              class="note" 
               href="https://metamask.app.link/dapp/wearecashcows.com/{{path}}" 
               target="_blank"
             >MetaMask Browser</a>
           {{/if}}
-          <a 
-            class="note" 
-            href="https://opensea.io/collection/cash-cows-crew" 
-            target="_blank"
-          >Don't Have a Cow?</a>
+          
         </main>
-        <main class="panel-body cows connected hide"></main>
-        <footer class="panel-foot connected hide">
+        <main class="panel-body hasnocows hide">
+          <div class="preview">
+            <img src="/images/about/brady-bunch.png" />
+          </div>
+          <h4>How Many Cows?</h4>
+          <div class="form-row">
+            <a 
+              class="btn-pixel btn-pixel-warning btn-sub"
+              data-do="nocows-sub"
+              data-on="click"
+            ><i class="fas fa-minus"></i></a>
+            <input 
+              class="form-control input-newcows"
+              data-do="nocows" 
+              data-on="input" 
+              type="number" 
+              min="1" 
+              max="10" 
+              step="1" 
+              value="1" 
+            />
+            <a 
+              class="btn-pixel btn-pixel-warning btn-add"
+              data-do="nocows-add"
+              data-on="click"
+            ><i class="fas fa-plus"></i></a>
+          </div>
+        </main>
+        <main class="panel-body hascows hide"></main>
+        <footer class="panel-foot hasnocows hide">
+          <div class="total">
+            <div class="label">Total</div>
+            <div class="amount amount-eth"> 0 </div>
+          </div>
+          <div class="actions">
+            <a 
+              class="btn-pixel btn-pixel-lg btn-pixel-success"
+              data-do="nocows-buy" 
+              data-on="click" 
+              href="javascript:void(0)"
+            >Moo!</a>
+          </div>
+        </footer>
+        <footer class="panel-foot hascows hide">
           {{#if network}}
             <a class="member" href="/{{network}}/member/">
               <i class="text-primary fas fa-fingerprint"></i>
@@ -194,22 +235,6 @@
         <img src="{IMAGE}" loading="lazy" />
         <span class="badge badge-{BADGE}">#{RANK}</span>
     </a>
-    </template>
-
-    <template id="template-loot">
-      <div class="loot-item" data-do="loot-modal-open" data-id="{ID}" data-on="click">
-        <div class="preview">
-          <img src="{IMAGE}" loading="lazy" />
-        </div>
-      </div>
-    </template>
-
-    <template id="template-attribute">
-      <div class="attribute-box">
-        <h6>{NAME}</h6>
-        <span>{VALUE}</span>
-        <p>{PERCENT}% have this trait</p>
-      </div>
     </template>
 
     <script type="text/javascript" src="/scripts/doon.js"></script>
