@@ -809,6 +809,7 @@ a, a:hover, a:active, a:visited {
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
+  overflow: auto;
   padding: 0 10px;
   width: calc(100% - 20px);
 }
