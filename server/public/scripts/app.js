@@ -136,6 +136,11 @@
 
     element.hascows.items.innerHTML = ''
 
+    if (!Web3SDK.state.crew) {
+      await new Promise(r => setTimeout(r, 500))
+      return loadCows()
+    }
+
     Web3SDK.state.owned.crew.forEach(async tokenId => {
       const stage = parseInt(await contract.metadata.read().stage(tokenId))
       const row = Web3SDK.state.crew.rows.filter(
