@@ -1,11 +1,13 @@
 {{#layout "page.html" 
   version="1" 
-  path="index" 
+  path="" 
+  canonical="" 
+  _banner="images/banner/banner-home.png"
   script="./home/script" 
   style="./home/style" 
   avatar="/images/icon-user.png"
-  title="Cash Cows" 
-  description="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." 
+  title="Cash Cows Club - NFT, Loots, Memes, Metaverse" 
+  description="Cash Cows is an upcoming blue chip alpha NFT club and a collection of 4,000 PFPs entering the Metaverse. Free mint a cash cow. Make icon memes. Earn loot." 
 }}
   <section class="section section-home">
     <div class="video">
@@ -24,4 +26,24 @@
       <a class="btn-pixel btn-pixel-lg btn-pixel-warning" href="/about">Learn More</a>
     </div>
   </section>
+  <script type='application/ld+json'>
+    {
+      "@context": "http://www.schema.org",
+      "@type": "Organization",
+      "name": "Cash Cows Club",
+      "url": "https://www.cashcows.club/",
+      "logo": "https://www.cashcows.club/images/coin-cow.png",
+      "image": "images/banner/banner-home.png",
+      "description": "Cash Cows is an upcoming blue chip alpha NFT club and a collection of 4,000 PFPs entering the Metaverse. Free mint a cash cow. Make icon memes. Earn loot.",
+      "address": {
+         "@type": "PostalAddress",
+         "streetAddress": "0x1A371de4634c3DEBf7196A1EFc59e620aff0915F",
+         "addressLocality": "The Farm",
+         "addressRegion": "Farmland",
+         "postalCode": "17700",
+         "addressCountry": "Ethereum"
+      },
+       "openingHours": "Mo 08:00-18:00 Tu 08:00-18:00 We 08:00-18:00 Th 08:00-18:00 Fr 08:00-18:00"
+    }
+  </script>
 {{/layout}}

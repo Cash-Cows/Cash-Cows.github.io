@@ -1,0 +1,37 @@
+{{#layout "page.html" 
+  version=version 
+  path=path
+  canonical=canonical
+  banner=banner
+  _banner=_banner
+  style="./style" 
+  avatar="/images/icon-user.png"
+  title=title
+  description=description
+}}
+  <div class="container">
+    <section class="nav-left">
+      <aside id="nav-update">
+        {{#each ../nav}}
+          {{#when canonical '==' ../../post/canonical}}
+            <a class="nav-hash active" href="/{{../link}}">
+              <em>{{../posted}}</em>
+              <span>{{../title}}</span>
+            </a>
+          {{else}}
+            <a class="nav-hash" href="/{{../link}}">
+              <em>{{../posted}}</em>
+              <span>{{../title}}</span>
+            </a>
+          {{/when}}
+        {{/each}}
+      </aside>
+      <main>
+
+        {{{../content}}}
+      
+      </main>
+    </section>
+  </div>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{/layout}}

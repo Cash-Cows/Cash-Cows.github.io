@@ -1,19 +1,22 @@
 {{#layout "page.html" 
   version="1" 
   path="about"
+  canonical="about"
+  _banner="images/banner/banner-about.png"
   style="./style" 
   script="./script" 
   avatar="/images/icon-user.png"
-  title="Cash Cows" 
-  description="An NFT experiment about sharing fortune in the Metaverse. FREE MINT - CC0 - No Discord - Utility Ready - 100% on-chain." 
+  title="About Cash Cows Club" 
+  description="An upcoming blue chip alpha NFT club exploring sharing fortune in the Metaverse. Free mint a cash cow. Make icon memes. Earn loot." 
 }}
   <section class="section section-1">
-    <img src="/images/about/brady-bunch.png" />
+    <img alt="Cash Cows Club NFTs" src="/images/about/brady-bunch.png" />
     <div class="info">
-      <h1>We Started as a Free Mint...</h1>
+      <h1>About Cash Cows Club</h1>
       <p>
-        As an experiment about sharing wealth with every Cow holder. We
-        have now evolved.
+        We started as a free mint &hellip; As an experiment about sharing 
+        wealth with every Cow holder. We have now evolved and aim to be 
+        the next upcoming blue chip alpha NFT club.
       </p>
       <ul>
         <li>Hold 2 Earn: Real crypto &amp; $MILK</li>
@@ -229,4 +232,24 @@
       <span class="bar"></span>
     </aside>
   </template>
+  <script type='application/ld+json'>
+    {
+      "@context": "http://www.schema.org",
+      "@type": "Organization",
+      "name": "Cash Cows Club",
+      "url": "https://www.cashcows.club/about",
+      "logo": "https://www.cashcows.club/images/coin-cow.png",
+      "image": "images/banner/banner-about.png",
+      "description": "An upcoming blue chip alpha NFT club exploring sharing fortune in the Metaverse. Free mint a cash cow. Make icon memes. Earn loot.",
+      "address": {
+         "@type": "PostalAddress",
+         "streetAddress": "0x1A371de4634c3DEBf7196A1EFc59e620aff0915F",
+         "addressLocality": "The Farm",
+         "addressRegion": "Farmland",
+         "postalCode": "17700",
+         "addressCountry": "Ethereum"
+      },
+       "openingHours": "Mo 08:00-18:00 Tu 08:00-18:00 We 08:00-18:00 Th 08:00-18:00 Fr 08:00-18:00"
+    }
+  </script>
 {{/layout}}

@@ -1,16 +1,18 @@
 {{#layout "page.html" 
   version="1" 
   path="memes" 
+  canonical="memes"
+  _banner="images/banner/banner-memes.png"
   network=network
   style="./style" 
   script="./script" 
   avatar="/images/icon-user.png"
-  title="Meme Database | Cash Cows" 
-  description="Over 20K custom cow memes"
+  title="Animated GIF Cow Memes Database | Cash Cows Club" 
+  description="Your top source for the best cow based animated GIF memes. Find funny memes, unique memes and more."
 }}
   <section class="section section-1">
     <div class="container">
-      <h1>Meme Database</h1>
+      <h1>Cow Memes Database</h1>
       <form data-do="meme-search" data-on="submit">
         <input 
           class="form-control" 
@@ -42,7 +44,7 @@
   <template id="template-meme">
     <div class="meme">
       <div class="preview">
-        <img src="{IMAGE}" />
+        <img alt="{DESCRIPTION}" src="{IMAGE}" />
       </div>
       <div class="actions">
         <a class="text-warning" data-do="vote-up" data-on="click" data-id="{ID}" href="javascript:void(0)">

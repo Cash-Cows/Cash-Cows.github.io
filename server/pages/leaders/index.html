@@ -1,17 +1,19 @@
 {{#layout "page.html" 
   version="1" 
   path="leaders" 
+  canonical="leaders"
+  _banner="images/banner/banner-leaderboard.png"
   network=network
   style="./style" 
   script="./script" 
   avatar="/images/icon-user.png"
-  title="Leaderboard | Cash Cows" 
-  description="Top cowboys for Cash Cows Crew, $MILK and $DOLLA"
+  title="Leaderboards | Cash Cows Club" 
+  description="View the top performing cowboys for Cash Cows Crew, Cash Cow Club, top milkers and top $DOLLA"
 }}
 <section class="section section-menu">
   <div class="container">
     <div class="box">
-      <h3>Leaderboards</h3>
+      <h1>Leaderboards</h1>
       <div class="tabs">
         <a 
           class="btn-pixel btn-pixel-warning"
@@ -41,7 +43,7 @@
   <section class="section tab-content section-crew">
     <div class="container">
       <div class="box">
-        <h3>Top Cowboys</h3>
+        <h2>Top Cowboys</h2>
         <table cellspace="0" cellpadding="10">
           <tbody></tbody>
         </table>
@@ -51,7 +53,7 @@
   <section class="section tab-content section-milk hide">
     <div class="container">
       <div class="box">
-        <h3>Top Milkers</h3>
+        <h2>Top Milkers</h2>
         <table cellspace="0" cellpadding="10">
           <tbody></tbody>
         </table>
@@ -61,7 +63,7 @@
   <section class="section tab-content section-dolla hide">
     <div class="container">
       <div class="box">
-        <h3>Top $DOLLA</h3>
+        <h2>Top $DOLLA</h2>
         <table cellspace="0" cellpadding="10">
           <tbody></tbody>
         </table>
@@ -73,7 +75,7 @@
       <td align="center">{RANK}</td>
       <td>
         <a href="/{NETWORK}/member/?address={ADDRESS}" target="_blank">
-          <img class="avatar" src="{AVATAR}" />
+          <img alt="Member {ADDRESS} image" class="avatar" src="{AVATAR}" />
         </a>
       </td>
       <td>

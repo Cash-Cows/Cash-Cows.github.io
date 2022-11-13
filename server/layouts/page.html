@@ -4,20 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KWRB7JC');</script>
+    <!-- End Google Tag Manager -->
     
     <title>{{title}}</title>
     {{#if description}}<meta name="description" content="{{description}}" />{{/if}}
+    {{#if canonical}}
+      {{#if network}}
+        <link rel="canonical" href="https://www.cashcows.club/{{network}}/{{canonical}}" />
+      {{else}}
+        <link rel="canonical" href="https://www.cashcows.club/{{canonical}}" />
+      {{/if}}
+    {{/if}}
+    
     <meta property="og:title" content="{{title}}" />
     {{#if description}}<meta property="og:description" content="{{description}}" />{{/if}}
     {{#if banner}}
-    <meta property="og:image" content="https://www.wearecashcows.com{{banner}}" />
+      <meta property="og:image" content="{{{banner}}}" />
     {{else}}
-      <meta property="og:image" content="https://www.wearecashcows.com/images/banner.png" />
+      {{#if _banner}}
+        <meta property="og:image" content="https://www.cashcows.club/{{_banner}}" />
+      {{else}}
+        <meta property="og:image" content="https://www.cashcows.club/images/banner.png" />
+      {{/if}}
     {{/if}}
     {{#if network}}
-      <meta property="og:url" content="https://www.wearecashcows.com/{{network}}/{{path}}" />
+      <meta property="og:url" content="https://www.cashcows.club/{{network}}/{{path}}" />
     {{else}}
-      <meta property="og:url" content="https://www.wearecashcows.com/{{path}}" />
+      <meta property="og:url" content="https://www.cashcows.club/{{path}}" />
     {{/if}}
     <meta property="og:type" content="website" />
 
@@ -25,7 +45,16 @@
     <meta name="twitter:site" content="@wearecashcows" />
     <meta name="twitter:title" content="{{title}}" />
     {{#if description}}<meta name="twitter:description" content="{{description}}" />{{/if}}
-    <meta name="twitter:image" content="{{banner}}" />
+
+    {{#if banner}}
+      <meta name="twitter:image" content="{{{banner}}}" />
+    {{else}}
+      {{#if _banner}}
+        <meta name="twitter:image" content="https://www.cashcows.club/{{_banner}}" />
+      {{else}}
+        <meta name="twitter:image" content="https://www.cashcows.club/images/banner.png" />
+      {{/if}}
+    {{/if}}
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
@@ -38,6 +67,10 @@
     {{#if style}}<link rel="stylesheet" type="text/css" href="{{style}}.css?v{{version}}" />{{/if}}
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWRB7JC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <header class="head">
       <div class="container">
         <a 

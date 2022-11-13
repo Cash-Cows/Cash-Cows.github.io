@@ -38,42 +38,34 @@
 }
 
 .nav-left main {
+  color: #CDCDCD;
   padding-left: 270px;
 }
 
-.nav-left main .content {
-  color: #CDCDCD;
-  display: none;
-}
-
-.nav-left main .content.active {
-  display: block;
-}
-
-.nav-left main .content h2 {
+.nav-left main h2 {
   color: #F9AF00;
   margin: 10px 0 0;
   text-transform: uppercase;
 }
 
-.nav-left main .content h3 {
+.nav-left main h3 {
   margin: 10px 0 0;
 }
 
-.nav-left main .content a {
+.nav-left main a {
   color: #FFFFFF
 }
 
-.nav-left main .content img {
+.nav-left main img {
   width: 100%;
 }
 
-.nav-left main .content img.white-border {
+.nav-left main img.white-border {
   border: 5px solid #FFFFFF;
   width: calc(100% - 10px);
 }
 
-.nav-left main .content .nav-hash {
+.nav-left main .nav-hash {
   border: 1px solid #FFFFFF;
   color: #FFFFFF;
   display: inline-block;
@@ -84,11 +76,11 @@
   text-decoration: none;
 }
 
-.nav-left main .content .nav-hash.nav-next {
+.nav-left main .nav-hash.nav-next {
   padding-right: 40px;
 }
 
-.nav-left main .content .nav-hash.nav-next::after {
+.nav-left main .nav-hash.nav-next::after {
   border-top: 1px solid #FFFFFF;
   border-right: 1px solid #FFFFFF;
   content: " ";
@@ -100,11 +92,11 @@
   width: 10px;
 }
 
-.nav-left main .content .nav-hash.nav-prev {
+.nav-left main .nav-hash.nav-prev {
   padding-left: 40px;
 }
 
-.nav-left main .content .nav-hash.nav-prev::after {
+.nav-left main .nav-hash.nav-prev::after {
   border-top: 1px solid #FFFFFF;
   border-right: 1px solid #FFFFFF;
   content: " ";

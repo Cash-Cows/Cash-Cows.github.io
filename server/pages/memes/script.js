@@ -53,6 +53,7 @@ window.addEventListener('web3sdk-ready', async _ => {
       const meme = theme.toElement(template.meme, {
         '{ID}': row.id,
         '{UP}': row.up,
+        '{DESCRIPTION}': row.description,
         '{NAME}': row.description.replace(/\s+/g, '-'),
         '{DOWN}': row.down,
         '{IMAGE}': URL.createObjectURL(blob)
