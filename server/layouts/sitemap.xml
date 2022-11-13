@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{#each files}}
+    <url>
+      <loc>{{this}}</loc>
+      <lastmod>{{../now}}</lastmod>
+      <changefreq>{{../frequency}}</changefreq>
+      <priority>{{../priority}}</priority>
+    </url>
+  {{/each}}
+</urlset>
