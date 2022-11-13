@@ -1,6 +1,8 @@
 {{#layout "page.html" 
   version="1" 
-  path="member" 
+  path=path
+  canonical=path
+  banner=banner
   network=network
   script="./script" 
   style="./style" 
@@ -212,4 +214,19 @@
       </div>
     </div>
   </template>
+  {{#if ../member.address}}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "image": "{{../banner}}",
+        "name": "{{../member.address}}",
+        "alumniOf": "Moo University",
+        "birthPlace": "The Barn",
+        "memberOf": "Cash Cows Club",
+        "nationality": "Ethereum",
+        "url": "https://www.cashcows.club/member/{{../member.address}}.html"
+      }
+      </script>
+  {{/if}}
 {{/layout}}

@@ -471,4 +471,46 @@
       <span>{VALUE}</span>
     </div>
   </template> 
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Cash Cows Crew #{{../metadata.edition}}",
+      "image": "{{../metadata.image}}",
+      "description": "{{description}}",
+      "brand": {
+        "@type": "Thing",
+        "name": "Cash Cows Club"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        {{#when ../metadata.rating '<' 100}}
+          "ratingValue": "5",
+          "reviewCount": "89"
+        {{else}}
+          {{#when ../metadata.rating '<' 500}}
+            "ratingValue": "4.5",
+            "reviewCount": "55"
+          {{else}}
+            {{#when ../metadata.rating '<' 1000}}
+              "ratingValue": "4",
+              "reviewCount": "33"
+            {{else}}
+              "ratingValue": "3",
+              "reviewCount": "22"
+            {{/when}}
+          {{/when}}
+        {{/when}}
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "ETH",
+        "price": "0.01",
+        "priceValidUntil": "2023-11-05",
+        "itemCondition": "http://schema.org/UsedCondition",
+        "availability": "http://schema.org/InStock"
+      }
+    }
+  </script>
 {{/layout}}
