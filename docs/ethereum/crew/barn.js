@@ -28,34 +28,7 @@ window.addEventListener('web3sdk-ready', async _ => {
   //------------------------------------------------------------------//
   // Events
 
-  window.addEventListener('web3sdk-connected', async _ => {
-    const row = await getRow()
-    if (!row) window.location.href = `/${networkName}/crew/${edition}/profile.html`
-
-    let releaseable = await (contract.barn.read().releaseable(
-      contract.crew.address, 
-      row.edition,
-      row.rates[contract.milk.address].rate
-    ))
-
-    element.rate.innerHTML = `${Math.ceil(
-      Web3SDK.toEther(row.rates[contract.milk.address].rate, 'number') 
-      * 60 * 60 * 24
-    )} / day`
-
-    element.releaseable.innerHTML = Web3SDK
-      .toEther(releaseable, 'number')
-      .toFixed(6)
-
-    setInterval(() => {
-      releaseable = Web3SDK.toBigNumber(releaseable).add(
-        Web3SDK.toBigNumber(row.rates[contract.milk.address].rate)
-      ).toString()
-      element.ticker.innerHTML = Web3SDK
-        .toEther(releaseable, 'number')
-        .toFixed(6)
-    }, 1000)
-  })
+  window.addEventListener('web3sdk-connected', async _ => {})
 
   window.addEventListener('web3sdk-disconnected',  async _ => {
     window.location.href = `/${networkName}/crew/${edition}/profile.html`
@@ -139,4 +112,32 @@ window.addEventListener('web3sdk-ready', async _ => {
 
   //------------------------------------------------------------------//
   // Initialize
+
+  getRow().then(async row => {
+    if (!row) window.location.href = `/${networkName}/crew/${edition}/profile.html`
+
+    let releaseable = await (contract.barn.read().releaseable(
+      contract.crew.address, 
+      row.edition,
+      row.rates[contract.milk.address].rate
+    ))
+
+    element.rate.innerHTML = `${Math.ceil(
+      Web3SDK.toEther(row.rates[contract.milk.address].rate, 'number') 
+      * 60 * 60 * 24
+    )} / day`
+
+    element.releaseable.innerHTML = Web3SDK
+      .toEther(releaseable, 'number')
+      .toFixed(6)
+
+    setInterval(() => {
+      releaseable = Web3SDK.toBigNumber(releaseable).add(
+        Web3SDK.toBigNumber(row.rates[contract.milk.address].rate)
+      ).toString()
+      element.ticker.innerHTML = Web3SDK
+        .toEther(releaseable, 'number')
+        .toFixed(6)
+    }, 1000)
+  })
 })

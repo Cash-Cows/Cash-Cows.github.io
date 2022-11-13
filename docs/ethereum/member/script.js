@@ -82,6 +82,10 @@ window.addEventListener('web3sdk-ready', async _ => {
         return params[1]
       }
     }
+
+    if (/\/member\/0x[0-9a-fA-F]+\.html/g.test(window.location.href)) {
+      return window.location.href.split('/').pop().split('.')[0]
+    }
   }
 
   const toFixedNumber = function(number, length = 6) {

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const ethers = require('ethers')
 
 const crew = require('../../../data/crew.json')
 const networks = ['goerli', 'ethereum']
@@ -103,13 +104,36 @@ module.exports = async ({file, root, config, handlebars }) => {
         fs.mkdirSync(path.dirname(destination), { recursive: true })
       }
 
+      let title, description
+      switch(basename) {
+        case 'profile':
+          title = `Crew #${id} Profile | Cash Cows Club`
+          description = `Rank ${crew[i].rank}, from the ${crew[i].attributes.Crew.value} crew. Check this ${crew[i].attributes.Hide.value} cow and its traits, rewards and loot.`
+          break
+        case 'barn': 
+          title = `The Barn | Crew #${id} | Cash Cows Club`
+          description = `From the ${crew[i].attributes.Crew.value} crew, this ${crew[i].attributes.Hide.value} cow can produce ${
+            Math.floor(ethers.utils.formatEther(rates.milk.rate).toString() * (60 * 60 * 24))
+          } liters of $MILK per day.`
+          break
+        case 'market': 
+          title = `Farmers Market | Crew #${id} | Cash Cows Club`
+          description = `Crew #${id} $MILK is saleable for 10x $DOLLAS at the farmers market.`
+          break
+        case 'store': 
+          title = `Loot Store | Crew #${id} | Cash Cows Club`
+          description = `Get ${crew[i].attributes.Crew.value} crew discounts. Soulbound loot (SBT) that is forever bound to your NFT. Use in the Metaverse.`
+          break
+      }
+
       fs.writeFileSync(destination, handlebars.compile(
         fs.readFileSync(file, 'utf8')
       )({
-        path: `${network}/crew/${id}/${basename}`,
+        path: `crew/${id}/${basename}.html`,
         script: `/${network}/crew/${basename}`,
         style: `/${network}/crew/${basename}`,
-        title: `Crew #${id} ${capitalize(basename)} | Cash Cows`,
+        title: title,
+        description: description,
         network: network,
         config: require(`../../public/${network}/data/network.json`), 
         metadata: {

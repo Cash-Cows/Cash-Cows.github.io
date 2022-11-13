@@ -55,6 +55,7 @@ window.addEventListener('web3sdk-ready', async _ => {
     })
 
     const board = document.querySelector(`section.section-${name} tbody`)
+    board.innerHTML = ''
     for (let i = 0; i < leaders.length; i++) {
       if (i >= 20) break
 
@@ -74,6 +75,7 @@ window.addEventListener('web3sdk-ready', async _ => {
         .replace('{NAME}', `${row.address.substring(0, 4)}...${
           row.address.substring(row.address.length - 4)
         }`)
+        .replace('{ADDRESS}', row.address)
         .replace('{ADDRESS}', row.address)
         .replace('{ADDRESS}', row.address)
         .replace('{BALANCE}', row.balance)
